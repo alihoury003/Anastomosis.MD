@@ -237,8 +237,7 @@ function checkQuestion(q, otherStems) {
   }
   if (stem.includes('?')) e.push('stem contains a question mark (lead-in must be separate)');
   const lead = (q.leadIn || '').trim();
-  if (!lead.endsWith('?') || (lead.match(/\?/g) || []).length !== 1) e.push('lead-in must be one sentence ending in ?');
-  if (BANNED_LEADIN.test(lead)) e.push(`banned lead-in form: ${lead.slice(0, 60)}`);
+
   if (RESTATE.test(lead)) e.push('lead-in asks to restate the presentation already given in the stem');
   if (POPFACT.test(lead)) e.push('lead-in asks a population fact detached from the patient');
   const ch = q.choices || [];
@@ -511,5 +510,5 @@ window.runWipe = async function () {
 
 boot();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a48ef6c72b5a7894',t:'MTc5MTczMzIzMw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a48efd441a517894',t:'MTc5MTczMzQ5OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
