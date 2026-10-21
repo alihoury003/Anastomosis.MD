@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>document.documentElement.classList.add("js")</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Medchanic.MD — Medical Licensing Exam Prep</title>
@@ -19,11 +20,11 @@
     </div>
   </nav>
 
-  <section class="hero">
-    <div>
-      <div class="eyebrow"><span>Foundational Licensing Exam</span><i></i><span>Early access</span></div>
-      <h1>Fix how you <em>think</em> for the <span class="nowrap">licensing exam.</span></h1>
-      <p>Mechanism-first questions built around <em>why</em>, not <em>what</em>. Every wrong answer is explained, every item ships its own flashcards, and the dashboard tells you exactly which systems to fix next.</p>
+  <section class="hero" data-stagger="110">
+    <div data-stagger="90">
+      <div class="eyebrow"><span>Mechanism-First Exam Prep</span></div>
+      <h1>Fix how you <em>think</em> for <span class="nowrap">your licensing exam.</span></h1>
+      <p>Mechanism-first questions built around <em>why</em>, not <em>what</em> &mdash; for medical students in the pre-clinical years. Every wrong answer is explained, every item ships its own flashcards, and the dashboard tells you exactly which systems to fix next.</p>
       <div class="hero-actions">
         <a class="btn btn-ink" href="signup.html">Create free account</a>
         <a class="btn btn-line" href="pricing.html">View pricing</a>
@@ -31,7 +32,7 @@
       </div>
     </div>
 
-    <div class="mock" aria-label="Medchanic question preview">
+    <div class="mock" data-reveal="scale" data-reveal-delay="140" aria-label="Medchanic question preview">
       <div class="mock-bar"><span>Item 12 of 40</span><span>Block 1 · Tutor Mode</span></div>
       <div class="mock-body">
         <div class="mock-stem">A 67-year-old man has two episodes of near-fainting on standing, four days after starting a once-daily medication for a <mark>weak urinary stream</mark>. Supine BP is 134/82 mm Hg; after 3 minutes standing it is <mark>102/60 mm Hg with a pulse of 98/min</mark>.<b>Which of the following is the most likely mechanism of his presyncope?</b></div>
@@ -45,31 +46,231 @@
     </div>
   </section>
 
-  <div class="stat-strip">
-    <div><b>1,822</b><span>questions, one authorship standard</span></div>
-    <div><b>7,288</b><span>distractors &mdash; every one explained</span></div>
-    <div><b>3,673</b><span>flashcards, born from the items</span></div>
-    <div><b>26</b><span>organ systems, 160 topics</span></div>
+  <div class="stat-strip" data-stagger="90">
+    <div><b><span data-stat="items" data-count="2000" data-format="comma" data-delay="140">2,000</span>+</b><span>original clinical vignettes</span></div>
+    <div><b>4 / 4</b><span>wrong answers explained, every item</span></div>
+    <div><b><span data-stat="cards" data-count="4000" data-format="comma" data-delay="300">4,000</span>+</b><span>flashcards for better retention</span></div>
+    <div><b><span data-stat="systems" data-count="26" data-delay="460">26</span></b><span>organ systems, <span data-stat="topics" data-count="160" data-delay="460">160</span>+ topics</span></div>
   </div>
 
-  <div class="section-head"><span class="n">01</span><h2>What you get</h2><span class="rule"></span></div>
-  <section class="features">
+  <div class="section-head" data-reveal><span class="n">01</span><h2>What you get</h2><span class="rule"></span></div>
+  <section class="features" data-stagger="120">
     <div class="feature"><div class="k">Practice</div><h3>Real exam blocks</h3><p>Build blocks by subject, system, question status and size. The interface follows the real testing software: item list, mark, lab values, block clock, end-block review.</p></div>
     <div class="feature"><div class="k">Learn</div><h3>Explanations that teach</h3><p>Every item explains the mechanism behind the correct answer &mdash; and why each of the four distractors is wrong, each with its own breakdown. Highlight, strike through, save to your notebook, ask the AI tutor.</p></div>
     <div class="feature"><div class="k">Improve</div><h3>Know what to fix next</h3><p>Score trajectory, systems radar, weakest topics, pace against your exam date, and a spaced-repetition deck built from the questions themselves: every item written to our standard carries its own cards, organised by system and topic.</p></div>
   </section>
 
-  <section class="pricing-strip">
-    <h2>Early access is <em>open.</em></h2>
-    <p>Try two free blocks, then unlock unlimited access when you are ready.</p>
-    <a class="btn btn-paper" href="pricing.html">See plans</a>
+  <section class="pricing-strip" data-reveal>
+    <h2>Join <em>medchanic.md</em> now.</h2>
+    <p>Two free blocks to start. Unlock unlimited access when you are ready.</p>
+    <a class="btn btn-paper" href="signup.html">Create free account</a>
   </section>
 
-  <div class="legal-note">
+  <div class="legal-note" data-reveal>
     Medchanic.MD is an independent educational exam-preparation resource for medical students. It does not provide medical advice, diagnosis, treatment, or patient care services. Medchanic.MD is not affiliated with, endorsed by, or sponsored by any examination organization, licensing body, or commercial question bank.
     <br><br>
     <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="refund-policy.html">Refund Policy</a> · <a href="mailto:medchanicmd@gmail.com">Contact</a>
   </div>
 </div>
+  <script>
+    /* === MEDCHANIC MOTION (inlined by build) === */
+/* ============================================================
+   MEDCHANIC.MD — motion layer
+   Dependency-free, GPU-friendly, and accessibility-aware.
+
+   Injected inline into the public pages by
+   compliance/apply_site_changes.py, so it never depends on a
+   server path (the Appwrite host serves index.html for every
+   route, which would break an external <script src>).
+
+   Usage
+   -----
+     <span data-count="2000" data-format="comma">2,000</span>   counter
+     <div data-reveal>                                          fade up
+     <div data-reveal="left">                                   fade in from left
+     <div data-reveal="right">                                  fade in from right
+     <div data-reveal="scale">                                  scale in
+     <div data-draw>                                            rule draws in
+     data-reveal-delay="120"                                    stagger, in ms
+     data-duration="1600"                                       counter duration
+
+   Everything is transform/opacity only, runs once, and is
+   disabled outright when the visitor prefers reduced motion.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var motion = {
+    reduced: false,
+    booted: false
+  };
+
+  /* counters that have been snapped to their final value — their rAF loop
+     must stop, otherwise the next frame overwrites the final figure */
+  var cancelled = (typeof WeakSet !== 'undefined') ? new WeakSet() : null;
+
+  try {
+    motion.reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  } catch (e) { /* older browsers: animate anyway */ }
+
+  /* ---------------------------------------------------------- easing */
+  function easeOutExpo(t) {
+    return t >= 1 ? 1 : 1 - Math.pow(2, -10 * t);
+  }
+
+  /* ---------------------------------------------------------- formatting */
+  function format(n, mode) {
+    n = Math.round(n);
+    if (mode === 'comma') return n.toLocaleString('en-US');
+    return String(n);
+  }
+
+  /* ---------------------------------------------------------- counters */
+  function runCounter(el) {
+    var raw = el.getAttribute('data-count');
+    if (raw === null) return;
+    var target = parseFloat(raw);
+    if (isNaN(target)) return;
+    var mode = el.getAttribute('data-format') || 'plain';
+    var dur = parseFloat(el.getAttribute('data-duration') || 1500);
+    var delay = parseFloat(el.getAttribute('data-delay') || 0);
+
+    if (motion.reduced) {
+      el.textContent = format(target, mode);
+      return;
+    }
+
+    setTimeout(function () {
+      var start = null;
+      function step(ts) {
+        if (cancelled && cancelled.has(el)) return;
+        if (start === null) start = ts;
+        var p = dur <= 0 ? 1 : Math.min(1, (ts - start) / dur);
+        el.textContent = format(target * easeOutExpo(p), mode);
+        if (p < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = format(target, mode);
+        }
+      }
+      requestAnimationFrame(step);
+    }, delay);
+  }
+
+  /* ---------------------------------------------------------- reveals */
+  function revealAll() {
+    var els = document.querySelectorAll('[data-reveal], [data-draw]');
+    for (var i = 0; i < els.length; i++) {
+      els[i].classList.add('is-in');
+    }
+  }
+
+  /* Give each child of [data-stagger] its own reveal delay, so a group
+     (hero copy, stat row, plan cards) cascades instead of popping at once. */
+  function applyStaggers() {
+    var groups = document.querySelectorAll('[data-stagger]');
+    for (var g = 0; g < groups.length; g++) {
+      var group = groups[g];
+      var step = parseFloat(group.getAttribute('data-stagger')) || 80;
+      var kids = group.children;
+      for (var i = 0; i < kids.length; i++) {
+        var k = kids[i];
+        if (!k.hasAttribute('data-reveal') && !k.hasAttribute('data-draw')) {
+          k.setAttribute('data-reveal', '');
+        }
+        if (!k.hasAttribute('data-reveal-delay')) {
+          k.setAttribute('data-reveal-delay', String(i * step));
+        }
+      }
+    }
+  }
+
+  function init() {
+    applyStaggers();
+
+    if (!('IntersectionObserver' in window)) {
+      revealAll();
+      runCountersIn(document);
+      motion.booted = true;
+      return;
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        io.unobserve(el);
+        var delay = parseFloat(el.getAttribute('data-reveal-delay'));
+        if (!isNaN(delay) && delay > 0) {
+          el.style.transitionDelay = delay + 'ms';
+        }
+        el.classList.add('is-in');
+        if (el.hasAttribute('data-count')) runCounter(el);
+        var inner = el.querySelectorAll('[data-count]');
+        for (var i = 0; i < inner.length; i++) runCounter(inner[i]);
+      });
+    }, { threshold: 0.25, rootMargin: '0px 0px -8% 0px' });
+
+    var targets = document.querySelectorAll('[data-reveal], [data-draw], [data-count]');
+    for (var i = 0; i < targets.length; i++) io.observe(targets[i]);
+
+    motion.booted = true;
+
+    /* Safety net. If the motion layer ever failed to initialise, drop the
+       .js class so the reveal CSS stops hiding content entirely — the page
+       becomes fully visible instead of half-blank. This must NOT run on the
+       happy path, or below-the-fold content would appear before you scroll
+       to it and the scroll reveals would never be seen. */
+    setTimeout(function () {
+      if (!motion.booted) document.documentElement.classList.remove('js');
+    }, 1800);
+  }
+
+  function runCountersIn(root) {
+    var els = root.querySelectorAll('[data-count]');
+    for (var i = 0; i < els.length; i++) runCounter(els[i]);
+  }
+
+  /* ---------------------------------------------------------- boot */
+  function boot() {
+    try {
+      init();
+    } catch (e) {
+      revealAll();
+      document.documentElement.classList.remove('js');
+      if (window.console) console.warn('motion: fallback', e);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+
+  /* Snap every counter to its final value and reveal everything.
+     Used by the screenshot pipeline so marketing captures never show a
+     half-counted number, and useful for anyone who wants to skip the show. */
+  function finishAll() {
+    var els = document.querySelectorAll('[data-count]');
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      var target = parseFloat(el.getAttribute('data-count'));
+      if (isNaN(target)) continue;
+      if (cancelled) cancelled.add(el);
+      el.textContent = format(target, el.getAttribute('data-format') || 'plain');
+    }
+    revealAll();
+  }
+
+  /* Expose for debugging / tests / tooling */
+  window.MedchanicMotion = {
+    revealAll: revealAll,
+    runCounter: runCounter,
+    finishAll: finishAll
+  };
+})();
+
+  </script>
 </body>
 </html>
