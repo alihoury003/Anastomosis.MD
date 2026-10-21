@@ -393,7 +393,7 @@
   }
 
   /* =====================================================================
-     EXAM BLOCK SCREEN — follows the NBME / Prometric delivery software
+     EXAM BLOCK SCREEN — follows the layout of commercial exam delivery software
      ===================================================================== */
   #screen-block {
     --chrome: #1F4E9E; --chrome-2: #16397A; --chrome-3: #2F63BE; --canvas: #F5F6F8; --xink: #111418; --xink-2: #3D4451; --xink-3: #7A8291;
@@ -766,7 +766,7 @@ const AnkiEngine = {
   <main class="wrap">
     <section class="hero">
       <div>
-        <div class="dateline"><span id="dashDate"></span><i></i><span id="dashWeekline">Step 1 preparation</span></div>
+        <div class="dateline"><span id="dashDate"></span><i></i><span id="dashWeekline">Licensing exam preparation</span></div>
         <h1 id="dashGreeting">Welcome back<em>.</em></h1>
         <p class="lede" id="dashLede">Loading your progress.</p>
         <div class="hero-actions" id="dashActions">
@@ -1379,7 +1379,7 @@ const AnkiEngine = {
 <div class="modal-overlay" id="examDateModal">
   <div class="modal-card">
     <h3>Exam date</h3>
-    <p>Set your Step 1 date to see a countdown and a pace estimate on the dashboard. Stored in your account preferences.</p>
+    <p>Set your exam date to see a countdown and a pace estimate on the dashboard. Stored in your account preferences.</p>
     <label for="examDateInput">Date</label>
     <input type="date" id="examDateInput" style="width:100%;border:1px solid var(--rule);border-radius:4px;padding:9px 10px;font-family:var(--sans);font-size:14px;background:#fff">
     <div class="modal-actions">
@@ -2148,7 +2148,7 @@ function daysToExam() { if (!examDate) return null; const e = new Date(examDate 
 function renderCountdown() {
   const el = $('countdown'); const d = daysToExam();
   if (d === null) { el.innerHTML = `<div class="set" onclick="openExamDateModal()"><b>Set your exam date</b>See a live countdown and whether your pace finishes the bank in time.</div>`; return; }
-  const label = d < 0 ? 'days since Step 1' : 'days to Step 1';
+  const label = d < 0 ? 'days since your exam' : 'days to your exam';
   el.innerHTML = `<div class="big" onclick="openExamDateModal()" title="Change exam date">${Math.abs(d)}</div><div class="cap">${label} · <b>${fmtDate(examDate + 'T00:00:00', { weekday: 'short', day: 'numeric', month: 'short' })}</b></div><div class="edit" onclick="openExamDateModal()">change date</div>`;
 }
 function openExamDateModal() { $('examDateInput').value = examDate || ''; $('examDateModal').classList.add('show'); }
@@ -2494,7 +2494,7 @@ function renderAIPanel() {
   let html = '';
   if (!tutorMode) html += '<div class="ai-warning">AI Tutor is available in Tutor Mode. Turn Tutor Mode on to use it.</div>';
   else if (!ctx.canTutor) html += '<div class="ai-empty">Answer the question first. Then AI Tutor can summarize why the answer is correct, why the others are wrong, and the high-yield idea.</div>';
-  else html += `<div class="ai-actions"><button class="ai-action primary" onclick="generateAISummary()">Generate summary</button><button class="ai-action" onclick="askSuggestedAI('Explain the high-yield concept behind this question in simple Step 1 terms.')">High-yield overview</button><button class="ai-action" onclick="askSuggestedAI('What was the main trap in this question?')">What was the trap?</button></div>`;
+  else html += `<div class="ai-actions"><button class="ai-action primary" onclick="generateAISummary()">Generate summary</button><button class="ai-action" onclick="askSuggestedAI('Explain the high-yield concept behind this question in simple exam-prep terms.')">High-yield overview</button><button class="ai-action" onclick="askSuggestedAI('What was the main trap in this question?')">What was the trap?</button></div>`;
   if (!AI_FUNCTION_ID) html += '<div class="ai-empty">Live follow-up chat is not connected yet. Summary mode uses the built-in explanation.</div>';
   html += aiMessagesForCurrent().map(m => `<div class="ai-msg ${m.role.replace('assistant loading', 'assistant loading')}">${escapeAI(m.text)}</div>`).join('');
   body.innerHTML = html; body.parentElement.scrollTop = body.parentElement.scrollHeight;
