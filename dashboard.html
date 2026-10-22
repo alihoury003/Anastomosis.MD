@@ -866,6 +866,110 @@
 /* tabular figures everywhere a number animates or aligns */
 .rp-score, .rp-kpi-v, .an-score-v, .an-kpi-v, #scorePct, .statline .v, .countdown .big { font-variant-numeric: tabular-nums; font-feature-settings: 'tnum' 1; }
 
+/* ============================================================
+   PHONE FIXES — the topbar nav was overlapping the dateline and
+   the hero content because .app-nav kept flex line-height.
+   ============================================================ */
+@media (max-width: 760px) {
+  /* topbar: brand + actions on one row, nav on its own row */
+  .top-in { display: grid !important; grid-template-columns: 1fr auto; grid-auto-rows: auto;
+            height: auto !important; min-height: 0 !important; padding: 10px 14px 8px !important;
+            gap: 8px 10px !important; align-items: center; }
+  .top-in .brand { grid-column: 1; grid-row: 1; }
+  .top-in .top-right { grid-column: 2; grid-row: 1; justify-self: end; gap: 6px; }
+  .top-in .app-nav { grid-column: 1 / -1; grid-row: 2; width: 100%; margin: 0;
+                     display: flex; gap: 2px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+                     scrollbar-width: none; padding-bottom: 2px; }
+  .top-in .app-nav::-webkit-scrollbar { display: none; }
+  .app-nav button { padding: 6px 9px; font-size: 12px; white-space: nowrap; line-height: 1.2; }
+  .app-topbar { position: sticky; top: 0; }
+
+  /* the page content needs room under a two-row topbar */
+  .wrap, main.wrap { padding-top: 18px !important; }
+
+  /* dateline: one line, wrapping cleanly, never overlapping */
+  .dateline { display: flex !important; flex-wrap: wrap; align-items: center; gap: 6px 8px !important;
+              font-size: 9.5px !important; line-height: 1.5 !important; margin-bottom: 12px !important; }
+  .dateline i { display: none; }
+  .dateline span { white-space: normal !important; }
+
+  /* hero */
+  .hero { padding-top: 4px !important; }
+  .hero .lede { font-size: 15.5px !important; line-height: 1.58 !important; }
+  .hero-actions { gap: 8px; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+
+  /* hide the exam-date card until there is a date, it dominates the phone */
+  #countdown:empty, .hero .countdown:not(:has(*)) { display: none; }
+}
+
+@media (max-width: 480px) {
+  .top-in { padding: 8px 11px 6px !important; }
+  .brand { font-size: 16px; }
+  .brand .logo-mark, .brand img { height: 24px; }
+  .dateline { font-size: 9px !important; }
+  .app-nav button { padding: 6px 8px; font-size: 11.5px; }
+}
+
+/* ============================================================
+   VISUAL SYSTEM — applied over the existing dashboard.
+   Nothing removed: every card, table and chart stays.
+   1. Inter everywhere, Instrument Serif only as the single accent
+   2. tabular figures on every number so nothing shifts while animating
+   3. one colour per data family:  teal = good (>=70)
+                                   amber = watch (60-69)
+                                   coral = problem (<60)
+   4. bars normalised: same height, same radius, same track
+   ============================================================ */
+
+/* --- 2. tabular numbers everywhere a figure is displayed --- */
+body, .num, .mono { font-variant-numeric: tabular-nums; font-feature-settings: 'tnum' 1; }
+.statline .v, .statline .num, .topic .p, .big, .countdown .big, .streak-row .big,
+.score-pct, .post-score-pct, .rs-time, .rp-score, .rp-kpi-v, .an-score-v, .an-kpi-v,
+.plan-price, .price, .badge, td, th, .kpi, .v, .lead-num, .gauge-num, #scorePct {
+  font-variant-numeric: tabular-nums; font-feature-settings: 'tnum' 1;
+}
+
+/* --- 3. colour semantics, applied consistently --- */
+.bg-teal  { background: var(--teal) !important; }
+.bg-amber { background: var(--amber) !important; }
+.bg-coral { background: var(--coral) !important; }
+.c-teal   { color: var(--teal-2) !important; }
+.c-amber  { color: var(--amber-2) !important; }
+.c-coral  { color: var(--coral-2) !important; }
+
+/* --- 4. bars: one shape language --- */
+.topic .mini { height: 6px; background: var(--paper-2); border-radius: 999px; overflow: hidden; position: relative; }
+.topic .mini i { display: block; height: 100%; border-radius: 999px; transition: width 1s cubic-bezier(.2,.7,.2,1); }
+.topic .mini::after { content: ''; position: absolute; left: 70%; top: -2px; bottom: -2px; width: 1px;
+  background: var(--ink-3); opacity: .45; }
+.statline .bar { background: var(--paper-2); height: 4px; }
+.statline .bar i { border-radius: 0 2px 2px 0; }
+.split { height: 8px; border-radius: 999px; background: var(--paper-2); }
+.split > * { border-radius: 999px; }
+
+/* bars drawn by the chart helpers (SVG) inherit the same palette */
+.bar-fill-good, .fill-good { fill: var(--teal); }
+.bar-fill-watch, .fill-watch { fill: var(--amber); }
+.bar-fill-bad, .fill-bad { fill: var(--coral); }
+
+/* --- 1. the serif is an accent, once per view --- */
+.hero h1 em, #dashGreeting em { font-family: var(--serif-accent); font-style: italic; font-weight: 400; letter-spacing: -.01em; }
+h1, h2, h3, h4, .page-title, .card-h h3, .sec h2 { font-family: var(--disp); }
+.card-h h3 { font-weight: 700; letter-spacing: -.022em; }
+
+/* the "What to fix next" card gets a little more presence than a plain card */
+.card[data-whatfix] .card-h h3 { color: var(--ink); }
+.card[data-whatfix] .topic { padding: 12px 0; }
+.card[data-whatfix] .drill {
+  font-family: var(--disp); font-size: 11px; font-weight: 600; letter-spacing: -.005em;
+  background: var(--teal); color: #fff; border: none; padding: 7px 12px; border-radius: 3px;
+  cursor: pointer; transition: background .15s, transform .15s; white-space: nowrap;
+}
+.card[data-whatfix] .drill:hover { background: var(--teal-2); transform: translateY(-1px); }
+.card[data-whatfix] .topic .p { font-family: var(--mono); font-weight: 700; }
+.card[data-whatfix] .topic .p small { display: block; font-size: 9.5px; color: var(--ink-3); font-weight: 400; margin-top: 1px; }
+
   /* ============ ADMIN PANEL ============ */
   .admin-overlay {
     position: fixed; inset: 0;
@@ -1118,8 +1222,8 @@ const AnkiEngine = {
         <div class="note" id="radarNote" style="margin-top:6px"></div>
         <div id="lowSystems" style="margin-top:14px;border-top:1px dashed var(--rule);padding-top:6px"></div>
       </div>
-      <div class="card col-5">
-        <div class="card-h"><h3>Weakest topics</h3><span class="meta mono" style="font-size:11px;color:var(--ink-3)" id="perfCardTopicSub"></span></div>
+      <div class="card col-5" data-whatfix>
+        <div class="card-h"><h3>What to fix next</h3><span class="meta mono" style="font-size:11px;color:var(--ink-3)" id="perfCardTopicSub"></span></div>
         <div id="perfBreakdownTopic"></div>
       </div>
       <div class="card col-3">
