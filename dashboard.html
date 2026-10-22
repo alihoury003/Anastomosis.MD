@@ -601,6 +601,167 @@
   .unanswered-list { font-family: 'Courier New', monospace; font-size: 13px; background: #F3F5F8; border: 1px solid #E3E8EF; padding: 8px 10px; border-radius: 3px; margin-top: 8px; }
   @media (max-width: 900px) { .stage.with-side { grid-template-columns: 1fr; } .stage.with-side .item-scroll { display: none; } .tb-tool, .bb-btn { min-width: 56px; } .tb-item .l2 { display: none; } .choices { min-width: 0; display: block; } }
 
+/* free-trial countdown */
+.trial-strip { margin-top: 14px; display: inline-block; background: var(--teal-soft, #D8ECE8); border: 1px solid #BFDCD6; border-radius: 4px; padding: 8px 12px; font-size: 13px; color: var(--ink-2); line-height: 1.5; }
+.trial-strip b { color: var(--teal-2, #0A5F5C); font-weight: 700; }
+
+
+/* ============================================================
+   BLOCK REPORT
+   ============================================================ */
+.report-card { background:var(--panel,#FFFDF8); border:1px solid var(--line,#DDD6C6); border-radius:6px; margin:0 0 18px; overflow:hidden; }
+.rp-head { display:flex; justify-content:space-between; align-items:flex-start; gap:20px; padding:24px 26px 20px; border-bottom:1px solid var(--line,#DDD6C6); }
+.rp-eyebrow { font-family:var(--mono,monospace); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3,#8A857A); margin-bottom:8px; }
+.rp-verdict { font-family:var(--display,Georgia,serif); font-size:27px; font-weight:600; letter-spacing:-.02em; line-height:1.1; }
+.rp-verdict.good { color:var(--teal,#0E7C78); }
+.rp-verdict.mid { color:#B87A0C; }
+.rp-verdict.low { color:var(--coral-2,#C2441F); }
+.rp-sub { font-size:13px; color:var(--ink-2,#4A4741); margin-top:7px; line-height:1.5; max-width:640px; }
+.rp-score { font-family:var(--display,Georgia,serif); font-size:54px; font-weight:500; letter-spacing:-.03em; line-height:1; white-space:nowrap; }
+.rp-score span { font-size:24px; color:var(--ink-3,#8A857A); }
+.rp-score.good { color:var(--teal,#0E7C78); } .rp-score.mid { color:#B87A0C; } .rp-score.low { color:var(--coral-2,#C2441F); }
+
+.rp-kpis { display:grid; grid-template-columns:repeat(3,1fr); border-bottom:1px solid var(--line,#DDD6C6); }
+.rp-kpi { padding:18px 26px; border-right:1px solid var(--line,#DDD6C6); }
+.rp-kpi:last-child { border-right:none; }
+.rp-kpi-v { font-family:var(--display,Georgia,serif); font-size:30px; font-weight:500; letter-spacing:-.02em; line-height:1; }
+.rp-kpi-v.good { color:var(--teal,#0E7C78); } .rp-kpi-v.bad { color:var(--coral-2,#C2441F); }
+.rp-kpi-l { font-family:var(--mono,monospace); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3,#8A857A); margin-top:8px; }
+.rp-kpi-s { font-size:12px; color:var(--ink-2,#4A4741); margin-top:3px; }
+
+.rp-grid { display:grid; grid-template-columns:1fr 1fr; gap:0; border-bottom:1px solid var(--line,#DDD6C6); }
+.rp-col { padding:20px 26px; }
+.rp-col:first-child { border-right:1px solid var(--line,#DDD6C6); }
+.rp-col-head { font-family:var(--display,Georgia,serif); font-size:17px; font-weight:600; margin-bottom:14px; display:flex; align-items:center; gap:9px; letter-spacing:-.01em; }
+.rp-col-head.good { color:var(--teal-2,#0A5F5C); } .rp-col-head.bad { color:var(--coral-2,#C2441F); }
+.rp-badge { font-family:var(--mono,monospace); font-size:9px; letter-spacing:.1em; text-transform:uppercase; padding:3px 7px; border-radius:3px; font-weight:700; }
+.rp-badge.good { background:var(--teal-soft,#D8ECE8); color:var(--teal-2,#0A5F5C); }
+.rp-badge.bad { background:var(--coral-soft,#FBE2D8); color:var(--coral-2,#C2441F); }
+.rp-row { padding:11px 0; border-bottom:1px dashed var(--line,#DDD6C6); }
+.rp-row:last-child { border-bottom:none; }
+.rp-row-head { display:flex; align-items:center; gap:9px; font-size:14px; }
+.rp-row-head b { font-weight:600; flex:1; }
+.rp-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.rp-dot.good { background:var(--teal,#0E7C78); } .rp-dot.bad { background:var(--coral,#E4572E); }
+.rp-acc { font-family:var(--mono,monospace); font-size:12px; font-weight:700; }
+.rp-acc.good { color:var(--teal-2,#0A5F5C); } .rp-acc.bad { color:var(--coral-2,#C2441F); }
+.rp-row-sub { font-size:12.5px; color:var(--ink-2,#4A4741); margin-top:4px; padding-left:17px; line-height:1.5; }
+.rp-empty { font-size:13px; color:var(--ink-3,#8A857A); line-height:1.55; }
+
+.rp-actions-head { font-family:var(--mono,monospace); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3,#8A857A); padding:18px 26px 0; }
+.rp-action { display:flex; gap:16px; align-items:center; padding:14px 26px; border-bottom:1px solid var(--line,#DDD6C6); }
+.rp-action:last-child { border-bottom:none; }
+.rp-action-main { flex:1; min-width:0; }
+.rp-action-title { font-size:14.5px; font-weight:600; margin-bottom:3px; }
+.rp-action-body { font-size:12.5px; color:var(--ink-2,#4A4741); line-height:1.5; }
+.rp-btn { flex-shrink:0; font-family:var(--sans,sans-serif); font-size:13px; font-weight:600; padding:9px 15px; border-radius:4px; border:1px solid var(--teal,#0E7C78); background:var(--teal,#0E7C78); color:#fff; cursor:pointer; transition:background .15s,border-color .15s; }
+.rp-btn:hover { background:var(--teal-2,#0A5F5C); }
+.rp-btn.ghost { background:transparent; color:var(--ink,#141311); border-color:var(--line,#DDD6C6); }
+.rp-btn.ghost:hover { background:var(--paper-2,#EAE5D8); }
+
+@media (max-width:820px) {
+  .rp-grid { grid-template-columns:1fr; }
+  .rp-col:first-child { border-right:none; border-bottom:1px solid var(--line,#DDD6C6); }
+  .rp-kpis { grid-template-columns:1fr; }
+  .rp-kpi { border-right:none; border-bottom:1px solid var(--line,#DDD6C6); }
+  .rp-kpi:last-child { border-bottom:none; }
+  .rp-head { flex-direction:column; }
+  .rp-score { font-size:44px; }
+  .rp-action { flex-direction:column; align-items:flex-start; }
+  .rp-btn { width:100%; }
+}
+
+
+/* free-tier meter shown in the block builder */
+.free-meter { display:flex; align-items:center; gap:10px; background:var(--teal-soft); border:1px solid #BFDCD6; border-radius:4px; padding:9px 13px; font-size:12.5px; color:var(--teal-2); margin-bottom:14px; }
+.free-meter b { font-weight:700; }
+.free-meter .fm-bar { flex:1; height:5px; border-radius:3px; background:rgba(14,124,120,.18); overflow:hidden; }
+.free-meter .fm-bar i { display:block; height:100%; background:var(--teal); border-radius:3px; transition:width .4s; }
+
+
+/* ============================================================
+   RESPONSIVE  —  iPad and phone parity
+   Targets: 1080 (iPad landscape split), 900 (iPad portrait),
+            760 (large phone), 520 (small phone)
+   ============================================================ */
+
+/* --- app shell ------------------------------------------------------- */
+@media (max-width: 1080px) {
+  .top-in { padding: 0 18px; gap: 14px; }
+  .app-nav { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .app-nav::-webkit-scrollbar { display: none; }
+  .col-3, .col-4, .col-5 { grid-column: span 6; }
+  .col-6, .col-7, .col-8, .col-9 { grid-column: span 12; }
+  .fc-browse { grid-template-columns: 240px 1fr; }
+  .item-scroll { padding: 20px 24px 56px; }
+}
+
+@media (max-width: 900px) {
+  .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-12 { grid-column: span 12; }
+  .grid { gap: 14px; }
+  .sys-grid { grid-template-columns: 1fr; }
+  .fc-browse { grid-template-columns: 1fr; }
+  .streak-row { gap: 12px; }
+  .item-scroll { padding: 16px 16px 90px; }
+  /* the block screen stacks: item list becomes a horizontal strip */
+  .itemlist { border-right: none; border-bottom: 1px solid var(--xline); }
+}
+
+/* --- phone ----------------------------------------------------------- */
+@media (max-width: 760px) {
+  body { font-size: 14px; }
+  .top-in { height: auto; min-height: 56px; padding: 10px 14px; flex-wrap: wrap; gap: 8px; }
+  .app-nav { order: 3; width: 100%; gap: 2px; }
+  .app-nav button { padding: 7px 10px; font-size: 12.5px; white-space: nowrap; }
+  .top-right .user-pill, .top-right .chip { font-size: 11.5px; }
+
+  /* dashboard headers */
+  h1 { font-size: clamp(26px, 7vw, 34px) !important; }
+  h2 { font-size: clamp(19px, 4.4vw, 24px); }
+
+  /* cards and panels */
+  .card, .panel, .post-score-card, .report-card { border-radius: 4px; }
+  .rp-head, .rp-kpi, .rp-col, .rp-action { padding-left: 16px; padding-right: 16px; }
+  .rp-score { font-size: 40px; }
+
+  /* exam block: single column, generous tap targets */
+  .choices, .choice { width: 100%; }
+  .stem, .mock-stem, .q-stem { font-size: 15px; line-height: 1.62; }
+  .xbtn, .btn, .cta { min-height: 44px; }        /* iOS minimum touch target */
+  .item-actions { flex-wrap: wrap; gap: 8px; }
+  .item-actions button { flex: 1 1 auto; }
+  .qcount-row { flex-direction: column; align-items: stretch; gap: 10px; }
+  .promo-row { flex-direction: column; align-items: stretch; }
+  .ai-input-row { flex-direction: column; }
+  .ai-input-row button { width: 100%; }
+
+  /* tables scroll instead of overflowing the viewport */
+  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; }
+}
+
+@media (max-width: 520px) {
+  .top-in { padding: 8px 10px; }
+  .app-nav button { padding: 6px 8px; font-size: 12px; }
+  .item-scroll { padding: 12px 12px 110px; }
+  h1 { font-size: 24px !important; }
+  .rp-kpis { grid-template-columns: 1fr; }
+  .streak-row { flex-wrap: wrap; }
+  /* keep the primary action reachable with a thumb */
+  .summary-actions, .block-actions { position: sticky; bottom: 0; background: var(--paper, #F3EFE6); padding: 10px 0; z-index: 5; }
+}
+
+/* --- touch devices: no hover-dependent affordances -------------------- */
+@media (hover: none) {
+  .feature:hover, .plan:hover, .mock:hover { transform: none !important; box-shadow: none !important; }
+  a, button { -webkit-tap-highlight-color: rgba(14,124,120,.16); }
+}
+
+/* --- iPad specific: roomier than phone, tighter than desktop ---------- */
+@media (min-width: 760px) and (max-width: 1024px) {
+  .item-scroll { padding: 20px 26px 64px; }
+  .stem, .q-stem { font-size: 15.5px; }
+}
+
   /* ============ ADMIN PANEL ============ */
   .admin-overlay {
     position: fixed; inset: 0;
@@ -769,6 +930,7 @@ const AnkiEngine = {
         <div class="dateline"><span id="dashDate"></span><i></i><span id="dashWeekline">Licensing exam preparation</span></div>
         <h1 id="dashGreeting">Welcome back<em>.</em></h1>
         <p class="lede" id="dashLede">Loading your progress.</p>
+      <div class="trial-strip" id="trialStrip" style="display:none"></div>
         <div class="hero-actions" id="dashActions">
           <button class="btn btn-ink" onclick="goScreen('create')">Create a test
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
@@ -1419,7 +1581,7 @@ const AnkiEngine = {
   <div class="paywall-card">
     <div class="paywall-brand"><img class="logo-mark" src="data:image/png;base64,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" alt="" style="height:26px"><span class="name">Medchanic<span style="color:var(--teal)">.</span>MD</span></div>
     <h2>Unlock unlimited access.</h2>
-    <p class="sub">You have used your free blocks. Subscribe to continue with unlimited blocks, progress tracking, performance analytics, and everything coming next.</p>
+    <p class="sub" id="paywallSub">You have used your free blocks. Subscribe to continue with unlimited blocks, progress tracking, performance analytics, and everything coming next.</p>
     <div class="plans">
       <div class="plan" data-plan="monthly" onclick="selectPlan('monthly')">
         <div class="plan-duration">Monthly</div>
@@ -1428,9 +1590,9 @@ const AnkiEngine = {
       </div>
       <div class="plan popular selected" data-plan="quarterly" onclick="selectPlan('quarterly')">
         <div class="popular-tag">Most popular</div>
-        <div class="plan-duration">3 Months</div>
+        <div class="plan-duration">6 Months</div>
         <div class="plan-price loading" id="paddlePriceQuarterly">Loading…</div>
-        <div class="plan-note">$23/month — save 21%</div>
+        <div class="plan-note">$9/month — save 40%</div>
       </div>
       <div class="plan" data-plan="annual" onclick="selectPlan('annual')">
         <div class="plan-duration">Annual</div>
@@ -1696,7 +1858,7 @@ const Charts = (() => {
 import { Client, Account, Databases, ID, Query, Functions } from "https://cdn.jsdelivr.net/npm/appwrite@16/+esm";
 
 /* ===================== QUESTION BANK ===================== */
-const TAXONOMY = {"subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"], "systems": {"Allergy & Immunology": {"topics": ["Principles of immunology", "Anaphylaxis and allergic reactions", "Autoimmune diseases", "Immune deficiencies", "Transplant medicine", "Miscellaneous"], "target": 35, "subjects": ["Immunology", "Pathology", "Pharmacology"]}, "Dermatology": {"topics": ["Normal structure and function of skin", "Skin and soft tissue infections", "Inflammatory dermatoses and bullous diseases", "Skin tumors and tumor-like lesions", "Disorders of epidermal appendages", "Miscellaneous"], "target": 25, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Cardiovascular System": {"topics": ["Normal structure and function of the cardiovascular system", "Congenital heart disease", "Coronary heart disease", "Heart failure and shock", "Valvular heart diseases", "Myopericardial diseases", "Cardiac arrhythmias", "Hypertension", "Aortic and peripheral artery diseases", "Cardiovascular drugs", "Miscellaneous"], "target": 90, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Pulmonary & Critical Care": {"topics": ["Normal pulmonary structure and function", "Congenital and developmental anomalies", "Obstructive lung disease", "Interstitial lung disease", "Pulmonary vascular disease", "Pulmonary infections", "Lung cancer", "Sleep disorders", "Critical care medicine", "Miscellaneous"], "target": 60, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Gastrointestinal & Nutrition": {"topics": ["Normal structure and function of the GI tract", "Congenital and developmental anomalies", "Gastroesophageal disorders", "Intestinal and colorectal disorders", "Hepatic disorders", "Biliary tract disorders", "Pancreatic disorders", "Tumors of the GI tract", "Disorders of nutrition", "Miscellaneous"], "target": 80, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Hematology & Oncology": {"topics": ["Normal hematologic structure and function", "Red blood cell disorders", "White blood cell disorders", "Platelet disorders", "Hemostasis and thrombosis", "Plasma cell disorders", "Transfusion medicine", "Principles of oncology", "Miscellaneous"], "target": 70, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Renal, Urinary Systems & Electrolytes": {"topics": ["Normal structure and function of the kidney and urinary tract", "Congenital and developmental anomalies", "Glomerular disease", "Tubulointerstitial and cystic disease", "Acid-base and electrolyte disorders", "Acute kidney injury and chronic kidney disease", "Urinary tract obstruction and stones", "Renal and urinary tract tumors", "Diuretics and renal drugs", "Miscellaneous"], "target": 65, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Nervous System": {"topics": ["Normal structure and function of the nervous system", "Congenital and developmental anomalies", "Cerebrovascular disease", "Traumatic brain injuries", "Hydrocephalus", "Seizures and epilepsy", "Headache", "Demyelinating diseases", "Neurodegenerative disorders and dementias", "Spinal cord disorders", "Disorders of peripheral nerves and muscles", "CNS infections", "Tumors of the nervous system", "Sleep disorders", "Anesthesia", "Miscellaneous"], "target": 90, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Rheumatology/Orthopedics & Sports": {"topics": ["Normal structure and function of the musculoskeletal system", "Congenital and developmental anomalies", "Arthritis and spondyloarthropathies", "Autoimmune disorders and vasculitides", "Metabolic bone disorders", "Bone/joint injuries and infections", "Spinal disorders and back pain", "Bone tumors and tumor-like lesions", "Miscellaneous"], "target": 55, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Infectious Diseases": {"topics": ["Bacterial infections", "Viral infections", "HIV and sexually transmitted infections", "Fungal infections", "Parasitic and helminthic infections", "Antimicrobial drugs", "Infection control", "Miscellaneous"], "target": 65, "subjects": ["Microbiology", "Pharmacology", "Immunology", "Pathology"]}, "Endocrine, Diabetes & Metabolism": {"topics": ["Normal structure and function of endocrine glands", "Congenital and developmental anomalies", "Hypothalamus and pituitary disorders", "Thyroid disorders", "Adrenal disorders", "Diabetes mellitus", "Obesity and dyslipidemia", "Reproductive endocrinology", "Endocrine tumors", "Miscellaneous"], "target": 55, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Female Reproductive System & Breast": {"topics": ["Normal structure and function of the female reproductive system and breast", "Congenital and developmental anomalies", "Menstrual disorders and contraception", "Genitourinary tract infections", "Genital tract tumors and tumor-like lesions", "Breast disorders", "Miscellaneous"], "target": 35, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Male Reproductive System": {"topics": ["Normal structure and function of the male reproductive system", "Disorders of the male reproductive system"], "target": 15, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Pregnancy, Childbirth & Puerperium": {"topics": ["Normal pregnancy, childbirth, and puerperium", "Disorders of pregnancy, childbirth, and puerperium"], "target": 15, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Biostatistics & Epidemiology": {"topics": ["Measures and distribution of data", "Probability and principles of testing", "Study design and interpretation", "Epidemiology and population health", "Miscellaneous"], "target": 45, "subjects": ["Biostatistics"]}, "Ear, Nose & Throat (ENT)": {"topics": ["Disorders of the ear, nose, and throat"], "target": 10, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Psychiatric/Behavioral & Substance Use Disorder": {"topics": ["Normal behavior and development", "Neurodevelopmental disorders", "Psychotic disorders", "Mood disorders", "Anxiety and trauma-related disorders", "Personality disorders", "Somatoform disorders", "Eating disorders", "Substance use disorders", "Miscellaneous"], "target": 40, "subjects": ["Behavioral science", "Pharmacology", "Physiology", "Pathology"]}, "Poisoning & Environmental Exposure": {"topics": ["Toxicology", "Environmental exposure"], "target": 20, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Ophthalmology": {"topics": ["Normal structure and function of the eye and associated structures", "Disorders of the eye and associated structures"], "target": 10, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Social Sciences (Ethics/Legal/Professional)": {"topics": ["Medical ethics and jurisprudence", "Communication and interpersonal skills", "Patient safety", "System-based practice and quality improvement", "Healthcare policy and economics", "Miscellaneous"], "target": 30, "subjects": ["Behavioral science"]}, "Miscellaneous (Multisystem)": {"topics": ["Miscellaneous"], "target": 10, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Biochemistry (General Principles)": {"topics": ["Cell and molecular biology", "Amino acids, proteins, and enzymes", "Bioenergetics and carbohydrate metabolism", "Lipid metabolism", "Miscellaneous"], "target": 25, "subjects": ["Biochemistry"]}, "Genetics (General Principles)": {"topics": ["DNA structure, replication, and repair", "RNA structure, synthesis, and processing", "Protein synthesis", "Gene expression and regulation", "Clinical genetics", "Miscellaneous"], "target": 15, "subjects": ["Genetics", "Biochemistry"]}, "Microbiology (General Principles)": {"topics": ["Bacteriology", "Virology", "Mycology", "Parasitology", "Miscellaneous"], "target": 15, "subjects": ["Microbiology"]}, "Pathology (General Principles)": {"topics": ["Cellular pathology", "Inflammation and repair", "Neoplasia"], "target": 15, "subjects": ["Pathology"]}, "Pharmacology (General Principles)": {"topics": ["Pharmacokinetics", "Drug receptors and pharmacodynamics", "Drug metabolism and toxicity", "Miscellaneous"], "target": 10, "subjects": ["Pharmacology"]}}};
+const TAXONOMY = {"subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"], "systems": {"Allergy & Immunology": {"topics": ["Principles of immunology", "Anaphylaxis and allergic reactions", "Autoimmune diseases", "Immune deficiencies", "Transplant medicine", "Miscellaneous"], "target": 35, "subjects": ["Immunology", "Pathology", "Pharmacology"]}, "Dermatology": {"topics": ["Normal structure and function of skin", "Skin and soft tissue infections", "Inflammatory dermatoses and bullous diseases", "Skin tumors and tumor-like lesions", "Disorders of epidermal appendages", "Miscellaneous"], "target": 25, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Cardiovascular System": {"topics": ["Normal structure and function of the cardiovascular system", "Congenital heart disease", "Coronary heart disease", "Heart failure and shock", "Valvular heart diseases", "Myopericardial diseases", "Cardiac arrhythmias", "Hypertension", "Aortic and peripheral artery diseases", "Cardiovascular drugs", "Miscellaneous"], "target": 200, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Pulmonary & Critical Care": {"topics": ["Normal pulmonary structure and function", "Congenital and developmental anomalies", "Obstructive lung disease", "Interstitial lung disease", "Pulmonary vascular disease", "Pulmonary infections", "Lung cancer", "Sleep disorders", "Critical care medicine", "Miscellaneous"], "target": 200, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Gastrointestinal & Nutrition": {"topics": ["Normal structure and function of the GI tract", "Congenital and developmental anomalies", "Gastroesophageal disorders", "Intestinal and colorectal disorders", "Hepatic disorders", "Biliary tract disorders", "Pancreatic disorders", "Tumors of the GI tract", "Disorders of nutrition", "Miscellaneous"], "target": 200, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Hematology & Oncology": {"topics": ["Normal hematologic structure and function", "Red blood cell disorders", "White blood cell disorders", "Platelet disorders", "Hemostasis and thrombosis", "Plasma cell disorders", "Transfusion medicine", "Principles of oncology", "Miscellaneous"], "target": 200, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Renal, Urinary Systems & Electrolytes": {"topics": ["Normal structure and function of the kidney and urinary tract", "Congenital and developmental anomalies", "Glomerular disease", "Tubulointerstitial and cystic disease", "Acid-base and electrolyte disorders", "Acute kidney injury and chronic kidney disease", "Urinary tract obstruction and stones", "Renal and urinary tract tumors", "Diuretics and renal drugs", "Miscellaneous"], "target": 200, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Nervous System": {"topics": ["Normal structure and function of the nervous system", "Congenital and developmental anomalies", "Cerebrovascular disease", "Traumatic brain injuries", "Hydrocephalus", "Seizures and epilepsy", "Headache", "Demyelinating diseases", "Neurodegenerative disorders and dementias", "Spinal cord disorders", "Disorders of peripheral nerves and muscles", "CNS infections", "Tumors of the nervous system", "Sleep disorders", "Anesthesia", "Miscellaneous"], "target": 200, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Rheumatology/Orthopedics & Sports": {"topics": ["Normal structure and function of the musculoskeletal system", "Congenital and developmental anomalies", "Arthritis and spondyloarthropathies", "Autoimmune disorders and vasculitides", "Metabolic bone disorders", "Bone/joint injuries and infections", "Spinal disorders and back pain", "Bone tumors and tumor-like lesions", "Miscellaneous"], "target": 200, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Infectious Diseases": {"topics": ["Bacterial infections", "Viral infections", "HIV and sexually transmitted infections", "Fungal infections", "Parasitic and helminthic infections", "Antimicrobial drugs", "Infection control", "Miscellaneous"], "target": 200, "subjects": ["Microbiology", "Pharmacology", "Immunology", "Pathology"]}, "Endocrine, Diabetes & Metabolism": {"topics": ["Normal structure and function of endocrine glands", "Congenital and developmental anomalies", "Hypothalamus and pituitary disorders", "Thyroid disorders", "Adrenal disorders", "Diabetes mellitus", "Obesity and dyslipidemia", "Reproductive endocrinology", "Endocrine tumors", "Miscellaneous"], "target": 200, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Female Reproductive System & Breast": {"topics": ["Normal structure and function of the female reproductive system and breast", "Congenital and developmental anomalies", "Menstrual disorders and contraception", "Genitourinary tract infections", "Genital tract tumors and tumor-like lesions", "Breast disorders", "Miscellaneous"], "target": 200, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Male Reproductive System": {"topics": ["Normal structure and function of the male reproductive system", "Disorders of the male reproductive system"], "target": 15, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Pregnancy, Childbirth & Puerperium": {"topics": ["Normal pregnancy, childbirth, and puerperium", "Disorders of pregnancy, childbirth, and puerperium"], "target": 15, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Biostatistics & Epidemiology": {"topics": ["Measures and distribution of data", "Probability and principles of testing", "Study design and interpretation", "Epidemiology and population health", "Miscellaneous"], "target": 45, "subjects": ["Biostatistics"]}, "Ear, Nose & Throat (ENT)": {"topics": ["Disorders of the ear, nose, and throat"], "target": 10, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Psychiatric/Behavioral & Substance Use Disorder": {"topics": ["Normal behavior and development", "Neurodevelopmental disorders", "Psychotic disorders", "Mood disorders", "Anxiety and trauma-related disorders", "Personality disorders", "Somatoform disorders", "Eating disorders", "Substance use disorders", "Miscellaneous"], "target": 200, "subjects": ["Behavioral science", "Pharmacology", "Physiology", "Pathology"]}, "Poisoning & Environmental Exposure": {"topics": ["Toxicology", "Environmental exposure"], "target": 20, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Ophthalmology": {"topics": ["Normal structure and function of the eye and associated structures", "Disorders of the eye and associated structures"], "target": 10, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Social Sciences (Ethics/Legal/Professional)": {"topics": ["Medical ethics and jurisprudence", "Communication and interpersonal skills", "Patient safety", "System-based practice and quality improvement", "Healthcare policy and economics", "Miscellaneous"], "target": 30, "subjects": ["Behavioral science"]}, "Miscellaneous (Multisystem)": {"topics": ["Miscellaneous"], "target": 10, "subjects": ["Anatomy", "Behavioral science", "Biochemistry", "Biostatistics", "Embryology", "Genetics", "Histology", "Immunology", "Microbiology", "Pathology", "Pathophysiology", "Pharmacology", "Physiology"]}, "Biochemistry (General Principles)": {"topics": ["Cell and molecular biology", "Amino acids, proteins, and enzymes", "Bioenergetics and carbohydrate metabolism", "Lipid metabolism", "Miscellaneous"], "target": 25, "subjects": ["Biochemistry"]}, "Genetics (General Principles)": {"topics": ["DNA structure, replication, and repair", "RNA structure, synthesis, and processing", "Protein synthesis", "Gene expression and regulation", "Clinical genetics", "Miscellaneous"], "target": 15, "subjects": ["Genetics", "Biochemistry"]}, "Microbiology (General Principles)": {"topics": ["Bacteriology", "Virology", "Mycology", "Parasitology", "Miscellaneous"], "target": 15, "subjects": ["Microbiology"]}, "Pathology (General Principles)": {"topics": ["Cellular pathology", "Inflammation and repair", "Neoplasia"], "target": 15, "subjects": ["Pathology"]}, "Pharmacology (General Principles)": {"topics": ["Pharmacokinetics", "Drug receptors and pharmacodynamics", "Drug metabolism and toxicity", "Miscellaneous"], "target": 10, "subjects": ["Pharmacology"]}}};
 const SUBJECTS = TAXONOMY.subjects;
 const SYSTEMS = Object.keys(TAXONOMY.systems);
 
@@ -2249,7 +2411,8 @@ function newBlock(qs, title) {
   return { qIds: qs.map(q => q.id), answers: {}, flagged: {}, struck: {}, highlights: {}, timeSpent: {}, expectedSecondsPerQuestion: SECONDS_PER_QUESTION, totalSeconds, remainingSeconds: totalSeconds, itemStartedAt: Date.now(), title, isNew: true, status: 'active' };
 }
 function generateTest() {
-  if (!isSubscribed && blocksUsed >= FREE_BLOCK_LIMIT) { showPaywall(); return; }
+  if (!isSubscribed && !freeAccessExpired()) countFreeQuestion();
+  if (!isSubscribed && freeAccessExpired()) { showPaywall(); return; }
   const pool = matchingQuestions(); if (pool.length === 0) return;
   const n = Math.min(parseInt($('qcountSlider').value, 10), pool.length);
   const chosen = [...pool].sort(() => Math.random() - 0.5).slice(0, n);
@@ -2261,7 +2424,7 @@ function generateTest() {
 }
 function startBlockFromIds(ids, title = 'Custom Review') {
   if (!ids || ids.length === 0) { showToast('No questions available for this yet.'); return; }
-  if (!isSubscribed && blocksUsed >= FREE_BLOCK_LIMIT) { showPaywall(); return; }
+  if (!isSubscribed && freeAccessExpired()) { showPaywall(); return; }
   const chosen = [...new Set(ids)].map(id => qById(id)).filter(Boolean).sort(() => Math.random() - 0.5).slice(0, 40);
   activeBlock = newBlock(chosen, title); current = 0; submitted = false; tutorMode = true; setModeBtn();
   goScreen('block'); startBlockTimer(); renderBlockQuestion();
@@ -2399,6 +2562,224 @@ function finishBlock(reason = 'manual') {
   activeBlock = { ...activeBlock, ...completed, isNew: false, status: 'completed' };
   current = -1; renderBlockSummary();
 }
+/* ============================================================
+   BLOCK REPORT  —  the "what do I do next" card shown at the end of a block.
+   Everything here is derived from the student's own answers and timings.
+   ============================================================ */
+function buildBlockReport() {
+  if (!activeBlock) return '';
+  const expected = activeBlock.expectedSecondsPerQuestion || SECONDS_PER_QUESTION;
+  const qids = activeBlock.qIds || [];
+  const total = qids.length;
+  if (!total) return '';
+
+  /* ---- per-question record ---- */
+  const recs = qids.map(qid => {
+    const q = qById(qid) || {};
+    const ans = activeBlock.answers ? activeBlock.answers[qid] : null;
+    const spent = (activeBlock.timeSpent && activeBlock.timeSpent[qid]) ? activeBlock.timeSpent[qid] : 0;
+    return {
+      qid,
+      system: q.system || 'Unassigned',
+      topic: q.topic || q.subject || '',
+      correct: q.correct || '',
+      ans: ans || null,
+      isCorrect: !!(ans && ans === q.correct),
+      answered: !!ans,
+      spent
+    };
+  });
+
+  const correct = recs.filter(r => r.isCorrect).length;
+  const wrong = recs.filter(r => r.answered && !r.isCorrect).length;
+  const omitted = recs.filter(r => !r.answered).length;
+  const attempted = recs.filter(r => r.answered);
+  const pct = total ? Math.round((correct / total) * 100) : 0;
+
+  /* ---- per-system rollup ---- */
+  const bySys = new Map();
+  recs.forEach(r => {
+    let s = bySys.get(r.system);
+    if (!s) { s = { name: r.system, n: 0, attempted: 0, ok: 0, spent: 0, misses: [] }; bySys.set(r.system, s); }
+    s.n += 1;
+    s.spent += r.spent;
+    if (r.answered) {
+      s.attempted += 1;
+      if (r.isCorrect) s.ok += 1;
+      else s.misses.push(r);
+    }
+  });
+  const systems = [...bySys.values()].map(s => ({
+    ...s,
+    acc: s.attempted ? s.ok / s.attempted : 0
+  }));
+
+  const strengths = systems
+    .filter(s => s.attempted >= 2 && s.acc >= 0.75)
+    .sort((a, b) => b.acc - a.acc);
+  const liabilities = systems
+    .filter(s => s.attempted >= 1 && s.acc < 0.6)
+    .sort((a, b) => a.acc - b.acc);
+
+  /* ---- pacing ---- */
+  const times = attempted.map(r => r.spent).filter(t => t > 0);
+  const avgPace = times.length ? Math.round(times.reduce((a, b) => a + b, 0) / times.length) : 0;
+  const timeTraps = recs.filter(r => r.answered && r.spent > expected * 1.5);
+  const rushed = recs.filter(r => r.answered && r.spent > 0 && r.spent < expected * 0.45);
+
+  /* ---- consistency: spread of per-system accuracy ---- */
+  const accs = systems.filter(s => s.attempted >= 2).map(s => s.acc);
+  let consistency = null;
+  if (accs.length >= 2) {
+    const mean = accs.reduce((a, b) => a + b, 0) / accs.length;
+    const sd = Math.sqrt(accs.reduce((a, b) => a + (b - mean) * (b - mean), 0) / accs.length);
+    consistency = Math.max(0, Math.min(100, Math.round((1 - sd) * 100)));
+  }
+
+  /* ---- comparison against this student's own history (no peer data exists) ---- */
+  let historyNote = '';
+  try {
+    const hist = (typeof pastTests !== 'undefined' && Array.isArray(pastTests)) ? pastTests : [];
+    const scores = hist.map(t => {
+      if (typeof t.pct === 'number') return t.pct;
+      if (typeof t.score === 'number' && typeof t.total === 'number' && t.total) return Math.round(t.score / t.total * 100);
+      return null;
+    }).filter(v => v !== null);
+    if (scores.length) {
+      const sorted = scores.slice().sort((a, b) => a - b);
+      const median = sorted[Math.floor(sorted.length / 2)];
+      const best = sorted[sorted.length - 1];
+      const diff = pct - median;
+      if (pct > best) historyNote = `Your best block so far — previous best was ${best}%.`;
+      else if (diff > 0) historyNote = `${diff} points above your median block (${median}%).`;
+      else if (diff < 0) historyNote = `${Math.abs(diff)} points below your median block (${median}%).`;
+      else historyNote = `Level with your median block (${median}%).`;
+    } else {
+      historyNote = 'This is your first block — it becomes your baseline.';
+    }
+  } catch (e) { historyNote = ''; }
+
+  /* ---- verdict ---- */
+  let verdict, verdictClass;
+  if (pct >= 80) { verdict = 'Strong'; verdictClass = 'good'; }
+  else if (pct >= 60) { verdict = 'Solid, with gaps'; verdictClass = 'mid'; }
+  else { verdict = 'Needs work'; verdictClass = 'low'; }
+
+  /* ---- next actions ---- */
+  const actions = [];
+  liabilities.slice(0, 2).forEach(s => {
+    const topics = [...new Set(s.misses.map(m => m.topic).filter(Boolean))].slice(0, 2);
+    const ids = questionBank.filter(q => q.system === s.name && !activeBlock.qIds.includes(q.id)).slice(0, 20).map(q => q.id);
+    actions.push({
+      kind: 'system',
+      title: `Rebuild ${s.name}`,
+      body: `You got ${s.ok} of ${s.attempted} right here${topics.length ? ` — missed on ${topics.join(' and ')}` : ''}.`,
+      cta: 'Start a 20-question block',
+      ids: ids,
+      title2: `Focused: ${s.name}`
+    });
+  });
+  if (timeTraps.length >= 2) {
+    actions.push({
+      kind: 'note',
+      title: `${timeTraps.length} questions ran long`,
+      body: `Anything over ${Math.round(expected * 1.5)} seconds is costing you time elsewhere. Item ${timeTraps.map(t => qids.indexOf(t.qid) + 1).slice(0, 4).join(', ')} ran longest.`,
+      cta: 'Redo this block timed',
+      timed: true
+    });
+  }
+  if (rushed.length >= 2) {
+    actions.push({
+      kind: 'note',
+      title: `${rushed.length} answered fast and wrong`,
+      body: `Under ${Math.round(expected * 0.45)} seconds usually means the stem was not read to the end. Those are the cheapest points to recover.`,
+      cta: 'Review the rushed items',
+      ids: rushed.map(r => r.qid)
+    });
+  }
+  if (!actions.length) {
+    actions.push({
+      kind: 'note',
+      title: 'Nothing to fix in this block',
+      body: pct >= 80
+        ? 'Clean run. Push into a system you have not touched yet while it is still fresh.'
+        : 'No single system dragged you down — spread a wider block next.',
+      cta: 'Back to dashboard'
+    });
+  }
+
+  /* ---- render ---- */
+  const fmt = n => `${n}s`;
+  const pill = (cls, txt) => `<span class="rp-pill ${cls}">${txt}</span>`;
+
+  const kpi = (label, value, sub, cls) =>
+    `<div class="rp-kpi"><div class="rp-kpi-v ${cls || ''}">${value}</div><div class="rp-kpi-l">${label}</div><div class="rp-kpi-s">${sub}</div></div>`;
+
+  const strengthRows = strengths.length
+    ? strengths.map(s => `
+      <div class="rp-row">
+        <div class="rp-row-head"><span class="rp-dot good"></span><b>${esc(s.name)}</b><span class="rp-acc good">${Math.round(s.acc * 100)}%</span></div>
+        <div class="rp-row-sub">${s.ok} of ${s.attempted} correct in this block.</div>
+      </div>`).join('')
+    : `<div class="rp-empty">No system cleared the 75% bar in this block yet. That is the target to beat.</div>`;
+
+  const liabilityRows = liabilities.length
+    ? liabilities.map(s => {
+        const topics = [...new Set(s.misses.map(m => m.topic).filter(Boolean))].slice(0, 3);
+        return `
+      <div class="rp-row">
+        <div class="rp-row-head"><span class="rp-dot bad"></span><b>${esc(s.name)}</b><span class="rp-acc bad">${Math.round(s.acc * 100)}%</span></div>
+        <div class="rp-row-sub">${s.ok} of ${s.attempted} correct${topics.length ? ` &middot; missed on <b>${topics.map(esc).join(', ')}</b>` : ''}.</div>
+      </div>`;
+      }).join('')
+    : `<div class="rp-empty">No system fell below 60% in this block. Keep the pace.</div>`;
+
+  const actionRows = actions.map(a => `
+    <div class="rp-action">
+      <div class="rp-action-main">
+        <div class="rp-action-title">${esc(a.title)}</div>
+        <div class="rp-action-body">${a.body}</div>
+      </div>
+      ${a.ids && a.ids.length
+        ? `<button class="rp-btn" onclick="startBlockFromIds(${JSON.stringify(a.ids).replace(/"/g, '&quot;')}, ${JSON.stringify(a.title2 || a.title).replace(/"/g, '&quot;')})">${esc(a.cta)}</button>`
+        : a.timed
+          ? `<button class="rp-btn" onclick="startBlockFromIds(${JSON.stringify(qids).replace(/"/g, '&quot;')}, 'Timed redo')">${esc(a.cta)}</button>`
+          : `<button class="rp-btn ghost" onclick="exitBlockToDashboard()">${esc(a.cta)}</button>`}
+    </div>`).join('');
+
+  return `
+  <div class="report-card">
+    <div class="rp-head">
+      <div>
+        <div class="rp-eyebrow">Block report</div>
+        <div class="rp-verdict ${verdictClass}">${verdict}</div>
+        <div class="rp-sub">${correct}/${total} correct &middot; ${wrong} wrong &middot; ${omitted} omitted${historyNote ? ' &middot; ' + historyNote : ''}</div>
+      </div>
+      <div class="rp-score ${verdictClass}">${pct}<span>%</span></div>
+    </div>
+
+    <div class="rp-kpis">
+      ${kpi('Accuracy', `${pct}%`, `${correct} of ${total}`)}
+      ${kpi('Pace', avgPace ? fmt(avgPace) : '—', `target ${fmt(expected)}`, avgPace && avgPace > expected ? 'bad' : 'good')}
+      ${kpi('Consistency', consistency === null ? '—' : `${consistency}%`, consistency === null ? 'needs 2+ systems' : 'across systems', consistency !== null && consistency < 70 ? 'bad' : '')}
+    </div>
+
+    <div class="rp-grid">
+      <div class="rp-col">
+        <div class="rp-col-head good"><span class="rp-badge good">Confirmed</span>What held up</div>
+        ${strengthRows}
+      </div>
+      <div class="rp-col">
+        <div class="rp-col-head bad"><span class="rp-badge bad">Liability</span>What cost you</div>
+        ${liabilityRows}
+      </div>
+    </div>
+
+    <div class="rp-actions-head">Do this next</div>
+    ${actionRows}
+  </div>`;
+}
+
 function renderBlockSummary() {
   if (!activeBlock) return; clearInterval(timerInterval); current = -1; closeSide();
   $('itemCounter').textContent = 'Block Summary'; $('navBlockTitle').textContent = activeBlock.title || 'Block';
@@ -2413,10 +2794,12 @@ function renderBlockSummary() {
     return `<div class="question-review-row ${isCorrect ? 'correct' : 'incorrect'}" onclick="goToItem(${i})"><div class="qr-num">${i + 1}</div><div class="qr-main"><div class="qr-status ${isCorrect ? 'correct' : 'incorrect'}">${isCorrect ? 'Correct' : (ans ? 'Incorrect' : 'Omitted')} · Your ${ans || '—'} · Correct ${q ? q.correct : '?'}</div><div class="qr-stem">${esc(stem)}${stem.length >= 150 ? '…' : ''}</div></div><div class="qr-time ${over ? 'over' : ''}">Time ${formatTime(spent)} / ${formatTime(expected)}</div><div class="qr-review">Review →</div></div>`; }).join('');
   const pct = total ? Math.round(correct / total * 100) : 0;
   const totalTimeUsed = activeBlock.totalTimeUsed || Math.max(0, (activeBlock.totalSeconds || total * expected) - (activeBlock.remainingSeconds || 0));
+  const _report = buildBlockReport();
   $('questionArea').innerHTML = `
     <div class="post-score-card"><div class="post-score-top"><div><div class="post-score-title">Block complete</div><div style="color:var(--xink-2);font-size:13.5px;margin-top:4px">${correct}/${total} correct · ${incorrect} wrong · ${omitted} omitted</div></div><div class="post-score-pct">${pct}%</div></div>
       <div class="score-line"><div class="score-seg correct" style="width:${total ? correct / total * 100 : 0}%"></div><div class="score-seg incorrect" style="width:${total ? incorrect / total * 100 : 0}%"></div><div class="score-seg omitted" style="width:${total ? omitted / total * 100 : 0}%"></div></div>
       <div class="score-legend-row"><span><span class="score-legend-dot" style="background:var(--xcorrect)"></span>${correct} correct</span><span><span class="score-legend-dot" style="background:var(--xincorrect)"></span>${incorrect} wrong</span><span><span class="score-legend-dot" style="background:#B0B8C4"></span>${omitted} omitted</span><span>Time used: <b>${formatTime(totalTimeUsed)}</b> / <b>${formatTime(activeBlock.totalSeconds || total * expected)}</b></span></div></div>
+    ${_report}
     <div class="post-score-title" style="font-size:18px;margin-bottom:4px">Question review</div>
     <div style="font-size:12.5px;color:var(--xink-2);margin-bottom:10px">Green = correct. Red = wrong or omitted. Amber time means slower than the 90-second target.</div>
     <div class="question-review-list">${rows}</div>
@@ -2578,19 +2961,168 @@ document.addEventListener('keydown', e => {
 });
 
 /* ===================== PAYWALL & SUBSCRIPTION ===================== */
-const FREE_BLOCK_LIMIT = 2;
+/* ============================================================
+   FREE-TIER INTEGRITY
+   1) Server-anchored clock, so changing the device time cannot reset the
+      daily allowance.
+   2) A monotonic day key, so the counter never rolls backwards.
+   3) A device fingerprint + local marker, so a second account made in the
+      same browser is flagged.
+   Honest limit: this is client-side. It defeats casual clock-changing and
+   same-browser re-registration. A determined user with a fresh browser can
+   still get around it; closing that requires a server check (an Appwrite
+   Function that dedupes fingerprints before creating the account).
+   ============================================================ */
+const DAILY_FREE_QUESTIONS = 10;
+const FIRST_DAY_QUESTIONS = 40;          // one real block on the first day
+
+/* --- clock anchor --- */
+let serverClockOffset = 0;               // ms to add to Date.now()
+function serverNow() { return Date.now() + serverClockOffset; }
+async function anchorClock() {
+  try {
+    const t0 = Date.now();
+    const res = await fetch(window.location.href, { method: 'HEAD', cache: 'no-store' });
+    const t1 = Date.now();
+    const header = res.headers.get('date');
+    if (header) {
+      const server = new Date(header).getTime();
+      if (!isNaN(server)) {
+        // the Date header has 1s granularity; add half the round trip
+        serverClockOffset = server + Math.round((t1 - t0) / 2) - t1;
+      }
+    }
+  } catch (e) { /* offline or blocked: fall back to local time */ }
+  // never let a stale stored value beat a good anchor
+  try {
+    const stored = parseInt(localStorage.getItem('mc_clock_floor') || '0', 10) || 0;
+    if (serverNow() < stored) {
+      serverClockOffset = stored - Date.now();   // clock moved backwards
+    }
+  } catch (e) {}
+}
+
+/* --- monotonic day key (UTC date, never allowed to decrease) --- */
+function currentDayKey() {
+  const d = new Date(serverNow());
+  const key = d.getUTCFullYear() * 10000 + (d.getUTCMonth() + 1) * 100 + d.getUTCDate();
+  let floor = 0;
+  try { floor = parseInt(localStorage.getItem('mc_day_floor') || '0', 10) || 0; } catch (e) {}
+  const effective = Math.max(key, floor);
+  try { localStorage.setItem('mc_day_floor', String(effective)); } catch (e) {}
+  return effective;
+}
+
+/* --- device fingerprint (stable-ish signals, hashed) --- */
+function deviceFingerprint() {
+  try {
+    const parts = [
+      navigator.userAgent, navigator.language, navigator.languages ? navigator.languages.join(',') : '',
+      (navigator.hardwareConcurrency || 0), (screen.width || 0) + 'x' + (screen.height || 0),
+      (screen.colorDepth || 0), (new Date().getTimezoneOffset()),
+      (Intl.DateTimeFormat().resolvedOptions().timeZone || '')
+    ];
+    // a cheap canvas signature
+    try {
+      const c = document.createElement('canvas');
+      const ctx = c.getContext('2d');
+      ctx.textBaseline = 'top'; ctx.font = '14px Arial';
+      ctx.fillStyle = '#f60'; ctx.fillRect(0, 0, 60, 20);
+      ctx.fillStyle = '#069'; ctx.fillText('Medchanic.MD', 2, 2);
+      parts.push(c.toDataURL().slice(-96));
+    } catch (e) {}
+    const s = parts.join('|');
+    let h = 5381;
+    for (let i = 0; i < s.length; i++) { h = ((h << 5) + h + s.charCodeAt(i)) & 0xffffffff; }
+    return 'fp_' + Math.abs(h).toString(36);
+  } catch (e) { return 'fp_unknown'; }
+}
+
+/* --- free-tier daily allowance --- */
+let freeDayKey = 0, freeUsedToday = 0;
+
+function loadFreeAllowance(prefs) {
+  freeDayKey = parseInt(prefs.freeDayKey || '0', 10) || 0;
+  freeUsedToday = parseInt(prefs.freeUsedToday || '0', 10) || 0;
+  const today = currentDayKey();
+  if (today > freeDayKey) {           // a new day really has started
+    freeDayKey = today;
+    freeUsedToday = 0;
+    saveFreeAllowance();
+  }
+  // if today < freeDayKey the clock went backwards: keep the stored day,
+  // which deliberately does NOT reset the allowance
+}
+
+async function saveFreeAllowance() {
+  try {
+    const prefs = await _account.getPrefs();
+    prefs.freeDayKey = String(freeDayKey);
+    prefs.freeUsedToday = String(freeUsedToday);
+    prefs.deviceFingerprint = deviceFingerprint();
+    await _account.updatePrefs(prefs);
+  } catch (e) {}
+}
+
+function dailyAllowance() {
+  const everAnswered = (typeof blocksUsed !== 'undefined' && blocksUsed > 0) || freeUsedToday > 0;
+  return everAnswered ? DAILY_FREE_QUESTIONS : FIRST_DAY_QUESTIONS;
+}
+function freeQuestionsLeftToday() {
+  return Math.max(0, dailyAllowance() - freeUsedToday);
+}
+function countFreeQuestion() {
+  freeUsedToday += 1;
+  saveFreeAllowance();
+}
+
+/* --- same-browser re-registration marker --- */
+function checkDeviceReuse() {
+  try {
+    const prev = localStorage.getItem('mc_device_seen');
+    if (!prev) { localStorage.setItem('mc_device_seen', String(Date.now())); return false; }
+    return true;      // this browser has hosted an account before
+  } catch (e) { return false; }
+}
+
+  const FREE_BLOCK_LIMIT = 2;      // legacy allowance for accounts created before the trial
+  const FREE_TRIAL_DAYS = 7;     // 7 days. Randomised evidence (337k users) shows 7d >= 14d,
+                                 // and users are active only ~3 days inside a trial regardless
+                                 // of its length. Set to 0 to restore block-count behaviour.
+  let trialEndsAt = 0;
+  // A time-boxed trial converts 3-6x better than a never-expiring freemium.
+  // Accounts created before the trial existed fall back to the old block allowance.
+  function freeAccessExpired() {
+    if (FREE_TRIAL_DAYS > 0 && trialEndsAt && Date.now() <= trialEndsAt) return false;  // trial running
+    // after the trial (or without one): the daily free allowance applies
+    return freeQuestionsLeftToday() <= 0;
+  }
+  function trialDaysLeft() {
+    if (!FREE_TRIAL_DAYS || !trialEndsAt) return 0;
+    return Math.max(0, Math.ceil((trialEndsAt - Date.now()) / 86400000));
+  }
+  function renderTrialStrip() {
+    const el = $('trialStrip');
+    if (!el) return;
+    const days = trialDaysLeft();
+    if (isSubscribed || !days) { el.style.display = 'none'; return; }
+    el.style.display = 'block';
+    el.innerHTML = `Your free trial ends in <b>${days} day${days === 1 ? '' : 's'}</b> &mdash; ${blocksUsed} of 2 free blocks used. Subscribe for unlimited blocks, cards, analytics and every system we ship.`;
+  }
 const ADMIN_EMAIL = 'medchanicmd@gmail.com';
 const PADDLE_CLIENT_TOKEN = 'live_61c415361a7b2cf950057b8d5f6';
 const PADDLE_PRICES = { monthly: 'pri_01kxgfap9cs231vrkcyhcd055t', quarterly: 'pri_01kxgfe4kvnx3jh70fd9xzkybw', annual: 'pri_01kxgfj20d6k3527bb1qtht0fk' };
-const PLAN_LABELS = { monthly: 'Monthly ($29)', quarterly: '3 Months ($69)', annual: 'Annual ($199)' };
+const PLAN_LABELS = { monthly: 'Monthly ($15)', quarterly: 'Prep Period - 6 months ($54)', annual: 'Annual ($99)' };
 const WHATSAPP_NUMBER = '96176767676';      // international format, no plus sign
 const TELEGRAM_HANDLE = 'medchanicmd';
 let selectedPlan = 'quarterly', isSubscribed = false, blocksUsed = 0, paddleReady = false;
 
-function selectPlan(plan) { selectedPlan = plan; document.querySelectorAll('.plan[data-plan]').forEach(el => el.classList.toggle('selected', el.dataset.plan === plan)); const labels = { monthly: 'Subscribe monthly with card', quarterly: 'Subscribe for 3 months with card', annual: 'Subscribe yearly with card' }; const btn = $('subscribeBtn'); if (btn) btn.textContent = labels[plan] || 'Subscribe now'; }
+function selectPlan(plan) { selectedPlan = plan; document.querySelectorAll('.plan[data-plan]').forEach(el => el.classList.toggle('selected', el.dataset.plan === plan)); const labels = { monthly: 'Subscribe monthly with card', quarterly: 'Subscribe for 6 months with card', annual: 'Subscribe yearly with card' }; const btn = $('subscribeBtn'); if (btn) btn.textContent = labels[plan] || 'Subscribe now'; }
+try { anchorClock(); } catch (e) {}
 async function loadSubscriptionState() {
-  try { const prefs = await _account.getPrefs(); isSubscribed = prefs.subscribed === 'true' || prefs.subscriptionStatus === 'active'; blocksUsed = parseInt(prefs.blocksUsed || '0', 10) || 0; } catch (err) { isSubscribed = false; blocksUsed = 0; }
+  try { const prefs = await _account.getPrefs(); isSubscribed = prefs.subscribed === 'true' || prefs.subscriptionStatus === 'active'; blocksUsed = parseInt(prefs.blocksUsed || '0', 10) || 0; trialEndsAt = parseInt(prefs.trialEndsAt || '0', 10) || 0; try { loadFreeAllowance(prefs); } catch (e) {} } catch (err) { isSubscribed = false; blocksUsed = 0; }
   if (currentUser && currentUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) isSubscribed = true;
+  renderTrialStrip();
 }
 async function saveSubscriptionState() { try { const prefs = await _account.getPrefs(); prefs.subscribed = isSubscribed ? 'true' : 'false'; prefs.blocksUsed = String(blocksUsed); await _account.updatePrefs(prefs); } catch (err) {} }
 function initPaddle() {
@@ -2601,17 +3133,21 @@ function initPaddle() {
   paddleReady = true; return true;
 }
 async function loadPaddlePrices() {
-  const fallback = { paddlePriceMonthly: '$29', paddlePriceQuarterly: '$69', paddlePriceAnnual: '$199' };
+  const fallback = { paddlePriceMonthly: '$15', paddlePriceQuarterly: '$54', paddlePriceAnnual: '$99' };
   const useFallback = () => Object.entries(fallback).forEach(([id, value]) => { const el = $(id); if (el) { el.classList.remove('loading'); el.textContent = value; } });
   if (!initPaddle()) { useFallback(); return; }
   try {
     const result = await Paddle.PricePreview({ items: [PADDLE_PRICES.monthly, PADDLE_PRICES.quarterly, PADDLE_PRICES.annual].map(priceId => ({ priceId, quantity: 1 })) });
     const lineItems = result?.data?.details?.lineItems || []; const byPrice = {}; lineItems.forEach(item => { const priceId = item.price?.id || item.priceId || item.price_id; if (priceId) byPrice[priceId] = item; });
     const setPrice = (plan, elId, fb) => { const item = byPrice[PADDLE_PRICES[plan]]; const formatted = item?.formattedTotals?.total || item?.formattedTotals?.subtotal || fb; const el = $(elId); if (el) { el.classList.remove('loading'); el.innerHTML = formatted; } };
-    setPrice('monthly', 'paddlePriceMonthly', '$29'); setPrice('quarterly', 'paddlePriceQuarterly', '$69'); setPrice('annual', 'paddlePriceAnnual', '$199');
+    setPrice('monthly', 'paddlePriceMonthly', '$15'); setPrice('quarterly', 'paddlePriceQuarterly', '$54'); setPrice('annual', 'paddlePriceAnnual', '$99');
   } catch (err) { console.warn('Could not load localized Paddle prices; using fallback display.', err); useFallback(); }
 }
-function showPaywall() { $('paywallOverlay').classList.add('show'); setTimeout(() => { selectPlan(selectedPlan || 'quarterly'); loadPaddlePrices(); }, 0); }
+function showPaywall() { const sub = $('paywallSub');
+    if (sub) sub.textContent = (trialEndsAt && Date.now() > trialEndsAt)
+      ? `Your ${FREE_TRIAL_DAYS}-day free trial has ended. You still have two free blocks for life - subscribe for unlimited blocks, progress tracking, performance analytics, and everything coming next.`
+      : 'You have used your free blocks. Subscribe to continue with unlimited blocks, progress tracking, performance analytics, and everything coming next.';
+    $('paywallOverlay').classList.add('show'); setTimeout(() => { selectPlan(selectedPlan || 'quarterly'); loadPaddlePrices(); }, 0); }
 function hidePaywall() { $('paywallOverlay').classList.remove('show'); const msg = $('promoMsg'); if (msg) { msg.className = 'promo-msg'; msg.textContent = ''; } }
 function handleSubscribeClick(plan = selectedPlan) {
   if (!currentUser) { alert('Please log in before subscribing.'); window.location.href = 'login.html'; return; }

@@ -256,3 +256,62 @@ h1, h2, h3 { font-family: var(--display); font-weight: 600; letter-spacing: -.02
   .plans { grid-template-columns: 1fr; } .pricing-page .hero h1 { font-size: 34px; }
   .landing-nav { height: auto; padding: 14px 20px; flex-wrap: wrap; gap: 10px; } .landing-links { flex-wrap: wrap; }
 }
+
+
+/* ---- pricing: four-up ladder, anchor line, founding tier ---- */
+.plans { grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 980px; margin-left: auto; margin-right: auto; }
+.plan { padding: 24px 18px; }
+.plan .badge.best { background: var(--teal); }
+.plan .badge.seats { background: var(--ink); }
+.plan.founder-plan { border-color: var(--ink); }
+.plan.founder-plan .price { color: var(--ink); }
+.price-anchor { background: var(--teal-soft); border: 1px solid #BFDCD6; border-radius: 6px; padding: 22px 26px; margin-top: 16px; }
+.price-anchor p { color: var(--ink-2); font-size: 15.5px; line-height: 1.6; margin: 0; }
+.price-anchor b { color: var(--ink); }
+.section ul { padding-left: 22px; }
+.section li { margin-bottom: 8px; }
+@media (max-width: 1100px) { .plans { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 620px) { .plans { grid-template-columns: 1fr; } }
+
+
+/* ---- hero rotator ---- */
+.rotator { position: relative; display: inline-block; vertical-align: bottom; }
+.rot-word {
+  display: block; white-space: nowrap; color: var(--teal);
+  opacity: 0; filter: blur(4px); transform: translateY(14px);
+  transition: opacity .5s cubic-bezier(.22,.61,.36,1), filter .5s cubic-bezier(.22,.61,.36,1), transform .5s cubic-bezier(.22,.61,.36,1);
+}
+.rot-word.is-on { opacity: 1; filter: blur(0); transform: translateY(0); }
+.rot-word:not(.is-on) { position: absolute; left: 0; top: 0; }
+.rot-underline {
+  position: absolute; left: 0; right: 0; bottom: 2px; height: 3px;
+  background: rgba(14,124,120,.32); transform: scaleX(0); transform-origin: left center;
+  transition: transform .6s cubic-bezier(.22,.61,.36,1) .12s;
+}
+.rot-word.is-on ~ .rot-underline, .rotator.has-on .rot-underline { transform: scaleX(1); }
+@media (prefers-reduced-motion: reduce) {
+  .rot-word { opacity: 1 !important; filter: none !important; transform: none !important; position: static !important; display: block; }
+  .rot-word:not(.is-on) { position: static; }
+  .rot-underline { display: none; }
+}
+
+/* ---- hero rotator: keep it inside the viewport on small screens ---- */
+.rotator { max-width: 100%; }
+@media (max-width: 900px) {
+  .hero h1 { font-size: clamp(30px, 7.6vw, 42px) !important; }
+  .rot-word { white-space: normal; }
+}
+@media (max-width: 560px) {
+  .hero h1 { font-size: clamp(26px, 8.4vw, 34px) !important; }
+  .rotator { display: block; }
+  .rot-word:not(.is-on) { position: absolute; left: 0; right: 0; }
+  .rot-word.is-on { position: relative; }
+}
+
+/* ---- phone: tighten hero copy so the CTA stays above the fold ---- */
+@media (max-width: 560px) {
+  .hero p, .hero .lede { font-size: 16px !important; line-height: 1.55 !important; }
+  .hero { padding: 26px 20px 34px; gap: 26px; }
+  .hero-actions .note { width: 100%; margin-left: 0; }
+  .logo-mark { mix-blend-mode: multiply; }
+}

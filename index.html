@@ -23,12 +23,13 @@
   <section class="hero" data-stagger="110">
     <div data-stagger="90">
       <div class="eyebrow"><span>Mechanism-First Exam Prep</span></div>
-      <h1>Fix how you <em>think</em> for <span class="nowrap">your licensing exam.</span></h1>
+      <h1 aria-label="Fix how you think for your module exam, your licensing exam, and both.">Fix how you <em>think</em> for
+        <span class="rotator" aria-hidden="true"><span class="rot-word is-on">your module exam.</span><span class="rot-word">your licensing exam.</span><span class="rot-word">both of them.</span><i class="rot-underline"></i></span></h1>
       <p>Mechanism-first questions built around <em>why</em>, not <em>what</em> &mdash; for medical students in the pre-clinical years. Every wrong answer is explained, every item ships its own flashcards, and the dashboard tells you exactly which systems to fix next.</p>
       <div class="hero-actions">
         <a class="btn btn-ink" href="signup.html">Create free account</a>
         <a class="btn btn-line" href="pricing.html">View pricing</a>
-        <span class="note">2 free blocks · no card required</span>
+        <span class="note">7 days free · no card required</span>
       </div>
     </div>
 
@@ -62,7 +63,7 @@
 
   <section class="pricing-strip" data-reveal>
     <h2>Join <em>medchanic.md</em> now.</h2>
-    <p>Two free blocks to start. Unlock unlimited access when you are ready.</p>
+    <p>7 days of full access to start. Unlock unlimited access when you are ready.</p>
     <a class="btn btn-paper" href="signup.html">Create free account</a>
   </section>
 
@@ -272,5 +273,25 @@
 })();
 
   </script>
+<script>
+/* ---- hero word rotator (qbankly-style, reimplemented) -------------------
+   Stacked spans cross-fade with opacity + blur + translateY, and an
+   underline scales in under each word. Disabled for reduced motion. */
+(function () {
+  var rot = document.querySelector('.rotator');
+  if (!rot) return;
+  var words = rot.querySelectorAll('.rot-word');
+  if (words.length < 2) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var i = 0;
+  setInterval(function () {
+    var cur = words[i];
+    i = (i + 1) % words.length;
+    var nxt = words[i];
+    cur.classList.remove('is-on');
+    nxt.classList.add('is-on');
+  }, 2600);
+})();
+</script>
 </body>
 </html>
