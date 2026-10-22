@@ -970,6 +970,46 @@ h1, h2, h3, h4, .page-title, .card-h h3, .sec h2 { font-family: var(--disp); }
 .card[data-whatfix] .topic .p { font-family: var(--mono); font-weight: 700; }
 .card[data-whatfix] .topic .p small { display: block; font-size: 9.5px; color: var(--ink-3); font-weight: 400; margin-top: 1px; }
 
+/* ============================================================
+   BLOCK SUMMARY — the exam theme forces Arial / Courier for
+   delivery-software fidelity, which is correct for the item
+   screen but wrong for OUR report. The report is our own
+   surface, so it takes the brand fonts back.
+   ============================================================ */
+#screen-block .post-score-card,
+#screen-block .report-card,
+#screen-block .question-review-list,
+#screen-block .summary-actions {
+  --xsans: var(--display);
+  --xmono: var(--mono);
+  font-family: var(--display);
+}
+#screen-block .post-score-card .post-score-title,
+#screen-block .post-score-card .post-score-pct,
+#screen-block .post-score-card .score-legend-row,
+#screen-block .report-card * ,
+#screen-block .question-review-list * {
+  font-family: var(--display);
+}
+#screen-block .post-score-pct {
+  font-family: var(--display) !important;
+  font-weight: 800 !important;
+  letter-spacing: -.045em !important;
+  font-variant-numeric: tabular-nums;
+  color: var(--teal-2) !important;
+}
+#screen-block .post-score-title { font-weight: 800 !important; letter-spacing: -.03em !important; }
+#screen-block .qr-time, #screen-block .qr-num,
+#screen-block .score-legend-row span,
+#screen-block .post-score-card .mono { font-family: var(--mono) !important; }
+#screen-block .report-card .rp-verdict { font-family: var(--serif-accent) !important; }
+#screen-block .report-card .rp-score,
+#screen-block .report-card .rp-kpi-v { font-family: var(--display) !important; font-variant-numeric: tabular-nums; }
+#screen-block .report-card .rp-eyebrow,
+#screen-block .report-card .rp-kpi-l,
+#screen-block .report-card .rp-actions-head,
+#screen-block .report-card .rp-badge { font-family: var(--mono) !important; }
+
   /* ============ ADMIN PANEL ============ */
   .admin-overlay {
     position: fixed; inset: 0;
