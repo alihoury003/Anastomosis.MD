@@ -762,6 +762,98 @@
   .stem, .q-stem { font-size: 15.5px; }
 }
 
+
+/* ============================================================
+   THE ANALYST
+   ============================================================ */
+.analyst { background:var(--panel,#FFFDF8); border:1px solid var(--line,#DDD6C6); border-radius:6px; margin:26px 0 30px; overflow:hidden; position:relative; }
+.analyst::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--teal,#0E7C78),var(--coral,#E4572E),var(--amber,#EFA21B)); }
+
+.an-head { display:flex; justify-content:space-between; align-items:flex-start; gap:24px; padding:26px 28px 20px; border-bottom:1px solid var(--line,#DDD6C6); }
+.an-eyebrow { font-family:var(--mono,monospace); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3,#8A857A); display:flex; align-items:center; gap:9px; margin-bottom:9px; }
+.an-live { background:var(--teal,#0E7C78); color:#fff; padding:2px 7px; border-radius:3px; font-size:9px; letter-spacing:.1em; }
+.an-title { font-family:var(--display,Georgia,serif); font-size:30px; font-weight:600; letter-spacing:-.025em; line-height:1.08; margin:0 0 8px; }
+.an-sub { font-size:13.5px; color:var(--ink-2,#4A4741); line-height:1.55; max-width:520px; margin:0; }
+.an-score { text-align:right; flex-shrink:0; }
+.an-score-v { font-family:var(--display,Georgia,serif); font-size:52px; font-weight:500; letter-spacing:-.03em; line-height:1; color:var(--teal,#0E7C78); }
+.an-score-v span { font-size:22px; color:var(--ink-3,#8A857A); }
+.an-score-l { font-family:var(--mono,monospace); font-size:9.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3,#8A857A); margin-top:7px; }
+
+.an-kpis { display:grid; grid-template-columns:repeat(3,1fr); border-bottom:1px solid var(--line,#DDD6C6); }
+.an-kpi { padding:18px 28px; border-right:1px solid var(--line,#DDD6C6); }
+.an-kpi:last-child { border-right:none; }
+.an-kpi-v { font-family:var(--display,Georgia,serif); font-size:32px; font-weight:500; letter-spacing:-.02em; line-height:1; }
+.an-kpi-v.good { color:var(--teal,#0E7C78); } .an-kpi-v.bad { color:var(--coral-2,#C2441F); }
+.an-of { font-size:14px; color:var(--ink-3,#8A857A); font-family:var(--mono,monospace); margin-left:4px; }
+.an-kpi-l { font-family:var(--mono,monospace); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3,#8A857A); margin-top:8px; }
+.an-kpi-s { font-size:12px; color:var(--ink-2,#4A4741); margin-top:5px; line-height:1.45; }
+.an-kpi-bar { height:4px; background:var(--paper-2,#EAE5D8); border-radius:2px; margin-top:12px; overflow:hidden; }
+.an-kpi-bar i { display:block; height:100%; background:var(--teal,#0E7C78); border-radius:2px; }
+
+.an-body { display:grid; grid-template-columns:1fr 1fr; border-bottom:1px solid var(--line,#DDD6C6); }
+.an-col { padding:22px 28px; }
+.an-col:first-child { border-right:1px solid var(--line,#DDD6C6); }
+.an-col-h { font-family:var(--mono,monospace); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3,#8A857A); margin-bottom:14px; }
+.an-row { display:flex; align-items:center; gap:14px; padding:11px 0; border-bottom:1px dashed var(--line,#DDD6C6); }
+.an-row:last-of-type { border-bottom:none; }
+.an-row-main { flex:1; min-width:0; }
+.an-row-title { font-size:14px; font-weight:600; margin-bottom:2px; }
+.an-row-sub { font-size:12px; color:var(--ink-2,#4A4741); line-height:1.45; }
+.an-pct { font-family:var(--mono,monospace); font-size:13px; font-weight:700; }
+.an-pct.bad { color:var(--coral-2,#C2441F); }
+.an-chip-row { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:8px 0; }
+.an-chip { font-size:12.5px; padding:4px 10px; border-radius:3px; font-weight:600; }
+.an-chip.good { background:var(--teal-soft,#D8ECE8); color:var(--teal-2,#0A5F5C); }
+.an-chip-val { font-family:var(--mono,monospace); font-size:12px; color:var(--teal-2,#0A5F5C); font-weight:700; }
+.an-topics { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; }
+.an-topic { font-size:11.5px; background:var(--paper-2,#EAE5D8); color:var(--ink-2,#4A4741); padding:4px 9px; border-radius:3px; }
+.an-topic b { font-family:var(--mono,monospace); color:var(--coral-2,#C2441F); margin-left:3px; }
+
+.an-read { border-left:3px solid var(--amber,#EFA21B); background:var(--amber-soft,#FBEBC6); border-radius:0 4px 4px 0; padding:12px 14px; margin-bottom:12px; }
+.an-read.gap { border-left-color:var(--coral,#E4572E); background:var(--coral-soft,#FBE2D8); }
+.an-read.pace { border-left-color:var(--teal,#0E7C78); background:var(--teal-soft,#D8ECE8); }
+.an-read.slip { border-left-color:var(--amber,#EFA21B); }
+.an-read.neutral { border-left-color:var(--ink-3,#8A857A); background:var(--paper-2,#EAE5D8); }
+.an-read-label { font-size:13px; font-weight:700; margin-bottom:4px; }
+.an-read-body { font-size:12.5px; color:var(--ink-2,#4A4741); line-height:1.5; }
+.an-note { font-size:12px; color:var(--ink-2,#4A4741); line-height:1.5; }
+.an-note b { color:var(--ink,#141311); }
+.an-none { font-size:12.5px; color:var(--ink-3,#8A857A); line-height:1.5; }
+
+.an-plan { padding:18px 28px; background:var(--paper-2,#EAE5D8); border-bottom:1px solid var(--line,#DDD6C6); }
+.an-plan-h { font-family:var(--mono,monospace); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3,#8A857A); margin-bottom:6px; }
+.an-plan-b { font-size:13.5px; color:var(--ink-2,#4A4741); line-height:1.55; }
+.an-plan-b b { color:var(--ink,#141311); }
+
+.an-actions-h { font-family:var(--mono,monospace); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3,#8A857A); padding:18px 28px 0; }
+.an-action { display:flex; align-items:center; gap:18px; padding:13px 28px; border-bottom:1px solid var(--line,#DDD6C6); }
+.an-action:last-child { border-bottom:none; }
+.an-action-main { flex:1; min-width:0; }
+.an-action-title { font-size:14px; font-weight:600; margin-bottom:2px; }
+.an-action-body { font-size:12.5px; color:var(--ink-2,#4A4741); line-height:1.5; }
+.an-btn { flex-shrink:0; font-family:var(--sans,sans-serif); font-size:13px; font-weight:600; padding:9px 15px; border-radius:4px; border:1px solid var(--teal,#0E7C78); background:var(--teal,#0E7C78); color:#fff; cursor:pointer; }
+.an-btn:hover { background:var(--teal-2,#0A5F5C); }
+.an-btn.ghost { background:transparent; color:var(--ink,#141311); border-color:var(--line,#DDD6C6); }
+
+.an-empty { padding:34px 28px; text-align:left; }
+.an-empty h3 { font-family:var(--display,Georgia,serif); font-size:24px; font-weight:600; letter-spacing:-.02em; margin:0 0 8px; }
+.an-empty p { font-size:13.5px; color:var(--ink-2,#4A4741); line-height:1.6; max-width:520px; margin:0 0 16px; }
+
+@media (max-width:900px) {
+  .an-body { grid-template-columns:1fr; }
+  .an-col:first-child { border-right:none; border-bottom:1px solid var(--line,#DDD6C6); }
+  .an-kpis { grid-template-columns:1fr; }
+  .an-kpi { border-right:none; border-bottom:1px solid var(--line,#DDD6C6); }
+  .an-kpi:last-child { border-bottom:none; }
+}
+@media (max-width:600px) {
+  .an-head { flex-direction:column; padding:20px 18px 16px; }
+  .an-score { text-align:left; }
+  .an-col, .an-kpi, .an-plan, .an-action { padding-left:18px; padding-right:18px; }
+  .an-action { flex-direction:column; align-items:flex-start; }
+  .an-btn { width:100%; }
+}
+
   /* ============ ADMIN PANEL ============ */
   .admin-overlay {
     position: fixed; inset: 0;
@@ -940,6 +1032,8 @@ const AnkiEngine = {
       </div>
       <div class="countdown" id="countdown"></div>
     </section>
+
+    <section class="analyst" id="analystCard" aria-live="polite"></section>
 
     <section class="statline" id="statline">
       <div>
@@ -1522,6 +1616,7 @@ const AnkiEngine = {
     <div class="bb-right">
       <button class="bb-suspend" id="suspendBtn" onclick="suspendBlock()">Suspend</button>
       <button class="bb-end" id="endBtn" onclick="confirmEnd()"><i></i>End Block</button>
+      <button class="bb-end" id="reviewEndBtn" onclick="endReview()" style="display:none"><i></i>End review</button>
     </div>
   </div>
 </div>
@@ -2180,6 +2275,303 @@ function activityCounts() {
 
 /* ===================== DASHBOARD ===================== */
 let dashAnimated = false;
+/* ============================================================
+   THE ANALYST
+   A cross-block read of every answer the student has given.
+   Grounded: each line is traceable to answers in pastTests.
+   ============================================================ */
+function buildAnalyst() {
+  const blocks = completedBlocks();
+  const bankSize = (typeof questionBank !== 'undefined') ? questionBank.length : 0;
+
+  /* ---------- no history yet ---------- */
+  if (!blocks.length) {
+    return `<div class="an-empty">
+      <div class="an-eyebrow">The analyst</div>
+      <h3>Nothing to analyse yet.</h3>
+      <p>Finish one block and this panel fills in: where you actually are, which
+      systems are costing you, and what to do in the next session. It reads every
+      answer you give, not just the score.</p>
+      <button class="an-btn" onclick="goScreen('create')">Start your first block</button>
+    </div>`;
+  }
+
+  /* ---------- gather every answer we have ---------- */
+  const sysMap = new Map();   // system -> {n, ok, miss:[{topic}]}
+  const topicMap = new Map(); // "system||topic" -> {n, ok, system, topic}
+  const missCount = new Map(); // qid -> times missed
+  const seen = new Set();
+  let totalN = 0, totalOk = 0, totalOmitted = 0;
+
+  blocks.forEach(b => {
+    const t = b.t;
+    (t.qIds || []).forEach((qid, pos) => {
+      const q = qById(qid);
+      if (!q) return;
+      const ans = (t.answers || {})[qid];
+      const isCorrect = !!ans && ans === q.correct;
+      const isOmitted = !ans;
+      seen.add(qid);
+      totalN++;
+      if (isCorrect) totalOk++;
+      if (isOmitted) totalOmitted++;
+
+      // by system
+      let s = sysMap.get(q.system);
+      if (!s) { s = { name: q.system, n: 0, ok: 0, topics: new Map() }; sysMap.set(q.system, s); }
+      s.n++; if (isCorrect) s.ok++;
+      if (!isCorrect) {
+        const tk = q.topic || 'Unassigned';
+        s.topics.set(tk, (s.topics.get(tk) || 0) + 1);
+      }
+
+      // by topic
+      const key = q.system + '||' + (q.topic || 'Unassigned');
+      let tp = topicMap.get(key);
+      if (!tp) { tp = { n: 0, ok: 0, system: q.system, topic: q.topic || 'Unassigned' }; topicMap.set(key, tp); }
+      tp.n++; if (isCorrect) tp.ok++;
+
+      // repeated misses = a knowledge gap, not a slip
+      if (!isCorrect) missCount.set(qid, (missCount.get(qid) || 0) + 1);
+    });
+  });
+
+  const accuracy = totalN ? totalOk / totalN : 0;
+  const coverage = bankSize ? seen.size / bankSize : 0;
+
+  /* ---------- trend: last 5 blocks vs the 5 before ---------- */
+  const pcts = blocks.map(b => b.pct);
+  const last5 = pcts.slice(-5);
+  const prev5 = pcts.slice(-10, -5);
+  const mean = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : null;
+  const recent = mean(last5), before = mean(prev5);
+  let trendLine, trendDir = 0;
+  if (recent === null) { trendLine = 'Not enough history yet.'; }
+  else if (before === null) { trendLine = `Your first ${last5.length} block${last5.length === 1 ? '' : 's'} average ${Math.round(recent)}%.`; }
+  else {
+    const d = Math.round(recent - before);
+    trendDir = d;
+    trendLine = d === 0 ? `Holding steady at ${Math.round(recent)}%.`
+      : d > 0 ? `Up ${d} points: ${Math.round(before)}% → ${Math.round(recent)}% over the last five blocks.`
+      : `Down ${Math.abs(d)} points: ${Math.round(before)}% → ${Math.round(recent)}% over the last five blocks.`;
+  }
+
+  /* ---------- pace ---------- */
+  const paceBlocks = blocks.filter(b => b.timeUsed > 0 && b.size > 0);
+  const secPerQ = paceBlocks.length
+    ? paceBlocks.reduce((a, b) => a + (b.timeUsed / b.size), 0) / paceBlocks.length
+    : 0;
+  const target = SECONDS_PER_QUESTION;
+
+  /* ---------- exam-date feasibility ---------- */
+  let feasibility = '';
+  const daysLeft = (typeof examDateDaysLeft === 'function') ? examDateDaysLeft() : null;
+  if (daysLeft !== null && daysLeft > 0) {
+    const remaining = Math.max(0, bankSize - seen.size);
+    const perDay = Math.ceil(remaining / daysLeft);
+    const minutes = Math.round(perDay * (secPerQ || target) / 60);
+    feasibility = remaining === 0
+      ? `You have seen every question in the bank. From here it is review, not coverage.`
+      : `To finish the bank by your exam date you need <b>${fmtNum(perDay)} question${perDay === 1 ? '' : 's'} a day</b> — about ${minutes} minute${minutes === 1 ? '' : 's'} at your current pace.`;
+  } else if (coverage < 1) {
+    feasibility = `You have seen ${fmtNum(seen.size)} of ${fmtNum(bankSize)} questions (${Math.round(coverage * 100)}%). Set an exam date to get a daily target.`;
+  } else {
+    feasibility = `You have seen every question in the bank.`;
+  }
+
+  /* ---------- error pattern ---------- */
+  const repeatMisses = [...missCount.values()].filter(v => v >= 2).length;
+  const singleMisses = [...missCount.values()].filter(v => v === 1).length;
+  const omitRate = totalN ? totalOmitted / totalN : 0;
+
+  let cognitiveLabel, cognitiveBody, cognitiveTone;
+  const gapShare = missCount.size ? repeatMisses / missCount.size : 0;
+  if (missCount.size < 6) {
+    cognitiveLabel = 'Not enough misses to read yet';
+    cognitiveBody = 'A few more blocks and the pattern becomes clear — whether you are missing things you have never learned, or things you have already seen.';
+    cognitiveTone = 'neutral';
+  } else if (gapShare >= 0.45) {
+    cognitiveLabel = 'Mostly knowledge gaps';
+    cognitiveBody = `${repeatMisses} questions have now been missed more than once. That is not carelessness — those are topics you have not locked down. Flashcards first, then re-test.`;
+    cognitiveTone = 'gap';
+  } else if (omitRate >= 0.08) {
+    cognitiveLabel = 'Mostly pacing';
+    cognitiveBody = `${Math.round(omitRate * 100)}% of your items were left blank. At an average of ${Math.round(secPerQ)}s per question against a ${target}s target, the fix is timing, not content.`;
+    cognitiveTone = 'pace';
+  } else {
+    cognitiveLabel = 'Mostly slips';
+    cognitiveBody = `${singleMisses} questions have been missed exactly once and never again. That is reading and reasoning under time, not missing knowledge.`;
+    cognitiveTone = 'slip';
+  }
+
+  /* ---------- fatigue: first quarter vs last quarter of each block ---------- */
+  let earlyOk = 0, earlyN = 0, lateOk = 0, lateN = 0;
+  blocks.forEach(b => {
+    const ids = b.t.qIds || [];
+    if (ids.length < 8) return;
+    const q4 = Math.max(1, Math.round(ids.length / 4));
+    ids.forEach((qid, i) => {
+      const q = qById(qid); if (!q) return;
+      const ans = (b.t.answers || {})[qid];
+      const ok = !!ans && ans === q.correct;
+      if (i < q4) { earlyN++; if (ok) earlyOk++; }
+      else if (i >= ids.length - q4) { lateN++; if (ok) lateOk++; }
+    });
+  });
+  const earlyAcc = earlyN ? earlyOk / earlyN : 0;
+  const lateAcc = lateN ? lateOk / lateN : 0;
+  const fatigueDrop = (earlyN >= 8 && lateN >= 8) ? Math.round((earlyAcc - lateAcc) * 100) : 0;
+
+  /* ---------- rankings ---------- */
+  const systems = [...sysMap.values()].map(s => ({ ...s, acc: s.n ? s.ok / s.n : 0 }));
+  const weak = systems.filter(s => s.n >= 4).sort((a, b) => a.acc - b.acc).slice(0, 3);
+  const strong = systems.filter(s => s.n >= 4).sort((a, b) => b.acc - a.acc).slice(0, 2);
+
+  const topics = [...topicMap.values()].map(t => ({ ...t, acc: t.n ? t.ok / t.n : 0 }));
+  const weakTopics = topics.filter(t => t.n >= 3).sort((a, b) => a.acc - b.acc).slice(0, 4);
+
+  /* ---------- actions ---------- */
+  const actions = [];
+  weak.slice(0, 2).forEach((s, i) => {
+    const ids = (typeof questionBank !== 'undefined')
+      ? questionBank.filter(q => q.system === s.name).map(q => q.id) : [];
+    actions.push({
+      title: `Drill ${s.name}`,
+      body: `${Math.round(s.acc * 100)}% across ${s.n} questions. `
+        + (i === 0 ? 'Your largest single gap.' : 'Your next largest gap.'),
+      cta: '20 questions',
+      ids, label: `Focused: ${s.name}`
+    });
+  });
+  if (weakTopics.length) {
+    const t0 = weakTopics[0];
+    const ids = (typeof questionBank !== 'undefined')
+      ? questionBank.filter(q => (q.topic || 'Unassigned') === t0.topic).map(q => q.id) : [];
+    if (ids.length) actions.push({
+      title: `Drill ${t0.topic}`,
+      body: `Your weakest single topic: ${Math.round(t0.acc * 100)}% over ${t0.n} questions.`,
+      cta: `${Math.min(20, ids.length)} questions`,
+      ids, label: `Focused: ${t0.topic}`
+    });
+  }
+  if (repeatMisses >= 3) {
+    const ids = [...missCount.entries()].filter(([, v]) => v >= 2).map(([k]) => k);
+    actions.push({
+      title: `Re-test the ${ids.length} you keep missing`,
+      body: 'These have been missed more than once. Until they stop being missed, they are your ceiling.',
+      cta: 'Re-test them', ids, label: 'Repeat misses'
+    });
+  }
+  if (fatigueDrop >= 12) {
+    actions.push({
+      title: 'You fade late in a block',
+      body: `Accuracy drops ${fatigueDrop} points from the first quarter of a block to the last. Shorter blocks would score higher.`,
+      cta: null
+    });
+  }
+
+  /* ---------- render ---------- */
+  const pctTxt = Math.round(accuracy * 100);
+  const nav = (id) => `onclick="document.getElementById('${id}')&&document.getElementById('${id}').scrollIntoView({behavior:'smooth'})"`;
+
+  const weakRows = weak.length ? weak.map(s => {
+    const top = [...s.topics.entries()].sort((a, b) => b[1] - a[1]).slice(0, 2).map(([k]) => k);
+    return `<div class="an-row">
+      <div class="an-row-main">
+        <div class="an-row-title">${esc(s.name)}</div>
+        <div class="an-row-sub">${s.ok} of ${s.n} correct${top.length ? ` &middot; mostly ${top.map(esc).join(', ')}` : ''}</div>
+      </div>
+      <div class="an-row-right"><span class="an-pct bad">${Math.round(s.acc * 100)}%</span></div>
+    </div>`;
+  }).join('') : `<div class="an-none">No system has enough questions yet to rank. Finish a few more blocks.</div>`;
+
+  const strongRows = strong.length ? strong.map(s => `<div class="an-chip-row">
+      <span class="an-chip good">${esc(s.name)}</span><span class="an-chip-val">${Math.round(s.acc * 100)}%</span>
+    </div>`).join('') : `<div class="an-none">Nothing above 70% yet — that is the bar to clear.</div>`;
+
+  const topicChips = weakTopics.length ? weakTopics.map(t =>
+    `<span class="an-topic" title="${esc(t.system)}">${esc(t.topic)} <b>${Math.round(t.acc * 100)}%</b></span>`).join('')
+    : '';
+
+  const actionRows = actions.map(a => `<div class="an-action">
+      <div class="an-action-main">
+        <div class="an-action-title">${esc(a.title)}</div>
+        <div class="an-action-body">${a.body}</div>
+      </div>
+      ${a.ids && a.ids.length
+        ? `<button class="an-btn" onclick="startBlockFromIds(${JSON.stringify(a.ids).replace(/"/g, '&quot;')}, ${JSON.stringify(a.label).replace(/"/g, '&quot;')})">${esc(a.cta)}</button>`
+        : `<button class="an-btn ghost" onclick="goScreen('create')">${esc(a.cta || 'Create a block')}</button>`}
+    </div>`).join('');
+
+  return `
+  <div class="an-head">
+    <div>
+      <div class="an-eyebrow">The analyst<span class="an-live">live</span></div>
+      <h2 class="an-title">Where you actually are.</h2>
+      <p class="an-sub">Read from all ${fmtNum(blocks.length)} completed block${blocks.length === 1 ? '' : 's'} — ${fmtNum(totalN)} answers. Not a prediction. A read.</p>
+    </div>
+    <div class="an-score">
+      <div class="an-score-v">${pctTxt}<span>%</span></div>
+      <div class="an-score-l">all-block accuracy</div>
+    </div>
+  </div>
+
+  <div class="an-kpis">
+    <div class="an-kpi">
+      <div class="an-kpi-v">${fmtNum(seen.size)}<span class="an-of">/ ${fmtNum(bankSize)}</span></div>
+      <div class="an-kpi-l">bank covered</div>
+      <div class="an-kpi-bar"><i style="width:${Math.round(coverage * 100)}%"></i></div>
+    </div>
+    <div class="an-kpi">
+      <div class="an-kpi-v ${trendDir > 0 ? 'good' : trendDir < 0 ? 'bad' : ''}">${trendDir > 0 ? '+' : ''}${trendDir === 0 ? '—' : trendDir}<span class="an-of">pts</span></div>
+      <div class="an-kpi-l">5-block trend</div>
+      <div class="an-kpi-s">${esc(trendLine)}</div>
+    </div>
+    <div class="an-kpi">
+      <div class="an-kpi-v ${secPerQ && secPerQ > target ? 'bad' : 'good'}">${secPerQ ? Math.round(secPerQ) : '—'}<span class="an-of">s</span></div>
+      <div class="an-kpi-l">per question</div>
+      <div class="an-kpi-s">target ${target}s</div>
+    </div>
+  </div>
+
+  <div class="an-body">
+    <div class="an-col">
+      <div class="an-col-h">What is costing you</div>
+      ${weakRows}
+      ${topicChips ? `<div class="an-topics">${topicChips}</div>` : ''}
+    </div>
+    <div class="an-col">
+      <div class="an-col-h">What is holding</div>
+      ${strongRows}
+      <div class="an-col-h" style="margin-top:22px">Why you are missing them</div>
+      <div class="an-read ${cognitiveTone}">
+        <div class="an-read-label">${esc(cognitiveLabel)}</div>
+        <div class="an-read-body">${cognitiveBody}</div>
+      </div>
+      ${earlyN >= 8 && lateN >= 8 ? `<div class="an-note">First quarter of a block: <b>${Math.round(earlyAcc * 100)}%</b> · last quarter: <b>${Math.round(lateAcc * 100)}%</b>${fatigueDrop >= 12 ? ' — that gap is fatigue, not knowledge.' : ' — consistent through the block.'}</div>` : ''}
+    </div>
+  </div>
+
+  <div class="an-plan">
+    <div class="an-plan-h">By your exam date</div>
+    <div class="an-plan-b">${feasibility}</div>
+  </div>
+
+  <div class="an-actions-h">Do this next</div>
+  ${actionRows}`;
+}
+
+function renderAnalyst() {
+  const el = document.getElementById('analystCard');
+  if (!el) return;
+  try {
+    el.innerHTML = buildAnalyst();
+  } catch (e) {
+    el.innerHTML = '';
+    console.warn('analyst:', e);
+  }
+}
+
 function renderDashboard() {
   const animate = !dashAnimated; dashAnimated = true;
   const setNum = (id, v, opts = {}) => { const el = $(id); if (!el) return; if (animate && Charts) Charts.countUp(el, v, opts); else el.textContent = (opts.prefix || '') + fmtNum(Math.round(v)) + (opts.suffix || ''); };
@@ -2296,6 +2688,7 @@ function renderDashboard() {
   const weekAgo = now - 7 * 86400000; const nbWeek = notebookItems.filter(n => n.addedAt && new Date(n.addedAt) >= weekAgo).length; $('notebookWeek').textContent = `${nbWeek} added this week`;
   const rc = $('resumeCard'); rc.style.display = lastSusp ? '' : 'none';
   if (lastSusp) { $('resumeTitle').textContent = `Paused · ${lastSusp.title}`; $('resumeText').textContent = `${Object.keys(lastSusp.answers || {}).length} of ${lastSusp.total} answered · ${formatTime(lastSusp.remainingSeconds || 0)} remaining on the block clock`; setTimeout(() => { $('resumeBar').style.width = pctOf(Object.keys(lastSusp.answers || {}).length, lastSusp.total) + '%'; }, 300); }
+  renderAnalyst();
 }
 function shortSystem(name) {
   const map = { 'Allergy & Immunology': 'Immuno', 'Dermatology': 'Derm', 'Cardiovascular System': 'Cardio', 'Pulmonary & Critical Care': 'Pulm', 'Gastrointestinal & Nutrition': 'GI', 'Hematology & Oncology': 'Heme/Onc', 'Renal, Urinary Systems & Electrolytes': 'Renal', 'Nervous System': 'Neuro', 'Rheumatology/Orthopedics & Sports': 'MSK', 'Infectious Diseases': 'ID', 'Endocrine, Diabetes & Metabolism': 'Endo', 'Female Reproductive System & Breast': 'F Repro', 'Male Reproductive System': 'M Repro', 'Pregnancy, Childbirth & Puerperium': 'OB', 'Biostatistics & Epidemiology': 'Biostats', 'Ear, Nose & Throat (ENT)': 'ENT', 'Psychiatric/Behavioral & Substance Use Disorder': 'Psych', 'Poisoning & Environmental Exposure': 'Tox', 'Ophthalmology': 'Ophtho', 'Miscellaneous (Multisystem)': 'Misc' };
@@ -2683,7 +3076,7 @@ function buildBlockReport() {
     actions.push({
       kind: 'note',
       title: `${timeTraps.length} questions ran long`,
-      body: `Anything over ${Math.round(expected * 1.5)} seconds is costing you time elsewhere. Item ${timeTraps.map(t => qids.indexOf(t.qid) + 1).slice(0, 4).join(', ')} ran longest.`,
+      body: `Anything over ${Math.round(expected * 1.5)} seconds is costing you time elsewhere. Item${timeTraps.length === 1 ? '' : 's'} ${timeTraps.map(t => qids.indexOf(t.qid) + 1).slice(0, 4).join(', ')} ran longest.`,
       cta: 'Redo this block timed',
       timed: true
     });
@@ -2806,6 +3199,13 @@ function renderBlockSummary() {
     <div class="summary-actions"><button class="xbtn primary" onclick="exitBlockToDashboard()">Back to dashboard</button><button class="xbtn" onclick="goScreen('tests')">Previous tests</button><button class="xbtn" onclick="goToItem(0)">Review from item 1</button></div>`;
   $('itemScroll').scrollTop = 0; renderNav();
 }
+function endReview() {
+  if (!activeBlock || activeBlock.isNew) return;
+  trackCurrentQuestionTime();
+  current = -1;
+  renderBlockSummary();
+  showToast('Review ended.');
+}
 function renderBlockQuestion() {
   if (!activeBlock) return; if (current < 0) { renderBlockSummary(); return; }
   const qid = activeBlock.qIds[current]; const q = qById(qid);
@@ -2813,7 +3213,7 @@ function renderBlockQuestion() {
   const userAnswer = activeBlock.answers[qid]; const showExplanation = (tutorMode && userAnswer) || !activeBlock.isNew;
   $('itemCounter').textContent = `Item ${current + 1} of ${activeBlock.qIds.length}`; $('navBlockTitle').textContent = activeBlock.title || 'Block';
   $('prevBtn').disabled = current === 0; $('nextBtn').disabled = current >= activeBlock.qIds.length - 1;
-  $('endBtn').style.display = activeBlock.isNew ? '' : 'none'; $('suspendBtn').style.display = activeBlock.isNew ? '' : 'none';
+  $('endBtn').style.display = activeBlock.isNew ? '' : 'none'; $('suspendBtn').style.display = activeBlock.isNew ? '' : 'none'; $('reviewEndBtn').style.display = activeBlock.isNew ? 'none' : '';
   $('modeBtn').style.display = activeBlock.isNew ? '' : 'none'; $('flagBtn').style.visibility = activeBlock.isNew ? '' : 'hidden';
   renderFlagBtn();
   if (!activeBlock.isNew) { clearInterval(timerInterval); $('timer').textContent = '--:--'; $('timer').className = 'v'; $('itemTimer').textContent = '--:--'; } else updateTimerDisplay();
