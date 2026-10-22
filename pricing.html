@@ -1,323 +1,421 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <script>document.documentElement.classList.add("js")</script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Medchanic.MD — Pricing</title>
-  <link rel="icon" type="image/png" href="data:image/png;base64,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">
-  <link rel="stylesheet" href="style.css">
-  
-</head>
-<body>
-  <div class="pricing-page">
-    <nav class="pricing-nav"><a class="pricing-brand" href="index.html"><img class="logo-mark" src="data:image/png;base64,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" alt="">Medchanic<small>MD</small></a><div class="landing-links"><a href="index.html">Home</a><a href="login.html">Log in</a><a class="nav-cta" href="signup.html">Start free</a></div></nav>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pricing — Medchanic</title>
+<meta name="description" content="Buy the length of access you need. $15 a month, $54 for six months, $99 a year. One payment, nothing auto-renews.">
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+:root{
+  --paper:#F3EFE6; --paper-2:#EAE5D8; --card:#FFFDF8;
+  --ink:#141311; --ink-2:#4A4741; --ink-3:#8A857A;
+  --rule:#DDD6C6; --sand:#E3DCCB;
+  --teal:#0E7C78; --teal-2:#0A5F5C; --teal-soft:#D8ECE8;
+  --coral:#E4572E; --coral-2:#C2441F; --coral-soft:#FBE2D8;
+  --amber:#EFA21B; --amber-2:#B87A0C; --amber-soft:#FBEBC6;
+  --disp:'Inter','Helvetica Neue',Arial,sans-serif;
+  --serif:'Instrument Serif',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--disp);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::selection{background:var(--amber-soft)}
+img,svg{display:block}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase}
 
-    <div class="hero">
-      <div class="eyebrow" data-reveal><span>Pricing</span></div>
-      <h1 data-reveal data-reveal-delay="80">Simple plans for a <em style="font-style:italic;font-weight:500;color:var(--teal)">dedicated</em> period.</h1>
-      <p data-reveal data-reveal-delay="160">Exam-style blocks, tutor and timed modes, teaching explanations, wrong-answer breakdowns, performance analytics, and study tools for medical students preparing for the medical licensing exam.</p>
-    </div>
+.mark{width:29px;height:29px;flex-shrink:0;color:var(--teal)}
+.brand{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.035em}
+.brand em{font-family:var(--mono);font-size:9px;font-style:normal;font-weight:700;letter-spacing:.1em;background:var(--teal);color:#fff;padding:3px 5px;border-radius:2px}
 
-    <div class="price-anchor" data-reveal>
-      <p>Most exam-prep platforms charge <b>$400&ndash;$600</b> a year. Medchanic.MD is
-      <b>$99</b> &mdash; and every one of its distractors is explained.</p>
-    </div>
+/* nav */
+.nav{position:sticky;top:0;z-index:60;background:rgba(243,239,230,.86);backdrop-filter:blur(14px) saturate(150%);border-bottom:1px solid var(--rule)}
+.nav-in{max-width:1240px;margin:0 auto;padding:0 32px;height:68px;display:flex;align-items:center;gap:26px}
+.nav-links{margin-left:auto;display:flex;align-items:center;gap:4px}
+.nav-links a{padding:8px 13px;border-radius:3px;font-size:14px;font-weight:500;color:var(--ink-2);transition:background .18s,color .18s}
+.nav-links a:hover{background:var(--paper-2);color:var(--ink)}
+.nav-cta{background:var(--teal)!important;color:#fff!important;font-weight:600!important;padding:9px 16px!important}
+.nav-cta:hover{background:var(--teal-2)!important}
 
-    <div class="plans" data-stagger="110">
-      <div class="plan">
-        <div class="plan-name">Monthly</div>
-        <div class="price">$15<span>/month</span></div>
-        <div class="note">$15 for 30 days of access. One payment, nothing auto-renews.</div>
-        <ul class="features">
-          <li>Unlimited blocks, tutor and timed mode</li>
-          <li>Performance tracking and notebook</li>
-          <li>Marked items and highlights</li>
-          <li>AI tutor</li>
-        </ul>
-        <a class="cta" href="signup.html">Start free</a>
-      </div>
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:600;font-size:15px;padding:14px 24px;border-radius:4px;border:1px solid transparent;transition:background .16s,border-color .16s,transform .16s,color .16s}
+.btn:hover{transform:translateY(-1px)}
+.btn-teal{background:var(--teal);color:#fff}
+.btn-teal:hover{background:var(--teal-2)}
+.btn-line{border-color:var(--ink);color:var(--ink)}
+.btn-line:hover{background:var(--card)}
+.btn-ink{background:var(--ink);color:var(--paper)}
+.btn-ink:hover{background:#2A2825}
 
-      <div class="plan popular">
-        <div class="badge">Most popular</div>
-        <div class="plan-name">Prep Period</div>
-        <div class="price">$54<span>/6 months</span></div>
-        <div class="note">$9.00 a month. The full study window, nothing expires early.</div>
-        <ul class="features">
-          <li>Everything in Monthly</li>
-          <li>180 days of access</li>
-          <li>40% less per month than Monthly</li>
-          <li>Every system added in this window</li>
-        </ul>
-        <a class="cta" href="signup.html">Start free</a>
-      </div>
+/* hero */
+.hero{padding:74px 0 56px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 22% 8%,rgba(14,124,120,.10),transparent 46%),radial-gradient(circle at 88% 74%,rgba(228,87,46,.08),transparent 44%);pointer-events:none}
+.hero-in{position:relative;display:grid;grid-template-columns:1.04fr .96fr;gap:52px;align-items:center}
+.kicker{display:flex;align-items:center;gap:9px;color:var(--teal-2);margin-bottom:20px}
+.kicker svg{width:16px;height:16px}
+.kicker span{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:500}
+h1{font-size:clamp(42px,5.4vw,74px);line-height:.96;letter-spacing:-.045em;font-weight:800}
+h1 em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em;color:var(--teal)}
+/* rotating word */
+.rot{position:relative;display:inline-block;vertical-align:bottom;min-width:1px}
+.rot-w{display:block;color:var(--teal);font-family:var(--serif);font-style:italic;font-weight:400;
+  opacity:0;filter:blur(5px);transform:translateY(12px);
+  transition:opacity .5s cubic-bezier(.2,.7,.3,1),filter .5s cubic-bezier(.2,.7,.3,1),transform .5s cubic-bezier(.2,.7,.3,1)}
+.rot-w.on{opacity:1;filter:blur(0);transform:none}
+.rot-w:not(.on){position:absolute;left:0;top:0;white-space:nowrap}
+.hero p.sub{margin-top:24px;font-size:18px;line-height:1.62;color:var(--ink-2);max-width:490px}
+.hero-cta{display:flex;gap:11px;margin-top:30px;flex-wrap:wrap;align-items:center}
+.hero-note{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.06em}
+.hero-stats{display:flex;gap:34px;margin-top:40px;padding-top:24px;border-top:1px solid var(--rule)}
+.hero-stats b{display:block;font-size:28px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.hero-stats span{display:block;margin-top:6px;font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
 
-      <div class="plan">
-        <div class="badge best">Best value</div>
-        <div class="plan-name">Annual</div>
-        <div class="price">$99<span>/year</span></div>
-        <div class="note">$8.25 a month. The cheapest price per month, and the plan we recommend.</div>
-        <ul class="features">
-          <li>Everything in Prep Period</li>
-          <li>365 days of access</li>
-          <li>Future systems included as they launch</li>
-          <li>Nothing auto-renews</li>
-        </ul>
-        <a class="cta" href="signup.html">Start free</a>
-      </div>
-    </div>
+/* live case card */
+.live{background:var(--card);border:1px solid var(--rule);border-radius:8px;overflow:hidden;box-shadow:0 40px 80px -50px rgba(20,19,17,.45)}
+.lv-bar{display:flex;align-items:center;justify-content:space-between;padding:11px 15px;border-bottom:1px solid var(--rule);background:var(--paper-2)}
+.lv-bar .mono{font-size:9.5px;color:var(--ink-3)}
+.lv-live{display:inline-flex;align-items:center;gap:6px;color:var(--coral-2);font-weight:700}
+.lv-live i{width:6px;height:6px;border-radius:50%;background:var(--coral);animation:blip 1.5s infinite}
+@keyframes blip{0%,100%{opacity:1}50%{opacity:.25}}
+.lv-in{padding:18px 17px 20px}
+.lv-stem{font-size:12.8px;line-height:1.6;color:var(--ink-2);max-height:118px;overflow:hidden;position:relative;mask-image:linear-gradient(#000 72%,transparent)}
+.lv-lead{font-size:12.8px;font-weight:600;margin:13px 0 11px;line-height:1.45}
+.lv-opt{display:flex;align-items:center;gap:10px;padding:9px 11px;border:1px solid var(--rule);border-radius:4px;margin-bottom:6px;font-size:12.5px;color:var(--ink-2);transition:all .4s cubic-bezier(.2,.7,.3,1);background:#fff}
+.lv-opt .k{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--ink-3);flex-shrink:0;position:relative;transition:all .4s}
+.lv-opt.struck{border-color:#F3C6B6;background:var(--coral-soft);color:#9A6A57}
+.lv-opt.struck .k{border-color:var(--coral);background:var(--coral)}
+.lv-opt.struck .k::after{content:'';position:absolute;inset:3.5px;background:var(--coral-soft);border-radius:50%}
+.lv-opt.struck .tx{text-decoration:line-through;text-decoration-color:rgba(194,68,31,.6)}
+.lv-opt.good{border-color:#BFDCD6;background:var(--teal-soft);color:var(--teal-2);font-weight:600}
+.lv-opt.good .k{border-color:var(--teal);background:var(--teal)}
+.lv-opt.good .k::after{content:'';position:absolute;inset:3.5px;background:var(--teal-soft);border-radius:50%}
+.lv-why{border-left:2px solid var(--coral);background:var(--coral-soft);border-radius:0 4px 4px 0;padding:9px 11px;margin-top:9px;min-height:52px}
+.lv-why b{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--coral-2);margin-bottom:4px}
+.lv-why span{font-size:11.3px;line-height:1.5;color:#8A5A45}
 
+/* marquee */
+.marq{background:var(--ink);color:var(--paper);overflow:hidden;padding:11px 0;border-top:2px solid var(--ink)}
+.mq{display:flex;gap:30px;white-space:nowrap;animation:mqa 36s linear infinite;width:max-content}
+.mq span{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;display:inline-flex;align-items:center;gap:30px;color:var(--paper)}
+.mq span::after{content:'✦';font-size:9px;color:var(--amber)}
+@keyframes mqa{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-    <div class="section" data-reveal>
-      <h2>Start free &mdash; 7 days, no card</h2>
-      <p>Every new account can start 7 days of full access: the whole bank, every distractor
-      explained, every flashcard. No card, no auto-charge, nothing to cancel. When the
-      trial ends the account keeps two free blocks for life, so you are never hard-walled.</p>
-    </div>
+/* sections */
+.sec{padding:90px 0}
+.sec.tint{background:var(--card);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.shead{display:flex;align-items:baseline;gap:16px;margin-bottom:12px}
+.snum{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--coral)}
+.shead h2{font-size:clamp(28px,3.4vw,44px);font-weight:800;letter-spacing:-.035em;line-height:1.04}
+.shead .rule{flex:1;height:1px;background:var(--rule);transform:translateY(-7px)}
+.ssub{font-size:17px;color:var(--ink-2);max-width:620px;margin-bottom:44px;line-height:1.62}
 
-    <div class="section" data-reveal>
-      <h2>What every paid plan includes</h2>
-      <p><b>2,000+ original clinical vignettes</b> &mdash; 26 organ systems, 160+ topics, 13
-      subjects, one authorship standard. <b>4,000+ flashcards</b> generated from the items
-      themselves, so the deck you review is the deck you missed. <b>7,288 wrong answers
-      explained</b>, every one of them, on every item.</p>
-      <p>The exam-software interface: item list, mark for review, lab panels, block clock,
-      end-of-block review, tutor mode and timed mode. Performance analytics: score
-      trajectory, systems radar, weakest topics, and a countdown to your exam date.
-      Notebook, marked items, highlights, and the AI tutor. Licensed images, table-option
-      items and lab panels where they help. New systems are added as they launch, and
-      they are included in every plan you hold.</p>
-    </div>
+/* thesis */
+.thesis{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start}
+.thesis h3{font-size:clamp(24px,2.7vw,34px);font-weight:800;letter-spacing:-.03em;line-height:1.12;margin-bottom:16px}
+.thesis p{color:var(--ink-2);font-size:15.5px;line-height:1.72}
+.thesis p+p{margin-top:14px}
+.pillars{border-top:2px solid var(--ink)}
+.pillar{padding:18px 0;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:32px 1fr;gap:14px}
+.pillar .pn{font-family:var(--mono);font-size:11px;color:var(--coral);padding-top:3px}
+.pillar b{display:block;font-size:16px;font-weight:700;letter-spacing:-.015em;margin-bottom:4px}
+.pillar span{font-size:14px;color:var(--ink-2);line-height:1.55}
 
-    <div class="section" data-reveal>
-      <h2>Student Aid</h2>
-      <p>Budget tight? Send us your student ID or university email and we will add three
-      free months to your account. We read every request ourselves.</p>
-    </div>
+/* panels */
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.panel{background:#fff;border:1px solid var(--rule);border-radius:8px;overflow:hidden;transition:transform .3s cubic-bezier(.2,.7,.3,1),box-shadow .3s}
+.panel:hover{transform:translateY(-4px);box-shadow:0 30px 60px -42px rgba(20,19,17,.4)}
+.ptop{display:flex;align-items:center;gap:8px;padding:11px 15px;border-bottom:1px solid var(--rule);background:var(--paper-2)}
+.ptop .d{width:8px;height:8px;border-radius:50%}
+.ptop .mono{font-size:9px;color:var(--ink-3);margin-left:5px}
+.pio{padding:16px}
+.pcap{padding:0 16px 18px}
+.pcap b{display:block;font-size:16.5px;font-weight:700;letter-spacing:-.02em;margin-bottom:5px}
+.pcap span{font-size:13px;color:var(--ink-2);line-height:1.55}
+.mi-opt{display:flex;gap:8px;align-items:center;padding:7px 9px;border:1px solid var(--rule);border-radius:3px;font-size:11.5px;margin-bottom:4px;color:var(--ink-2);background:#fff}
+.mi-opt.good{background:var(--teal-soft);border-color:#BFDCD6;color:var(--teal-2);font-weight:600}
+.mi-opt .k{width:12px;height:12px;border-radius:50%;border:1.4px solid var(--ink-3);flex-shrink:0}
+.mi-opt.good .k{border-color:var(--teal);background:var(--teal);position:relative}
+.mi-opt.good .k::after{content:'';position:absolute;inset:2.5px;background:var(--teal-soft);border-radius:50%}
+.mi-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:4px;overflow:hidden;margin-bottom:11px}
+.mi-kpi{background:#fff;padding:9px 10px}
+.mi-kpi b{display:block;font-size:18px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.mi-kpi span{display:block;font-family:var(--mono);font-size:7.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:4px}
+.mi-row{display:flex;align-items:center;gap:8px;font-size:11.5px;padding:6px 0;border-bottom:1px dashed var(--rule)}
+.mi-row:last-child{border:none}
+.mi-row b{font-weight:600;flex:1}
+.mi-row .pc{font-family:var(--mono);font-size:10.5px;font-weight:700}
+.mi-row .pc.bad{color:var(--coral-2)} .mi-row .pc.good{color:var(--teal-2)}
+.dotm{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.dotm.r{background:var(--coral)} .dotm.g{background:var(--teal)}
+.mi-bar{height:4px;background:var(--paper-2);border-radius:2px;overflow:hidden;margin-top:8px}
+.mi-bar i{display:block;height:100%;background:var(--teal)}
+.mi-card{background:#fff;border:1px solid var(--rule);border-radius:5px;padding:10px 11px;margin-bottom:5px}
+.mi-card .k{font-family:var(--mono);font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:4px}
+.mi-card .q{font-size:11.5px;line-height:1.5}
+.mi-card .q b{color:var(--teal-2);border-bottom:1.5px solid #BFDCD6}
 
-    <div class="section" data-reveal>
-      <h2>Stated plainly</h2>
+/* game section */
+.gsec{background:var(--ink);color:var(--paper)}
+.ggrid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.gtag{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(242,239,230,.24);border-radius:100px;padding:6px 13px;margin-bottom:20px;color:var(--amber)}
+.gtag i{width:6px;height:6px;border-radius:50%;background:var(--amber)}
+.gsec h2{font-size:clamp(32px,4vw,54px);font-weight:800;letter-spacing:-.04em;line-height:.98;color:var(--paper)}
+.gsec h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--amber)}
+.gsec p{margin-top:18px;font-size:16.5px;line-height:1.65;color:rgba(242,239,230,.7);max-width:470px}
+.grules{display:flex;flex-direction:column;gap:12px;margin-top:26px}
+.gr{display:flex;gap:12px;font-size:14.5px;color:rgba(242,239,230,.72);line-height:1.5}
+.gr .gk{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--ink);background:var(--amber);width:21px;height:21px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gr b{color:var(--paper)}
+.gcta{display:flex;gap:11px;margin-top:30px;flex-wrap:wrap}
+.btn-amber{background:var(--amber);color:var(--ink)}
+.btn-amber:hover{background:#FFB93B}
+.btn-outline{border-color:rgba(242,239,230,.3);color:var(--paper)}
+.btn-outline:hover{background:rgba(242,239,230,.08)}
+.blindcard{background:rgba(242,239,230,.05);border:1px solid rgba(242,239,230,.16);border-radius:10px;padding:22px}
+.bc-h{display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid rgba(242,239,230,.14);margin-bottom:16px}
+.bc-h .mono{color:rgba(242,239,230,.5);font-size:9.5px}
+.bc-h b{font-family:var(--mono);font-size:10px;color:var(--amber)}
+.bc-clue{border-left:2px solid var(--amber);background:rgba(239,162,27,.1);border-radius:0 5px 5px 0;padding:11px 13px;margin-bottom:8px;animation:cin .45s cubic-bezier(.2,.7,.3,1)}
+@keyframes cin{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.bc-clue .l{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:4px}
+.bc-clue p{font-size:12px;line-height:1.55;color:rgba(242,239,230,.72);margin:0}
+.bc-opts{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.bc-o{font-size:11.5px;padding:6px 10px;border:1px solid rgba(242,239,230,.2);border-radius:100px;color:rgba(242,239,230,.62)}
+.bc-o.out{text-decoration:line-through;opacity:.38;border-style:dashed}
+.bc-o.ans{border-color:var(--amber);color:var(--amber);font-weight:700;opacity:1;text-decoration:none;border-style:solid}
+
+/* numbers */
+.nums{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border-top:2px solid var(--ink);border-bottom:1px solid var(--rule)}
+.nm{padding:32px 24px 28px;background:var(--paper)}
+.nm b{display:block;font-size:clamp(34px,4vw,50px);font-weight:800;letter-spacing:-.05em;line-height:.92}
+.nm span{display:block;margin-top:11px;font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);line-height:1.5}
+
+/* pricing */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tier{border:1px solid var(--rule);border-radius:8px;padding:28px 24px;background:#fff;display:flex;flex-direction:column;position:relative}
+.tier.pop{border-color:var(--teal);box-shadow:0 26px 54px -44px rgba(14,124,120,.6)}
+.badge{position:absolute;top:-10px;left:24px;background:var(--coral);color:#fff;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:2px}
+.tn{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);margin-bottom:12px}
+.tp{font-size:48px;font-weight:800;letter-spacing:-.05em;line-height:1}
+.tp span{font-family:var(--mono);font-size:11px;font-weight:400;color:var(--ink-3);letter-spacing:0;margin-left:5px}
+.td{font-size:13.5px;color:var(--ink-2);margin:9px 0 18px;line-height:1.5;padding-bottom:16px;border-bottom:1px solid var(--rule)}
+.tier ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:22px}
+.tier li{font-size:13.5px;color:var(--ink-2);padding-left:16px;position:relative;line-height:1.45}
+.tier li::before{content:'';position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--teal)}
+.tier .btn{margin-top:auto;width:100%}
+.anchor{background:var(--teal-soft);border:1px solid #BFDCD6;border-radius:6px;padding:17px 22px;margin-top:14px;font-size:14.5px;color:var(--ink-2);line-height:1.55}
+.anchor b{color:var(--ink)}
+
+/* footer */
+.foot{border-top:1px solid var(--rule);padding:40px 0 50px}
+.fin{display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;align-items:flex-start}
+.foot p{font-size:12px;color:var(--ink-3);max-width:500px;line-height:1.7;margin-top:12px}
+.flinks{display:flex;gap:18px;font-size:13px;color:var(--ink-2);flex-wrap:wrap}
+.flinks a:hover{color:var(--teal)}
+
+/* reveals */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .85s cubic-bezier(.2,.7,.3,1),transform .85s cubic-bezier(.2,.7,.3,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1!important;transform:none!important}.mq{animation:none}.rot-w{opacity:1!important;filter:none!important;transform:none!important;position:static!important}}
+
+@media (max-width:1080px){
+  .hero-in{grid-template-columns:1fr;gap:40px}
+  .thesis,.ggrid{grid-template-columns:1fr;gap:36px}
+  .panels{grid-template-columns:1fr}
+  .nums{grid-template-columns:1fr 1fr}
+  .tiers{grid-template-columns:1fr}
+}
+@media (max-width:680px){
+  .wrap{padding:0 20px}.nav-in{padding:0 20px;height:62px}
+  .nav-links a:not(.nav-cta){display:none}
+  .hero{padding:44px 0 36px}
+  .hero-stats{gap:22px;flex-wrap:wrap}
+  .sec{padding:56px 0}
+  .nums{grid-template-columns:1fr}
+  .tp{font-size:40px}
+  h1{font-size:clamp(34px,9vw,46px)}
+}
+
+/* ---------- pricing-specific ---------- */
+.anchor{background:var(--teal-soft);border:1px solid #BFDCD6;border-radius:6px;padding:17px 22px;font-size:14.5px;color:var(--ink-2);line-height:1.55}
+.anchor b{color:var(--ink)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.step{background:#fff;border:1px solid var(--rule);border-radius:8px;padding:22px 20px}
+.step .sn{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-2);margin-bottom:11px;font-weight:700}
+.step h3{font-size:18px;font-weight:700;letter-spacing:-.02em;margin-bottom:8px;line-height:1.2}
+.step p{font-size:13.5px;color:var(--ink-2);line-height:1.6;margin-bottom:14px}
+.step p b{color:var(--ink)}
+.stag{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;font-weight:700;background:var(--teal-soft);color:var(--teal-2);padding:4px 8px;border-radius:3px}
+.stag.amber{background:var(--amber-soft);color:var(--amber-2)}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--rule);border-radius:8px;overflow:hidden;font-size:13.5px}
+th,td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:middle}
+thead th{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:700;background:var(--paper-2)}
+thead th.c,td.c{text-align:center;font-weight:600}
+thead th.hl{color:var(--teal-2)}
+tbody tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink-2)}
+td.c.yes{color:var(--teal-2)}
+td.c.no{color:var(--ink-3);font-weight:400}
+.plain{background:#fff;border:1px solid var(--rule);border-radius:8px;padding:24px 26px}
+.plain ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.plain li{font-size:14.5px;color:var(--ink-2);line-height:1.6;padding-left:19px;position:relative}
+.plain li::before{content:'';position:absolute;left:0;top:8px;width:7px;height:7px;border-radius:50%;background:var(--coral)}
+.plain b{color:var(--ink)}
+.tier .td b{color:var(--ink)}
+@media(max-width:1080px){.steps{grid-template-columns:1fr}}
+</style>
+</head><body>
+
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="index.html"><img class="mark" src="data:image/png;base64,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" alt="">Medchanic<em>MD</em></a>
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#how">How it works</a>
+    <a href="login.html">Log in</a>
+    <a class="nav-cta" href="signup.html">Start free</a>
+  </nav>
+</div></header>
+
+<section class="hero" style="padding:64px 0 30px"><div class="wrap">
+  <div class="kicker"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10h3l2-5 4 10 2-5h3"/></svg><span>Pricing</span></div>
+  <h1 style="font-size:clamp(38px,4.6vw,62px)">A <em>module.</em> A term.<br>A year.</h1>
+  <p class="sub" style="max-width:620px">Buy the length of access you actually need. Every plan includes the whole bank, every explanation and every wrong answer accounted for. One payment, and nothing renews on its own.</p>
+  <div class="anchor rv" style="max-width:720px;margin-top:28px">Most exam-prep platforms charge <b>$400&ndash;$600</b> a year. Medchanic is <b>$99</b> &mdash; and every one of its distractors is explained.</div>
+</div></section>
+
+<section class="sec" style="padding-top:26px"><div class="wrap">
+  <div class="shead rv"><span class="snum">01</span><h2>Then pick the size of the job.</h2><span class="rule"></span></div>
+  <p class="ssub rv">One payment each. Access ends when the period does. There is no renewal and no card on file.</p>
+
+  <div class="tiers">
+    <div class="tier rv">
+      <div class="tn">Monthly</div>
+      <div class="tp">$15<span>/month</span></div>
+      <div class="td"><b>For a module exam, or a run of them.</b> Thirty days of unlimited access across the whole bank, not just the one system.</div>
       <ul>
-        <li>The price you pay is the price for that whole period. It does not change once you have bought it.</li>
-        <li>Every plan is a one-time pass. Nothing auto-renews and no card is charged again.</li>
-        <li>Refunds: 48 hours on Monthly, 7 days on longer plans, provided the content has not been put to substantial use.</li>
-        <li>Every new account can start 7 days free with no card. If we are not right for you, nothing happens.</li>
+        <li>Unlimited cases and blocks</li>
+        <li>Every distractor explained</li>
+        <li>Performance tracking, notebook, highlights, AI tutor</li>
       </ul>
+      <a class="btn btn-line" href="signup.html">Start 7 days free</a>
     </div>
 
-    <div class="section" data-reveal>
-      <h2>Educational use only</h2>
-      <p>Medchanic.md is an independent educational resource for exam preparation. It does not provide medical advice, diagnosis, treatment, or patient care services. Medchanic.md is not affiliated with, endorsed by, or sponsored by any examination organization, licensing body, or commercial question bank.</p>
+    <div class="tier pop rv">
+      <span class="badge">Most popular</span>
+      <div class="tn">Prep period</div>
+      <div class="tp">$54<span>/6 months</span></div>
+      <div class="td"><b>For a full term.</b> When module exams and licensing prep are running at the same time.</div>
+      <ul>
+        <li>Everything in Monthly</li>
+        <li>180 days of access</li>
+        <li>40% less per month than paying monthly</li>
+        <li>Every system added during those months</li>
+      </ul>
+      <a class="btn btn-teal" href="signup.html">Start 7 days free</a>
     </div>
 
-    <div class="links">
-      <a href="login.html">Log in</a> &middot;
-      <a href="signup.html">Sign up</a> &middot;
-      <a href="terms.html">Terms</a> &middot;
-      <a href="privacy.html">Privacy</a> &middot;
-      <a href="refund-policy.html">Refund Policy</a> &middot;
-      <a href="index.html">Home</a>
+    <div class="tier rv">
+      <div class="tn">Annual</div>
+      <div class="tp">$99<span>/year</span></div>
+      <div class="td"><b>For a full year.</b> Coursework now, the licensing exam when you get there.</div>
+      <ul>
+        <li>Everything in Prep period</li>
+        <li>365 days of access</li>
+        <li>Future systems included as they launch</li>
+        <li>Nothing auto-renews</li>
+      </ul>
+      <a class="btn btn-line" href="signup.html">Start 7 days free</a>
     </div>
   </div>
-  <script>
-    /* === MEDCHANIC MOTION (inlined by build) === */
-/* ============================================================
-   MEDCHANIC.MD — motion layer
-   Dependency-free, GPU-friendly, and accessibility-aware.
+</div></section>
 
-   Injected inline into the public pages by
-   compliance/apply_site_changes.py, so it never depends on a
-   server path (the Appwrite host serves index.html for every
-   route, which would break an external <script src>).
+<section class="sec" style="padding-top:0"><div class="wrap">
+  <div class="shead rv"><span class="snum">02</span><h2>Start free &mdash; no card, ever.</h2><span class="rule"></span></div>
+  <p class="ssub rv">Three steps, and you can stop at any of them.</p>
 
-   Usage
-   -----
-     <span data-count="2000" data-format="comma">2,000</span>   counter
-     <div data-reveal>                                          fade up
-     <div data-reveal="left">                                   fade in from left
-     <div data-reveal="right">                                  fade in from right
-     <div data-reveal="scale">                                  scale in
-     <div data-draw>                                            rule draws in
-     data-reveal-delay="120"                                    stagger, in ms
-     data-duration="1600"                                       counter duration
+  <div class="steps">
+    <div class="step rv">
+      <div class="sn">Step 01 · Day one</div>
+      <h3>Your first block is on us.</h3>
+      <p><b>Forty questions in the exam interface,</b> with the block clock running. When you finish you get the full review: your score, every explanation, and why each of the four wrong answers is wrong.</p>
+      <span class="stag">No card</span>
+    </div>
+    <div class="step rv">
+      <div class="sn">Step 02 · Every day after</div>
+      <h3>10 questions a day, forever.</h3>
+      <p>Ten more questions every day, with the same full explanations. It does not expire and there is nothing to cancel. Come back whenever you like.</p>
+      <span class="stag">No card</span>
+    </div>
+    <div class="step rv">
+      <div class="sn">Step 03 · When you want more</div>
+      <h3>7 days of everything.</h3>
+      <p>Unlimited questions, plus the analytics that show you where you are weak and a countdown to your exam date. It lasts seven days, or 150 questions if you get there first. You start it whenever you are ready.</p>
+      <span class="stag amber">No card</span>
+    </div>
+  </div>
+</div></section>
 
-   Everything is transform/opacity only, runs once, and is
-   disabled outright when the visitor prefers reduced motion.
-   ============================================================ */
-(function () {
-  'use strict';
+<section class="sec tint"><div class="wrap">
+  <div class="shead rv"><span class="snum">03</span><h2>What you get on each.</h2><span class="rule"></span></div>
+  <p class="ssub rv">No hidden tiers. If it is not on this table, it does not exist.</p>
+  <div class="tablewrap rv">
+    <table>
+      <thead><tr><th>&nbsp;</th><th class="c">Free</th><th class="c hl">7-day trial</th><th class="c">Paid</th></tr></thead>
+      <tbody>
+        <tr><td>First day</td><td class="c">40 questions</td><td class="c">Unlimited</td><td class="c">Unlimited</td></tr>
+        <tr><td>After that</td><td class="c">10 a day, forever</td><td class="c">Unlimited</td><td class="c">Unlimited</td></tr>
+        <tr><td>Full explanation on every item</td><td class="c yes">Yes</td><td class="c yes">Yes</td><td class="c yes">Yes</td></tr>
+        <tr><td>All four distractors broken down</td><td class="c yes">Yes</td><td class="c yes">Yes</td><td class="c yes">Yes</td></tr>
+        <tr><td>Exam-style blocks and block clock</td><td class="c yes">Yes</td><td class="c yes">Yes</td><td class="c yes">Yes</td></tr>
+        <tr><td>Performance analytics and systems radar</td><td class="c no">&mdash;</td><td class="c yes">Yes</td><td class="c yes">Yes</td></tr>
+        <tr><td>Weakest-topic tracking</td><td class="c no">&mdash;</td><td class="c yes">Yes</td><td class="c yes">Yes</td></tr>
+        <tr><td>Exam-date planner and countdown</td><td class="c no">&mdash;</td><td class="c yes">Yes</td><td class="c yes">Yes</td></tr>
+        <tr><td>Custom blocks by system or topic</td><td class="c no">&mdash;</td><td class="c yes">Yes</td><td class="c yes">Yes</td></tr>
+        <tr><td>Full flashcard deck with spaced repetition</td><td class="c no">Answered only</td><td class="c yes">Yes</td><td class="c yes">Yes</td></tr>
+        <tr><td>Credit card required</td><td class="c no">No</td><td class="c no">No</td><td class="c">At purchase</td></tr>
+        <tr><td>Auto-renews</td><td class="c no">Never</td><td class="c no">Never</td><td class="c no">Never</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div></section>
 
-  var motion = {
-    reduced: false,
-    booted: false
-  };
+<section class="sec"><div class="wrap">
+  <div class="shead rv"><span class="snum">04</span><h2>Stated plainly.</h2><span class="rule"></span></div>
+  <div class="plain rv">
+    <ul>
+      <li><b>Every plan is a one-time pass.</b> Nothing auto-renews, no card is kept on file, and you are never charged again.</li>
+      <li><b>The free tier does not expire.</b> Your 10 a day stay available forever, and your notebook, deck and history are never deleted.</li>
+      <li><b>The trial starts when you ask for it.</b> Not the day you create an account.</li>
+      <li><b>The price you pay is the price for that whole period.</b> It does not change once you have bought it.</li>
+      <li><b>Refunds:</b> 48 hours on Monthly, 7 days on longer plans, provided the content has not been put to substantial use.</li>
+    </ul>
+  </div>
+</div></section>
 
-  /* counters that have been snapped to their final value — their rAF loop
-     must stop, otherwise the next frame overwrites the final figure */
-  var cancelled = (typeof WeakSet !== 'undefined') ? new WeakSet() : null;
+<footer class="foot"><div class="wrap fin">
+  <div><a class="brand" href="index.html"><img class="mark" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAQiElEQVR42s1aeXRUVZr/vnvfUu9VVfaNJSIQAwKKCwhugGyCYDuySVDBdpmxe7S76T7S47G1T2t7uvvMODO22scZbaQRJAjGDUhEGFAUCDiKrGENS0ASyFapelVvufebP14lJBjATiHOO3VyUqfee/f77r3f9/t+v+9iw+kauEgXEREAQzzPPZIIAfC89/xdF7tYL5JECmeGqtJ5PAQwVFXhXBL9/3JAEhmq0hCPP71mLRF1OsGISCR/8/HaessyVEVcJB/YxZl7xgjgwXfe/3B3la4o1JlxRKRxZeWevfctK/Ok1C/SOrCLYj1n7IHl762r2pcfDgspz3NzXji0cf+BH5e9j4gKY6n7wFK0njOmcPZg2fvLd+wygqYrxPkfcV3XMMyy7TtnL3uHs4vgA0sl53DEgKI8XPb+sq935ARN70LW+7HgCZFjBt/9eueDy9/TFYUjUgo+dNEBAkDEoKbNLf+odNuOrKDpSQkEQATnz5AIgOBJmRUKLdu+c+7K8qCuISJdageIAqoyr2L1qxs3J61PWvddLgQAjygrFHx105YnylcHzhH335cDBMAZi9rOyqp9hqaf2cQI8F0QigiIAEgSGbq+qmpf1HE4Y3SJYwABTFWVJDvx73yPob+LWtOANDXth8xC35pboHN7QEREBIjAGCACARD8cFnI/9NueAJQOdc49zqDAk9KTeEKdrJV8IdagfZzTQAq43Ux63hLNDcYJIK2YkEQEUBuMHgsEjllxVTGkr8gAEKKZV1KMdA+ZIlIU/jxpqbx8xe+vLlSV3iargkpPSnTdE1j7KVNleP/urCmOaJxTn7OTebjlBxQUnkY8Vs+cKWuJfr4ByvLdu15+raRIy7vBQjrqw8/u3b9p9WHTVXVuEJn5VwC+kEckERCyrOqfwmkKjxLNT89dPiOw0ceHjZUSPnGF1+6UmaZpiAiIdvnIIYgpEgFibvoABEFFCXNMBJ1pw1VbZ9JiMgjSjMCUsqXN1UCQLquG4wlIxvP7HqGLJHw0gwjoCpCXkIgw9Yy7pUfTbo8OyuWsDkiSIJ2RggpCSDTMDINgwDOlKit1nPEmG33yEh/+c5JHJnP1C5dEDPEuOddlZ+/tGR6etCMuy5nnbxKSNlpdc0ZS7huKKAvnjltcEF+3HVZV0lm17MQR2yMx68tyC+dOd3UtITncobfJR45gO26hq6/PeuemwsLG+LxTp2/FDigMNYYT4zsddnbJTMMVbWFUBXOGTvnB5nKmCOlynnpzOmjevdqiMcVlpINmLoq4UqZY5prDh6avrg0YsWRIbVBBLVDOwIEIoCAri+cMXX6wCvropbKU6WEeOrUMUqtGuGIgijbND/YU/Xmtu1BTRWSzuCD/3IEIGCIUccpGXzV9IEDTluW/2BqQITotZzirOtJABFabMcRAgCCmsYRpJTK2fU9AhAiekIwZJIo6jgAoHEe1rWuueALUEJKZf6XXzXGLMbZmXRBbfiIHUC3Ax9L/uZJunvglX0zM5ttO2Y7XOGP/+yX27Z9bQZNKWVr2kTGWDQaGzr0uhf/8wXHcQggrGuHm5rLNu3iyM6M6Rco/qolR8E2sG5DEAJQGLM9Ny8UUjwpf13xMRApqipJos9Q/T2APvkAQESGPgnxv/pbAoGE7SzZvuO9+2f1CIWa4vGsrIzhNwxZtKg0PS0k2lFkznlzJPrLXzwWMs26eCLdCNTFrJKly7cdPsp1jah1utr+AiXr7Q6rCEASEBmi5zhcVV+fPgUp3vD29p0/Xv5u3HEY44IkSxoORICtKpUEAgIGZ+gIETHELMNosKwB3Qo+nD0rxzAcgmhz89jxk06frldVtW10x3G6dStYs3plwDQ1xurj8SmLS7ed+CYnGKyPWUIKROYDZHusSZLsJJEABkQAjDHheemm+fZ9M8cXFymnWqLTBl7JEFft2RvUtYCi1FsWEegKzzKMuOc1xeOcsWzDQMR6yxKSEEFICutaU8Iu3b4jwzB2f3PyniXL3ruvJKxp6RkZ3bt3r6k5oWmaZVkAYJqmbdsFBfnBcFgharLtqYtLv6o5kRUK1sdidw+4sls41GTbHDEpCWCblJecqYyAHlDV+pilcMYZE0JM6N9vTN/ep1qiisJYQzxxZ7/iaYMGnI7FIgmbMebLgwyRWmkXRwQEKc/kRSll3+ysq7t3m7eiPDctvPXY8elvLS2dOS0rFEIEREgkEr17Xy6lPHr0GGMoCVTOvmmOzCpd9tXRmpy0cF1T8+/vuP2pUbcebGhk30IDbE/B0Y8E8KTMDASygmbCcRrjCYUxxTeuOWGHpPzsyNGS0uUBRVE4l1L6kYutJRqcCSpgiJbrjuh1WdnsWYLkkysq8jLSPztY/diHq5bdV8I4j1mJsWOGLXlroRBiZsns9Z98pihc5fwXK8orDx/JS0ura27+/aTb5424ZeKCRRsOHzFVTZLskCsQW+k/ACWTWEKIpbPuGdOnd8xxfQxJVqMqZ5bnTe5X/Mpdd/5T2Xt+mHdgq2ftTgkIVL59548WLKp4aI4nxNMfrTWNQE1TsycpEY8Pvnrg4kULdF1DZAv/9vq48ZOdhC2ITkYiRsCoi0afnTD+yZEjJi14s2LHLt0wmlzrbHbTFrUArSkY/2va3ROvKIrYdhsCKu3xqCluP3jdYI7wwobPgUgSELTDh1YeyAARwS8KPt67f/KCRaseuC9iO/+6Zp3RTWUMPU+kp6fl5uY0NjUhYGFhz5zsLMM0NE3TGYtHo09NGPebMaMmLVhUUbVvYGFPBcGTEgE7ghH6nN8fUeX8Z7feNOfaa3wE7JwPcIb1VnzmVYPuurKf7QlTVf1lbJsXBGSIMccRJAtC4bmrKvaebiiv2jd54VsfzJ61u7buSGMjEIXD4bVr18+dO+/553/nee7jj8/9fNOWGTOmIEBjPD7hqoG/HXvbpDferNi7T9f1UUV9Xpo88WRLVGHM1FQ6GwIRACzXMRRV47y+o/WdEBqGGLFtU1VPxqMPvPMuImuNBwACBaE2GnvspuH3Dr3+2fLVf9lUaSpqWNPKq/bdPn9hTXNzUFGkJCmlYej//dpfZ8+e5brea6+/EdA1KYSUUlfVAw2NE+YvXH+oOsswBNFrW77INozfTRxf+r9fvbixMi9oelIAASIigJDSFuLFyRN7Z2ZGbPvblZ/SaY2Z8LzLMjJG9+0z78NVwBggQ0SGIKKxKUOvv3NA/+fKV/+24uOQYbhAjueGNHXdwUPC9Yb1KkyiJqKqqq7rEZFhGImEnURQzg8c/6a6oTGkaXHXQ0SN82crPkaAX428ddn2nWVffMkNQxIRAggBnvfc5Im9MjJsz+u0blXOxVcSrvvELTcZqvbHdZ8wxLgQluPcM+KW+TOmvlG55Znyj7LCYc3XlgEAIdMwoo4T1LQzlSiRj+uyHacJa1p2OBTSVNcTSeRlmBUI/HHdJ93Twu/MufehQKB029emphmqKoieGj3qpzfe0BC1ztVWU85T6DVY8Yevv3ZycZEjRMS2AaA4JztiWTdeVrj1548hoqmqGm8TqpCAFMRO2a2vX0hJr025yyNiHQVIzljcdQEgYln/MXnio8OGAGC6rmsqLwiF6qOx8/A15fzFasxxsk0TEQsRASDheURez/R0n3xJIiKSPtjRhYVdnyW3iekMkWGyUvNX0vY8QByUn5+Uw4hizgXYpnJB7us3XdqGRERHCPL8jQOCyFTVNF2XRJIoatvn1Hf98ooopOu+6THHtVzXzypusrr3c47bBqAX5MrKdyENZ8mXbY1eSZRlGNtra9/ducdynf55uROLr8jUNDr3qyzXfWf3nj11p9INY8qA/v1zc5sTibOs/LsIftcZnSRKD+gvVW6Z8dbSmkjkzxs3P7J0+Z5TpwKK0k5ro/b3q1w53NT0yNtlf964+Uhz89RFpX/ZXJkeCMhL32ISRGFdW3Oweu6Kcg9wy/ETruvOGjpkeGHPmOOwdi0AbDevtuteU1Dw05uHe663+fDRhJQ/X1FesX9/WNe7zC27qMz5Zv1pw+fX9+yxZMbUZTt3Zd94w/RBA4Ukxjvc2EH5RHCE+NPE26/v2eNoU3PJNVf/Y9n7f1i/YVxR3y7vhK44kGwxOc6B0/U/GTbkiry8ebdmMMRIwvak1BUFEDsNZD/oSYg5114DAFxT7+hf/NLGypjtsK7y8q6Ku0QcGQeot+Ig5cmWqMY5Z4yIpE/iEAGRqDW/IgKipGSTpt6K28IrzMiI2o4C4D94SbVRT8qwro8t6jN/yxeHGhp6ZmaEdN1UVf+DQoDrgusGFG4oCrgueiIeiWiIQU0zVTWka4WZGUeaml7duHlU395hXfekxEsZAz6hefK2kav3H7j51deeGzv6mu7dGCIRaZrmpoV5fh5n/FCkRUjJcnMVkhFV3XnypOd6iChIfn3im2fWrAtq2jNjRlmO02VttOvKnCQyVfVQY+OvVn20et9+QPQBGYmAMV8L4IyRkEJ4gO0sRPSlk3HFRf8+aULfrMwLwu33JS36p2wYYtXp+tqWKCWjkEjVgDMAiEajCBAMhnwSja7bVuR1T0+7Ijtbkoy7Hkvh/FNKLSaOGHNcQ1UG5OVGEoma5ghnjBDV6sMYi3lE48aOBoA1a9YpiG4w6PXophB4RIXpaf1yclwhLNdVu9rivmgrcKw5cv+SZVuPHssOhxEBdC26uNQ9cEgAbNiwRko5cuR4DqD3KwreM0PaNjHW0BIdUtjj9elTirOyrBSaAymtgI8GluvOeHNJQzy+9iePDMzLFVLqmlby+cbK2lrOua6qQsrMjDTXde+4+qrXn5gbaWlRON9+svahZWUli0s/ffQRlTHRVWU2tVpIynRdX7pj1/aTtWVz7h1d1EfjPKiqQU0FIiGEEIKIzvwPZKpaUFU1zscVF5XNubeqtm7hV9vSdF2e+4zU99zoRvz0YPWQwp6DCwpOtUQJwCNyO5Rm7Zp/kjwSHhEBnGqJDi7Iv6HXZesPVtN3PCLyvTjgSxbfYnvtPOj8IJAvdCQ7S6kdOkv1qMEtvS/feqxm28na3FDIz0scEUj6ohpLfk0KbK2/Ql4wuK++YWvN8RF9emNHjy+dA4yxiG2XDB40qCB/2ptvfVpdTUS25znCY4qqaJqiaZ6UrpRc09RAIGZZsYTtCMEQNh49+g9/W9w7M3POtYMjts1SaJNdhDR6tDly/9LlXxw/UZCW5qsM9acbXDsBgLn5eSTl6bo6IOKanpObQ0QaYzWNjdf16D5/+tTi7FTTaKpNPklkKIor5ZpD1bvq6hgiECl6ADknIh+JQ+EQEZEQbsJGBE/SgLzcCcVFGuMpWn9xupSSiCNmhEO1Tc11sRhDhpFmtG1JUHRFXwDYv/8AA4SADhkZQoi8YDA/M6Mp0uIR8ZQPUSuQ8oWIKudPrCh/YcPnCjLUNW1VOd9/wJJy/f9UCEmjx04MMib693Mm3E4J25PiiRG3PDNmFHki9dFTdUBImWkYr1Ru/bd1n/zhjgnj+vZRjcCTu3d/su+AqesK4wjS1DTPE6MKez7/6CPCTqw5cOjXH67slhZ+fPiwxtTa9BfBAUQEhA+q9t5c1PdfRo+y4nHTNFWis+iJJBkOBAb36B6LRK7rddkHVfuW79z9z8NvSP0c/v8BEqLEy2Wc5MAAAAAASUVORK5CYII=" alt="">Medchanic<em>MD</em></a>
+    <p>An independent educational resource for medical students. Not medical advice, and not affiliated with, endorsed by or sponsored by any examination organisation, licensing body or commercial question bank.</p></div>
+  <div class="flinks"><a href="index.html">Home</a><a href="index.html#how">How it works</a><a href="login.html">Log in</a><a href="signup.html">Sign up</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="refund-policy.html">Refund policy</a><a href="mailto:medchanicmd@gmail.com">Contact</a></div>
+</div></footer>
 
-  try {
-    motion.reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  } catch (e) { /* older browsers: animate anyway */ }
-
-  /* ---------------------------------------------------------- easing */
-  function easeOutExpo(t) {
-    return t >= 1 ? 1 : 1 - Math.pow(2, -10 * t);
-  }
-
-  /* ---------------------------------------------------------- formatting */
-  function format(n, mode) {
-    n = Math.round(n);
-    if (mode === 'comma') return n.toLocaleString('en-US');
-    return String(n);
-  }
-
-  /* ---------------------------------------------------------- counters */
-  function runCounter(el) {
-    var raw = el.getAttribute('data-count');
-    if (raw === null) return;
-    var target = parseFloat(raw);
-    if (isNaN(target)) return;
-    var mode = el.getAttribute('data-format') || 'plain';
-    var dur = parseFloat(el.getAttribute('data-duration') || 1500);
-    var delay = parseFloat(el.getAttribute('data-delay') || 0);
-
-    if (motion.reduced) {
-      el.textContent = format(target, mode);
-      return;
-    }
-
-    setTimeout(function () {
-      var start = null;
-      function step(ts) {
-        if (cancelled && cancelled.has(el)) return;
-        if (start === null) start = ts;
-        var p = dur <= 0 ? 1 : Math.min(1, (ts - start) / dur);
-        el.textContent = format(target * easeOutExpo(p), mode);
-        if (p < 1) {
-          requestAnimationFrame(step);
-        } else {
-          el.textContent = format(target, mode);
-        }
-      }
-      requestAnimationFrame(step);
-    }, delay);
-  }
-
-  /* ---------------------------------------------------------- reveals */
-  function revealAll() {
-    var els = document.querySelectorAll('[data-reveal], [data-draw]');
-    for (var i = 0; i < els.length; i++) {
-      els[i].classList.add('is-in');
-    }
-  }
-
-  /* Give each child of [data-stagger] its own reveal delay, so a group
-     (hero copy, stat row, plan cards) cascades instead of popping at once. */
-  function applyStaggers() {
-    var groups = document.querySelectorAll('[data-stagger]');
-    for (var g = 0; g < groups.length; g++) {
-      var group = groups[g];
-      var step = parseFloat(group.getAttribute('data-stagger')) || 80;
-      var kids = group.children;
-      for (var i = 0; i < kids.length; i++) {
-        var k = kids[i];
-        if (!k.hasAttribute('data-reveal') && !k.hasAttribute('data-draw')) {
-          k.setAttribute('data-reveal', '');
-        }
-        if (!k.hasAttribute('data-reveal-delay')) {
-          k.setAttribute('data-reveal-delay', String(i * step));
-        }
-      }
-    }
-  }
-
-  function init() {
-    applyStaggers();
-
-    if (!('IntersectionObserver' in window)) {
-      revealAll();
-      runCountersIn(document);
-      motion.booted = true;
-      return;
-    }
-
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        var el = entry.target;
-        io.unobserve(el);
-        var delay = parseFloat(el.getAttribute('data-reveal-delay'));
-        if (!isNaN(delay) && delay > 0) {
-          el.style.transitionDelay = delay + 'ms';
-        }
-        el.classList.add('is-in');
-        if (el.hasAttribute('data-count')) runCounter(el);
-        var inner = el.querySelectorAll('[data-count]');
-        for (var i = 0; i < inner.length; i++) runCounter(inner[i]);
-      });
-    }, { threshold: 0.25, rootMargin: '0px 0px -8% 0px' });
-
-    var targets = document.querySelectorAll('[data-reveal], [data-draw], [data-count]');
-    for (var i = 0; i < targets.length; i++) io.observe(targets[i]);
-
-    motion.booted = true;
-
-    /* Safety net. If the motion layer ever failed to initialise, drop the
-       .js class so the reveal CSS stops hiding content entirely — the page
-       becomes fully visible instead of half-blank. This must NOT run on the
-       happy path, or below-the-fold content would appear before you scroll
-       to it and the scroll reveals would never be seen. */
-    setTimeout(function () {
-      if (!motion.booted) document.documentElement.classList.remove('js');
-    }, 1800);
-  }
-
-  function runCountersIn(root) {
-    var els = root.querySelectorAll('[data-count]');
-    for (var i = 0; i < els.length; i++) runCounter(els[i]);
-  }
-
-  /* ---------------------------------------------------------- boot */
-  function boot() {
-    try {
-      init();
-    } catch (e) {
-      revealAll();
-      document.documentElement.classList.remove('js');
-      if (window.console) console.warn('motion: fallback', e);
-    }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot);
-  } else {
-    boot();
-  }
-
-  /* Snap every counter to its final value and reveal everything.
-     Used by the screenshot pipeline so marketing captures never show a
-     half-counted number, and useful for anyone who wants to skip the show. */
-  function finishAll() {
-    var els = document.querySelectorAll('[data-count]');
-    for (var i = 0; i < els.length; i++) {
-      var el = els[i];
-      var target = parseFloat(el.getAttribute('data-count'));
-      if (isNaN(target)) continue;
-      if (cancelled) cancelled.add(el);
-      el.textContent = format(target, el.getAttribute('data-format') || 'plain');
-    }
-    revealAll();
-  }
-
-  /* Expose for debugging / tests / tooling */
-  window.MedchanicMotion = {
-    revealAll: revealAll,
-    runCounter: runCounter,
-    finishAll: finishAll
-  };
+<script>
+(function(){
+  var els=[].slice.call(document.querySelectorAll('.rv'));
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      var sibs=[].slice.call(e.target.parentNode.children).filter(function(x){return x.classList.contains('rv')});
+      e.target.style.transitionDelay=(Math.min(Math.max(0,sibs.indexOf(e.target)),4)*110)+'ms';
+      e.target.classList.add('in'); io.unobserve(e.target);
+    });
+  },{threshold:.12});
+  els.forEach(function(e){io.observe(e)});
+  setTimeout(function(){els.forEach(function(e){if(getComputedStyle(e).opacity==='0')e.classList.add('in')})},3600);
 })();
-
-  </script>
-</body>
-</html>
+</script>
+</body></html>
