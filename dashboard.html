@@ -3174,6 +3174,7 @@ function buildBlockReport() {
 }
 
 function renderBlockSummary() {
+  const _rv = $('reviewEndBtn'); if (_rv) _rv.style.display = 'none';   // never on the summary
   if (!activeBlock) return; clearInterval(timerInterval); current = -1; closeSide();
   $('itemCounter').textContent = 'Block Summary'; $('navBlockTitle').textContent = activeBlock.title || 'Block';
   $('timer').textContent = '--:--'; $('timer').className = 'v'; $('itemTimer').textContent = '--:--';
@@ -3711,6 +3712,7 @@ Object.assign(window, {
   renderCreateScreen, toggleTag, toggleSelectAll, toggleTopic, toggleSystem, toggleExpand, toggleExpandAll, setQuestionStatus, updateQCount, generateTest, startMarkedBlock, startAreaDrill, startWeakestDrill, resumeLatestSuspended,
   openTest, reviewTest, resumeTest, goToItem, nextItem, prevItem, finishBlock, confirmEnd, closeEnd, renderBlockSummary, suspendBlock, exitBlockToDashboard,
   toggleLabs, toggleAI, showSide, closeSide, filterLabs, toggleFlag, toggleMode, selectChoice, toggleStrike, openIssueModal, closeIssueModal, sendIssueReport, toggleNotebookCurrent, removeNotebook, reviewNotebookQuestion,
+  endReview,
   renderTestsList, renderNotebook, renderDashboard, toggleRows, openExamDateModal, closeExamDateModal, saveExamDate: saveExamDateFromModal, clearExamDate,
   generateAISummary, askAIQuestion, askSuggestedAI,
   openAdmin, closeAdmin, selectCorrect, adminSaveQuestion, adminDeleteQuestion,
