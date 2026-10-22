@@ -1010,6 +1010,125 @@ h1, h2, h3, h4, .page-title, .card-h h3, .sec h2 { font-family: var(--disp); }
 #screen-block .report-card .rp-actions-head,
 #screen-block .report-card .rp-badge { font-family: var(--mono) !important; }
 
+/* ============================================================
+   DEMO PARITY — Create test, Analyst and Block summary now use
+   the exact values from the approved product demo.
+   ============================================================ */
+
+/* ---------- 1. CREATE TEST ---------- */
+/* subject chips become pills, teal when selected (demo: .ct-sys span) */
+.tag-grid .tag, .tag {
+  font-family: var(--display);
+  font-size: 13px; font-weight: 500;
+  padding: 8px 14px;
+  border: 1px solid var(--rule);
+  border-radius: 100px;
+  background: var(--card);
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: background .14s, border-color .14s, color .14s;
+}
+.tag-grid .tag:hover, .tag:hover { border-color: var(--ink); color: var(--ink); }
+.tag.selected, .tag-grid .tag.selected {
+  background: var(--teal); border-color: var(--teal); color: #fff; font-weight: 600;
+}
+/* bigger counts inside a chip */
+.tag .n, .tag span { font-variant-numeric: tabular-nums; }
+
+/* question-pool segmented control: teal active, like the demo */
+.status-filter { border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; background: var(--card); display: inline-flex; }
+.status-pill { font-family: var(--display); font-size: 13px; font-weight: 500; padding: 9px 16px; }
+.status-pill.selected { background: var(--teal); color: #fff; font-weight: 600; }
+
+/* the live count becomes the demo's side panel */
+.qcount-row {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 18px 20px;
+  gap: 14px;
+}
+.qcount-display {
+  font-family: var(--display);
+  font-size: 40px; font-weight: 800;
+  letter-spacing: -.05em; line-height: 1;
+  min-width: 0; text-align: left;
+  font-variant-numeric: tabular-nums;
+}
+.qcount-available { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-top: 7px; }
+
+/* primary action: teal, like the demo */
+#screen-create .btn-ink {
+  background: var(--teal); color: #fff; border: 1px solid var(--teal);
+  font-weight: 600; border-radius: 4px;
+}
+#screen-create .btn-ink:hover { background: var(--teal-2); border-color: var(--teal-2); }
+#screen-create .btn-ghost { background: transparent; border-color: var(--rule); color: var(--ink); }
+
+/* section labels match the demo's mono heading */
+.ct-label, .ct-section-head h3, .ct-section-head .ct-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--ink-3); font-weight: 700;
+}
+.sys-name { font-family: var(--display); font-size: 13.5px; }
+.sys-grid { gap: 2px 22px; }
+.sys { border-bottom: 1px solid var(--rule-2); }
+
+/* ---------- 2. THE ANALYST (match .an2-* from the demo) ---------- */
+.analyst { border-radius: 8px; background: var(--card); border: 1px solid var(--rule); }
+.analyst::before { height: 3px; background: linear-gradient(90deg, var(--teal), var(--coral), var(--amber)); }
+.an-head { padding: 22px 22px 16px; }
+.an-title { font-family: var(--serif-accent) !important; font-style: italic !important; font-weight: 400 !important;
+            font-size: 27px !important; letter-spacing: -.01em !important; }
+.an-sub { font-size: 12.5px; }
+.an-score-v { font-family: var(--display); font-size: 46px; font-weight: 800; letter-spacing: -.05em;
+              font-variant-numeric: tabular-nums; }
+.an-kpis { border-bottom: 1px solid var(--rule); }
+.an-kpi { padding: 15px 22px; }
+.an-kpi-v { font-family: var(--display); font-size: 26px; font-weight: 800; letter-spacing: -.04em;
+            font-variant-numeric: tabular-nums; }
+.an-kpi-l { font-size: 8px; letter-spacing: .11em; }
+.an-kpi-s { font-size: 11.5px; }
+.an-col { padding: 18px 22px; }
+.an-col-h { font-size: 8.5px; letter-spacing: .12em; }
+.an-row-title { font-size: 12.5px; }
+.an-row-sub { font-size: 10.5px; }
+.an-pct { font-size: 11px; }
+.an-chip { font-size: 11px; padding: 4px 9px; border-radius: 3px; }
+.an-read { border-radius: 0 4px 4px 0; padding: 10px 12px; }
+.an-read-label { font-size: 12px; }
+.an-read-body { font-size: 11.5px; }
+.an-action { padding: 11px 22px; }
+.an-action-title { font-size: 12.5px; }
+.an-action-body { font-size: 11px; }
+.an-btn { font-size: 11px; font-weight: 600; padding: 8px 12px; border-radius: 3px; }
+.an-eyebrow { font-size: 9px; letter-spacing: .13em; }
+.an-plan { padding: 14px 22px; }
+
+/* ---------- 3. BLOCK SUMMARY / REVIEW (match .rp2-* from the demo) ---------- */
+.report-card { border-radius: 8px; }
+.rp-head { padding: 20px 22px 16px; }
+.rp-verdict { font-family: var(--serif-accent) !important; font-style: italic !important;
+              font-weight: 400 !important; font-size: 27px !important; letter-spacing: -.01em !important; }
+.rp-score { font-family: var(--display) !important; font-size: 46px !important; font-weight: 800 !important;
+            letter-spacing: -.05em !important; font-variant-numeric: tabular-nums; }
+.rp-kpi { padding: 14px 22px; }
+.rp-kpi-v { font-family: var(--display) !important; font-size: 24px !important; font-weight: 800 !important;
+            letter-spacing: -.04em !important; font-variant-numeric: tabular-nums; }
+.rp-kpi-l { font-size: 8px; letter-spacing: .11em; }
+.rp-col { padding: 16px 22px; }
+.rp-col-head { font-family: var(--display); font-size: 14px; font-weight: 700; letter-spacing: -.01em; }
+.rp-action { padding: 11px 22px; }
+.rp-action-title { font-size: 12.5px; }
+.rp-action-body { font-size: 11px; }
+.rp-btn { font-size: 11px; font-weight: 600; padding: 8px 12px; border-radius: 3px; }
+.rp-actions-head { padding: 14px 22px 0; font-size: 8.5px; letter-spacing: .12em; }
+
+/* the plain score card above the report follows the same type rules */
+.post-score-title { font-family: var(--display); font-weight: 800; letter-spacing: -.03em; }
+.post-score-pct { font-family: var(--display); font-weight: 800; letter-spacing: -.05em;
+                  font-variant-numeric: tabular-nums; }
+
   /* ============ ADMIN PANEL ============ */
   .admin-overlay {
     position: fixed; inset: 0;
