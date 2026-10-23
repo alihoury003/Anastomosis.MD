@@ -28,6 +28,11 @@ MARKS = [
     ("n-2", "The circuit heart", "N-2", "Medicine's oldest icon drawn as a PCB trace \u2014 pads, vias, 45-degree routing. The heart in the machine's language."),
     ("n-3", "The monitor M", "N-3", "The initial written by a heart monitor \u2014 one continuous trace, the central peak an R-wave spike."),
     ("n-4", "The loop", "N-4", "The stethoscope as an infinity loop \u2014 bell disc and earpiece ring anchoring the learning that never stops."),
+    ("l-1", "The loop — machined", "L-1", "N-4 rebuilt on machined geometry: two perfect arcs, a crisp engineered crossing. Same myth, tighter tolerances."),
+    ("l-2", "The loop — Möbius", "L-2", "One surface, no end: the tube twists at the crossing \u2014 the over-under of a M\u00f6bius band. The loop that cannot finish."),
+    ("l-3", "The loop — orbit", "L-3", "The terminals become foci: one continuous path circling bell and earpiece like an orbit. Two anchors, one path."),
+    ("l-4", "The loop — pulse", "L-4", "The learning loop carrying the pulse: one cardiac spike rides the apex of the left loop."),
+    ("l-5", "The loop — interlock", "L-5", "Two inks, two identities: teal loop and coral loop woven over and under at the centre. Med and Mechanic, one form."),
 ]
 
 src = open(STYLE_SRC).read()
