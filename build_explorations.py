@@ -33,6 +33,8 @@ MARKS = [
     ("l-3", "The loop — orbit", "L-3", "The terminals become foci: one continuous path circling bell and earpiece like an orbit. Two anchors, one path."),
     ("l-4", "The loop — pulse", "L-4", "The learning loop carrying the pulse: one cardiac spike rides the apex of the left loop."),
     ("l-5", "The loop — interlock", "L-5", "Two inks, two identities: teal loop and coral loop woven over and under at the centre. Med and Mechanic, one form."),
+    ("l-6", "The loop — Möbius 3D, sculptural", "L-6", "The Möbius loop as a machined band in real dimension \u2014 half-twist, thickness, presence \u2014 carved with flat two-tone teal surfaces, no gradients."),
+    ("l-7", "The loop — Möbius 3D, rendered", "L-7", "The same Möbius fully rendered \u2014 a supple tube with true cylindrical volume, studio light, a twist you can touch."),
 ]
 
 src = open(STYLE_SRC).read()

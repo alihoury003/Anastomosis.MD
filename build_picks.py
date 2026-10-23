@@ -24,6 +24,8 @@ PICKS = [
     ("w-2.png",                    "w-2",   "The iris",                    "W-2",  "An aperture that is also an eye — machined blades, organic leaflets, one dot."),
     ("w-3.png",                    "w-3",   "The mechanism",               "W-3",  "A double helix drawn as a compression spring, set on ink."),
     ("n-4.png",                    "n-4",   "The loop",                    "N-4",  "The stethoscope as an infinity loop — bell disc and earpiece ring anchoring the learning that never stops."),
+    ("l-2.png",                    "l-2",   "The loop — Möbius",           "L-2",  "One surface, no end: the tube twists at the crossing. The loop that cannot finish."),
+    ("l-4.png",                    "l-4",   "The loop — pulse",            "L-4",  "The learning loop carrying the pulse: one cardiac spike rides the apex."),
 ]
 
 # ---------------------------------------------------------------- HTML -------
@@ -95,7 +97,7 @@ html = f'''<!DOCTYPE html>
 <div class="grid">
 {chr(10).join(cards)}
 </div>
-<p class="sub" style="margin-top:22px">1 &middot; 2C &middot; 3 &middot; 4M &mdash; byte-exact from the original roster &nbsp;/&nbsp; v4b &mdash; the original file &nbsp;/&nbsp; cad-7 &middot; cad-8 &mdash; the single-serpent rods &nbsp;/&nbsp; w-1 &middot; w-2 &middot; w-3 &mdash; the wild ones &nbsp;/&nbsp; n-4 &mdash; the loop</p>
+<p class="sub" style="margin-top:22px">1 &middot; 2C &middot; 3 &middot; 4M &mdash; byte-exact from the original roster &nbsp;/&nbsp; v4b &mdash; the original file &nbsp;/&nbsp; cad-7 &middot; cad-8 &mdash; the single-serpent rods &nbsp;/&nbsp; w-1 &middot; w-2 &middot; w-3 &mdash; the wild ones &nbsp;/&nbsp; n-4 &mdash; the loop &nbsp;/&nbsp; l-2 &middot; l-4 &mdash; the loop, refined</p>
 <p class="sub" style="margin-top:8px">the last five standing &mdash; say the word</p>
 </body></html>'''
 
@@ -138,19 +140,26 @@ c.setAuthor("Medchanic.MD")
 c.setFillColor(PAPER); c.rect(0, 0, W, H, stroke=0, fill=1)
 tracked(c, M, H - 78, "MEDCHANIC.MD · THE PICKS · 23 OCT 2026", "Helvetica-Bold", 8, TEAL, 1.6)
 c.setFillColor(INK); c.setFont("Times-BoldItalic", 46)
-c.drawString(M, H - 138, "Eleven marks.")
+c.drawString(M, H - 138, "Thirteen marks.")
 c.setFillColor(INK2); c.setFont("Helvetica", 10.5)
 for i, line in enumerate([
-    "The shortlist, eleven marks strong: the crossing, the stethoscope, the continuous",
+    "The shortlist, thirteen marks strong: the crossing, the stethoscope, the continuous",
     "implement, the M, the twin-drum heartbeat, the single-serpent rods, the wild three, and",
-    "the loop \u2014 the stethoscope as an infinity symbol. Every bloodline we have. One file,",
-    "one decision left.",
+    "the loop \u2014 in three of its lives: the original, the M\u00f6bius, and the pulse. Every",
+    "bloodline we have. One file, one decision left.",
 ]):
     c.drawString(M, H - 168 - i * 16, line)
 # thumbnails row
 tw, gap = (62, 10) if len(PICKS) > 7 else ((60, 9) if len(PICKS) > 5 else (85, 14))
-chunk = 5 if len(PICKS) % 5 == 0 else 4
-rows = [PICKS[i:i + chunk] for i in range(0, len(PICKS), chunk)]
+def _rowize(items):
+    best = None
+    for ch in (5, 4):
+        r = [items[i:i + ch] for i in range(0, len(items), ch)]
+        score = (len(r[-1]), -len(r))
+        if best is None or score > best[0]:
+            best = (score, r)
+    return best[1]
+rows = _rowize(PICKS)
 ytop = 310
 for row in rows:
     total = len(row) * tw + (len(row) - 1) * gap
