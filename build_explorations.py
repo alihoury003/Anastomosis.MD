@@ -15,6 +15,9 @@ MARKS = [
     ("cad-2", "Caduceus — two inks", "CAD-2", "Same myth, looser hand: the tubes cross twice in a calligraphic double-S. Teal for the tool, coral for the tubes."),
     ("cad-3", "Caduceus — eartip heads, two inks", "CAD-3", "The ask, delivered: eartips as the serpent heads facing each other, tubes as the bodies coiling the staff, Y-junction and bell as the merged tail. One honest stethoscope, one true caduceus."),
     ("cad-4", "Caduceus — eartip heads, one ink", "CAD-4", "The same mark in a single teal — one ink for the whole myth."),
+    ("cad-5", "Single serpent — with wings, two inks", "CAD-5", "One stethoscope alone coils the staff: Y-junction and eartips as the forked head, bell as the tail. No creature anatomy — hardware only. Caduceus wings kept."),
+    ("cad-6", "Single serpent — Asclepius, two inks", "CAD-6", "The wings removed. The rod of Asclepius, told with a wrench and one honest stethoscope."),
+    ("cad-7", "Single serpent — Asclepius, one ink", "CAD-7", "The same pure rod in a single teal — the premium one-ink move."),
     ("evo-1", "Abstract — one ink", "EVO-1", "The current mark, reduced to its gesture. What survives at 16 px is what mattered all along."),
     ("evo-2", "Abstract — two inks", "EVO-2", "The same reduction in two inks — teal structure, coral coils."),
     ("evo-3", "Abstract — the heartbeat, elevated", "EVO-3", "V4B at its most sculptural: twin machined drums, one confident line, spike compressed for favicon size."),
@@ -80,7 +83,7 @@ html = f'''<!DOCTYPE html>
 <div class="grid">
 {chr(10).join(cards)}
 </div>
-<p class="sub" style="margin-top:22px">cad-1 &middot; cad-2 &middot; evo-1 &middot; evo-2 &mdash; born from the current site mark &nbsp;/&nbsp; evo-3 &mdash; born from v4b &nbsp;/&nbsp; cad-3 &middot; cad-4 &mdash; cad-2 refined: eartips as heads</p>
+<p class="sub" style="margin-top:22px">cad-1 &middot; cad-2 &middot; evo-1 &middot; evo-2 &mdash; born from the current site mark &nbsp;/&nbsp; evo-3 &mdash; born from v4b &nbsp;/&nbsp; cad-3 cad-3 &middot; cad-4 &mdash; cad-2 refined: eartips as headsmiddot; cad-4 cad-3 &middot; cad-4 &mdash; cad-2 refined: eartips as headsmdash; cad-2 refined cad-3 &middot; cad-4 &mdash; cad-2 refined: eartips as headsnbsp;/cad-3 &middot; cad-4 &mdash; cad-2 refined: eartips as headsnbsp; cad-5 cad-3 &middot; cad-4 &mdash; cad-2 refined: eartips as headsmiddot; cad-6 cad-3 &middot; cad-4 &mdash; cad-2 refined: eartips as headsmiddot; cad-7 cad-3 &middot; cad-4 &mdash; cad-2 refined: eartips as headsmdash; single serpent, hardware only</p>
 <p class="sub" style="margin-top:8px">challengers to the five picks &mdash; say any name and it enters the race</p>
 </body></html>'''
 
