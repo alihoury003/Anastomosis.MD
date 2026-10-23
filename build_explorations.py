@@ -21,6 +21,9 @@ MARKS = [
     ("evo-1", "Abstract — one ink", "EVO-1", "The current mark, reduced to its gesture. What survives at 16 px is what mattered all along."),
     ("evo-2", "Abstract — two inks", "EVO-2", "The same reduction in two inks — teal structure, coral coils."),
     ("evo-3", "Abstract — the heartbeat, elevated", "EVO-3", "V4B at its most sculptural: twin machined drums, one confident line, spike compressed for favicon size."),
+    ("w-1", "The finding", "W-1", "Two shapes. A perfect ring, one segment displaced \u2014 the anomaly you can\u2019t unsee. \u2018Every wrong answer is a clue,\u2019 at its most reduced."),
+    ("w-2", "The iris", "W-2", "Diagnosis is focus. An aperture that is also an eye \u2014 machined blades and organic leaflets interleaved, one dot at the centre."),
+    ("w-3", "The mechanism", "W-3", "The body is the machine: a double helix drawn as a compression spring, set on ink."),
 ]
 
 src = open(STYLE_SRC).read()

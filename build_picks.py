@@ -18,6 +18,8 @@ PICKS = [
     ("originals/candidate-3.jpg",  "mk_3",  "Continuous implement",        "3",   "One tool: stethoscope at one end, wrench at the other. The bell every later mark borrowed."),
     ("originals/candidate-4m.jpg", "mk_4m", "The M — two tools (v1)",      "4M",  "Stethoscope left, wrench right."),
     ("v4b.png",                    "v4b",   "The heartbeat — twin drums",  "V4B", "Bell and socket as a matched pair of machined parts, in the same perspective."),
+    ("cad-7.png",                  "cad-7", "Single serpent — Asclepius, one ink", "CAD-7", "The rod of Asclepius, told with a wrench and one honest stethoscope."),
+    ("cad-8.png",                  "cad-8", "Single serpent — the vermillion stetho", "CAD-8", "The same rod, the creature in vermillion — teal tool, coral serpent."),
 ]
 
 # ---------------------------------------------------------------- HTML -------
@@ -85,11 +87,11 @@ html = f'''<!DOCTYPE html>
 {chr(10).join(classes_css)}
 </style></head><body>
 <h1>The picks</h1>
-<p class="sub">5 marks &middot; instagram &middot; product bar &middot; size ladder &middot; browser tab</p>
+<p class="sub">{len(PICKS)} marks &middot; instagram &middot; product bar &middot; size ladder &middot; browser tab</p>
 <div class="grid">
 {chr(10).join(cards)}
 </div>
-<p class="sub" style="margin-top:22px">1 &middot; 2C &middot; 3 &middot; 4M &mdash; byte-exact from the original roster &nbsp;/&nbsp; v4b &mdash; the original file</p>
+<p class="sub" style="margin-top:22px">1 &middot; 2C &middot; 3 &middot; 4M &mdash; byte-exact from the original roster &nbsp;/&nbsp; v4b &mdash; the original file &nbsp;/&nbsp; cad-7 &middot; cad-8 &mdash; the single-serpent rods</p>
 <p class="sub" style="margin-top:8px">the last five standing &mdash; say the word</p>
 </body></html>'''
 
@@ -132,16 +134,17 @@ c.setAuthor("Medchanic.MD")
 c.setFillColor(PAPER); c.rect(0, 0, W, H, stroke=0, fill=1)
 tracked(c, M, H - 78, "MEDCHANIC.MD · THE PICKS · 23 OCT 2026", "Helvetica-Bold", 8, TEAL, 1.6)
 c.setFillColor(INK); c.setFont("Times-BoldItalic", 46)
-c.drawString(M, H - 138, "Five marks.")
+c.drawString(M, H - 138, "Seven marks.")
 c.setFillColor(INK2); c.setFont("Helvetica", 10.5)
 for i, line in enumerate([
-    "The last five standing, from the full mark exploration: the original crossing, the natural",
-    "stethoscope, the continuous implement that donated its bell to everything after it, the M with",
-    "both tools, and the twin-drum heartbeat. One file, one decision left.",
+    "The shortlist, seven marks strong: the original crossing, the natural stethoscope, the",
+    "continuous implement that donated its bell to everything after it, the M with both tools,",
+    "the twin-drum heartbeat, and the two single-serpent rods \u2014 one ink, and the vermillion.",
+    "One file, one decision left.",
 ]):
     c.drawString(M, H - 168 - i * 16, line)
 # thumbnails row
-tw, gap = 85, 14
+tw, gap = (60, 9) if len(PICKS) > 5 else (85, 14)
 x0 = (W - (5 * tw + 4 * gap)) / 2
 for i, (rel, var, title, num, note) in enumerate(PICKS):
     x = x0 + i * (tw + gap)
