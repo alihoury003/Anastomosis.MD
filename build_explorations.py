@@ -24,6 +24,10 @@ MARKS = [
     ("w-1", "The finding", "W-1", "Two shapes. A perfect ring, one segment displaced \u2014 the anomaly you can\u2019t unsee. \u2018Every wrong answer is a clue,\u2019 at its most reduced."),
     ("w-2", "The iris", "W-2", "Diagnosis is focus. An aperture that is also an eye \u2014 machined blades and organic leaflets interleaved, one dot at the centre."),
     ("w-3", "The mechanism", "W-3", "The body is the machine: a double helix drawn as a compression spring, set on ink."),
+    ("n-1", "The pulse gear", "N-1", "The machine carrying the pulse: a gear whose perimeter breaks into one cardiac spike. Mechanic outside, Med inside."),
+    ("n-2", "The circuit heart", "N-2", "Medicine's oldest icon drawn as a PCB trace \u2014 pads, vias, 45-degree routing. The heart in the machine's language."),
+    ("n-3", "The monitor M", "N-3", "The initial written by a heart monitor \u2014 one continuous trace, the central peak an R-wave spike."),
+    ("n-4", "The loop", "N-4", "The stethoscope as an infinity loop \u2014 bell disc and earpiece ring anchoring the learning that never stops."),
 ]
 
 src = open(STYLE_SRC).read()
