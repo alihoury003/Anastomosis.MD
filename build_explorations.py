@@ -35,6 +35,12 @@ MARKS = [
     ("l-5", "The loop — interlock", "L-5", "Two inks, two identities: teal loop and coral loop woven over and under at the centre. Med and Mechanic, one form."),
     ("l-6", "The loop — Möbius 3D, sculptural", "L-6", "The Möbius loop as a machined band in real dimension \u2014 half-twist, thickness, presence \u2014 carved with flat two-tone teal surfaces, no gradients."),
     ("l-7", "The loop — Möbius 3D, rendered", "L-7", "The same Möbius fully rendered \u2014 a supple tube with true cylindrical volume, studio light, a twist you can touch."),
+    ("mm-1", "The valve", "MM-1", "A mechanical heart valve: ring, two leaflets, one pivot. The machine we are allowed to put inside the heart."),
+    ("mm-2", "The joint", "MM-2", "Ball and socket, machined \u2014 the body's replacement part. Medicine as engineering, literally."),
+    ("mm-3", "The caliper", "MM-3", "The cardiologist's caliper on a tracing. Precision \u2014 the mechanic's virtue \u2014 applied to the pulse."),
+    ("mm-4", "The capsule", "MM-4", "Two halves machined to fit exactly. Medicine's most minimal object, built like a component."),
+    ("mm-5", "The stent", "MM-5", "The woven lattice we thread through vessels \u2014 a machine part the body accepts as its own."),
+    ("mm-6", "The graft", "MM-6", "The Y-junction, plumbed like a fitting. Plumbers of the body, mechanics of the pulse."),
 ]
 
 src = open(STYLE_SRC).read()
