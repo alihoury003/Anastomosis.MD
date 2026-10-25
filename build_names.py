@@ -118,7 +118,7 @@ h1{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3
 <div class="wrap">
   <div class="eyebrow">MEDCHANIC.MD &middot; THE RENAMING &middot; 23 OCT 2026</div>
   <h1>Ten new names.</h1>
-  <p class="sub">Short, medical, meaningful — the school of \u201cSynapse\u201d, not the school of portmanteaus. Each name is something a med student already owns a feeling for, each works as a <b>name.md</b> domain, and each gets three icon directions. Verify domain and trademark availability before falling in love \u2014 the ones with known big-name neighbours are flagged below.</p>
+  <p class="sub">The Synapse formula, honoured properly this time: <b>real medical words students say every single day</b> \u2014 not anatomy-index curiosities. Short, catchy, modern, and each one states what the product does. Each works as a <b>name.md</b> domain. Verify availability before falling in love.</p>
 {chr(10).join(sections)}
   <div class="foot">BATCH 1 OF 3 &middot; MYELIN &middot; REFLEX &middot; DOSE COMPLETE &middot; STAT 1/3 &middot; THE REST NEXT<br>SAY \u201cCONTINUE\u201d FOR THE NEXT TEN ICONS</div>
 </div>
