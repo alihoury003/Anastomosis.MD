@@ -25,8 +25,6 @@ knot = uri("bold-1.png", 640)
 bowtie = uri("bold-2.png", 460)
 letA = uri("bold-3.png", 460)
 union = uri("bold-4.png", 460)
-knot_dark = uri("bold-5.png", 460)
-union_dark = uri("bold-6.png", 460)
 knot_s = uri("bold-1.png", 240)
 
 SWATCHES = [
@@ -146,8 +144,6 @@ td:last-child{{font-family:var(--sans);color:var(--ink3)}}
     <div class="g4"><img src="{bowtie}" alt=""><div class="cap">The bowtie — two bodies, one meeting point</div></div>
     <div class="g4"><img src="{letA}" alt=""><div class="cap">The A — a letterform that is an anastomosis</div></div>
     <div class="g4"><img src="{union}" alt=""><div class="cap">The union — two vessels, one golden chamber</div></div>
-    <div class="g4"><img src="{knot_dark}" alt=""><div class="cap">The knot — night mode</div></div>
-    <div class="g4"><img src="{union_dark}" alt=""><div class="cap">The union — night mode</div></div>
   </div>
 
   <h2>The line series — the quiet originals.</h2>
