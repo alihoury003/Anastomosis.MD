@@ -28,6 +28,8 @@ PICKS = [
     ("l-4.png",                    "l-4",   "The loop — pulse",            "L-4",  "The learning loop carrying the pulse: one cardiac spike rides the apex."),
     ("l-6.png",                    "l-6",   "The loop — Möbius 3D, sculptural", "L-6", "The Möbius as a machined band in real dimension — carved with flat two-tone teal surfaces."),
     ("l-7.png",                    "l-7",   "The loop — Möbius 3D, rendered",   "L-7", "The Möbius fully rendered — a supple tube with true volume, studio light, a twist you can touch."),
+    ("dopamine-1.png",              "dop-1", "Dopamine — the molecule",  "DOP-1", "The catechol hexagon, two hydroxyl prongs, the chain to the coral amine — the reward at the end of the molecule."),
+    ("dopamine-5.png",              "dop-5", "Dopamine — the catechol",   "DOP-5", "The minimal cut: hexagon, two prongs, one coral dot. The 16 px survivor."),
 ]
 
 # ---------------------------------------------------------------- HTML -------
@@ -99,7 +101,7 @@ html = f'''<!DOCTYPE html>
 <div class="grid">
 {chr(10).join(cards)}
 </div>
-<p class="sub" style="margin-top:22px">1 &middot; 2C &middot; 3 &middot; 4M &mdash; byte-exact from the original roster &nbsp;/&nbsp; v4b &mdash; the original file &nbsp;/&nbsp; cad-7 &middot; cad-8 &mdash; the single-serpent rods &nbsp;/&nbsp; w-1 &middot; w-2 &middot; w-3 &mdash; the wild ones &nbsp;/&nbsp; n-4 &mdash; the loop &nbsp;/&nbsp; l-2 &middot; l-4 &mdash; the loop, refined &nbsp;/&nbsp; l-6 &middot; l-7 &mdash; the M\u00f6bius in 3D</p>
+<p class="sub" style="margin-top:22px">1 &middot; 2C &middot; 3 &middot; 4M &mdash; byte-exact from the original roster &nbsp;/&nbsp; v4b &mdash; the original file &nbsp;/&nbsp; cad-7 &middot; cad-8 &mdash; the single-serpent rods &nbsp;/&nbsp; w-1 &middot; w-2 &middot; w-3 &mdash; the wild ones &nbsp;/&nbsp; n-4 &mdash; the loop &nbsp;/&nbsp; l-2 &middot; l-4 &mdash; the loop, refined &nbsp;/&nbsp; l-6 &middot; l-7 &mdash; the M\u00f6bius in 3D &nbsp;/&nbsp; dop-1 &middot; dop-5 — the dopamine molecule</p>
 <p class="sub" style="margin-top:8px">the last five standing &mdash; say the word</p>
 </body></html>'''
 
@@ -142,13 +144,12 @@ c.setAuthor("Medchanic.MD")
 c.setFillColor(PAPER); c.rect(0, 0, W, H, stroke=0, fill=1)
 tracked(c, M, H - 78, "MEDCHANIC.MD · THE PICKS · 23 OCT 2026", "Helvetica-Bold", 8, TEAL, 1.6)
 c.setFillColor(INK); c.setFont("Times-BoldItalic", 46)
-c.drawString(M, H - 138, "Fifteen marks.")
+c.drawString(M, H - 138, "Seventeen marks.")
 c.setFillColor(INK2); c.setFont("Helvetica", 10.5)
 for i, line in enumerate([
-    "The shortlist, fifteen marks strong: the crossing, the stethoscope, the continuous",
-    "implement, the M, the twin-drum heartbeat, the single-serpent rods, the wild three, and",
-    "the loop \u2014 in five of its lives: the original, the M\u00f6bius, the pulse, and the two",
-    "3D M\u00f6bius sculptures. Every bloodline we have. One file, one decision left.",
+    "The shortlist, seventeen marks strong: every bloodline of the mark hunt — the crossings,",
+    "the M, the heartbeat, the serpent, the wild three, the loop in five of its lives, and now",
+    "the dopamine molecule, set aside twice. One file, one decision left.",
 ]):
     c.drawString(M, H - 168 - i * 16, line)
 # thumbnails row
