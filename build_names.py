@@ -9,35 +9,35 @@ from PIL import Image, ImageDraw
 LAB = "/home/user/Medchanic.md/logo-lab"
 
 NAMES = [
-    dict(slug="lumen", name="Lumen", domain="lumen.md",
-         why="The channel of every vessel — and the light of understanding. Anatomy's word for 'open', and everyone's word for 'bright'.",
+    dict(slug="myelin", name="Myelin", domain="myelin.md",
+         why="Practice myelinates. The sheath that makes nerve signals faster \u2014 the neuroscience of learning itself, and the most honest metaphor for spaced repetition in the whole body.",
          note=None),
-    dict(slug="engram", name="Engram", domain="engram.md",
-         why="The physical trace a memory leaves in the brain. What our flashcards literally build — the most honest name for spaced repetition ever coined.",
+    dict(slug="reflex", name="Reflex", domain="reflex.md",
+         why="Train until it\u2019s a reflex. Pattern recognition is the exam skill \u2014 this name IS the promise.",
          note=None),
-    dict(slug="soma", name="Soma", domain="soma.md",
-         why="The neuron's cell body — where every input converges before one decision fires. Greek for 'body'. Four letters, zero fat.",
+    dict(slug="dose", name="Dose", domain="dose.md",
+         why="Your daily dose of questions. One syllable, everyone\u2019s word, the daily habit baked into the name.",
          note=None),
-    dict(slug="viva", name="Viva", domain="viva.md",
-         why="The exam every med student fears, and the word that means 'alive'. A name that smiles at the people it scares.",
+    dict(slug="stat", name="Stat", domain="stat.md",
+         why="The word every hospital shouts when it means NOW. Speed as a brand.",
          note="2 of 3 icons in the next batch"),
-    dict(slug="axon", name="Axon", domain="axon.md",
-         why="The wire that carries the signal. Learning is wiring — this says it in four letters.",
+    dict(slug="atlas", name="Atlas", domain="atlas.md",
+         why="The map of everything. Every med student already lives inside an atlas \u2014 Netter made the word theirs.",
          note="icons in the next batch"),
-    dict(slug="osler", name="Osler", domain="osler.md",
-         why="The father of modern medicine, who taught that students learn at the bedside. Instant reverence from anyone in a white coat.",
+    dict(slug="vitals", name="Vitals", domain="vitals.md",
+         why="The essentials, checked daily. The dashboard IS vitals \u2014 the name says what the product does.",
          note="icons in the next batch"),
-    dict(slug="gnosis", name="Gnosis", domain="gnosis.md",
-         why="Knowledge — the root hiding inside dia-gnosis. The brand claim printed inside the word diagnosis.",
+    dict(slug="triage", name="Triage", domain="triage.md",
+         why="Decide what matters first. The study skill and the clinical skill, one word.",
          note="icons in the next batch"),
-    dict(slug="lacuna", name="Lacuna", domain="lacuna.md",
-         why="The gap in your knowledge. Every wrong answer reveals one; every review fills it. Our whole product, in one word.",
+    dict(slug="aorta", name="Aorta", domain="aorta.md",
+         why="The main line. The biggest vessel carries everything \u2014 so should your qbank.",
          note="icons in the next batch"),
-    dict(slug="cortex", name="Cortex", domain="cortex.md",
-         why="Where thinking folds. The brain's own geography as a brand.",
+    dict(slug="differential", name="Differential", domain="differential.md",
+         why="Think in differentials. The core clinical skill \u2014 and the name of the game concept from the old chat. The DNA survives.",
          note="icons in the next batch"),
-    dict(slug="fulcrum", name="Fulcrum", domain="fulcrum.md",
-         why="The point where small effort moves everything. The mechanic's DNA survives the rename — 'fix how you think', said as a lever.",
+    dict(slug="dopamine", name="Dopamine", domain="dopamine.md",
+         why="The reward. The joke every med student makes about studying \u2014 and the loop our streaks run on.",
          note="icons in the next batch"),
 ]
 
@@ -120,7 +120,7 @@ h1{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3
   <h1>Ten new names.</h1>
   <p class="sub">Short, medical, meaningful — the school of \u201cSynapse\u201d, not the school of portmanteaus. Each name is something a med student already owns a feeling for, each works as a <b>name.md</b> domain, and each gets three icon directions. Verify domain and trademark availability before falling in love \u2014 the ones with known big-name neighbours are flagged below.</p>
 {chr(10).join(sections)}
-  <div class="foot">BATCH 1 OF 3 &middot; LUMEN &middot; ENGRAM &middot; SOMA COMPLETE &middot; VIVA 1/3 &middot; THE REST NEXT<br>SAY \u201cCONTINUE\u201d FOR THE NEXT TEN ICONS</div>
+  <div class="foot">BATCH 1 OF 3 &middot; MYELIN &middot; REFLEX &middot; DOSE COMPLETE &middot; STAT 1/3 &middot; THE REST NEXT<br>SAY \u201cCONTINUE\u201d FOR THE NEXT TEN ICONS</div>
 </div>
 </body></html>'''
 
