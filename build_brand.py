@@ -21,6 +21,13 @@ seam = uri("anastomosis-8.png", 460)
 circle = uri("anastomosis-9.png", 460)
 render = uri("anastomosis-10.png", 460)
 hero_s = uri("anastomosis-6.png", 240)
+knot = uri("bold-1.png", 640)
+bowtie = uri("bold-2.png", 460)
+letA = uri("bold-3.png", 460)
+union = uri("bold-4.png", 460)
+knot_dark = uri("bold-5.png", 460)
+union_dark = uri("bold-6.png", 460)
+knot_s = uri("bold-1.png", 240)
 
 SWATCHES = [
     ("Bone", "#F7F3EB", "the field — paper, warmed and whitened"),
@@ -123,11 +130,31 @@ td:last-child{{font-family:var(--sans);color:var(--ink3)}}
   {''.join(f'<tr><td>{a}</td><td>{b}</td><td>{c}</td></tr>' for a, b, c in MAPPING)}
   </table>
 
-  <h2>The definitive mark.</h2>
+  <h2>The bold series — marks with mass.</h2>
+  <div class="herowrap">
+    <img src="{knot}" alt="The knot — two vessels tied together">
+    <div>
+      <p class="heronote"><b>The knot.</b> Two thick ropes — artery crimson and vein petrol — tied in the surgeon's square knot, a gold bead at the centre. The most surgical object there is, drawn with mass: a silhouette you could cut from paper with a knife and still recognize at 16 px. This is the series that answers "it looks like nothing" — filled forms, presence, weight.</p>
+      <div class="ctx">
+        <div class="ctx-item"><div class="ig"><img src="{knot_s}" alt=""></div>INSTAGRAM</div>
+        <div class="ctx-item"><div class="tab"><img src="{knot_s}" alt=""><span>Anastomosis — Dashboa…</span></div>BROWSER TAB · 16 PX</div>
+        <div class="ctx-item"><div class="ladder"><img src="{knot_s}" style="width:48px" alt=""><img src="{knot_s}" style="width:34px" alt=""><img src="{knot_s}" style="width:24px" alt=""><img src="{knot_s}" style="width:16px" alt=""></div>FAVICON LADDER</div>
+      </div>
+    </div>
+  </div>
+  <div class="grid4">
+    <div class="g4"><img src="{bowtie}" alt=""><div class="cap">The bowtie — two bodies, one meeting point</div></div>
+    <div class="g4"><img src="{letA}" alt=""><div class="cap">The A — a letterform that is an anastomosis</div></div>
+    <div class="g4"><img src="{union}" alt=""><div class="cap">The union — two vessels, one golden chamber</div></div>
+    <div class="g4"><img src="{knot_dark}" alt=""><div class="cap">The knot — night mode</div></div>
+    <div class="g4"><img src="{union_dark}" alt=""><div class="cap">The union — night mode</div></div>
+  </div>
+
+  <h2>The line series — the quiet originals.</h2>
   <div class="herowrap">
     <img src="{hero}" alt="The Anastomosis mark — arteriovenous union">
     <div>
-      <p class="heronote"><b>The arteriovenous union.</b> The artery (crimson) and the vein (petrol) curve toward each other and merge into one graphite vessel — the graft — with a single golden suture at the junction. The mark a surgeon would recognize in one glance, drawn flat, bold, and quiet. Below: how it lives in the wild.</p>
+      <p class="heronote"><b>The arteriovenous union — the line cut.</b> The artery (crimson) and the vein (petrol) curve toward each other and merge into one graphite vessel — the graft — with a single golden suture at the junction. The mark a surgeon would recognize in one glance, drawn flat, bold, and quiet. Below: how it lives in the wild.</p>
       <div class="ctx">
         <div class="ctx-item"><div class="ig"><img src="{hero_s}" alt=""></div>INSTAGRAM</div>
         <div class="ctx-item"><div class="tab"><img src="{hero_s}" alt=""><span>Anastomosis — Dashboa…</span></div>BROWSER TAB · 16 PX</div>
