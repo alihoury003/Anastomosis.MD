@@ -9,16 +9,21 @@ LAB = "/home/user/Medchanic.md/logo-lab"
 STYLE_SRC = os.path.join(LAB, "picks.html")
 
 MARKS = [
-    ("bold-1.png",       "knot",   "The knot",                  "KNOT",   "Two vessels tied in the surgeon's square knot — the original you pointed out."),
-    ("bold-3.png",       "a",      "The A",                     "A",      "The letterform that is an anastomosis — the original you pointed out."),
-    ("a-refined.png",    "a-ref",  "The A — refined",           "A-R",    "Same letterform, definitive execution: thicker strokes, cleaner merge, premium cut."),
-    ("a-vessel.png",     "a-ves",  "The A — one vessel",        "A-V",    "The A as a single folded vessel: artery in, graft at the peak, vein out."),
-    ("a-loop.png",       "a-loop", "The A — looped",            "A-L",    "The A whose feet curl into two infinite loops — your two favourite ideas, one mark."),
-    ("knot-refined.png", "knot-r", "The knot — tightened",      "KNOT-R", "The same knot reduced to its essential crossings — chunkier, cleaner, more iconic."),
-    ("inf-1.png",        "inf-1",  "The endless anastomosis",   "INF-1",  "The infinity of joinings: a crimson loop, a petrol loop, one golden suture at the crossing."),
-    ("inf-2.png",        "inf-2",  "The flow-through",          "INF-2",  "One ink vessel crossing itself forever — artery in, vein out, gold at the pass."),
-    ("chain.png",        "chain",  "The links",                 "CHAIN",  "Two chain links woven through each other — the joining made permanent and mechanical."),
-    ("drops.png",        "drops",  "The drops",                 "DROPS",  "Two drops leaning together, merging at a golden seam — fluid made solid."),
+    ("a-top.png",       "a-top",   "The A — definitive",                  "A-TOP",  "Top of the shortlist. The letter with unmistakable vessel edges: open tube tips, visible lumens, the apex merge."),
+    ("bold-3.png",      "a",       "The A — original",                    "A",      "The one you pointed out — edges that read as vessels."),
+    ("a-3d.png",        "a-3d",    "The A — sculptural",                  "A-3D",   "The letter extruded into depth: vessels with walls, lumens in perspective."),
+    ("a-apex.png",      "a-apex",  "The A — apex junction",               "A-PX",   "The apex IS the anastomosis: two vessels joined by a gold suture ring."),
+    ("a-refined.png",   "a-ref",   "The A — refined",                     "A-R",    "Thicker strokes, cleaner merge, premium cut."),
+    ("a-vessel.png",    "a-ves",   "The A — one vessel",                  "A-V",    "The A as a single folded vessel: artery in, graft at the peak, vein out."),
+    ("a-loop.png",      "a-loop",  "The A — looped",                      "A-L",    "The A whose feet curl into two infinite loops."),
+    ("inf-refined.png", "inf-r",   "The endless anastomosis — definitive","INF-R",  "The infinity, perfected: fuller loops, thicker tube, a gold band wrapping the crossing."),
+    ("inf-1.png",       "inf-1",   "The endless anastomosis — original",  "INF-1",  "The one you liked — crimson loop, petrol loop, golden suture."),
+    ("inf-3d.png",      "inf-3d",  "The endless anastomosis — sculptural","INF-3D", "The infinity with real walls and depth — flat two-tone carving."),
+    ("inf-render.png",  "inf-rnd", "The endless anastomosis — rendered",  "INF-RND","The flagship render: studio light, true volume, the gold ring at the heart."),
+    ("bold-1.png",      "knot",    "The knot",                            "KNOT",   "Two vessels tied in the surgeon's square knot."),
+    ("knot-refined.png","knot-r",  "The knot — tightened",                "KNOT-R", "Reduced to its essential crossings."),
+    ("chain.png",       "chain",   "The links",                           "CHAIN",  "Two chain links woven through each other."),
+    ("drops.png",       "drops",   "The drops",                           "DROPS",  "Two drops merging at a golden seam."),
 ]
 
 # ---------------------------------------------------------------- HTML -------
@@ -83,7 +88,7 @@ html = f'''<!DOCTYPE html>
 <div class="grid">
 {chr(10).join(cards)}
 </div>
-<p class="sub" style="margin-top:22px">knot &middot; a &mdash; the originals you pointed out &nbsp;/&nbsp; a-r &middot; a-v &middot; a-l &middot; knot-r &mdash; the upgrades &nbsp;/&nbsp; inf-1 &middot; inf-2 &mdash; the infinity &nbsp;/&nbsp; chain &middot; drops &mdash; new concepts</p>
+<p class="sub" style="margin-top:22px">a-top leads &mdash; the letter with vessel edges &nbsp;/&nbsp; inf-r &middot; inf-3d &middot; inf-rnd &mdash; the infinity, a notch up &nbsp;/&nbsp; the rest held</p>
 <p class="sub" style="margin-top:8px">say the word and the winner gets the rollout</p>
 </body></html>'''
 
@@ -129,9 +134,9 @@ c.setFillColor(INK); c.setFont("Times-BoldItalic", 44)
 c.drawString(M, H - 136, "Anastomosis logo lab.")
 c.setFillColor(INK2); c.setFont("Helvetica", 10.5)
 for i, line in enumerate([
-    "Ten marks for the new name: the knot and the A you pointed out, their upgraded",
-    "cuts, the infinity you asked for, and three new concepts with mass. One lab,",
-    "one decision at the end of it.",
+    "Fifteen marks for the new name: the A family leads — the letter whose edges",
+    "read as vessels — and the endless anastomosis taken up a notch: refined,",
+    "sculpted, and rendered. One lab, one decision at the end of it.",
 ]):
     c.drawString(M, H - 164 - i * 16, line)
 tw, gap = 85, 14
