@@ -63,6 +63,12 @@ NAMES = [
     dict(slug="vesicle", name="Vesicle", domain="vesicle.md",
          why="Where dopamine waits before the release \u2014 the moment before the reward.",
          note="icons if this one survives", wave2=True),
+    dict(slug="anastomosis", name="Anastomosis", domain="anastomosis.md",
+         why="The surgeon's word for two vessels becoming one — where knowledge connects. Real, insider, and beautiful to say.",
+         note=None, wave3=True),
+    dict(slug="cognosis", name="Cognosis", domain="cognosis.md",
+         why="Cognition + diagnosis, from the Latin cognoscere — 'to know'. A coined word, fully ownable, wearing medicine's proudest suffix.",
+         note=None, wave3=True),
 ]
 
 CREAM = (243, 239, 230)
@@ -137,6 +143,12 @@ for i, n in enumerate(NAMES, 1):
     <h1 class="wavetitle">Eight more names.</h1>
     <p class="sub">The dopamine direction, challenged. Same rule: real words students say, catchy enough for a handle.</p>
   </div>''')
+    if n.get("wave3") and not any(s.get("wave3") for s in NAMES[:i - 1]):
+        sections.append('''  <div class="wavehead">
+    <div class="eyebrow">THE FOUNDER&rsquo;S TWO &middot; THE CHALLENGERS</div>
+    <h1 class="wavetitle">Anastomosis &amp; Cognosis.</h1>
+    <p class="sub">Two names from the founder himself — one real, one coined. Five icon directions each, below.</p>
+  </div>''')
     trio = compose_trio(n["slug"])
     img_html = f'<div class="trio"><img src="{uri(trio)}" alt="{n["name"]} — icon directions"></div>' if trio else ""
     note_html = f'<div class="pending">{n["note"]}</div>' if n.get("note") else ""
@@ -177,7 +189,7 @@ h1{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3
   <h1>Ten names, then eight more.</h1>
   <p class="sub">The Synapse formula, honoured properly: <b>real medical words students say every single day</b> \u2014 not anatomy-index curiosities. Dopamine leads \u2014 ten icon directions below \u2014 with D1 and D5 already set aside in the picks. Each works as a <b>name.md</b> domain. Verify availability before falling in love.</p>
 {chr(10).join(sections)}
-  <div class="foot">DOPAMINE &middot; TEN ICONS &middot; D1 + D5 IN THE PICKS &middot; EIGHT CHALLENGER NAMES ABOVE<br>SAY THE WORD FOR MORE OF ANY DIRECTION</div>
+  <div class="foot">DOPAMINE &middot; TEN ICONS &middot; D1 + D5 IN THE PICKS &middot; EIGHT CHALLENGER NAMES + THE FOUNDER&rsquo;S TWO &middot; FIVE ICONS EACH<br>SAY THE WORD FOR MORE OF ANY DIRECTION</div>
 </div>
 </body></html>'''
 
