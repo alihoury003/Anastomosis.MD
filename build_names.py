@@ -9,8 +9,11 @@ from PIL import Image, ImageDraw
 LAB = "/home/user/Medchanic.md/logo-lab"
 
 NAMES = [
+    dict(slug="dopamine", name="Dopamine", domain="dopamine.md",
+         why="The reward. The joke every med student makes about studying \u2014 and the exact loop our streaks run on. The front-runner.",
+         note=None),
     dict(slug="myelin", name="Myelin", domain="myelin.md",
-         why="Practice myelinates. The sheath that makes nerve signals faster \u2014 the neuroscience of learning itself, and the most honest metaphor for spaced repetition in the whole body.",
+         why="Practice myelinates. The sheath that makes nerve signals faster \u2014 the neuroscience of learning itself.",
          note=None),
     dict(slug="reflex", name="Reflex", domain="reflex.md",
          why="Train until it\u2019s a reflex. Pattern recognition is the exam skill \u2014 this name IS the promise.",
@@ -34,10 +37,7 @@ NAMES = [
          why="The main line. The biggest vessel carries everything \u2014 so should your qbank.",
          note="icons in the next batch"),
     dict(slug="differential", name="Differential", domain="differential.md",
-         why="Think in differentials. The core clinical skill \u2014 and the name of the game concept from the old chat. The DNA survives.",
-         note="icons in the next batch"),
-    dict(slug="dopamine", name="Dopamine", domain="dopamine.md",
-         why="The reward. The joke every med student makes about studying \u2014 and the loop our streaks run on.",
+         why="Think in differentials. The core clinical skill \u2014 and the name of the game concept from the old chat.",
          note="icons in the next batch"),
 ]
 
@@ -46,7 +46,7 @@ RULE = (221, 214, 198)
 
 def compose_trio(slug):
     """Compose the name's icons side by side on one cream canvas. Returns path or None."""
-    paths = [os.path.join(LAB, f"{slug}-{i}.png") for i in (1, 2, 3)]
+    paths = [os.path.join(LAB, f"{slug}-{i}.png") for i in (1, 2, 3, 4, 5)]
     paths = [p for p in paths if os.path.exists(p)]
     if not paths:
         return None
@@ -55,7 +55,7 @@ def compose_trio(slug):
         out = os.path.join(LAB, f"trio-{slug}.png")
         im.save(out, "PNG", optimize=True)
         return out
-    size, gut = 380, 70
+    size, gut = (300, 50) if len(paths) > 3 else (380, 70)
     w = len(paths) * size + (len(paths) + 1) * gut
     h = size + 2 * gut
     canvas = Image.new("RGB", (w, h), CREAM)
@@ -120,7 +120,7 @@ h1{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3
   <h1>Ten new names.</h1>
   <p class="sub">The Synapse formula, honoured properly this time: <b>real medical words students say every single day</b> \u2014 not anatomy-index curiosities. Short, catchy, modern, and each one states what the product does. Each works as a <b>name.md</b> domain. Verify availability before falling in love.</p>
 {chr(10).join(sections)}
-  <div class="foot">BATCH 1 OF 3 &middot; MYELIN &middot; REFLEX &middot; DOSE COMPLETE &middot; STAT 1/3 &middot; THE REST NEXT<br>SAY \u201cCONTINUE\u201d FOR THE NEXT TEN ICONS</div>
+  <div class="foot">DOPAMINE COMPLETE &middot; 5 ICONS &middot; THE FRONT-RUNNER &middot; THE OTHERS ON REQUEST<br>SAY THE WORD FOR MORE OF ANY NAME</div>
 </div>
 </body></html>'''
 
