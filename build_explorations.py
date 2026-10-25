@@ -41,6 +41,12 @@ MARKS = [
     ("mm-4", "The capsule", "MM-4", "Two halves machined to fit exactly. Medicine's most minimal object, built like a component."),
     ("mm-5", "The stent", "MM-5", "The woven lattice we thread through vessels \u2014 a machine part the body accepts as its own."),
     ("mm-6", "The graft", "MM-6", "The Y-junction, plumbed like a fitting. Plumbers of the body, mechanics of the pulse."),
+    ("x-1", "The hairspring", "X-1", "The cochlea of the inner ear and the hairspring of a fine watch \u2014 one spiral: listening, and time kept precisely."),
+    ("x-2", "The escapement", "X-2", "The balance wheel \u2014 the part horologists call the watch's heartbeat. One bar, a hairspring, a coral tick."),
+    ("x-3", "The powerhouse", "X-3", "A mitochondrion drawn as a machined bellows \u2014 the folds of the cristae, the folds of the oldest pump."),
+    ("x-4", "The set point", "X-4", "A precision gauge with the needle on the mark \u2014 homeostasis and the reference range, the whole game in one dial."),
+    ("x-5", "The harness", "X-5", "The neural tree as a wiring loom \u2014 every tip a connector pin, every pin a synapse. Same shape, both worlds."),
+    ("x-6", "The gimbal", "X-6", "Nested rings around one stable axis \u2014 what holds steady while everything spins."),
 ]
 
 src = open(STYLE_SRC).read()
