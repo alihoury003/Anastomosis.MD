@@ -156,8 +156,19 @@ def tracked(c, x, y, text, font, size, color, cs=1.4, center=False):
     t.textOut(text)
     c.drawText(t)
 
+_pdf_cache_dir = "/tmp/pdfcache"
+os.makedirs(_pdf_cache_dir, exist_ok=True)
+
 def img(path):
-    return ImageReader(os.path.join(LAB, path))
+    """PDF images at 800px JPEG — keeps the PDF lean."""
+    key = os.path.splitext(path)[0].replace("/", "_")
+    cached = os.path.join(_pdf_cache_dir, key + ".jpg")
+    if not os.path.exists(cached):
+        im = Image.open(os.path.join(LAB, path)).convert("RGB")
+        if max(im.size) > 800:
+            im = im.resize((800, 800), Image.LANCZOS)
+        im.save(cached, "JPEG", quality=85, optimize=True)
+    return ImageReader(cached)
 
 pdf_path = os.path.join(LAB, "anastomosis-lab.pdf")
 c = _c.Canvas(pdf_path, pagesize=A4)
