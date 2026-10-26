@@ -99,6 +99,9 @@ h1{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3
 .frame img{{width:100%;height:auto;display:block}}
 .note{{font-size:14.5px;color:var(--ink2);line-height:1.65;margin-top:14px;max-width:740px}}
 .principle{{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--gold);margin-top:8px;text-transform:uppercase;font-weight:700}}
+.wavehead{{margin:60px 0 38px;padding-top:44px;border-top:2px solid var(--rule)}}
+.wavehead h2{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:34px;margin:10px 0 8px}}
+.wavehead .wsub{{color:var(--ink3);font-size:13.5px;line-height:1.6;max-width:700px}}
 .foot{{margin-top:48px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--ink3);text-align:center;line-height:2}}
 </style></head><body>
 <div class="wrap">
