@@ -109,6 +109,9 @@ Signature product features: the exam block (NBME/Prometric look: blue chrome, Ar
 ### 3.6 Workspace file hub (live preview — the download answer)
 Arena's built-in viewer shows HTML files as **raw source** and has no download button, which frustrates the founder. The fix that works: `server.py` + `files.html` in the repo root. Run `cd /home/user/Medchanic.md && python3 server.py` as a background process (port 8000, binds 0.0.0.0) → the platform surfaces it as a **live preview** → it opens `files.html`, a brand-styled hub where **every workspace file opens in its final rendered view (HTML as the actual product, PDFs in the PDF viewer, images as images) with a Download button on every file** (pinned cards for the current deliverables + a filterable table of all files via `/__list.json`). If the sandbox resets between turns, restart it on request ("restart the file hub"). These two files are workspace tools — the founder must never upload them to GitHub/main.
 
+### 3.7 The Appwrite storage incident (Oct 2026) — read before pushing ANYTHING
+Appwrite Sites is connected to the GitHub repo, and until Oct 23, 2026 its Git settings deployed **every branch push** as a preview deployment — each a full snapshot counting against the org's 2 GB storage. 47 logo-asset pushes (branch trees up to 244 MB, PDF versions up to 68 MB) took the org from 1.56 GB to 4.07 GB (204%) and got it restricted. **Fix applied by the founder:** the site's Git settings now deploy **only branches matching `main`** — arena-branch pushes are invisible to Appwrite. Standing rules: (1) push only to the arena branch, never main; (2) never commit files over 50 MB (GitHub warns above 50 MB, blocks above 100 MB — the lab PDF builder already embeds at 800 px JPEG partly for this reason); (3) logo/art assets are workspace-first — the arena branch carries them for durability, but they never belong on main; (4) if the founder ever merges arena → main, everything in the merge goes LIVE — slim the branch first. Old deployments are deleted by the founder in Console → Sites → Deployments; retention is set to 30 days (automatic from Nov 5, 2026).
+
 ---
 
 ## 4. THE SITE — current state (repo audited 2026-10-22/23)
@@ -299,6 +302,7 @@ His final message: *"can you try again and use the exct same bell? another versi
 15. Never write a lead-in ending in filler to dodge the template cap — rewrite it properly.
 16. Never deploy demo/preview files inside a production zip without labeling them (the "demo file in the zip" question).
 17. Never, ever stop treating this like it's big. It is.
+18. Never push heavy assets to a repo without checking what its deploy integration watches — one unnoticed "all branches trigger deployments" setting cost the founder his entire Appwrite storage quota (Oct 2026). The filter is main-only now; keep it that way.
 
 ---
 
