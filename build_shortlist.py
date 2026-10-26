@@ -127,7 +127,7 @@ h1{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3
 {section("THE FOUNDER&rsquo;S PICKS &middot; WHERE WE STAND", "Three marks lead.", "The designer's cut, the wordmark, and the emblem you picked from the wild.", PICKS, "pick")}
 {section("THE WILD WAVE &middot; SIX JOINS, SIX ICONS", "The first six.", "Joining-mechanisms turned icons: crossing, ligature, embrace, seam, bridge, dovetail.", WAVE1, "wld")}
 {section("THE SECOND BATCH &middot; JOINING-MECHANISMS, ROUND TWO", "Six more.", "Keystone, junction, coupling, braid, confluence, splice — every one an avatar, every one the name.", WAVE2, "b2")}
-{section("THE FOURTH MARK, EXPLORED &middot; WLD-1 THE CROSSING", "The crossing, eight ways.", "Your pick, deep-dived: style studies for the vessels \u2014 atlas, calligraphic, woven, pure with no gold, monumental, branched, twisted, wide-mouthed.", CR_STUDIES, "cr")}
+{section("THE FOURTH MARK, EXPLORED &middot; WLD-1 THE CROSSING", "The crossing, eight ways.", "Your pick, deep-dived: style studies for the vessels — atlas, calligraphic, woven, pure with no gold, monumental, branched, twisted, wide-mouthed.", CR_STUDIES, "cr")}
   <div class="foot">ANASTOMOSIS.MD &middot; FIFTEEN MARKS &middot; EIGHT STUDIES &middot; ONE NAME &middot; TWO VESSELS &middot; ONE MIND<br>SAY THE WORD AND IT&rsquo;S LOCKED</div>
 </div>
 </body></html>"""
