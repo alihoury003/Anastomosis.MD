@@ -41,6 +41,38 @@ for img, title, chip, note, principle in VIEWS:
     <p class="principle">{principle}</p>
   </section>''')
 
+
+MAX_VIEWS = [
+    ("max-1.png", "The definitive emblem", "MAX-1",
+     "The vessel-join loop at maximum flat execution: organic curves, taper, lumen mouths, one branch, the gold suture ring.",
+     "The mark, perfected \u2014 every vessel cue earned."),
+    ("max-2.png", "The twin discs", "MAX-2",
+     "Two bodies, one carved join: the infinity channelled through a crimson disc and a petrol disc, gold dot at the crossing.",
+     "One shape per vessel; the join is negative space."),
+    ("max-3.png", "The full system", "MAX-3",
+     "Not just the avatar \u2014 the whole account: highlight covers as a glyph family, a designed post-template grid.",
+     "The brand is the system, not the mark."),
+    ("max-4.png", "The wordmark", "MAX-4",
+     "The name carries its own anastomosis: the two O\u2019s of anastOmosis are the infinity\u2019s loops \u2014 crimson and petrol, joined behind the M.",
+     "Typography is the last mile of identity."),
+    ("max-5.png", "The founder\u2019s cut, elevated", "MAX-5",
+     "IG-1 taken to its absolute maximum \u2014 the flagship account a designer would screenshot.",
+     "Elevation is consistency: every pixel on brand."),
+]
+
+sections.append("""  <div class="wavehead">
+    <div class="eyebrow">LEVEL: MAXIMUM &middot; THE SECOND WAVE</div>
+    <h2>Five more, elevated to the max.</h2>
+    <p class="wsub">IG-1 is on the shortlist &mdash; and the level goes up: the perfected emblem, the twin discs, the full account system, and the name itself carrying the loop.</p>
+  </div>""")
+for img, title, chip, note, principle in MAX_VIEWS:
+    sections.append(f'''  <section class="view">
+    <div class="viewhead"><span class="chip">{chip}</span><h2>{title}</h2></div>
+    <div class="frame"><img src="{uri(img)}" alt="{title} — Instagram profile view"></div>
+    <p class="note">{note}</p>
+    <p class="principle">{principle}</p>
+  </section>''')
+
 html = f'''<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -84,7 +116,7 @@ h1{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3
     </ul>
   </div>
 {chr(10).join(sections)}
-  <div class="foot">ANASTOMOSIS.MD &middot; TWO VESSELS &middot; ONE MIND &middot; ONE ICON<br>FLAT ONLY FROM HERE &middot; THE CIRCLE IS THE FRAME</div>
+  <div class="foot">ANASTOMOSIS.MD &middot; TWO VESSELS &middot; ONE MIND &middot; ONE ICON<br>FLAT ONLY FROM HERE &middot; THE CIRCLE IS THE FRAME &middot; IG-1 ON THE SHORTLIST</div>
 </div>
 </body></html>'''
 
