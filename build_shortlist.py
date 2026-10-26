@@ -53,6 +53,25 @@ WAVE2 = [
      "Two ropes, six strands interwoven — the sailor's end-to-end anastomosis."),
 ]
 
+CR_STUDIES = [
+    ("cr-1.png", "Atlas style", "CR-1",
+     "Double-contour vessels \u2014 the wall drawn like the anatomical atlases, gold ring at the crossing."),
+    ("cr-2.png", "Calligraphic", "CR-2",
+     "Strokes that swell and taper like a master\u2019s brush, gold ring at the crossing."),
+    ("cr-3.png", "The weave \u2014 no gold", "CR-3",
+     "The crimson vessel passes over the petrol with a clean gap \u2014 the join told purely by the pass, no gold at all."),
+    ("cr-4.png", "Pure \u2014 no gold", "CR-4",
+     "The exact mark with the golden part removed: only the two vessels and the bone between them."),
+    ("cr-5.png", "Monumental", "CR-5",
+     "Ultra-thick flat bars, no lumens, no gold \u2014 the 16-pixel favicon cut."),
+    ("cr-6.png", "Branched", "CR-6",
+     "One small side-branch per arm \u2014 four branches, the anatomical telling, gold ring kept."),
+    ("cr-7.png", "Ribbon twist", "CR-7",
+     "Flat ribbons half-twisting through the crossing \u2014 the vessel\u2019s rotation made visible, gold ring kept."),
+    ("cr-8.png", "Wide-mouthed", "CR-8",
+     "Generous flared lumens at all four ends \u2014 the strongest possible vessel cue, gold ring kept."),
+]
+
 def section(header_eyebrow, header_title, header_sub, items, chip_cls):
     cards = []
     for img, title, chip, note in items:
@@ -95,6 +114,7 @@ h1{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3
 .chip.pick{{background:#F3E4C7;color:#8A6116}}
 .chip.wld{{background:#F2D9D6;color:#8E2A22}}
 .chip.b2{{background:#DCE8EC;color:var(--petrol)}}
+.chip.cr{{background:#E9E2D2;color:#5A5245}}
 .frame{{border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:var(--card);box-shadow:0 14px 40px rgba(16,20,24,.07)}}
 .frame img{{width:100%;height:auto;display:block}}
 .note{{font-size:14px;color:var(--ink2);line-height:1.65;margin-top:13px;max-width:740px}}
@@ -103,11 +123,12 @@ h1{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3
 <div class="wrap">
   <div class="eyebrow">ANASTOMOSIS.MD &middot; THE SHORTLIST &middot; 23 OCT 2026</div>
   <h1>Anastomosis logo shortlist</h1>
-  <p class="sub">Every mark that made the cut: <b>the founder's picks</b>, <b>the wild wave</b>, and <b>the second batch</b> — fifteen icons, each born inside the profile view, each one a joining-mechanism wearing the brand's blood. One name underneath them all.</p>
+  <p class="sub">Every mark that made the cut: <b>the founder's picks</b>, <b>the wild wave</b>, and <b>the second batch</b> — fifteen icons and eight studies of the fourth — each born inside the profile view, each one a joining-mechanism wearing the brand's blood. One name underneath them all.</p>
 {section("THE FOUNDER&rsquo;S PICKS &middot; WHERE WE STAND", "Three marks lead.", "The designer's cut, the wordmark, and the emblem you picked from the wild.", PICKS, "pick")}
 {section("THE WILD WAVE &middot; SIX JOINS, SIX ICONS", "The first six.", "Joining-mechanisms turned icons: crossing, ligature, embrace, seam, bridge, dovetail.", WAVE1, "wld")}
 {section("THE SECOND BATCH &middot; JOINING-MECHANISMS, ROUND TWO", "Six more.", "Keystone, junction, coupling, braid, confluence, splice — every one an avatar, every one the name.", WAVE2, "b2")}
-  <div class="foot">ANASTOMOSIS.MD &middot; FIFTEEN MARKS &middot; ONE NAME &middot; TWO VESSELS &middot; ONE MIND<br>SAY THE WORD AND IT&rsquo;S LOCKED</div>
+{section("THE FOURTH MARK, EXPLORED &middot; WLD-1 THE CROSSING", "The crossing, eight ways.", "Your pick, deep-dived: style studies for the vessels \u2014 atlas, calligraphic, woven, pure with no gold, monumental, branched, twisted, wide-mouthed.", CR_STUDIES, "cr")}
+  <div class="foot">ANASTOMOSIS.MD &middot; FIFTEEN MARKS &middot; EIGHT STUDIES &middot; ONE NAME &middot; TWO VESSELS &middot; ONE MIND<br>SAY THE WORD AND IT&rsquo;S LOCKED</div>
 </div>
 </body></html>"""
 
