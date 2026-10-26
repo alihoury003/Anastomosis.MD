@@ -88,8 +88,8 @@ BT_STUDIES = [
 def section(header_eyebrow, header_title, header_sub, items, chip_cls):
     cards = []
     for img, title, chip, note in items:
-        cards.append(f"""  <section class="view">
-    <div class="viewhead"><span class="chip {chip_cls}">{chip}</span><h2>{title}</h2></div>
+        cards.append(f"""  <section class="view" data-id="{chip}">
+    <div class="viewhead"><span class="chip {chip_cls}">{chip}</span><h2>{title}</h2><button class="elim">Eliminate</button></div>
     <div class="frame"><img src="{uri(img)}" alt="{title} — Instagram profile view"></div>
     <p class="note">{note}</p>
   </section>""")
@@ -99,6 +99,64 @@ def section(header_eyebrow, header_title, header_sub, items, chip_cls):
     <p class="wsub">{header_sub}</p>
   </div>
 {chr(10).join(cards)}"""
+
+
+ELIM_CSS = """
+.controls{display:flex;gap:14px;align-items:center;margin:6px 0 30px;flex-wrap:wrap}
+.count{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--ink2);font-weight:700}
+.count b{color:var(--crimson);font-size:16px}
+.ctl{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;padding:8px 16px;border-radius:8px;border:1px solid var(--rule);background:var(--card);color:var(--ink2);cursor:pointer}
+.ctl:hover{border-color:var(--ink3)}
+.ctl.danger{color:var(--crimson)}
+.elim{margin-left:auto;font-size:11px;font-weight:700;padding:7px 14px;border-radius:8px;border:1px solid #E5C9C5;background:transparent;color:var(--crimson);cursor:pointer;letter-spacing:.04em;align-self:center}
+.elim:hover{background:#F7E4E1}
+.elim.undo{border-color:var(--rule);color:var(--ink3)}
+.view.eliminated .frame{opacity:.28;filter:grayscale(.9)}
+.view.eliminated h2{text-decoration:line-through;opacity:.55}
+.view.eliminated .note{opacity:.4}
+.view.eliminated .viewhead::after{content:'ELIMINATED';font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.18em;color:var(--crimson);border:1px solid var(--crimson);border-radius:3px;padding:2px 6px;margin-left:10px}
+body.hide-elim .view.eliminated{display:none}
+"""
+
+CONTROLS = """<div class="controls">
+  <div class="count"><b id="remaining">28</b>&nbsp;of&nbsp;<span id="total">28</span>&nbsp;remaining</div>
+  <button id="hideBtn" class="ctl">Hide eliminated</button>
+  <button id="resetBtn" class="ctl danger">Reset eliminations</button>
+</div>"""
+
+SCRIPT = '''<script>
+(function(){
+  var KEY='anastomosis-elim-v1';
+  var el={};
+  try{el=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){el={}}
+  var cards=[].slice.call(document.querySelectorAll('.view[data-id]'));
+  var rem=document.getElementById('remaining'),tot=document.getElementById('total');
+  var hideBtn=document.getElementById('hideBtn'),resetBtn=document.getElementById('resetBtn');
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(el))}catch(e){}}
+  function apply(){
+    var n=0;
+    cards.forEach(function(c){
+      var id=c.getAttribute('data-id'),b=c.querySelector('.elim');
+      if(el[id]){c.classList.add('eliminated');b.textContent='Undo';b.classList.add('undo')}
+      else{c.classList.remove('eliminated');b.textContent='Eliminate';b.classList.remove('undo');n++}
+    });
+    rem.textContent=n;tot.textContent=cards.length;
+  }
+  cards.forEach(function(c){
+    c.querySelector('.elim').addEventListener('click',function(){
+      var id=c.getAttribute('data-id');
+      if(el[id])delete el[id];else el[id]=1;
+      save();apply();
+    });
+  });
+  hideBtn.addEventListener('click',function(){
+    document.body.classList.toggle('hide-elim');
+    this.textContent=document.body.classList.contains('hide-elim')?'Show eliminated':'Hide eliminated';
+  });
+  resetBtn.addEventListener('click',function(){el={};save();apply()});
+  apply();
+})();
+</script>'''
 
 html = f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8">
@@ -132,12 +190,14 @@ h1{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3
 .frame{{border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:var(--card);box-shadow:0 14px 40px rgba(16,20,24,.07)}}
 .frame img{{width:100%;height:auto;display:block}}
 .note{{font-size:14px;color:var(--ink2);line-height:1.65;margin-top:13px;max-width:740px}}
+{ELIM_CSS}
 .foot{{margin-top:52px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--ink3);text-align:center;line-height:2.1}}
 </style></head><body>
 <div class="wrap">
   <div class="eyebrow">ANASTOMOSIS.MD &middot; THE SHORTLIST &middot; 23 OCT 2026</div>
   <h1>Anastomosis logo shortlist</h1>
-  <p class="sub">Every mark that made the cut: <b>the founder's picks</b>, <b>the wild wave</b>, and <b>the second batch</b> — fifteen icons and eight studies of the fourth — each born inside the profile view, each one a joining-mechanism wearing the brand's blood. One name underneath them all.</p>
+  <p class="sub">Every mark that made the cut: <b>the founder's picks</b>, <b>the wild wave</b>, and <b>the second batch</b> — fifteen marks and thirteen studies — each born inside the profile view, each one a joining-mechanism wearing the brand's blood. One name underneath them all.</p>
+{CONTROLS}
 {section("THE FOUNDER&rsquo;S PICKS &middot; WHERE WE STAND", "Three marks lead.", "The designer's cut, the wordmark, and the emblem you picked from the wild.", PICKS, "pick")}
 {section("THE WILD WAVE &middot; SIX JOINS, SIX ICONS", "The first six.", "Joining-mechanisms turned icons: crossing, ligature, embrace, seam, bridge, dovetail.", WAVE1, "wld")}
 {section("THE SECOND BATCH &middot; JOINING-MECHANISMS, ROUND TWO", "Six more.", "Keystone, junction, coupling, braid, confluence, splice — every one an avatar, every one the name.", WAVE2, "b2")}
@@ -145,6 +205,7 @@ h1{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3
 {section("THE TENTH MARK, EXPLORED &middot; WLD-10 THE BRAID", "The braid, same design. New skin.", "The founder’s actual pick for the texture treatment: two vessels woven over-and-under — only the surface changes: two-tone, hatched, sheened, segmented, stippled, crosshatched.", BT_STUDIES, "bt")}
   <div class="foot">ANASTOMOSIS.MD &middot; FIFTEEN MARKS &middot; THIRTEEN STUDIES &middot; ONE NAME &middot; TWO VESSELS &middot; ONE MIND<br>SAY THE WORD AND IT&rsquo;S LOCKED</div>
 </div>
+{SCRIPT}
 </body></html>"""
 
 out = os.path.join(LAB, "anastomosis-shortlist.html")

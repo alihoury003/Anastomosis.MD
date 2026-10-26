@@ -23,6 +23,19 @@ MARKS = [
     ("wld-10.png",      "wld-10", "The braid",                     "WLD-10", "Two vessels woven over and under \u2014 the oldest join humans know, bound in gold."),
     ("wld-11.png",      "wld-11", "The confluence",                "WLD-11", "Four vessels meeting at one golden node \u2014 the medical plus sign, drawn by circulation itself."),
     ("wld-12.png",      "wld-12", "The splice",                    "WLD-12", "Two ropes, six strands interwoven \u2014 the sailor\u2019s end-to-end anastomosis."),
+    ("cr-7.png",        "cr-7",   "The crossing — ribbon twist",   "CR-7",   "The kept study: flat ribbons half-twisting through the crossing."),
+    ("tex-1.png",       "tex-1",  "The crossing — two-tone",       "TEX-1",  "Same design, new skin: light and dark lengthwise tones — cylinder roundness, flat."),
+    ("tex-2.png",       "tex-2",  "The crossing — hatch",          "TEX-2",  "Fine bone hatch lines — the vintage anatomical plate."),
+    ("tex-3.png",       "tex-3",  "The crossing — sheen",          "TEX-3",  "One thin lighter line along each tube's upper edge."),
+    ("tex-4.png",       "tex-4",  "The crossing — bands",          "TEX-4",  "Fine perpendicular bands — myelin segmentation."),
+    ("tex-5.png",       "tex-5",  "The crossing — stipple",        "TEX-5",  "A fine scatter of lighter dots — stipple engraving."),
+    ("tex-6.png",       "tex-6",  "The crossing — crosshatch",     "TEX-6",  "Two directions of fine bone lines — classical engraving."),
+    ("bt-1.png",        "bt-1",   "The braid — two-tone",          "BT-1",   "The braid, new skin: light and dark lengthwise tones through the weave."),
+    ("bt-2.png",        "bt-2",   "The braid — hatch",             "BT-2",  "Fine bone hatch lines following the weave."),
+    ("bt-3.png",        "bt-3",   "The braid — sheen",             "BT-3",  "One thin lighter line faithful through every crossing."),
+    ("bt-4.png",        "bt-4",   "The braid — bands",             "BT-4",  "Fine perpendicular bands — myelin segmentation through the weave."),
+    ("bt-5.png",        "bt-5",   "The braid — stipple",           "BT-5",  "A fine scatter of lighter dots through the weave."),
+    ("bt-6.png",        "bt-6",   "The braid — crosshatch",        "BT-6",  "Two directions of fine bone lines on the woven tubes."),
     ("ig-1.png",        "ig-1",   "The emblem — in the wild",      "IG-1",   "The founder's pick: the vessel-join loop as the avatar — artery loop, vein loop, golden crossing, born in the profile view."),
     ("avi-1.png",       "avi-1",  "The AV infinity — the join",     "AVI-1", "The infinity IS the anastomosis: its ends fuse into the artery and the vein — suture rings at both junctions."),
     ("avi-2.png",       "avi-2",  "The AV infinity — the flow",    "AVI-2", "Artery flows into the left loop, vein receives the right — blood changes sides at the golden crossing."),
@@ -121,7 +134,7 @@ html = f'''<!DOCTYPE html>
 {chr(10).join(classes_css)}
 </style></head><body>
 <h1>Anastomosis logo lab</h1>
-<p class="sub">10 marks &middot; instagram &middot; product bar &middot; size ladder &middot; browser tab</p>
+<p class="sub">{len(MARKS)} marks &middot; instagram &middot; product bar &middot; size ladder &middot; browser tab</p>
 <div class="grid">
 {chr(10).join(cards)}
 </div>
@@ -182,9 +195,9 @@ c.setFillColor(INK); c.setFont("Times-BoldItalic", 44)
 c.drawString(M, H - 136, "Anastomosis logo lab.")
 c.setFillColor(INK2); c.setFont("Helvetica", 10.5)
 for i, line in enumerate([
-    "Fifty-two marks for the new name: the designer's cut and the wild waves lead —",
-    "twelve joining-mechanisms as icons — then the founder's pick, the AV infinity,",
-    "the living A, and the rest. One lab, one decision at the end of it.",
+    "Sixty-five marks for the new name: the designer's cut, the wild waves, and",
+    "their texture studies — then the founder's pick, the AV infinity, the living",
+    "A, and the rest. One lab, one decision at the end of it.",
 ]):
     c.drawString(M, H - 164 - i * 16, line)
 tw, gap = 85, 14
