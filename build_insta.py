@@ -55,12 +55,12 @@ sections.append("""  <div class="wavehead">
     <p class="wsub">With the restrictions lifted, this is the design I would ship: the artery that ties itself into the vein — the founder&rsquo;s infinity, the vessel language, and the avatar discipline, fused into a single knot. The name, performed by the mark itself.</p>
   </div>""")
 for img, title, chip, note, principle in DC_VIEWS:
-    sections.append(f\'\'\'  <section class="view">
+    sections.append(f'''  <section class="view">
     <div class="viewhead"><span class="chip dc">{chip}</span><h2>{title}</h2></div>
     <div class="frame"><img src="{uri(img)}" alt="{title} — Instagram profile view"></div>
     <p class="note">{note}</p>
     <p class="principle">{principle}</p>
-  </section>\'\'\')
+  </section>''')
 
 for img, title, chip, note, principle in VIEWS:
     sections.append(f'''  <section class="view">
