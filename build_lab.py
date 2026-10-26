@@ -9,6 +9,7 @@ LAB = "/home/user/Medchanic.md/logo-lab"
 STYLE_SRC = os.path.join(LAB, "picks.html")
 
 MARKS = [
+    ("ig-1.png",        "ig-1",   "The emblem — in the wild",      "IG-1",   "The founder's pick: the vessel-join loop as the avatar — artery loop, vein loop, golden crossing, born in the profile view."),
     ("avi-1.png",       "avi-1",  "The AV infinity — the join",     "AVI-1", "The infinity IS the anastomosis: its ends fuse into the artery and the vein — suture rings at both junctions."),
     ("avi-2.png",       "avi-2",  "The AV infinity — the flow",    "AVI-2", "Artery flows into the left loop, vein receives the right — blood changes sides at the golden crossing."),
     ("avi-3.png",       "avi-3",  "The AV infinity — minimal",     "AVI-3", "The 16 px cut: A skeleton, the gold loop bridging artery to vein."),
@@ -156,10 +157,9 @@ c.setFillColor(INK); c.setFont("Times-BoldItalic", 44)
 c.drawString(M, H - 136, "Anastomosis logo lab.")
 c.setFillColor(INK2); c.setFont("Helvetica", 10.5)
 for i, line in enumerate([
-    "Thirty-seven marks for the new name: the AV infinity leads — the infinity as",
-    "the anastomosis itself, joining artery to vein — then the living A, the clear",
-    "series, and the rest. The rendered style is dropped; from here, avatar-first.",
-    "One lab, one decision at the end of it.",
+    "Thirty-eight marks for the new name: the founder's pick from the wild round",
+    "leads — then the AV infinity, the living A, the clear series, and the rest.",
+    "The rendered style is dropped; from here, avatar-first. One lab, one decision",
 ]):
     c.drawString(M, H - 164 - i * 16, line)
 tw, gap = 85, 14
