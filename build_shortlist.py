@@ -54,22 +54,20 @@ WAVE2 = [
 ]
 
 CR_STUDIES = [
-    ("cr-1.png", "Atlas style", "CR-1",
-     "Double-contour vessels \u2014 the wall drawn like the anatomical atlases, gold ring at the crossing."),
-    ("cr-2.png", "Calligraphic", "CR-2",
-     "Strokes that swell and taper like a master\u2019s brush, gold ring at the crossing."),
-    ("cr-3.png", "The weave \u2014 no gold", "CR-3",
-     "The crimson vessel passes over the petrol with a clean gap \u2014 the join told purely by the pass, no gold at all."),
-    ("cr-4.png", "Pure \u2014 no gold", "CR-4",
-     "The exact mark with the golden part removed: only the two vessels and the bone between them."),
-    ("cr-5.png", "Monumental", "CR-5",
-     "Ultra-thick flat bars, no lumens, no gold \u2014 the 16-pixel favicon cut."),
-    ("cr-6.png", "Branched", "CR-6",
-     "One small side-branch per arm \u2014 four branches, the anatomical telling, gold ring kept."),
-    ("cr-7.png", "Ribbon twist", "CR-7",
-     "Flat ribbons half-twisting through the crossing \u2014 the vessel\u2019s rotation made visible, gold ring kept."),
-    ("cr-8.png", "Wide-mouthed", "CR-8",
-     "Generous flared lumens at all four ends \u2014 the strongest possible vessel cue, gold ring kept."),
+    ("cr-7.png", "Ribbon twist — kept", "CR-7",
+     "The before-last of the first study round — kept by the founder's word; the only survivor."),
+    ("tex-1.png", "Two-tone cylinder", "TEX-1",
+     "Same design, new skin: each tube split lengthwise into light and dark tones — cylinder roundness, perfectly flat."),
+    ("tex-2.png", "Engraved hatch", "TEX-2",
+     "Fine parallel hatch lines in the bone colour — the vintage anatomical plate."),
+    ("tex-3.png", "Sheen highlight", "TEX-3",
+     "One thin lighter line along each tube's upper edge — a quiet sheen, nothing else changed."),
+    ("tex-4.png", "Segmented bands", "TEX-4",
+     "Fine perpendicular bands in deeper tones — myelin segmentation, surgical instrument markings."),
+    ("tex-5.png", "Stipple", "TEX-5",
+     "A fine scatter of lighter dots — the stipple engraving of old anatomy plates."),
+    ("tex-6.png", "Crosshatch", "TEX-6",
+     "Two directions of fine bone-coloured lines — the classic crosshatch of classical engraving."),
 ]
 
 def section(header_eyebrow, header_title, header_sub, items, chip_cls):
@@ -127,8 +125,8 @@ h1{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3
 {section("THE FOUNDER&rsquo;S PICKS &middot; WHERE WE STAND", "Three marks lead.", "The designer's cut, the wordmark, and the emblem you picked from the wild.", PICKS, "pick")}
 {section("THE WILD WAVE &middot; SIX JOINS, SIX ICONS", "The first six.", "Joining-mechanisms turned icons: crossing, ligature, embrace, seam, bridge, dovetail.", WAVE1, "wld")}
 {section("THE SECOND BATCH &middot; JOINING-MECHANISMS, ROUND TWO", "Six more.", "Keystone, junction, coupling, braid, confluence, splice — every one an avatar, every one the name.", WAVE2, "b2")}
-{section("THE FOURTH MARK, EXPLORED &middot; WLD-1 THE CROSSING", "The crossing, eight ways.", "Your pick, deep-dived: style studies for the vessels — atlas, calligraphic, woven, pure with no gold, monumental, branched, twisted, wide-mouthed.", CR_STUDIES, "cr")}
-  <div class="foot">ANASTOMOSIS.MD &middot; FIFTEEN MARKS &middot; EIGHT STUDIES &middot; ONE NAME &middot; TWO VESSELS &middot; ONE MIND<br>SAY THE WORD AND IT&rsquo;S LOCKED</div>
+{section("THE FOURTH MARK, EXPLORED &middot; WLD-1 THE CROSSING", "Same design. New skin.", "The exact crossing, untouched in geometry — only the texture of the vessels changes: two-tone, hatched, sheened, segmented, stippled, crosshatched. Plus the one study kept from the first round.", CR_STUDIES, "cr")}
+  <div class="foot">ANASTOMOSIS.MD &middot; FIFTEEN MARKS &middot; SEVEN STUDIES &middot; ONE NAME &middot; TWO VESSELS &middot; ONE MIND<br>SAY THE WORD AND IT&rsquo;S LOCKED</div>
 </div>
 </body></html>"""
 
