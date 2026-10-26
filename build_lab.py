@@ -9,6 +9,10 @@ LAB = "/home/user/Medchanic.md/logo-lab"
 STYLE_SRC = os.path.join(LAB, "picks.html")
 
 MARKS = [
+    ("ais-1.png",       "ais-1",  "The A-Infinity — your style",  "AIS-1", "The founder's fusion, drawn in the founder's style — composition from one, aesthetic from the other."),
+    ("ais-2.png",       "ais-2",  "Your style, our blood",       "AIS-2", "The style you attached, carrying the arteriovenous palette through it."),
+    ("ais-3.png",       "ais-3",  "Your style — minimal",        "AIS-3", "The 16 px cut in your style — fewest strokes, both readings alive."),
+    ("ais-4.png",       "ais-4",  "Your style — hero",           "AIS-4", "The richest expression of your style on the fused form — the launch asset."),
     ("ainf-1.png",      "ainf-1",  "The A-Infinity — definitive",   "AINF-1", "The founder's fusion, elevated: the A and the infinity as one vessel form — gold suture at the crossing."),
     ("ainf-2.png",      "ainf-2",  "The A-Infinity — sculptural",  "AINF-2", "The fusion extruded into depth — walls, lumens in perspective, two-tone carving."),
     ("ainf-3.png",      "ainf-3",  "The A-Infinity — rendered",    "AINF-3", "The flagship render: studio light, true volume, the gold ring at the junction."),
@@ -92,7 +96,7 @@ html = f'''<!DOCTYPE html>
 <div class="grid">
 {chr(10).join(cards)}
 </div>
-<p class="sub" style="margin-top:22px">ainf leads &mdash; the founder&rsquo;s fusion, elevated &nbsp;/&nbsp; a-top &middot; the A family &nbsp;/&nbsp; inf-r &middot; the infinity family &nbsp;/&nbsp; the rest held</p>
+<p class="sub" style="margin-top:22px">ais leads &mdash; the founder&rsquo;s fusion in the founder&rsquo;s style &nbsp;/&nbsp; ainf &middot; the fusion elevations &nbsp;/&nbsp; a-top &middot; the A family &nbsp;/&nbsp; inf-r &middot; the infinity family &nbsp;/&nbsp; the rest held</p>
 <p class="sub" style="margin-top:8px">say the word and the winner gets the rollout</p>
 </body></html>'''
 
@@ -138,8 +142,8 @@ c.setFillColor(INK); c.setFont("Times-BoldItalic", 44)
 c.drawString(M, H - 136, "Anastomosis logo lab.")
 c.setFillColor(INK2); c.setFont("Helvetica", 10.5)
 for i, line in enumerate([
-    "Nineteen marks for the new name: the A-Infinity fusion leads — the founder's",
-    "own idea, elevated four ways — then the A family, the endless anastomosis,",
+    "Twenty-three marks for the new name: the A-Infinity in the founder's chosen",
+    "style leads — then the fusion elevations, the A family, the infinity family,",
     "and the rest. One lab, one decision at the end of it.",
 ]):
     c.drawString(M, H - 164 - i * 16, line)
