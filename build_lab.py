@@ -9,6 +9,11 @@ LAB = "/home/user/Medchanic.md/logo-lab"
 STYLE_SRC = os.path.join(LAB, "picks.html")
 
 MARKS = [
+    ("lv-1.png",        "lv-1",   "The living A — definitive",     "LV-1", "The thesis: pure letter skeleton, vessel material — organic curves, taper, the branch, open lumen mouths."),
+    ("lv-2.png",        "lv-2",   "The living A — infinite crossbar", "LV-2", "The vessel A with the infinity as its crossbar, in gold — the loop held in the letter's own anatomy."),
+    ("lv-3.png",        "lv-3",   "The living A — looped feet",    "LV-3", "The vessel A with quiet loops at its feet — the infinity carried at the base."),
+    ("lv-4.png",        "lv-4",   "The living A — vivid",          "LV-4", "The recognition test: true arterial red and venous blue — the universal diagram colours."),
+    ("lv-5.png",        "lv-5",   "The living A — anatomical hero","LV-5", "Real 3D vessels: organic tubes, the branch with interior depth, the gold suture bar."),
     ("ac-1.png",        "ac-1",   "The clear A — definitive",      "AC-1", "The two non-negotiables: a textbook A readable in half a second, and strokes that are unmistakably vessels — tube mouths, lumens."),
     ("ac-2.png",        "ac-2",   "The clear A — vessel detail",   "AC-2", "Medical-illustration grade: wall-thickness lines, pronounced lumens, one true branch stub."),
     ("ac-3.png",        "ac-3",   "The clear A — minimal",         "AC-3", "The 16 px cut — the letter, the loops, the lumen dots."),
@@ -101,7 +106,7 @@ html = f'''<!DOCTYPE html>
 <div class="grid">
 {chr(10).join(cards)}
 </div>
-<p class="sub" style="margin-top:22px">ac leads &mdash; the clear A: letter first, vessels always &nbsp;/&nbsp; ais &middot; ainf &mdash; the fusion in style and elevation &nbsp;/&nbsp; a-top &middot; the families &nbsp;/&nbsp; the rest held</p>
+<p class="sub" style="margin-top:22px">lv leads &mdash; pure skeleton, vessel material &nbsp;/&nbsp; ac &middot; the clear series &nbsp;/&nbsp; ais &middot; ainf &mdash; the fusion &nbsp;/&nbsp; the families &nbsp;/&nbsp; the rest held</p>
 <p class="sub" style="margin-top:8px">say the word and the winner gets the rollout</p>
 </body></html>'''
 
@@ -147,9 +152,9 @@ c.setFillColor(INK); c.setFont("Times-BoldItalic", 44)
 c.drawString(M, H - 136, "Anastomosis logo lab.")
 c.setFillColor(INK2); c.setFont("Helvetica", 10.5)
 for i, line in enumerate([
-    "Twenty-eight marks for the new name: the clear A leads — textbook letterform,",
-    "unmistakable vessels — then the style series, the fusion elevations, the A family,",
-    "the infinity family, and the rest. One lab, one decision at the end of it.",
+    "Thirty-three marks for the new name: the living A leads — pure skeleton,",
+    "vessel material: curved, tapered, branched, open — then the clear series, the style",
+    "series, the fusion, and the families. One lab, one decision at the end of it.",
 ]):
     c.drawString(M, H - 164 - i * 16, line)
 tw, gap = 85, 14
