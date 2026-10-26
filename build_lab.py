@@ -12,7 +12,6 @@ MARKS = [
     ("avi-1.png",       "avi-1",  "The AV infinity — the join",     "AVI-1", "The infinity IS the anastomosis: its ends fuse into the artery and the vein — suture rings at both junctions."),
     ("avi-2.png",       "avi-2",  "The AV infinity — the flow",    "AVI-2", "Artery flows into the left loop, vein receives the right — blood changes sides at the golden crossing."),
     ("avi-3.png",       "avi-3",  "The AV infinity — minimal",     "AVI-3", "The 16 px cut: A skeleton, the gold loop bridging artery to vein."),
-    ("avi-4.png",       "avi-4",  "The AV infinity — rendered",    "AVI-4", "The anatomical hero: real tubes, the loop grafting artery into vein, gold ring at the handover."),
     ("avi-5.png",       "avi-5",  "The AV infinity — emblem",      "AVI-5", "No letter, pure symbol: an artery and a vein joined by the endless loop."),
     ("lv-1.png",        "lv-1",   "The living A — definitive",     "LV-1", "The thesis: pure letter skeleton, vessel material — organic curves, taper, the branch, open lumen mouths."),
     ("lv-2.png",        "lv-2",   "The living A — infinite crossbar", "LV-2", "The vessel A with the infinity as its crossbar, in gold — the loop held in the letter's own anatomy."),
@@ -111,7 +110,7 @@ html = f'''<!DOCTYPE html>
 <div class="grid">
 {chr(10).join(cards)}
 </div>
-<p class="sub" style="margin-top:22px">avi leads &mdash; the infinity IS the anastomosis &nbsp;/&nbsp; lv &middot; the living A &nbsp;/&nbsp; ac &middot; the clear series &nbsp;/&nbsp; the fusion &amp; families &nbsp;/&nbsp; the rest held</p>
+<p class="sub" style="margin-top:22px">avi leads &mdash; the infinity IS the anastomosis &nbsp;/&nbsp; lv &middot; the living A &nbsp;/&nbsp; ac &middot; the clear series &nbsp;/&nbsp; the fusion &amp; families &nbsp;/&nbsp; the rest held &nbsp;/&nbsp; rendered style dropped &mdash; avatar-first from here</p>
 <p class="sub" style="margin-top:8px">say the word and the winner gets the rollout</p>
 </body></html>'''
 
@@ -157,9 +156,10 @@ c.setFillColor(INK); c.setFont("Times-BoldItalic", 44)
 c.drawString(M, H - 136, "Anastomosis logo lab.")
 c.setFillColor(INK2); c.setFont("Helvetica", 10.5)
 for i, line in enumerate([
-    "Thirty-eight marks for the new name: the AV infinity leads — the infinity as",
+    "Thirty-seven marks for the new name: the AV infinity leads — the infinity as",
     "the anastomosis itself, joining artery to vein — then the living A, the clear",
-    "series, and the rest. One lab, one decision at the end of it.",
+    "series, and the rest. The rendered style is dropped; from here, avatar-first.",
+    "One lab, one decision at the end of it.",
 ]):
     c.drawString(M, H - 164 - i * 16, line)
 tw, gap = 85, 14
