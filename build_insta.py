@@ -34,6 +34,41 @@ VIEWS = [
 
 sections = []
 
+WLD_VIEWS = [
+    ("wld-1.png", "The crossing", "WLD-1",
+     "Two vessels crossing at the centre, one gold suture ring, four open mouths \u2014 the surgical diagram become icon.",
+     "The simplest anastomosis ever drawn."),
+    ("wld-2.png", "The ligature", "WLD-2",
+     "A and M sharing one stroke \u2014 a ligature in the true typographic sense: two letters anastomosed into one glyph.",
+     "Typography\u2019s own word for the join."),
+    ("wld-3.png", "The embrace", "WLD-3",
+     "Two S-curves completing one circle, gold rings at both meetings \u2014 the yin and yang of the bloodstream.",
+     "Two halves, one circulation."),
+    ("wld-4.png", "The seam", "WLD-4",
+     "Crimson teeth and petrol teeth interlocking like a dovetail or a stapler line \u2014 one gold hand-stitch at the centre.",
+     "The mechanical anastomosis, zipped."),
+    ("wld-5.png", "The bridge", "WLD-5",
+     "Two vertical vessels joined by a horizontal graft \u2014 the letter H as the bypass surgeons build.",
+     "The configuration itself, as a letterform."),
+    ("wld-6.png", "The dovetail A", "WLD-6",
+     "The letter A split by a dovetail seam \u2014 crimson half, petrol half, one gold pin at the apex.",
+     "The carpenter\u2019s anastomosis wearing the initial."),
+]
+
+sections.append("""  <div class="wavehead">
+    <div class="eyebrow">THE WILD WAVE &middot; BACK TO THE MARK</div>
+    <h2>Six joins, six icons.</h2>
+    <p class="wsub">Wild within a logo request: joining-mechanisms turned icons \u2014 the crossing, the ligature, the embrace, the seam, the bridge, the dovetail. Every one an avatar. Every one the name.</p>
+  </div>""")
+for img, title, chip, note, principle in WLD_VIEWS:
+    sections.append(f"""  <section class="view">
+    <div class="viewhead"><span class="chip wld">{chip}</span><h2>{title}</h2></div>
+    <div class="frame"><img src="{uri(img)}" alt="{title} — Instagram profile view"></div>
+    <p class="note">{note}</p>
+    <p class="principle">{principle}</p>
+  </section>""")
+
+
 DC_VIEWS = [
     ("dc-1.png", "The self-tying vessel", "DC-1",
      "One continuous vessel: artery in through the golden ring, vein out — the founder's infinity, tied with the full vessel language: curve, taper, branch, open mouths.",
@@ -124,6 +159,7 @@ h1{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3
 .viewhead{{display:flex;align-items:baseline;gap:14px;margin-bottom:14px}}
 .viewhead h2{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:32px}}
 .chip.dc{{background:#F3E4C7;color:#8A6116}}
+.chip.wld{{background:#F2D9D6;color:#8E2A22}}
 .chip{{font-family:var(--mono);font-size:10px;letter-spacing:.14em;background:#DCE8EC;color:var(--petrol);padding:5px 10px;border-radius:4px;font-weight:700}}
 .frame{{border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:var(--card)}}
 .frame img{{width:100%;height:auto;display:block}}
@@ -149,7 +185,7 @@ h1{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3
     </ul>
   </div>
 {chr(10).join(sections)}
-  <div class="foot">ANASTOMOSIS.MD &middot; TWO VESSELS &middot; ONE MIND &middot; ONE ICON<br>FLAT ONLY FROM HERE &middot; THE CIRCLE IS THE FRAME &middot; IG-1 ON THE SHORTLIST &middot; THE DESIGNER&rsquo;S CUT LEADS</div>
+  <div class="foot">ANASTOMOSIS.MD &middot; TWO VESSELS &middot; ONE MIND &middot; ONE ICON<br>FLAT ONLY FROM HERE &middot; THE CIRCLE IS THE FRAME &middot; IG-1 ON THE SHORTLIST &middot; THE WILD WAVE LEADS</div>
 </div>
 </body></html>'''
 
