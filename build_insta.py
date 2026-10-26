@@ -33,6 +33,35 @@ VIEWS = [
 ]
 
 sections = []
+
+DC_VIEWS = [
+    ("dc-1.png", "The self-tying vessel", "DC-1",
+     "One continuous vessel: artery in through the golden ring, vein out — the founder's infinity, tied with the full vessel language: curve, taper, branch, open mouths.",
+     "One tube, two colours, one join — drawable from memory in five seconds."),
+    ("dc-2.png", "The name carries the loop", "DC-2",
+     "The complete lockup: the self-tying vessel as avatar, and the wordmark whose two O's are the loops — crimson and petrol, joined behind the M.",
+     "Typography performing the name's own meaning."),
+    ("dc-3.png", "The hidden monogram", "DC-3",
+     "The loop composed so the negative space beneath the crossing whispers an A — a reward for the second look.",
+     "The best marks hide something; this one hides the initial."),
+    ("dc-4.png", "The launch post", "DC-4",
+     "The hero post: the mark large, the line beneath — 'Two vessels. One mind.'",
+     "The first thing the world sees."),
+]
+
+sections.append("""  <div class="wavehead">
+    <div class="eyebrow">THE DESIGNER&rsquo;S CUT &middot; MY CHOICE &middot; FULL FREEDOM</div>
+    <h2>One tube. Two colours. One golden join.</h2>
+    <p class="wsub">With the restrictions lifted, this is the design I would ship: the artery that ties itself into the vein — the founder&rsquo;s infinity, the vessel language, and the avatar discipline, fused into a single knot. The name, performed by the mark itself.</p>
+  </div>""")
+for img, title, chip, note, principle in DC_VIEWS:
+    sections.append(f\'\'\'  <section class="view">
+    <div class="viewhead"><span class="chip dc">{chip}</span><h2>{title}</h2></div>
+    <div class="frame"><img src="{uri(img)}" alt="{title} — Instagram profile view"></div>
+    <p class="note">{note}</p>
+    <p class="principle">{principle}</p>
+  </section>\'\'\')
+
 for img, title, chip, note, principle in VIEWS:
     sections.append(f'''  <section class="view">
     <div class="viewhead"><span class="chip">{chip}</span><h2>{title}</h2></div>
@@ -94,6 +123,7 @@ h1{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3
 .view{{margin-bottom:52px}}
 .viewhead{{display:flex;align-items:baseline;gap:14px;margin-bottom:14px}}
 .viewhead h2{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:32px}}
+.chip.dc{{background:#F3E4C7;color:#8A6116}}
 .chip{{font-family:var(--mono);font-size:10px;letter-spacing:.14em;background:#DCE8EC;color:var(--petrol);padding:5px 10px;border-radius:4px;font-weight:700}}
 .frame{{border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:var(--card)}}
 .frame img{{width:100%;height:auto;display:block}}
@@ -119,7 +149,7 @@ h1{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3
     </ul>
   </div>
 {chr(10).join(sections)}
-  <div class="foot">ANASTOMOSIS.MD &middot; TWO VESSELS &middot; ONE MIND &middot; ONE ICON<br>FLAT ONLY FROM HERE &middot; THE CIRCLE IS THE FRAME &middot; IG-1 ON THE SHORTLIST</div>
+  <div class="foot">ANASTOMOSIS.MD &middot; TWO VESSELS &middot; ONE MIND &middot; ONE ICON<br>FLAT ONLY FROM HERE &middot; THE CIRCLE IS THE FRAME &middot; IG-1 ON THE SHORTLIST &middot; THE DESIGNER&rsquo;S CUT LEADS</div>
 </div>
 </body></html>'''
 
