@@ -9,7 +9,11 @@ LAB = "/home/user/Medchanic.md/logo-lab"
 STYLE_SRC = os.path.join(LAB, "picks.html")
 
 MARKS = [
-    ("a-top.png",       "a-top",   "The A — definitive",                  "A-TOP",  "Top of the shortlist. The letter with unmistakable vessel edges: open tube tips, visible lumens, the apex merge."),
+    ("ainf-1.png",      "ainf-1",  "The A-Infinity — definitive",   "AINF-1", "The founder's fusion, elevated: the A and the infinity as one vessel form — gold suture at the crossing."),
+    ("ainf-2.png",      "ainf-2",  "The A-Infinity — sculptural",  "AINF-2", "The fusion extruded into depth — walls, lumens in perspective, two-tone carving."),
+    ("ainf-3.png",      "ainf-3",  "The A-Infinity — rendered",    "AINF-3", "The flagship render: studio light, true volume, the gold ring at the junction."),
+    ("ainf-4.png",      "ainf-4",  "The A-Infinity — minimal",     "AINF-4", "The 16 px cut — fewest strokes that still read as both A and infinity."),
+    ("a-top.png",       "a-top",   "The A — definitive",                  "A-TOP",  "The letter with unmistakable vessel edges: open tube tips, visible lumens, the apex merge."),
     ("bold-3.png",      "a",       "The A — original",                    "A",      "The one you pointed out — edges that read as vessels."),
     ("a-3d.png",        "a-3d",    "The A — sculptural",                  "A-3D",   "The letter extruded into depth: vessels with walls, lumens in perspective."),
     ("a-apex.png",      "a-apex",  "The A — apex junction",               "A-PX",   "The apex IS the anastomosis: two vessels joined by a gold suture ring."),
@@ -88,7 +92,7 @@ html = f'''<!DOCTYPE html>
 <div class="grid">
 {chr(10).join(cards)}
 </div>
-<p class="sub" style="margin-top:22px">a-top leads &mdash; the letter with vessel edges &nbsp;/&nbsp; inf-r &middot; inf-3d &middot; inf-rnd &mdash; the infinity, a notch up &nbsp;/&nbsp; the rest held</p>
+<p class="sub" style="margin-top:22px">ainf leads &mdash; the founder&rsquo;s fusion, elevated &nbsp;/&nbsp; a-top &middot; the A family &nbsp;/&nbsp; inf-r &middot; the infinity family &nbsp;/&nbsp; the rest held</p>
 <p class="sub" style="margin-top:8px">say the word and the winner gets the rollout</p>
 </body></html>'''
 
@@ -134,9 +138,9 @@ c.setFillColor(INK); c.setFont("Times-BoldItalic", 44)
 c.drawString(M, H - 136, "Anastomosis logo lab.")
 c.setFillColor(INK2); c.setFont("Helvetica", 10.5)
 for i, line in enumerate([
-    "Fifteen marks for the new name: the A family leads — the letter whose edges",
-    "read as vessels — and the endless anastomosis taken up a notch: refined,",
-    "sculpted, and rendered. One lab, one decision at the end of it.",
+    "Nineteen marks for the new name: the A-Infinity fusion leads — the founder's",
+    "own idea, elevated four ways — then the A family, the endless anastomosis,",
+    "and the rest. One lab, one decision at the end of it.",
 ]):
     c.drawString(M, H - 164 - i * 16, line)
 tw, gap = 85, 14
