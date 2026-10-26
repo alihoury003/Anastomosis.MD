@@ -11,6 +11,18 @@ STYLE_SRC = os.path.join(LAB, "picks.html")
 MARKS = [
     ("dc-1.png",        "dc-1",   "The self-tying vessel",        "DC-1",   "The designer's cut: one continuous vessel — artery in through the golden ring, vein out. The infinity performing the anastomosis."),
     ("dc-2.png",        "dc-2",   "The name carries the loop",    "DC-2",   "The wordmark lockup: the two O's of anastOmosis are the loops — the name performing its own meaning."),
+    ("wld-1.png",       "wld-1",  "The crossing",                  "WLD-1",  "Two vessels crossing at the centre, one gold suture ring, four open mouths \u2014 the surgical diagram become icon."),
+    ("wld-2.png",       "wld-2",  "The ligature",                  "WLD-2",  "A and M sharing one stroke \u2014 a ligature: two letters anastomosed into one glyph."),
+    ("wld-3.png",       "wld-3",  "The embrace",                   "WLD-3",  "Two S-curves completing one circle \u2014 the arterial and venous halves of one circulation."),
+    ("wld-4.png",       "wld-4",  "The seam",                      "WLD-4",  "Crimson teeth interlocking petrol teeth \u2014 the mechanical anastomosis, one gold hand-stitch at the centre."),
+    ("wld-5.png",       "wld-5",  "The bridge",                    "WLD-5",  "Two vertical vessels joined by a horizontal graft \u2014 the letter H as the bypass surgeons build."),
+    ("wld-6.png",       "wld-6",  "The dovetail A",                "WLD-6",  "The initial split by a carpenter\u2019s dovetail seam \u2014 the mechanic\u2019s truth wearing the surgeon\u2019s letter."),
+    ("wld-7.png",       "wld-7",  "The keystone",                  "WLD-7",  "Two arch halves locked by one gold keystone \u2014 the arch stands only because the join holds."),
+    ("wld-8.png",       "wld-8",  "The junction",                  "WLD-8",  "Two tracks merging into one \u2014 the railroad anastomosis, gold pin at the switch."),
+    ("wld-9.png",       "wld-9",  "The coupling",                  "WLD-9",  "Two open tubes clasped mouth-to-mouth \u2014 the plumbing of the body as one fitting."),
+    ("wld-10.png",      "wld-10", "The braid",                     "WLD-10", "Two vessels woven over and under \u2014 the oldest join humans know, bound in gold."),
+    ("wld-11.png",      "wld-11", "The confluence",                "WLD-11", "Four vessels meeting at one golden node \u2014 the medical plus sign, drawn by circulation itself."),
+    ("wld-12.png",      "wld-12", "The splice",                    "WLD-12", "Two ropes, six strands interwoven \u2014 the sailor\u2019s end-to-end anastomosis."),
     ("ig-1.png",        "ig-1",   "The emblem — in the wild",      "IG-1",   "The founder's pick: the vessel-join loop as the avatar — artery loop, vein loop, golden crossing, born in the profile view."),
     ("avi-1.png",       "avi-1",  "The AV infinity — the join",     "AVI-1", "The infinity IS the anastomosis: its ends fuse into the artery and the vein — suture rings at both junctions."),
     ("avi-2.png",       "avi-2",  "The AV infinity — the flow",    "AVI-2", "Artery flows into the left loop, vein receives the right — blood changes sides at the golden crossing."),
@@ -159,9 +171,9 @@ c.setFillColor(INK); c.setFont("Times-BoldItalic", 44)
 c.drawString(M, H - 136, "Anastomosis logo lab.")
 c.setFillColor(INK2); c.setFont("Helvetica", 10.5)
 for i, line in enumerate([
-    "Forty marks for the new name: the designer's cut leads — the self-tying",
-    "vessel and the wordmark that carries the loop — then the founder's pick, the",
-    "AV infinity, the living A, and the rest. One lab, one decision at the end of it.",
+    "Fifty-two marks for the new name: the designer's cut and the wild waves lead —",
+    "twelve joining-mechanisms as icons — then the founder's pick, the AV infinity,",
+    "the living A, and the rest. One lab, one decision at the end of it.",
 ]):
     c.drawString(M, H - 164 - i * 16, line)
 tw, gap = 85, 14
