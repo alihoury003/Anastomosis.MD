@@ -70,6 +70,21 @@ CR_STUDIES = [
      "Two directions of fine bone-coloured lines — the classic crosshatch of classical engraving."),
 ]
 
+BT_STUDIES = [
+    ("bt-1.png", "Two-tone cylinder", "BT-1",
+     "The braid, same design: each tube split lengthwise into light and dark tones \u2014 roundness, perfectly flat."),
+    ("bt-2.png", "Engraved hatch", "BT-2",
+     "Fine parallel hatch lines in bone \u2014 the vintage anatomical plate, following the weave."),
+    ("bt-3.png", "Sheen highlight", "BT-3",
+     "One thin lighter line along each tube\u2019s upper edge, faithful through every crossing."),
+    ("bt-4.png", "Segmented bands", "BT-4",
+     "Fine perpendicular bands in deeper tones \u2014 myelin segmentation through the weave."),
+    ("bt-5.png", "Stipple", "BT-5",
+     "A fine scatter of lighter dots \u2014 stipple engraving, old anatomy plates."),
+    ("bt-6.png", "Crosshatch", "BT-6",
+     "Two directions of fine bone lines \u2014 classical engraving depth on the woven tubes."),
+]
+
 def section(header_eyebrow, header_title, header_sub, items, chip_cls):
     cards = []
     for img, title, chip, note in items:
@@ -113,6 +128,7 @@ h1{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3
 .chip.wld{{background:#F2D9D6;color:#8E2A22}}
 .chip.b2{{background:#DCE8EC;color:var(--petrol)}}
 .chip.cr{{background:#E9E2D2;color:#5A5245}}
+.chip.bt{{background:#EDE6D8;color:#7A6A45}}
 .frame{{border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:var(--card);box-shadow:0 14px 40px rgba(16,20,24,.07)}}
 .frame img{{width:100%;height:auto;display:block}}
 .note{{font-size:14px;color:var(--ink2);line-height:1.65;margin-top:13px;max-width:740px}}
@@ -126,7 +142,8 @@ h1{{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3
 {section("THE WILD WAVE &middot; SIX JOINS, SIX ICONS", "The first six.", "Joining-mechanisms turned icons: crossing, ligature, embrace, seam, bridge, dovetail.", WAVE1, "wld")}
 {section("THE SECOND BATCH &middot; JOINING-MECHANISMS, ROUND TWO", "Six more.", "Keystone, junction, coupling, braid, confluence, splice — every one an avatar, every one the name.", WAVE2, "b2")}
 {section("THE FOURTH MARK, EXPLORED &middot; WLD-1 THE CROSSING", "Same design. New skin.", "The exact crossing, untouched in geometry — only the texture of the vessels changes: two-tone, hatched, sheened, segmented, stippled, crosshatched. Plus the one study kept from the first round.", CR_STUDIES, "cr")}
-  <div class="foot">ANASTOMOSIS.MD &middot; FIFTEEN MARKS &middot; SEVEN STUDIES &middot; ONE NAME &middot; TWO VESSELS &middot; ONE MIND<br>SAY THE WORD AND IT&rsquo;S LOCKED</div>
+{section("THE TENTH MARK, EXPLORED &middot; WLD-10 THE BRAID", "The braid, same design. New skin.", "The founder’s actual pick for the texture treatment: two vessels woven over-and-under — only the surface changes: two-tone, hatched, sheened, segmented, stippled, crosshatched.", BT_STUDIES, "bt")}
+  <div class="foot">ANASTOMOSIS.MD &middot; FIFTEEN MARKS &middot; THIRTEEN STUDIES &middot; ONE NAME &middot; TWO VESSELS &middot; ONE MIND<br>SAY THE WORD AND IT&rsquo;S LOCKED</div>
 </div>
 </body></html>"""
 
