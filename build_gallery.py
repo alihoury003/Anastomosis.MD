@@ -150,6 +150,13 @@ SERIES = [
         ("bt-5", "BT-5", "Stipple", "Stipple dots through the weave."),
         ("bt-6", "BT-6", "Crosshatch", "Classical crosshatch on the woven tubes."),
     ]),
+    ("XIX · The inspiration volley — designed to outclass the reference", [
+        ("sup-1", "SUP-1", "The braid, elevated", "The competitor's confidence on our braid — woven vessels, gold band, monumental."),
+        ("sup-2", "SUP-2", "The self-tying vessel, elevated", "The competitor's instant readability on the artery-through-the-golden-ring mark."),
+        ("sup-3", "SUP-3", "The AV union, elevated", "Corporate-grade confidence on the artery-vein-graft union."),
+        ("sup-4", "SUP-4", "The emblem, elevated", "The vessel-join infinity at flagship confidence."),
+        ("sup-5", "SUP-5", "The free interpretation", "The generator's own best read: everything the reference has, plus anatomy."),
+    ]),
 ]
 
 TOTAL = sum(len(marks) for _, marks in SERIES)
@@ -296,7 +303,7 @@ html = """<!DOCTYPE html>
 <div class="wrap">
   <div class="eyebrow">ANASTOMOSIS.MD &middot; THE MASTER GALLERY &middot; 23 OCT 2026</div>
   <h1>Every mark ever.</h1>
-  <p class="sub">All <b>%d Anastomosis marks</b> across 18 series — from the first five icons to the braid and its six skins. <b>Disqualify</b> what you don't like (it dims and stays out of your way), <b>star</b> what survives (it turns gold), and open the <b>Starred</b> page to compare your shortlist side by side. Your choices persist in this browser.</p>
+  <p class="sub">All <b>%d Anastomosis marks</b> across %d series — from the first five icons to the braid and its six skins. <b>Disqualify</b> what you don't like (it dims and stays out of your way), <b>star</b> what survives (it turns gold), and open the <b>Starred</b> page to compare your shortlist side by side. Your choices persist in this browser.</p>
   <div class="bar">
     <button id="tabGallery" class="tab on">Gallery</button>
     <button id="tabStarred" class="tab">Starred (0)</button>
@@ -311,10 +318,10 @@ html = """<!DOCTYPE html>
     <div class="empty" id="starredEmpty">Nothing starred yet &mdash; go back to the gallery and tap the stars.</div>
     <div class="cards" id="starredGrid"></div>
   </div>
-  <div class="foot">ANASTOMOSIS.MD &middot; 97 MARKS &middot; 18 SERIES &middot; TWO VESSELS &middot; ONE MIND<br>STAR TO SHORTLIST &middot; DISQUALIFY TO ELIMINATE &middot; COMPARE SIDE BY SIDE</div>
+  <div class="foot">ANASTOMOSIS.MD &middot; %d MARKS &middot; %d SERIES &middot; TWO VESSELS &middot; ONE MIND<br>STAR TO SHORTLIST &middot; DISQUALIFY TO ELIMINATE &middot; COMPARE SIDE BY SIDE</div>
 </div>
 %s
-</body></html>""" % (CSS, TOTAL, TOTAL, "\n".join(sections), SCRIPT)
+</body></html>""" % (CSS, TOTAL, len(SERIES), TOTAL, "\n".join(sections), TOTAL, len(SERIES), SCRIPT)
 
 out = os.path.join(LAB, "anastomosis-gallery.html")
 open(out, "w").write(html)
