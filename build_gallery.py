@@ -191,6 +191,17 @@ SERIES = [
         ("fin-7", "FIN-7", "The neurovascular unit — masterpiece", "A neuron's axon anastomosing into a vessel — wiring and plumbing, one system."),
         ("fin-8", "FIN-8", "The infinity brain — masterpiece", "Two brain hemispheres as the loops of an infinity — the two best ideas, one shape."),
     ]),
+    ("XXIV · The brain × the heart — the founder's fusion, and pure magic", [
+        ("bh-0", "POST-1", "The first post — extracted", "The graphic from the first grid post of the vascularized-brain profile, made a standalone mark."),
+        ("bh-1", "BH-1", "The dual organ", "Half brain in petrol, half heart in crimson, gold-sealed midline — the two organs of every physician."),
+        ("bh-2", "BH-2", "The dual organ — seamless", "The brain-heart fusion with no gold — colour into colour."),
+        ("bh-3", "BH-3", "The heart feeding the mind", "A heart whose great vessels rise and anastomose into a brain."),
+        ("bh-4", "BH-4", "The neurocardiac loop", "Brain and heart joined by one endless vessel looping into an infinity between them."),
+        ("bh-5", "BH-5", "The heart's little brain", "A heart containing a brain woven of its own coronary vessels — the forty thousand neurons in the heart."),
+        ("mg-1", "MG-1", "One line, two organs", "A single unbroken vessel: a brain fold above, a heartbeat below, the gold suture between."),
+        ("mg-2", "MG-2", "The pulse tree", "The brain tree on an ECG trunk — knowledge grows on a heartbeat."),
+        ("mg-3", "MG-3", "The organ embrace", "A brain-lobe and a heart-lobe nested like yin and yang, completing one circle."),
+    ]),
 ]
 
 TOTAL = sum(len(marks) for _, marks in SERIES)

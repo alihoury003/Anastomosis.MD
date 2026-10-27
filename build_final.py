@@ -25,6 +25,15 @@ MARKS = [
     ("fin-6", "FIN-6", "Two hemispheres — seamless", "The corpus callosum concept with the gold removed — crimson bridges fusing directly into petrol."),
     ("fin-7", "FIN-7", "The neurovascular unit — masterpiece", "A neuron's axon anastomosing into a vessel — the brain's wiring and the body's plumbing, one system."),
     ("fin-8", "FIN-8", "The infinity brain — masterpiece", "Two brain hemispheres as the loops of an infinity — the brand's two best ideas, one shape."),
+    ("bh-0", "POST-1", "The first post — extracted", "The graphic from the first grid post of the vascularized-brain profile, made a standalone mark."),
+    ("bh-1", "BH-1", "The dual organ", "The founder's idea: half brain in petrol, half heart in crimson, gold-sealed midline — the two organs of every physician."),
+    ("bh-2", "BH-2", "The dual organ — seamless", "The brain-heart fusion with no gold: colour into colour, the join told only by the two organs completing one another."),
+    ("bh-3", "BH-3", "The heart feeding the mind", "An anatomical heart whose great vessels rise and anastomose into a brain — the why of studying, drawn as anatomy."),
+    ("bh-4", "BH-4", "The neurocardiac loop", "Brain and heart joined by one endless vessel looping into an infinity between them — the brain-heart axis."),
+    ("bh-5", "BH-5", "The heart's little brain", "Real physiology: a heart containing a brain woven of its own coronary vessels — the forty thousand neurons that live in the heart."),
+    ("mg-1", "MG-1", "One line, two organs", "A single unbroken vessel: a brain fold above, a heartbeat below, the gold suture between — the mind and the pulse."),
+    ("mg-2", "MG-2", "The pulse tree", "The brain tree on an ECG trunk: rooted in the ground, beating as its trunk, thinking as its crown — knowledge grows on a heartbeat."),
+    ("mg-3", "MG-3", "The organ embrace", "A brain-lobe and a heart-lobe nested like yin and yang, completing one circle — the head and the heart, one whole."),
 ]
 
 CSS = """
@@ -160,8 +169,8 @@ html = """<!DOCTYPE html>
 <style>%s</style></head><body>
 <div class="wrap">
   <div class="eyebrow">ANASTOMOSIS.MD &middot; THE FINAL SHORTLIST &middot; 23 OCT 2026</div>
-  <h1>The final ten.</h1>
-  <p class="sub">The two crazy-good marks you picked — <b>the brain tree</b> and <b>the vascularized brain</b> — and their eight descendants: the <b>seamless no-gold cuts</b>, the <b>explicit-brain</b> and <b>two-hemisphere (corpus callosum)</b> versions with and without gold, and <b>two hidden masterpieces</b>. Star to crown, disqualify to cut, open the Starred page to compare side by side. Your choices persist.</p>
+  <h1>The final nineteen.</h1>
+  <p class="sub">The two crazy-good marks you picked — <b>the brain tree</b> and <b>the vascularized brain</b> — their eight descendants (seamless, explicit-brain, corpus-callosum, masterpieces), the <b>extracted first-post mark</b>, the <b>brain-heart anastomosis series</b> (the founder's idea, five ways), and <b>three pieces of pure magic</b>. Star to crown, disqualify to cut, open the Starred page to compare side by side. Your choices persist.</p>
   <div class="bar">
     <button id="tabGallery" class="tab on">Final shortlist</button>
     <button id="tabStarred" class="tab">Starred (0)</button>
@@ -179,7 +188,7 @@ html = """<!DOCTYPE html>
     <div class="empty" id="starredEmpty">Nothing starred yet &mdash; tap the stars on the marks that survive.</div>
     <div class="cards" id="starredGrid"></div>
   </div>
-  <div class="foot">ANASTOMOSIS.MD &middot; THE FINAL TEN &middot; TWO VESSELS &middot; ONE MIND<br>STAR TO CROWN &middot; DISQUALIFY TO CUT &middot; COMPARE SIDE BY SIDE</div>
+  <div class="foot">ANASTOMOSIS.MD &middot; THE FINAL NINETEEN &middot; TWO VESSELS &middot; ONE MIND<br>STAR TO CROWN &middot; DISQUALIFY TO CUT &middot; COMPARE SIDE BY SIDE</div>
 </div>
 %s
 </body></html>""" % (CSS, len(MARKS), "\n".join(cards), SCRIPT)
