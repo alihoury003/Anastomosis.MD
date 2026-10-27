@@ -165,6 +165,14 @@ SERIES = [
         ("qst-5", "QST-5", "The flashcard", "The card split crimson and petrol, gold flip line — two facts, one card, the app icon."),
         ("qst-6", "QST-6", "The match", "The matching question: crimson stub, petrol stub, one gold connector — the match is the anastomosis."),
     ]),
+    ("XXI · The name × the mission — the operation performed on the mission", [
+        ("msn-1", "MSN-1", "The becoming", "From student to physician: two vessel-beings, joined at the gold — who you are and who you are becoming, anastomosed."),
+        ("msn-2", "MSN-2", "The graft", "The knowledge gap, bridged: a crimson vessel with a missing segment, sealed by a gold graft — every wrong answer shows the gap; the explanation is the graft."),
+        ("msn-3", "MSN-3", "The fragments", "Everything you've studied, finally one flow: scattered vessel stubs converging into a single joined current."),
+        ("msn-4", "MSN-4", "The transformation", "Where memorized facts become understood mechanisms: rigid ink pipe-work joined into a living vessel — mechanism-first, literally."),
+        ("msn-5", "MSN-5", "The bypass", "Fix how you think: the blocked flow, bypassed by a gold-sealed graft — the old motto performed as an operation."),
+        ("msn-6", "MSN-6", "Two vessels, one mind", "The bio line made anatomy: two vascular trees, one joined crown — two trees of learning, a single mind."),
+    ]),
 ]
 
 TOTAL = sum(len(marks) for _, marks in SERIES)
