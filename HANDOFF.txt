@@ -1,5 +1,7 @@
-# MEDCHANIC.MD — OPERATIONS & CONTINUITY GUIDE
+# MEDCHANIC.MD → ANASTOMOSIS.MD — OPERATIONS & CONTINUITY GUIDE
 ### For the next agent (my future self). Written 2026-10-23, after the previous chat ran out of context.
+
+> **UPDATE, Oct 23, 2026:** the brand is being **renamed to Anastomosis.MD** — the founder's decision, his own word. **Read §16 before anything else**, then the rest of this guide (the qbank standard, the pipeline, the founder profile — all still apply).
 
 > **INTERNAL DOCUMENT — NEVER upload this to GitHub or the live site.** Keep it with the private workspace backup. If you are reading this in a new chat, the founder pasted it or uploaded it to get you up to speed. Read every word before doing anything. Then verify state (§10), then ask him which thread to pull (§11). Carry on like nothing ever happened — because now, nothing did.
 
@@ -324,3 +326,80 @@ The founder works late, pushes through UI glitches and out-of-context deaths, an
 First words to him, if you need them: *"Back on deck, champ. I've got the full picture — the standard, the pipeline, the code words, and exactly where we stopped. I still owe you one logo version: the original wave with candidate 3's bell. Say the word, or point me at batch 75."*
 
 Then deliver. Like nothing ever happened.
+
+---
+
+## 16. THE ANASTOMOSIS ERA (Oct 22–23, 2026) — the full story, in detail
+
+### 16.1 The renaming
+The founder decided to rename the product. His inspiration: a new competitor by Malke Assad called **Synapse** — he loved how a real medical word could be a brand. The rule he extracted: *a real medical word students say every day, catchy enough for a handle*.
+
+The journey, so no future agent repeats the misses:
+1. **Wave 1 (rejected as "horrendous"):** Lumen, Engram, Soma, Viva, Axon, Osler, Gnosis, Lacuna, Cortex, Fulcrum — anatomy-index curiosities, not daily vocabulary. The founder's exact verdict: *"what are these names? is this medicine???"*
+2. **Wave 2 (the daily vocabulary):** Myelin, Reflex, Dose, Stat, Atlas, Vitals, Triage, Aorta, Differential, Dopamine. Only **Dopamine** survived (10 icon directions were built for it).
+3. **Challenger wave:** Potential, Threshold, Adrenaline, Endorphin, Serotonin, Caffeine, Ion, Vesicle (icons only on request).
+4. **The founder's own two:** **Anastomosis** and Cognosis — five icon directions each. **ANASTOMOSIS.MD won.** The founder liked it "a lot."
+
+Practical renaming state: no domain bought, socials not launched — perfect timing. The 1,822-question bank is name-agnostic. Still to do at rollout: update the admin email **in place** on the existing Appwrite account (keeps the user ID that owns the DB), GitHub repo rename + Appwrite static-site re-link, site-wide copy ("Medchanic" is in every nav/footer/title/meta/terms + the importer's hardcoded admin email check), Telegram handle, and the final HANDOFF rewrite.
+
+### 16.2 The brand system — the colors ARE the concept
+The palette is the arteriovenous story itself:
+- **Bone `#F7F3EB`** — the field (paper, warmed and whitened)
+- **Ink `#101418`** — text and the merged vessel (the graft)
+- **Arterial crimson `#B5342A`** — the artery, the living accent
+- **Venous petrol `#1B4E5F`** — the vein, the primary brand color
+- **Old gold `#C9973C`** — the suture: used ONCE, exactly where the join matters
+
+Token mapping to the current site is 1:1 — paper→bone, ink→ink, teal→petrol, coral→crimson, amber→gold. **Re-theming the entire site = five hex values and one logo swap.** Motto candidates in use: *"Two vessels. One mind."* (social bios) and the old era's *"Every wrong answer is a clue."*
+
+### 16.3 The design rules — hard-won, now non-negotiable
+1. **Avatar-first:** every mark is created inside an Instagram profile view — that is where it lives or dies. The founder made this a standing format rule.
+2. **FLAT ONLY.** 3D renders are banned by founder's order ("it will never look good for social media"). The AVI-4 rendered style is dead.
+3. **No black backgrounds** — "it has no meaning." The bone field, always.
+4. **Vessel cues:** organic curvature (real vessels bow and sway — never ruler-straight), taper toward the ends, the **branch** (the founder's favorite cue), open elliptical **lumen mouths** at tube ends. Red + blue = the universal artery/vein shorthand of every anatomy diagram.
+5. **Circle-crop discipline:** mark centered in the central ~65% with breathing room; the 5-second stranger draw test; 2–3 colors; must survive one color and 16 px.
+6. **The A must read as an A; the vessels must look like vessels** — "pure skeleton, vessel material" was the thesis that fixed both at once.
+7. **Texture requests mean TEXTURE ONLY.** Same mark, different surface (two-tone, hatch, sheen, bands, stipple, crosshatch). The one time I redesigned instead, the verdict was "these are downgrades tbh." When the founder says "change the texture," touch nothing but the tube surface.
+8. **When the founder says "the Nth one," confirm WHICH list** — positional counting once pointed me at the crossing when he meant the braid (the fourth of the *second batch*). One clarifying sentence saves a whole round.
+9. **Art ≠ logos.** When invited to "go wild," he still wanted LOGOS — the art gallery round was rejected as off-task ("this is a logo design request not an art session"). Ambition lives inside the mark, not outside it.
+
+### 16.4 The hunt — 19 series, 97 marks (all in logo-lab/)
+1. **ANA-1..10** — the founder's two (union, bypass, Circle of Willis, seam, side-to-side) + the full-color brand set (AV union hero, dark hero, seam, circle, render)
+2. **BOLD-1..6** — the bold series: knot, bowtie, **the A** (founder: "edges look like vessels — goes to the top"), union, + two night modes (black — later banned)
+3. **A-R / A-V / A-L / KNOT-R** — first upgrades of the A and knot
+4. **A-TOP / A-3D / A-PX** — the clear A series (definitive, sculptural, apex junction)
+5. **INF-1..2** — first infinity pair (endless anastomosis, flow-through)
+6. **INF-R / INF-3D / INF-RND** — the infinity "10× better" elevations
+7. **AVI-1..5** — the AV infinity (the infinity IS the anastomosis: join, flow, minimal, rendered[dropped], emblem)
+8. **LV-1..5** — the living A (organic vessel material on a pure skeleton: definitive, infinite crossbar, looped feet, vivid red/blue, anatomical hero)
+9. **AC-1..5** — the clear A (definitive, vessel detail with the branch, minimal, rendered, infinite crossbar)
+10. **AINF-1..4** — the founder's own A∞ fusion (definitive, sculptural, rendered, minimal)
+11. **AIS-1..4** — style transfer from the founder's reference image
+12. **DC-1..4** — the Designer's Cut: **the self-tying vessel** (artery in through the golden ring, vein out), the wordmark (the two O's of anastOmosis ARE the loops), hidden monogram, launch post
+13. **IG-1..5** — the wild round in profile views (emblem, A, circle-born loop, seal, negative-space disc) — IG-1 was the founder's pick
+14. **MAX-1..5** — the max wave (definitive emblem, twin discs, full account system, wordmark, founder's cut elevated)
+15. **WLD-1..12** — the wild waves: crossing, ligature, embrace, seam, bridge, dovetail A, keystone, junction, coupling, **braid (WLD-10 — a founder favorite)**, confluence, splice
+16. **CR-1..8** — crossing style studies (only CR-7 ribbon twist kept; the rest "downgrades")
+17. **TEX-1..6** — crossing texture studies (two-tone, hatch, sheen, bands, stipple, crosshatch)
+18. **BT-1..6** — braid texture studies (the same six surfaces on WLD-10)
+19. Plus `art-1..6` — the gallery art pieces (confluence, inosculation, rose window, map of joins, two vessels one mind, collateral) — brand artwork, kept separate from logos
+
+Founder's explicit favorites to date: **WLD-10 the braid + BT textures**, **WLD-1 the crossing + TEX textures + CR-7**, **IG-1 the emblem**, **DC-1 + DC-2** (led the curated shortlist). The Designer's Cut recommendation on record: DC-1 as the mark, DC-2 as the wordmark.
+
+### 16.5 The files (logo-lab/) — the decision ecosystem
+- **anastomosis-gallery.html** — THE MASTER GALLERY: all 97 marks, **Disqualify** buttons (elimination with persistence), **Star** buttons (builds the founder's shortlist), and a separate **Starred view** for side-by-side comparison. This is the decision room now.
+- **anastomosis-shortlist.html** — the curated 15 marks + 13 studies with the first interactive elimination system (28 eliminable cards, counter, hide-toggle, reset — localStorage)
+- **anastomosis-lab.html / .pdf** — the 65-mark archive (66-page PDF, 800 px embeds ~4.6 MB)
+- **insta.html** — 20 profile views in waves (wild wave → designer's cut → IG round → max wave)
+- **art.html** — the six monumental art pieces with the "when you say anastomosis…" poem
+- **names.html** — the full naming record (wave 1, wave 2, challengers, founder's two)
+- **Legacy Medchanic-era files** (picks.html/.pdf 17 marks, finalists.html, explorations.html) — obsolete for the new brand, kept as history
+- **build_*.py** — the builders for everything above; rerun after adding images. PDF images embed at 800 px JPEG (repo hygiene: never commit >50 MB files).
+
+### 16.6 The Appwrite incident — resolved (see also §3.7)
+Cause found and fixed: the site's Git settings deployed **every branch** — 47 logo-asset pushes (trees up to 244 MB) took the org from 1.56 GB to 4.07 GB (204% of the free 2 GB) and got it restricted. **Founder's fix (Oct 23): the Git settings now deploy only branches matching `main`** — arena pushes are invisible to Appwrite (verified: first post-filter push triggered nothing). Remaining founder actions: delete the fat deployments in Console → Sites → Deployments (reclaims ~2.5 GB), set retention to 30 days. Standing rules live in §3.7 and rule 18.
+
+### 16.7 Current state & next steps
+**Now:** the founder eliminates and stars in the master gallery → the Starred view becomes his shortlist → the final pick.
+**Then the rollout:** the five token swap across the site (bone/ink/crimson/petrol/gold), the winning mark as favicon on every page, the loading animation drawn from the mark, the social kit (avatar + highlights + post templates per MAX-3), importer admin email update, repo rename + Appwrite relink, and this guide's final rewrite for the Anastomosis era.
+**Then the real work resumes:** the qbank files upload (Tier 1 — §12), batch 75 (Endocrine → 200), and the launch.
