@@ -34,6 +34,11 @@ MARKS = [
     ("mg-1", "MG-1", "One line, two organs", "A single unbroken vessel: a brain fold above, a heartbeat below, the gold suture between — the mind and the pulse."),
     ("mg-2", "MG-2", "The pulse tree", "The brain tree on an ECG trunk: rooted in the ground, beating as its trunk, thinking as its crown — knowledge grows on a heartbeat."),
     ("mg-3", "MG-3", "The organ embrace", "A brain-lobe and a heart-lobe nested like yin and yang, completing one circle — the head and the heart, one whole."),
+    ("ins-1", "INS-1", "The Rx — vessels", "The most recognized symbol in medicine rewritten: one continuous vessel drawing the prescription sign, the crossing gold-sealed."),
+    ("ins-2", "INS-2", "The high-yield star", "Anki's star made anatomy: five vessel arms radiating from a gold suture node — star this fact, drawn as five joins."),
+    ("ins-3", "INS-3", "The night owl", "The mascot lesson from Lecturio and Sketchy in our language: an owl of one vessel loop, lumen-circle eyes — the night-studier's bird."),
+    ("wrd-1", "WRD-1", "The name in vessels", "The founder's idea: Anastomosis written in one continuous crimson-to-petrol vessel tube — the name performing itself."),
+    ("wrd-2", "WRD-2", "The capillary wordmark", "Each letter built from a capillary bed on one baseline feeder vessel — angiography as typography."),
 ]
 
 CSS = """
@@ -169,7 +174,7 @@ html = """<!DOCTYPE html>
 <style>%s</style></head><body>
 <div class="wrap">
   <div class="eyebrow">ANASTOMOSIS.MD &middot; THE FINAL SHORTLIST &middot; 23 OCT 2026</div>
-  <h1>The final nineteen.</h1>
+  <h1>The final twenty-four.</h1>
   <p class="sub">The two crazy-good marks you picked — <b>the brain tree</b> and <b>the vascularized brain</b> — their eight descendants (seamless, explicit-brain, corpus-callosum, masterpieces), the <b>extracted first-post mark</b>, the <b>brain-heart anastomosis series</b> (the founder's idea, five ways), and <b>three pieces of pure magic</b>. Star to crown, disqualify to cut, open the Starred page to compare side by side. Your choices persist.</p>
   <div class="bar">
     <button id="tabGallery" class="tab on">Final shortlist</button>
@@ -188,7 +193,7 @@ html = """<!DOCTYPE html>
     <div class="empty" id="starredEmpty">Nothing starred yet &mdash; tap the stars on the marks that survive.</div>
     <div class="cards" id="starredGrid"></div>
   </div>
-  <div class="foot">ANASTOMOSIS.MD &middot; THE FINAL NINETEEN &middot; TWO VESSELS &middot; ONE MIND<br>STAR TO CROWN &middot; DISQUALIFY TO CUT &middot; COMPARE SIDE BY SIDE</div>
+  <div class="foot">ANASTOMOSIS.MD &middot; THE FINAL TWENTY-FOUR &middot; TWO VESSELS &middot; ONE MIND<br>STAR TO CROWN &middot; DISQUALIFY TO CUT &middot; COMPARE SIDE BY SIDE</div>
 </div>
 %s
 </body></html>""" % (CSS, len(MARKS), "\n".join(cards), SCRIPT)

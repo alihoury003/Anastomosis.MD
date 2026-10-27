@@ -202,6 +202,13 @@ SERIES = [
         ("mg-2", "MG-2", "The pulse tree", "The brain tree on an ECG trunk — knowledge grows on a heartbeat."),
         ("mg-3", "MG-3", "The organ embrace", "A brain-lobe and a heart-lobe nested like yin and yang, completing one circle."),
     ]),
+    ("XXV · The field research + the founder's wordmark", [
+        ("ins-1", "INS-1", "The Rx — vessels", "The prescription sign drawn as one continuous vessel — the crossing gold-sealed."),
+        ("ins-2", "INS-2", "The high-yield star", "Anki's star made anatomy: five vessel arms from a gold node."),
+        ("ins-3", "INS-3", "The night owl", "The mascot lesson in vessel language: an owl of one loop, lumen eyes."),
+        ("wrd-1", "WRD-1", "The name in vessels", "Anastomosis written in one continuous crimson-to-petrol tube."),
+        ("wrd-2", "WRD-2", "The capillary wordmark", "Each letter a capillary bed on a baseline feeder — angiography typography."),
+    ]),
 ]
 
 TOTAL = sum(len(marks) for _, marks in SERIES)
