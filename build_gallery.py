@@ -173,6 +173,14 @@ SERIES = [
         ("msn-5", "MSN-5", "The bypass", "Fix how you think: the blocked flow, bypassed by a gold-sealed graft — the old motto performed as an operation."),
         ("msn-6", "MSN-6", "Two vessels, one mind", "The bio line made anatomy: two vascular trees, one joined crown — two trees of learning, a single mind."),
     ]),
+    ("XXII · The education signal — the founder's trees, and friends", [
+        ("tree-1", "TREE-1", "The brain tree", "The founder's idea: a trunk whose branches anastomose into a brain — study grows the mind, and the growth is the join."),
+        ("tree-2", "TREE-2", "The letter tree", "The founder's idea: a living trunk that splits, fuses, and grows into the letter A — the name rising out of the ground."),
+        ("tree-3", "TREE-3", "The vascularized brain", "The brain silhouette drawn entirely as anastomosed vessels — crimson hemisphere, petrol hemisphere, gold-sealed midline."),
+        ("tree-4", "TREE-4", "The arbor vitae", "The insider's mark: the real tree that lives inside the cerebellum — neuroanatomy's own anastomosing tree."),
+        ("tree-5", "TREE-5", "The mind map, made anatomy", "A central lumen node with anastomosed vessel branches radiating — every study session, drawn as vasculature."),
+        ("tree-6", "TREE-6", "The rooted loop", "A sapling above ground; the infinity loop as its roots below — the learning loop feeding the growth."),
+    ]),
 ]
 
 TOTAL = sum(len(marks) for _, marks in SERIES)
