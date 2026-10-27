@@ -181,6 +181,16 @@ SERIES = [
         ("tree-5", "TREE-5", "The mind map, made anatomy", "A central lumen node with anastomosed vessel branches radiating — every study session, drawn as vasculature."),
         ("tree-6", "TREE-6", "The rooted loop", "A sapling above ground; the infinity loop as its roots below — the learning loop feeding the growth."),
     ]),
+    ("XXIII · The final ten — the brain era, descended", [
+        ("fin-1", "FIN-1", "The brain tree — seamless", "The brain tree with no gold: crimson and petrol branches fusing colour into colour."),
+        ("fin-2", "FIN-2", "The vascularized brain — seamless", "The brain of vessels with no gold: the hemispheres join by the meeting itself."),
+        ("fin-3", "FIN-3", "The brain tree — explicit brain", "The crown unmistakably a brain at first glance, gold rings at the fusions."),
+        ("fin-4", "FIN-4", "The brain tree — explicit, seamless", "The unmistakable brain crown, no gold — folds woven of the two vessel colours."),
+        ("fin-5", "FIN-5", "Two hemispheres — corpus callosum", "The brain's own anastomosis: two hemispheres, four crossing vessels, gold-sealed joins."),
+        ("fin-6", "FIN-6", "Two hemispheres — seamless", "The corpus callosum concept with the gold removed — crimson bridges fusing into petrol."),
+        ("fin-7", "FIN-7", "The neurovascular unit — masterpiece", "A neuron's axon anastomosing into a vessel — wiring and plumbing, one system."),
+        ("fin-8", "FIN-8", "The infinity brain — masterpiece", "Two brain hemispheres as the loops of an infinity — the two best ideas, one shape."),
+    ]),
 ]
 
 TOTAL = sum(len(marks) for _, marks in SERIES)
