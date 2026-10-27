@@ -392,6 +392,7 @@ Token mapping to the current site is 1:1 — paper→bone, ink→ink, teal→pet
 Founder's explicit favorites to date: **WLD-10 the braid + BT textures**, **WLD-1 the crossing + TEX textures + CR-7**, **IG-1 the emblem**, **DC-1 + DC-2** (led the curated shortlist). The Designer's Cut recommendation on record: DC-1 as the mark, DC-2 as the wordmark.
 
 ### 16.5 The files (logo-lab/) — the decision ecosystem
+- **anastomosis-phone.html** — THE PHONE BOOK: every final-shortlist mark in a real 390×844 phone frame, one page each, flippable (arrows/keys/swipe), index + last-page persistence. Phone-native portrait shots (704×1520) replace square previews as they are generated — say "continue" to convert the rest (10 of 32 native as of Oct 23).
 - **anastomosis-gallery.html** — THE MASTER GALLERY: all 150 marks across 26 series, **Disqualify** buttons (elimination with persistence), **Star** buttons (builds the founder's shortlist), and a separate **Starred view** for side-by-side comparison. This is the decision room now.
 - **anastomosis-shortlist.html** — the curated 15 marks + 13 studies with the first interactive elimination system (28 eliminable cards, counter, hide-toggle, reset — localStorage)
 - **anastomosis-lab.html / .pdf** — the 65-mark archive (66-page PDF, 800 px embeds ~4.6 MB)
