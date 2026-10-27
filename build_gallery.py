@@ -209,6 +209,16 @@ SERIES = [
         ("wrd-1", "WRD-1", "The name in vessels", "Anastomosis written in one continuous crimson-to-petrol tube."),
         ("wrd-2", "WRD-2", "The capillary wordmark", "Each letter a capillary bed on a baseline feeder — angiography typography."),
     ]),
+    ("XXVI · The wordmark era — paired versions, with and without .md", [
+        ("wm-1", "WM-1", "Continuous vessel — no .md", "The perfected one-tube wordmark: crimson to petrol, looped o's, gold-sealed t's."),
+        ("wm-2", "WM-2", "Continuous vessel — with .md", "The same wordmark with a quiet gold '.md' — the domain finishing the name."),
+        ("wm-3", "WM-3", "The O-loops — no .md", "Geometric type whose two o's are the infinity's loops."),
+        ("wm-4", "WM-4", "The O-loops — with .md", "The O-loops wordmark with a gold '.md'."),
+        ("wm-5", "WM-5", "Capillary, perfected — no .md", "Intricate capillary-bed letters on a bold baseline feeder."),
+        ("wm-6", "WM-6", "Capillary, perfected — with .md", "The capillary wordmark with a gold '.md'."),
+        ("wm-7", "WM-7", "The A-lockup — no .md", "A vessel-A leading 'nastomosis' in clean ink."),
+        ("wm-8", "WM-8", "The A-lockup — with .md", "The A-lockup with a gold '.md'."),
+    ]),
 ]
 
 TOTAL = sum(len(marks) for _, marks in SERIES)

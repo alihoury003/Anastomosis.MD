@@ -39,6 +39,14 @@ MARKS = [
     ("ins-3", "INS-3", "The night owl", "The mascot lesson from Lecturio and Sketchy in our language: an owl of one vessel loop, lumen-circle eyes — the night-studier's bird."),
     ("wrd-1", "WRD-1", "The name in vessels", "The founder's idea: Anastomosis written in one continuous crimson-to-petrol vessel tube — the name performing itself."),
     ("wrd-2", "WRD-2", "The capillary wordmark", "Each letter built from a capillary bed on one baseline feeder vessel — angiography as typography."),
+    ("wm-1", "WM-1", "Continuous vessel — no .md", "The perfected one-tube wordmark: crimson to petrol, looped o's, gold-sealed t's."),
+    ("wm-2", "WM-2", "Continuous vessel — with .md", "The same wordmark completed by a quiet gold '.md' — the domain finishing the name."),
+    ("wm-3", "WM-3", "The O-loops — no .md", "Clean geometric type whose two o's are the infinity's loops, joined behind the m."),
+    ("wm-4", "WM-4", "The O-loops — with .md", "The O-loops wordmark completed by a gold '.md'."),
+    ("wm-5", "WM-5", "Capillary, perfected — no .md", "Intricate capillary-bed letters on a bold baseline feeder with open lumen ends."),
+    ("wm-6", "WM-6", "Capillary, perfected — with .md", "The capillary wordmark completed by a gold '.md'."),
+    ("wm-7", "WM-7", "The A-lockup — no .md", "The first letter is the mark: a vessel-A leading 'nastomosis' in clean ink type."),
+    ("wm-8", "WM-8", "The A-lockup — with .md", "The A-lockup wordmark completed by a gold '.md'."),
 ]
 
 CSS = """
@@ -174,7 +182,7 @@ html = """<!DOCTYPE html>
 <style>%s</style></head><body>
 <div class="wrap">
   <div class="eyebrow">ANASTOMOSIS.MD &middot; THE FINAL SHORTLIST &middot; 23 OCT 2026</div>
-  <h1>The final twenty-four.</h1>
+  <h1>The final thirty-two.</h1>
   <p class="sub">The two crazy-good marks you picked — <b>the brain tree</b> and <b>the vascularized brain</b> — their eight descendants (seamless, explicit-brain, corpus-callosum, masterpieces), the <b>extracted first-post mark</b>, the <b>brain-heart anastomosis series</b> (the founder's idea, five ways), and <b>three pieces of pure magic</b>. Star to crown, disqualify to cut, open the Starred page to compare side by side. Your choices persist.</p>
   <div class="bar">
     <button id="tabGallery" class="tab on">Final shortlist</button>
@@ -193,7 +201,7 @@ html = """<!DOCTYPE html>
     <div class="empty" id="starredEmpty">Nothing starred yet &mdash; tap the stars on the marks that survive.</div>
     <div class="cards" id="starredGrid"></div>
   </div>
-  <div class="foot">ANASTOMOSIS.MD &middot; THE FINAL TWENTY-FOUR &middot; TWO VESSELS &middot; ONE MIND<br>STAR TO CROWN &middot; DISQUALIFY TO CUT &middot; COMPARE SIDE BY SIDE</div>
+  <div class="foot">ANASTOMOSIS.MD &middot; THE FINAL THIRTY-TWO &middot; TWO VESSELS &middot; ONE MIND<br>STAR TO CROWN &middot; DISQUALIFY TO CUT &middot; COMPARE SIDE BY SIDE</div>
 </div>
 %s
 </body></html>""" % (CSS, len(MARKS), "\n".join(cards), SCRIPT)
