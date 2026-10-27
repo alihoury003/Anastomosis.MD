@@ -157,6 +157,14 @@ SERIES = [
         ("sup-4", "SUP-4", "The emblem, elevated", "The vessel-join infinity at flagship confidence."),
         ("sup-5", "SUP-5", "The free interpretation", "The generator's own best read: everything the reference has, plus anatomy."),
     ]),
+    ("XX · The med-student lens — exam iconography, joined", [
+        ("qst-1", "QST-1", "The question", "Five answer-vessels; the correct option is the anastomosis — the answer is the join."),
+        ("qst-2", "QST-2", "The score ring", "The ring every qbank shows — petrol arc of right answers, crimson of wrong, gold cursor."),
+        ("qst-3", "QST-3", "The correct answer", "A checkmark whose long stroke is completed by the join — the reward, drawn as an operation."),
+        ("qst-4", "QST-4", "The question mark", "The question drawn as a vessel; its dot is an open mouth waiting to be joined."),
+        ("qst-5", "QST-5", "The flashcard", "The card split crimson and petrol, gold flip line — two facts, one card, the app icon."),
+        ("qst-6", "QST-6", "The match", "The matching question: crimson stub, petrol stub, one gold connector — the match is the anastomosis."),
+    ]),
 ]
 
 TOTAL = sum(len(marks) for _, marks in SERIES)

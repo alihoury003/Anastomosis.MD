@@ -363,7 +363,7 @@ Token mapping to the current site is 1:1 — paper→bone, ink→ink, teal→pet
 8. **When the founder says "the Nth one," confirm WHICH list** — positional counting once pointed me at the crossing when he meant the braid (the fourth of the *second batch*). One clarifying sentence saves a whole round.
 9. **Art ≠ logos.** When invited to "go wild," he still wanted LOGOS — the art gallery round was rejected as off-task ("this is a logo design request not an art session"). Ambition lives inside the mark, not outside it.
 
-### 16.4 The hunt — 19 series, 102 marks (all in logo-lab/)
+### 16.4 The hunt — 20 series, 108 marks (all in logo-lab/)
 1. **ANA-1..10** — the founder's two (union, bypass, Circle of Willis, seam, side-to-side) + the full-color brand set (AV union hero, dark hero, seam, circle, render)
 2. **BOLD-1..6** — the bold series: knot, bowtie, **the A** (founder: "edges look like vessels — goes to the top"), union, + two night modes (black — later banned)
 3. **A-R / A-V / A-L / KNOT-R** — first upgrades of the A and knot
@@ -383,12 +383,13 @@ Token mapping to the current site is 1:1 — paper→bone, ink→ink, teal→pet
 17. **TEX-1..6** — crossing texture studies (two-tone, hatch, sheen, bands, stipple, crosshatch)
 18. **BT-1..6** — braid texture studies (the same six surfaces on WLD-10)
 19. **SUP-1..5** — the inspiration volley: a competitor’s red/blue corporate mark studied for its strengths; five of our strongest marks rebuilt to outclass it — same confidence, plus anatomy
+20. **QST-1..6** — the med-student lens: what makes a student stop and click — the anastomosis wearing one piece of exam iconography (question options, score ring, checkmark, question mark, flashcard, matching line)
 19. Plus `art-1..6` — the gallery art pieces (confluence, inosculation, rose window, map of joins, two vessels one mind, collateral) — brand artwork, kept separate from logos
 
 Founder's explicit favorites to date: **WLD-10 the braid + BT textures**, **WLD-1 the crossing + TEX textures + CR-7**, **IG-1 the emblem**, **DC-1 + DC-2** (led the curated shortlist). The Designer's Cut recommendation on record: DC-1 as the mark, DC-2 as the wordmark.
 
 ### 16.5 The files (logo-lab/) — the decision ecosystem
-- **anastomosis-gallery.html** — THE MASTER GALLERY: all 102 marks across 19 series, **Disqualify** buttons (elimination with persistence), **Star** buttons (builds the founder's shortlist), and a separate **Starred view** for side-by-side comparison. This is the decision room now.
+- **anastomosis-gallery.html** — THE MASTER GALLERY: all 108 marks across 20 series, **Disqualify** buttons (elimination with persistence), **Star** buttons (builds the founder's shortlist), and a separate **Starred view** for side-by-side comparison. This is the decision room now.
 - **anastomosis-shortlist.html** — the curated 15 marks + 13 studies with the first interactive elimination system (28 eliminable cards, counter, hide-toggle, reset — localStorage)
 - **anastomosis-lab.html / .pdf** — the 65-mark archive (66-page PDF, 800 px embeds ~4.6 MB)
 - **insta.html** — 20 profile views in waves (wild wave → designer's cut → IG round → max wave)
