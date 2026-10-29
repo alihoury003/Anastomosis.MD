@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anastomosis.MD — three demo directions</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bone:#F7F3EB;--ink:#101418;--ink-2:#4A4741;--ink-3:#8A857A;--crimson:#B5342A;--petrol:#1B4E5F;--gold:#C9973C;--line:#E3DCCC;--serif:'Instrument Serif',Georgia,serif;--mono:'JetBrains Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bone);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.55;padding:48px 20px 80px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--petrol);font-weight:700}
+h1{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(36px,6vw,58px);margin:12px 0 6px}
+.sub{color:var(--ink-2);max-width:660px;margin-bottom:40px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;display:flex;flex-direction:column;text-decoration:none;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-5px);box-shadow:0 22px 44px -20px rgba(16,20,24,.2)}
+.card .glyph{height:96px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;background:var(--bone);border-radius:10px;border:1px solid var(--line)}
+.card .num{font-family:var(--mono);font-size:10px;letter-spacing:.24em;color:var(--crimson);font-weight:700}
+.card h2{font-size:21px;letter-spacing:-.02em;margin:6px 0 4px}
+.card .vibe{font-family:var(--serif);font-style:italic;font-size:15.5px;color:var(--petrol);margin-bottom:10px}
+.card p{font-size:13.5px;color:var(--ink-2);flex:1}
+.card .go{margin-top:18px;font-weight:700;font-size:13.5px;color:var(--petrol)}
+.card:hover .go{text-decoration:underline;text-underline-offset:4px}
+.foot{margin-top:36px;font-family:var(--mono);font-size:10px;color:var(--ink-3);letter-spacing:.06em;line-height:1.8}
+@media(max-width:820px){.cards{grid-template-columns:1fr}}
+</style></head><body>
+<div class="wrap">
+  <div class="eyebrow">Anastomosis.MD · The re-theme demos</div>
+  <h1>Three directions. One brand.</h1>
+  <p class="sub">Each demo is the whole product story in one file — its own loading animation, landing page, pricing with the Founding Hundred codes, and a live dashboard preview. Switch between LANDING and DASHBOARD in the nav; the block clock actually ticks. Pick the soul — we build the body around it.</p>
+  <div class="cards">
+    <a class="card" href="demo-1-two-vessels.html">
+      <div class="glyph"><svg width="130" height="70" viewBox="0 0 130 70"><ellipse cx="8" cy="52" rx="4" ry="6" fill="none" stroke="#B5342A" stroke-width="1.5"/><ellipse cx="122" cy="18" rx="4" ry="6" fill="none" stroke="#1B4E5F" stroke-width="1.5"/><path d="M 12 52 C 38 52, 48 34, 62 36" fill="none" stroke="#B5342A" stroke-width="3.4" stroke-linecap="round"/><path d="M 118 18 C 92 18, 78 34, 66 36" fill="none" stroke="#1B4E5F" stroke-width="3.4" stroke-linecap="round"/><path d="M 64 36 C 62 48, 68 56, 65 66" fill="none" stroke="#101418" stroke-width="3" stroke-linecap="round"/><circle cx="64" cy="36" r="4.5" fill="#C9973C"/></svg></div>
+      <div class="num">DEMO 1</div>
+      <h2>The Merge</h2>
+      <div class="vibe">alive · flowing · vital</div>
+      <p>Two living vessels — arterial crimson, venous petrol — flow in from the edges of every page, seal at a gold suture, and continue as one ink line. A pulse travels the graft forever. The loading screen is the anastomosis itself.</p>
+      <div class="go">Open the demo →</div>
+    </a>
+    <a class="card" href="demo-2-brain-tree.html">
+      <div class="glyph"><svg width="110" height="70" viewBox="0 0 110 70"><path d="M 55 68 C 55 54, 52 46, 55 34" fill="none" stroke="#101418" stroke-width="4" stroke-linecap="round"/><path d="M 55 34 C 46 24, 38 22, 28 14" fill="none" stroke="#B5342A" stroke-width="2.6" stroke-linecap="round"/><path d="M 55 34 C 64 24, 72 22, 82 14" fill="none" stroke="#1B4E5F" stroke-width="2.6" stroke-linecap="round"/><path d="M 55 34 C 55 24, 54 18, 55 8" fill="none" stroke="#1B4E5F" stroke-width="2.6" stroke-linecap="round"/><path d="M 28 14 C 22 8, 20 4, 22 1" fill="none" stroke="#B5342A" stroke-width="2.2" stroke-linecap="round"/><circle cx="56" cy="34" r="3.6" fill="#C9973C"/></svg></div>
+      <div class="num">DEMO 2</div>
+      <h2>The Growth</h2>
+      <div class="vibe">organic · scholarly · calm</div>
+      <p>The brain-tree energy: a branch canopy draws itself alive across the hero while the tree-word mark breathes at the center. Serif-led, warm, unhurried — knowledge as a growing root system. The loader grows a tree before your eyes.</p>
+      <div class="go">Open the demo →</div>
+    </a>
+    <a class="card" href="demo-3-editorial.html">
+      <div class="glyph"><svg width="110" height="60" viewBox="0 0 110 60"><path d="M 28 30 C 28 12, 50 12, 55 30 C 60 48, 82 48, 82 30 C 82 12, 60 12, 55 30 C 50 48, 28 48, 28 30" fill="none" stroke="#101418" stroke-width="2.2" stroke-linecap="round"/><circle cx="55" cy="30" r="3.4" fill="#C9973C"/></svg></div>
+      <div class="num">DEMO 3</div>
+      <h2>The Journal</h2>
+      <div class="vibe">editorial · precise · luxury</div>
+      <p>Your Pinterest instinct, grown up: oversized serif, hairline rules that draw themselves, ruled-paper grids, gold spent exactly once per view. The loader is a single line writing the anastomosis loop. Neat. Professional. Quietly stunning.</p>
+      <div class="go">Open the demo →</div>
+    </a>
+  </div>
+  <div class="foot">ALL THREE: bone #F7F3EB · ink #101418 · arterial crimson #B5342A · venous petrol #1B4E5F · old gold #C9973C (once, where the join matters) · tw-9 as the provisional mark · the agreed copy everywhere ("auto-renew is your choice, not our default") · real numbers (1,822 cases, 7,288 distractor explanations, 26 systems, 20-question blocks) · the block clock ticks live. The "screenshots" are hand-drawn CSS mockups standing in for real captures — swapped once a direction is chosen.</div>
+</div>
+</body></html>
