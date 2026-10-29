@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Paddle Catalog — Owner's Manual · Oct 2026</title>
+<style>
+  :root{ --bone:#F7F3EB; --ink:#101418; --crimson:#B5342A; --petrol:#1B4E5F; --gold:#C9973C; --bone-2:#EFE9DC; --line:#E3DCCC; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bone);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55;padding:28px 16px 60px}
+  .wrap{max-width:780px;margin:0 auto}
+  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--petrol);font-weight:700}
+  h1{font-size:clamp(26px,6vw,38px);letter-spacing:-.01em;margin:6px 0 2px}
+  .tag{font-style:italic;color:var(--petrol);margin-bottom:14px}
+  .badge{display:inline-flex;align-items:center;gap:8px;background:#EAF2EE;border:1px solid #BFD8CC;color:#1E5C46;font-weight:700;font-size:13px;padding:6px 13px;border-radius:999px;margin:2px 0 10px}
+  .badge .dot{width:8px;height:8px;border-radius:50%;background:#2E8B62}
+  .sub{font-size:14.5px;color:#5A5548;max-width:640px}
+  h2{font-size:19px;color:var(--petrol);margin:36px 0 12px}
+  h2 .n{color:var(--crimson);font-size:13px;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:2px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13px}
+  th{background:var(--petrol);color:#fff;text-align:left;padding:9px 10px;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase}
+  td{padding:9px 10px;border-top:1px solid var(--line);vertical-align:top;font-family:ui-monospace,Menlo,monospace}
+  td:first-child{font-family:inherit}
+  .note{font-size:12.5px;color:#6B6555;margin-top:8px}
+  .law{border-left:4px solid var(--crimson);background:#FBEFED;border-radius:0 10px 10px 0;padding:12px 16px;margin:10px 0;font-size:14px}
+  .law b{color:var(--crimson)}
+  ol{counter-reset:step;list-style:none}
+  ol li{padding:10px 0 10px 44px;position:relative;border-bottom:1px dashed var(--line);font-size:14.5px}
+  ol li:last-child{border-bottom:none}
+  ol li::before{counter-increment:step;content:counter(step);position:absolute;left:2px;top:9px;width:26px;height:26px;border-radius:50%;background:var(--petrol);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .warn{border-left:4px solid var(--gold);background:#F6EFDD;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:14px}
+  code{background:var(--bone-2);border-radius:4px;padding:1px 6px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px}
+  .foot{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:#7A7362}
+  a{color:var(--petrol);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Anastomosis.MD · Payments</div>
+  <h1>The Paddle catalog, owner's manual</h1>
+  <div class="tag">Two vessels. One mind. One source of truth for prices.</div>
+  <div class="badge"><span class="dot"></span> Steps verified against Paddle's official documentation — Oct 29, 2026</div>
+  <p class="sub">Everything you need to update products, prices, and the catalog — safely. Read the two laws once, then use the walkthroughs. Every step below is the LIVE dashboard: <b>vendors.paddle.com</b>, top of screen says <b>"You're in Live"</b> — never sandbox.</p>
+
+  <h2><span class="n">First, the two laws</span>Break either and checkout breaks</h2>
+  <div class="law"><b>Law 1 — Price IDs are welded into our code.</b> The site's checkout opens Paddle with three hardcoded <code>pri_…</code> IDs. If a price is archived or replaced without syncing the code first, students click Subscribe and hit a dead price. Code first, archive second — always in that order.</div>
+  <div class="law"><b>Law 2 — The catalog is what students are charged; the site is what they're told.</b> After any catalog change, the site copy (paywall cards, pricing page) must match. A mismatch here is also a verification red flag for Paddle.</div>
+
+  <h2><span class="n">Where prices live today</span>The three IDs currently wired into the site</h2>
+  <table>
+    <tr><th>Plan</th><th>Paddle price ID (in dashboard.html)</th><th>Label on site</th></tr>
+    <tr><td>Monthly</td><td>pri_01kxgfap9cs231vrkcyhcd055t</td><td>Monthly ($15)</td></tr>
+    <tr><td>Prep period</td><td>pri_01kxgfe4kvnx3jh70fd9xzkybw</td><td>Prep Period — 6 months ($54)</td></tr>
+    <tr><td>Annual</td><td>pri_01kxgfj20d6k3527bb1qtht0fk</td><td>Annual ($99)</td></tr>
+  </table>
+  <div class="note">The paywall pulls its displayed prices live from Paddle. They're localized and tax-inclusive per country — so seeing € instead of $, or a slightly different number than the base price, is <b>normal Paddle behavior</b>, not a catalog bug. Base prices: $15 / $54 / $99.</div>
+
+  <h2><span class="n">Walkthrough A</span>Edit product info — name, description, icon</h2>
+  <div class="card">
+    <ol>
+      <li><b>Log in</b> at vendors.paddle.com. Confirm "You're in Live" at the top.</li>
+      <li>Go to <b>Catalog → Products</b> and click the product you want to edit.</li>
+      <li>Edit the fields: <b>Name</b> (e.g., "Anastomosis.MD — Monthly" when we rebrand), <b>Description</b> (shown at checkout and on customer documents), and <b>Image / icon URL</b>.</li>
+      <li>For the icon, paste the mark's raw GitHub URL:<br><code>https://raw.githubusercontent.com/alihoury003/Anastomosis.MD/main/mark-dark-512.png</code><br><span style="font-size:12.5px;color:#6B6555">Open that URL in a tab first — if the mark looks like a ghost on white, use <code>mark-light-512.png</code> at the same path. Paddle doesn't host images: it needs a public HTTPS URL, square 1:1.</span></li>
+      <li><b>Save.</b> Zero code impact — live on the next checkout. This is the safe playground: rename and re-describe freely.</li>
+    </ol>
+  </div>
+
+  <h2><span class="n">Walkthrough B</span>Change a price amount — the careful one</h2>
+  <div class="warn"><b>You cannot edit an amount in place.</b> A new amount = a new price = a <b>new <code>pri_</code> ID</b>. This is by design in Paddle Billing. The sequence below keeps checkout alive the whole way through.</div>
+  <div class="card">
+    <ol>
+      <li><b>Tell me the new amount(s) first.</b> I prepare the code change (the <code>PADDLE_PRICES</code> constants + plan labels) so it's ready to deploy the moment you have the new IDs.</li>
+      <li>In Paddle: <b>Catalog → Products</b> → open the product → scroll to the <b>Prices</b> section → <b>New price</b>.</li>
+      <li>Set the new amount, and match the <b>same billing period/interval</b> as the price you're replacing (monthly → monthly; the 6-month plan keeps its 6-month cycle; annual → annual). Save.</li>
+      <li>Click the <b>⋯ menu next to the new price → Copy price ID</b>.</li>
+      <li><b>Send me the ID.</b> I paste it into <code>PADDLE_PRICES</code>, you deploy dashboard.html to main (hub download → GitHub upload).</li>
+      <li><b>Only now archive the old price:</b> ⋯ menu on the old price → <b>Archive</b>. Archiving stops new sales of it — it never touches existing subscribers (they keep the price they signed up at).</li>
+    </ol>
+    <div class="note">If you archive before the code swap, every Subscribe click in between hits a dead price. Order is everything.</div>
+  </div>
+
+  <h2><span class="n">Walkthrough C</span>Add a new plan (e.g., replacing "Coming soon")</h2>
+  <div class="card">
+    <ol>
+      <li><b>Catalog → Products → New product.</b> Name it, tax category <b>Standard</b>, save.</li>
+      <li>On the product page: <b>Prices → New price</b> → amount + billing period → save.</li>
+      <li>Copy the new <code>pri_</code> ID (⋯ menu → Copy price ID).</li>
+      <li><b>Send me the ID</b> — I wire it into the checkout constants, the paywall plan cards, the labels, and pricing.html. You deploy. One email, one deploy, done.</li>
+    </ol>
+  </div>
+
+  <h2><span class="n">Verifying it worked</span>No test cards in live — that's what sandbox is for</h2>
+  <div class="card">
+    <ol>
+      <li><b>The paywall is your live preview:</b> log in to the site → <b>Upgrade</b> → the plan cards load real prices straight from Paddle. If they show your new amounts, the catalog and the wiring are live.</li>
+      <li><b>Full checkout rehearsal:</b> ask Charlie's team for their recommended test path on a live account (they do this for merchants constantly). Don't invent workarounds with real cards.</li>
+    </ol>
+  </div>
+
+  <h2><span class="n">Do not touch (for now)</span>While account verification is in flight</h2>
+  <div class="card">
+    <ol>
+      <li><b>Business details &amp; payout settings</b> — changing identity-adjacent fields mid-verification resets the review.</li>
+      <li><b>Notification destinations / webhooks</b> — never delete or recreate; that rotates the signing secret.</li>
+      <li><b>Products with history</b> — archive, never delete.</li>
+      <li><b>The sandbox world</b> — it's a separate universe; we're not using it yet.</li>
+    </ol>
+  </div>
+
+  <div class="foot">
+    Rebrand reminder (parked for the Charlie email): product names, statement descriptor (what students see on bank statements), checkout branding, success URLs, and the account email switch all happen together at the re-theme — one coordinated sweep, not five separate experiments.<br>
+    Manual rails note: the WhatsApp/Telegram payment-request buttons were removed from the paywall (Oct 31, founder's call). The functions and numbers remain dormant in the code — restorable in minutes if Lebanon needs a manual rail again.
+  </div>
+
+</div>
+</body>
+</html>
