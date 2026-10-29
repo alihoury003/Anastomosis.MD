@@ -191,7 +191,7 @@
       // Save step selection + free tier defaults to preferences
       await account.updatePrefs({
         step: selectedStep,
-        trialEndsAt: String(Date.now() + 14 * 24 * 60 * 60 * 1000),
+        trialEndsAt: '0',   // no auto-start: the 7-day trial begins when the user starts it from the dashboard
         subscribed: 'false',
         blocksUsed: '0',
         tests: '[]',
