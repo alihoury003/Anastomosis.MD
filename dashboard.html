@@ -2020,16 +2020,11 @@ const AnkiEngine = {
         <div class="plan-price loading" id="paddlePriceMonthly">Loading…</div>
         <div class="plan-note">Billed monthly</div>
       </div>
-      <div class="plan" data-plan="threeMonth" onclick="selectPlan('threeMonth')">
+      <div class="plan popular selected" data-plan="threeMonth" onclick="selectPlan('threeMonth')">
+        <div class="popular-tag">Most popular</div>
         <div class="plan-duration">3 Months</div>
         <div class="plan-price loading" id="paddlePrice3mo">Loading…</div>
         <div class="plan-note">$12/month — save 20%</div>
-      </div>
-      <div class="plan popular selected" data-plan="quarterly" onclick="selectPlan('quarterly')">
-        <div class="popular-tag">Most popular</div>
-        <div class="plan-duration">6 Months</div>
-        <div class="plan-price loading" id="paddlePriceQuarterly">Loading…</div>
-        <div class="plan-note">$9/month — save 40%</div>
       </div>
       <div class="plan" data-plan="annual" onclick="selectPlan('annual')">
         <div class="plan-duration">Annual</div>
@@ -3887,13 +3882,13 @@ function checkDeviceReuse() {
   }
 const ADMIN_EMAIL = 'medchanicmd@gmail.com';  // stays on the old email until the Appwrite account email switches (sync with import.html admin gate)
 const PADDLE_CLIENT_TOKEN = 'live_61c415361a7b2cf950057b8d5f6';
-const PADDLE_PRICES = { monthly: 'pri_01kxgfap9cs231vrkcyhcd055t', quarterly: 'pri_01kxgfe4kvnx3jh70fd9xzkybw', annual: 'pri_01kxgfj20d6k3527bb1qtht0fk', threeMonth: '' };  // threeMonth: paste the pri_ ID here once the $36 3-month price exists in Paddle
-const PLAN_LABELS = { monthly: 'Monthly ($15)', quarterly: 'Prep Period - 6 months ($54)', annual: 'Annual ($99)', threeMonth: '3 Months ($36)' };
+const PADDLE_PRICES = { monthly: 'pri_01kxgfap9cs231vrkcyhcd055t', threeMonth: 'pri_01kxgfe4kvnx3jh70fd9xzkybw', annual: 'pri_01kxgfj20d6k3527bb1qtht0fk' };  // the middle price was converted in Paddle from $54/6-month to $36/3-month (same ID) on Nov 1
+const PLAN_LABELS = { monthly: 'Monthly ($15)', threeMonth: 'Dedicated - 3 months ($36)', annual: 'Annual ($99)' };
 const WHATSAPP_NUMBER = '96176767676';      // international format, no plus sign
 const TELEGRAM_HANDLE = 'medchanicmd';
-let selectedPlan = 'quarterly', isSubscribed = false, blocksUsed = 0, paddleReady = false;
+let selectedPlan = 'threeMonth', isSubscribed = false, blocksUsed = 0, paddleReady = false;
 
-function selectPlan(plan) { selectedPlan = plan; document.querySelectorAll('.plan[data-plan]').forEach(el => el.classList.toggle('selected', el.dataset.plan === plan)); const labels = { monthly: 'Subscribe monthly with card', threeMonth: 'Subscribe for 3 months with card', quarterly: 'Subscribe for 6 months with card', annual: 'Subscribe yearly with card' }; const btn = $('subscribeBtn'); if (btn) btn.textContent = labels[plan] || 'Subscribe now'; }
+function selectPlan(plan) { selectedPlan = plan; document.querySelectorAll('.plan[data-plan]').forEach(el => el.classList.toggle('selected', el.dataset.plan === plan)); const labels = { monthly: 'Subscribe monthly with card', threeMonth: 'Subscribe for 3 months with card', annual: 'Subscribe yearly with card' }; const btn = $('subscribeBtn'); if (btn) btn.textContent = labels[plan] || 'Subscribe now'; }
 try { anchorClock(); } catch (e) {}
 async function loadSubscriptionState() {
   try { const prefs = await _account.getPrefs(); isSubscribed = prefs.subscribed === 'true' || prefs.subscriptionStatus === 'active'; blocksUsed = parseInt(prefs.blocksUsed || '0', 10) || 0; trialEndsAt = parseInt(prefs.trialEndsAt || '0', 10) || 0; trialQuestionsUsed = parseInt(prefs.trialQuestionsUsed || '0', 10) || 0; try { loadFreeAllowance(prefs); } catch (e) {} } catch (err) { isSubscribed = false; blocksUsed = 0; }
@@ -3909,22 +3904,21 @@ function initPaddle() {
   paddleReady = true; return true;
 }
 async function loadPaddlePrices() {
-  const el3 = $('paddlePrice3mo'); if (el3) { el3.classList.remove('loading'); el3.textContent = '$36'; }   // 3-month: static until its Paddle price ID is wired
-  const fallback = { paddlePriceMonthly: '$15', paddlePriceQuarterly: '$54', paddlePriceAnnual: '$99', paddlePrice3mo: '$36' };
+  const fallback = { paddlePriceMonthly: '$15', paddlePrice3mo: '$36', paddlePriceAnnual: '$99' };
   const useFallback = () => Object.entries(fallback).forEach(([id, value]) => { const el = $(id); if (el) { el.classList.remove('loading'); el.textContent = value; } });
   if (!initPaddle()) { useFallback(); return; }
   try {
-    const result = await Paddle.PricePreview({ items: [PADDLE_PRICES.monthly, PADDLE_PRICES.quarterly, PADDLE_PRICES.annual].map(priceId => ({ priceId, quantity: 1 })) });
+    const result = await Paddle.PricePreview({ items: [PADDLE_PRICES.monthly, PADDLE_PRICES.threeMonth, PADDLE_PRICES.annual].map(priceId => ({ priceId, quantity: 1 })) });
     const lineItems = result?.data?.details?.lineItems || []; const byPrice = {}; lineItems.forEach(item => { const priceId = item.price?.id || item.priceId || item.price_id; if (priceId) byPrice[priceId] = item; });
     const setPrice = (plan, elId, fb) => { const item = byPrice[PADDLE_PRICES[plan]]; const formatted = item?.formattedTotals?.total || item?.formattedTotals?.subtotal || fb; const el = $(elId); if (el) { el.classList.remove('loading'); el.innerHTML = formatted; } };
-    setPrice('monthly', 'paddlePriceMonthly', '$15'); setPrice('quarterly', 'paddlePriceQuarterly', '$54'); setPrice('annual', 'paddlePriceAnnual', '$99');
+    setPrice('monthly', 'paddlePriceMonthly', '$15'); setPrice('threeMonth', 'paddlePrice3mo', '$36'); setPrice('annual', 'paddlePriceAnnual', '$99');
   } catch (err) { console.warn('Could not load localized Paddle prices; using fallback display.', err); useFallback(); }
 }
 function showPaywall() { const sub = $('paywallSub');
     if (sub) sub.textContent = (trialEndsAt && Date.now() > trialEndsAt)
       ? `Your ${FREE_TRIAL_DAYS}-day free trial has ended. You still get ${DAILY_FREE_QUESTIONS} free questions a day - subscribe for unlimited blocks, progress tracking, performance analytics, and everything coming next.`
       : `You've used today's ${DAILY_FREE_QUESTIONS} free questions. Subscribe for unlimited blocks, progress tracking, performance analytics, and everything coming next.`;
-    $('paywallOverlay').classList.add('show'); setTimeout(() => { selectPlan(selectedPlan || 'quarterly'); loadPaddlePrices(); }, 0); }
+    $('paywallOverlay').classList.add('show'); setTimeout(() => { selectPlan(selectedPlan || 'threeMonth'); loadPaddlePrices(); }, 0); }
 function hidePaywall() { $('paywallOverlay').classList.remove('show'); const msg = $('promoMsg'); if (msg) { msg.className = 'promo-msg'; msg.textContent = ''; } }
 function handleSubscribeClick(plan = selectedPlan) {
   if (!currentUser) { alert('Please log in before subscribing.'); window.location.href = 'login.html'; return; }
