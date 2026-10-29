@@ -118,9 +118,9 @@
       <tr><td>Monthly</td><td>$15</td><td>$15.00</td><td>—</td><td>30 days: $349</td></tr>
       <tr><td>6-month (Prep Period)</td><td>$54</td><td>$9.00</td><td>save 40%</td><td>180 days: $519</td></tr>
       <tr><td>Annual</td><td>$99</td><td>$8.25</td><td>save 45%</td><td>360 days: $579</td></tr>
-      <tr class="hl"><td>3-month (PROPOSED)</td><td>$36</td><td>$12.00</td><td>save 20%</td><td>90 days: $449</td></tr>
+      <tr class="hl"><td>3-month (APPROVED)</td><td>$36</td><td>$12.00</td><td>save 20%</td><td>90 days: $449</td></tr>
     </table>
-    <div class="note">We are 10–40× cheaper than UWorld at every length. The 3-month slot is where the dedicated-study market actually lives — UWorld's 90-day plan is their bread-and-butter dedicated product. Current 3-month students must overbuy (6-month $54) or stack monthly ($45, three transactions, no savings). $36 right-sizes it and keeps the ladder clean: 20% → 40% → 45%.</div>
+    <div class="note">We are 10–40× cheaper than UWorld at every length. The 3-month slot is where the dedicated-study market actually lives — UWorld's 90-day plan is their bread-and-butter dedicated product. Current 3-month students must overbuy (6-month $54) or stack monthly ($45, three transactions, no savings). $36 right-sizes it and keeps the ladder clean: 20% → 40% → 45%. <b>Status: wired across the site (paywall 4th card, pricing page "Dedicated" tier, landing tier) — the checkout activates the moment the $36 price exists in Paddle and its pri_ ID is pasted into PADDLE_PRICES.threeMonth.</b></div>
   </div>
   <div class="card" style="margin-top:14px">
     <p style="font-size:14px;color:#4C4739"><b>The Founding Hundred — launch promos</b> (create in Catalog → Discounts; the checkout already passes codes to Paddle):</p>
@@ -130,14 +130,18 @@
       <tr><td>6-month</td><td>LAUNCH20</td><td>20%</td><td>$43.20 ($7.20/mo)</td><td>mid commitment</td></tr>
       <tr><td>Annual</td><td>LAUNCH35</td><td>35%</td><td>$64.35 ($5.36/mo)</td><td>the push — founding members locked for a year</td></tr>
     </table>
-    <div class="note">100 redemptions total, one-time (first billing cycle only — renews at full price), expires 4–6 weeks after launch. 35% not 40%: never open at your maximum discount; keep 40% in reserve for exam-season or ambassador pushes. If the 3-month plan ships, slot LAUNCH15 at 15%.</div>
+    <div class="note">100 redemptions total, one-time (first billing cycle only — renews at full price), expires 4–6 weeks after launch. 35% not 40%: never open at your maximum discount; keep 40% in reserve for exam-season or ambassador pushes. If the 3-month plan ships, slot LAUNCH15 at 15%. <b>Status: APPROVED — banners live on the pricing page and the paywall. Create the three discounts in Paddle (Catalog → Discounts) BEFORE deploying: the banners advertise the codes.</b></div>
   </div>
   <div class="card" style="margin-top:14px">
-    <p style="font-size:14px;color:#4C4739"><b>Group bundles — right instinct, staged rollout:</b></p>
+    <p style="font-size:14px;color:#4C4739"><b>Group discounts — the Organizer Model (the practical way):</b></p>
     <ol>
-      <li><b>Now (zero engineering):</b> a group promo code — SQUAD25: "you + 3 friends, everyone gets 25% off any plan." Study circles spread it themselves; the paywall's "Coming soon: group rates" card already promises this.</li>
-      <li><b>Post-launch (real feature):</b> true 4/5/6-seat bundles — one buyer purchases N seats, each member redeems a seat code. Needs a small seat-redemption system (Appwrite collection + admin view) — worth building once there's revenue.</li>
+      <li><b>An organizer messages us</b> — "we're five, we want Dedicated." (They come to you; study circles already have a treasurer.)</li>
+      <li><b>Send them a Paddle payment link</b> for the plan (created in the dashboard, quantity enabled). They set 5 seats, enter their squad code, and pay <b>once</b>: 5 × $36 × 0.85 = <b>$153, one receipt</b>.</li>
+      <li><b>Squad codes:</b> SQUAD4 = 10% off, SQUAD5 = 15%, SQUAD6 = 20% — three discount codes in Paddle, named by size, self-documenting.</li>
+      <li><b>They send the member emails + receipt</b> (WhatsApp or the contact email).</li>
+      <li><b>You flip each member's access in the Appwrite Console</b> — Users → member → Prefs → subscribed: true. About 30 seconds a member; a group of six takes three minutes.</li>
     </ol>
+    <div class="note">Why this wins at launch: Paddle handles the money, the organizer handles the collecting, you handle a few clicks — no seat system, no new code, nothing to break. Lebanese squads can also pay via OMT/Whish on the same flow (you quote, they pay, you flip). <b>Upgrade path:</b> when groups exceed ~10/week, self-serve seat codes — a generated SQUAD-XXXX code each member redeems on the dashboard (small Appwrite collection + admin generator — the agent builds it on request).</div>
   </div>
 
   <div class="foot">

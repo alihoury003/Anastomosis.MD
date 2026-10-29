@@ -2020,6 +2020,11 @@ const AnkiEngine = {
         <div class="plan-price loading" id="paddlePriceMonthly">Loading…</div>
         <div class="plan-note">Billed monthly</div>
       </div>
+      <div class="plan" data-plan="threeMonth" onclick="selectPlan('threeMonth')">
+        <div class="plan-duration">3 Months</div>
+        <div class="plan-price loading" id="paddlePrice3mo">Loading…</div>
+        <div class="plan-note">$12/month — save 20%</div>
+      </div>
       <div class="plan popular selected" data-plan="quarterly" onclick="selectPlan('quarterly')">
         <div class="popular-tag">Most popular</div>
         <div class="plan-duration">6 Months</div>
@@ -2031,7 +2036,7 @@ const AnkiEngine = {
         <div class="plan-price loading" id="paddlePriceAnnual">Loading…</div>
         <div class="plan-note">$8.25/month — save 45% — best value</div>
       </div>
-      <div class="plan" style="cursor:default">
+      <div class="plan" style="cursor:default;grid-column:span 2">
         <div class="plan-duration">Coming soon</div>
         <div class="plan-price" style="font-size:14px;color:var(--ink-3);font-family:var(--sans)">Group and institutional rates</div>
       </div>
@@ -2042,6 +2047,7 @@ const AnkiEngine = {
       <button class="promo-apply" onclick="applyPromoCode()">Apply</button>
     </div>
     <div class="promo-msg" id="promoMsg"></div>
+    <div class="paywall-foot" style="margin-top:12px;font-size:11.5px;"><b>The Founding Hundred:</b> the first 100 students lock founding pricing — codes <b>LAUNCH10</b> &middot; <b>LAUNCH20</b> &middot; <b>LAUNCH35</b> (first payment only).</div>
     <div class="paywall-foot" style="margin-top:16px;">
       Questions? <a href="mailto:anastomosis.md@gmail.com">Contact us</a> · <a href="terms.html" target="_blank">Terms</a> · <a href="privacy.html" target="_blank">Privacy</a> · <a href="refund-policy.html" target="_blank">Refund policy</a>
     </div>
@@ -3881,13 +3887,13 @@ function checkDeviceReuse() {
   }
 const ADMIN_EMAIL = 'medchanicmd@gmail.com';  // stays on the old email until the Appwrite account email switches (sync with import.html admin gate)
 const PADDLE_CLIENT_TOKEN = 'live_61c415361a7b2cf950057b8d5f6';
-const PADDLE_PRICES = { monthly: 'pri_01kxgfap9cs231vrkcyhcd055t', quarterly: 'pri_01kxgfe4kvnx3jh70fd9xzkybw', annual: 'pri_01kxgfj20d6k3527bb1qtht0fk' };
-const PLAN_LABELS = { monthly: 'Monthly ($15)', quarterly: 'Prep Period - 6 months ($54)', annual: 'Annual ($99)' };
+const PADDLE_PRICES = { monthly: 'pri_01kxgfap9cs231vrkcyhcd055t', quarterly: 'pri_01kxgfe4kvnx3jh70fd9xzkybw', annual: 'pri_01kxgfj20d6k3527bb1qtht0fk', threeMonth: '' };  // threeMonth: paste the pri_ ID here once the $36 3-month price exists in Paddle
+const PLAN_LABELS = { monthly: 'Monthly ($15)', quarterly: 'Prep Period - 6 months ($54)', annual: 'Annual ($99)', threeMonth: '3 Months ($36)' };
 const WHATSAPP_NUMBER = '96176767676';      // international format, no plus sign
 const TELEGRAM_HANDLE = 'medchanicmd';
 let selectedPlan = 'quarterly', isSubscribed = false, blocksUsed = 0, paddleReady = false;
 
-function selectPlan(plan) { selectedPlan = plan; document.querySelectorAll('.plan[data-plan]').forEach(el => el.classList.toggle('selected', el.dataset.plan === plan)); const labels = { monthly: 'Subscribe monthly with card', quarterly: 'Subscribe for 6 months with card', annual: 'Subscribe yearly with card' }; const btn = $('subscribeBtn'); if (btn) btn.textContent = labels[plan] || 'Subscribe now'; }
+function selectPlan(plan) { selectedPlan = plan; document.querySelectorAll('.plan[data-plan]').forEach(el => el.classList.toggle('selected', el.dataset.plan === plan)); const labels = { monthly: 'Subscribe monthly with card', threeMonth: 'Subscribe for 3 months with card', quarterly: 'Subscribe for 6 months with card', annual: 'Subscribe yearly with card' }; const btn = $('subscribeBtn'); if (btn) btn.textContent = labels[plan] || 'Subscribe now'; }
 try { anchorClock(); } catch (e) {}
 async function loadSubscriptionState() {
   try { const prefs = await _account.getPrefs(); isSubscribed = prefs.subscribed === 'true' || prefs.subscriptionStatus === 'active'; blocksUsed = parseInt(prefs.blocksUsed || '0', 10) || 0; trialEndsAt = parseInt(prefs.trialEndsAt || '0', 10) || 0; trialQuestionsUsed = parseInt(prefs.trialQuestionsUsed || '0', 10) || 0; try { loadFreeAllowance(prefs); } catch (e) {} } catch (err) { isSubscribed = false; blocksUsed = 0; }
@@ -3903,7 +3909,8 @@ function initPaddle() {
   paddleReady = true; return true;
 }
 async function loadPaddlePrices() {
-  const fallback = { paddlePriceMonthly: '$15', paddlePriceQuarterly: '$54', paddlePriceAnnual: '$99' };
+  const el3 = $('paddlePrice3mo'); if (el3) { el3.classList.remove('loading'); el3.textContent = '$36'; }   // 3-month: static until its Paddle price ID is wired
+  const fallback = { paddlePriceMonthly: '$15', paddlePriceQuarterly: '$54', paddlePriceAnnual: '$99', paddlePrice3mo: '$36' };
   const useFallback = () => Object.entries(fallback).forEach(([id, value]) => { const el = $(id); if (el) { el.classList.remove('loading'); el.textContent = value; } });
   if (!initPaddle()) { useFallback(); return; }
   try {
@@ -3922,7 +3929,7 @@ function hidePaywall() { $('paywallOverlay').classList.remove('show'); const msg
 function handleSubscribeClick(plan = selectedPlan) {
   if (!currentUser) { alert('Please log in before subscribing.'); window.location.href = 'login.html'; return; }
   if (!initPaddle()) { alert('Card checkout is unavailable right now. Please try again in a moment, or contact us at anastomosis.md@gmail.com.'); return; }
-  const priceId = PADDLE_PRICES[plan]; if (!priceId) { alert('Missing price for selected plan.'); return; }
+  const priceId = PADDLE_PRICES[plan]; if (!priceId) { alert('This plan is activating — it goes live within days. Pick another plan for now, or contact us at anastomosis.md@gmail.com and we will set you up.'); return; }
   const promo = $('promoInput')?.value.trim().toUpperCase();
   Paddle.Checkout.open({ settings: { displayMode: 'overlay', variant: 'one-page', theme: 'light', successUrl: `${window.location.origin}/dashboard.html?payment=success&plan=${encodeURIComponent(plan)}` }, items: [{ priceId, quantity: 1 }], customer: currentUser?.email ? { email: currentUser.email } : undefined, customData: { appwriteUserId: currentUser.$id, userEmail: currentUser.email, plan, source: 'medchanic_paywall' }, ...(promo ? { discountCode: promo } : {}) });
 }
