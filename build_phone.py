@@ -49,6 +49,8 @@ PAGES_DEF = [
     ("wm-6", "WM-6", "Capillary perfected — with .md"),
     ("wm-7", "WM-7", "The A-lockup — no .md"),
     ("wm-8", "WM-8", "The A-lockup — with .md"),
+    ("tw-2", "TW-2", "The tree-word — climbing"),
+    ("tw-6", "TW-6", "The tree-word — bold"),
 ]
 
 pages = []
@@ -167,7 +169,7 @@ html = """<!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <style>%s</style></head><body>
 <header>
-  <div class="eyebrow">ANASTOMOSIS.MD &middot; THE PHONE BOOK &middot; REAL PHONE DIMENSIONS &middot; 23 OCT 2026</div>
+  <div class="eyebrow">ANASTOMOSIS.MD &middot; THE PHONE BOOK &middot; REAL PHONE DIMENSIONS &middot; 31 OCT 2026</div>
   <h1>Every finalist, at true scale.</h1>
   <p class="sub">Each mark on its own page, in a real 390&times;844 phone frame — the profile exactly as a scrolling student would meet it. Flip with the arrows, arrow keys, or a swipe. %d of %d pages are phone-native portraits; the rest are square previews until their conversions land.</p>
 </header>
