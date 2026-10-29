@@ -49,6 +49,9 @@ MARKS = [
     ("wm-8", "WM-8", "The A-lockup — with .md", "The A-lockup wordmark completed by a gold '.md'."),
     ("tw-2", "TW-2", "The tree-word — climbing", "The branches ARE the letters: anastomosis grown through the crown in connected branch rows, trunk to treetop, in the brain tree's own palette. OCR-verified spelling."),
     ("tw-6", "TW-6", "The tree-word — bold", "The same climbing tree-word with the letters pushed large and bold — the word is the tree's biggest element, offshoots sparse and delicate. OCR-verified spelling."),
+    ("tw-8", "TW-8", "The tree-word — with .md", "The climbing calligram completed by a small golden '.md' at the trunk base. OCR-verified spelling."),
+    ("wm-4B2", "WM-4B2", "The word as a tree — I", "The word built from FIN-1's branches as a horizontal wordmark — first verified pass."),
+    ("wm-4B3", "WM-4B3", "The word as a tree — II", "The branch wordmark — second verified pass, finer offshoots."),
 ]
 
 CSS = """
@@ -184,8 +187,8 @@ html = """<!DOCTYPE html>
 <style>%s</style></head><body>
 <div class="wrap">
   <div class="eyebrow">ANASTOMOSIS.MD &middot; THE FINAL SHORTLIST &middot; 31 OCT 2026</div>
-  <h1>The final thirty-four.</h1>
-  <p class="sub">The two crazy-good marks you picked — <b>the brain tree</b> and <b>the vascularized brain</b> — their eight descendants (seamless, explicit-brain, corpus-callosum, masterpieces), the <b>extracted first-post mark</b>, the <b>brain-heart anastomosis series</b> (the founder's idea, five ways), <b>three pieces of pure magic</b>, the wordmark era — and the founder's latest pick: <b>the tree-word</b>, the branches themselves spelling anastomosis through the crown, two ways. Star to crown, disqualify to cut, open the Starred page to compare side by side. Your choices persist.</p>
+  <h1>The final thirty-seven.</h1>
+  <p class="sub">The two crazy-good marks you picked — <b>the brain tree</b> and <b>the vascularized brain</b> — their eight descendants (seamless, explicit-brain, corpus-callosum, masterpieces), the <b>extracted first-post mark</b>, the <b>brain-heart anastomosis series</b> (the founder's idea, five ways), <b>three pieces of pure magic</b>, the wordmark era — and the founder's latest love: <b>the tree-word family</b>, the branches themselves spelling anastomosis through the crown (three ways) plus the branch wordmarks (two passes). Star to crown, disqualify to cut, open the Starred page to compare side by side. Your choices persist.</p>
   <div class="bar">
     <button id="tabGallery" class="tab on">Final shortlist</button>
     <button id="tabStarred" class="tab">Starred (0)</button>
@@ -195,7 +198,7 @@ html = """<!DOCTYPE html>
     <div class="count"><b id="cStar">0</b> starred &middot; <span id="cElim">0</span> disqualified &middot; <span id="cTotal">%d</span> total</div>
   </div>
   <div id="galleryView">
-    <div class="serieshead"><div class="eyebrow">THE BRAIN ERA &amp; BEYOND &middot; TREE, MIND &amp; WORD</div><h2>Thirty-four marks, one crown.</h2></div>
+    <div class="serieshead"><div class="eyebrow">THE BRAIN ERA &amp; BEYOND &middot; TREE, MIND &amp; WORD</div><h2>Thirty-seven marks, one crown.</h2></div>
     <div class="cards">%s</div>
   </div>
   <div id="starredView" style="display:none">
@@ -203,7 +206,7 @@ html = """<!DOCTYPE html>
     <div class="empty" id="starredEmpty">Nothing starred yet &mdash; tap the stars on the marks that survive.</div>
     <div class="cards" id="starredGrid"></div>
   </div>
-  <div class="foot">ANASTOMOSIS.MD &middot; THE FINAL THIRTY-FOUR &middot; TWO VESSELS &middot; ONE MIND<br>STAR TO CROWN &middot; DISQUALIFY TO CUT &middot; COMPARE SIDE BY SIDE</div>
+  <div class="foot">ANASTOMOSIS.MD &middot; THE FINAL THIRTY-SEVEN &middot; TWO VESSELS &middot; ONE MIND<br>STAR TO CROWN &middot; DISQUALIFY TO CUT &middot; COMPARE SIDE BY SIDE</div>
 </div>
 %s
 </body></html>""" % (CSS, len(MARKS), "\n".join(cards), SCRIPT)

@@ -51,6 +51,9 @@ PAGES_DEF = [
     ("wm-8", "WM-8", "The A-lockup — with .md"),
     ("tw-2", "TW-2", "The tree-word — climbing"),
     ("tw-6", "TW-6", "The tree-word — bold"),
+    ("tw-8", "TW-8", "The tree-word — with .md"),
+    ("wm-4B2", "WM-4B2", "The word as a tree — I"),
+    ("wm-4B3", "WM-4B3", "The word as a tree — II"),
 ]
 
 pages = []
