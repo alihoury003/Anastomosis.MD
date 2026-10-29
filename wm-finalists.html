@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The verified round — O-loops finalists</title>
+<style>
+  :root{ --bone:#F7F3EB; --ink:#101418; --crimson:#B5342A; --petrol:#1B4E5F; --gold:#C9973C; --line:#E3DCCC; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bone);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55;padding:28px 16px 70px}
+  .wrap{max-width:940px;margin:0 auto}
+  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--petrol);font-weight:700}
+  h1{font-size:clamp(25px,5.5vw,36px);letter-spacing:-.01em;margin:6px 0 2px}
+  .tag{font-style:italic;color:var(--petrol);margin-bottom:12px}
+  .sub{font-size:14.5px;color:#5A5548;max-width:760px}
+  .tally{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}
+  .tally .box{flex:1;min-width:130px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;text-align:center}
+  .tally b{font-size:26px;display:block;line-height:1.1}
+  .tally span{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6B6555}
+  .shame{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:14px 0;font-size:13px;color:#4C4739}
+  .shame b{color:var(--crimson)}
+  .shame code{background:var(--bone);border-radius:4px;padding:1px 6px;font-family:ui-monospace,Menlo,monospace;font-size:12px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:18px 0}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}
+  .card .num{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--crimson)}
+  .card h2{font-size:16px;color:var(--petrol);margin:2px 0 8px}
+  .card img.main{width:100%;aspect-ratio:1;object-fit:contain;border:1px solid var(--line);border-radius:10px;background:#fff}
+  .ocr{display:inline-block;background:#EAF2EE;border:1px solid #BFD8CC;color:#1E5C46;font-family:ui-monospace,Menlo,monospace;font-size:11.5px;padding:4px 10px;border-radius:999px;margin:8px 0}
+  .mech{font-size:13px;color:#4C4739}
+  .igchip{display:flex;align-items:center;gap:12px;background:var(--bone);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:10px 0}
+  .igchip .av{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
+  .igchip .hd{font-weight:700;font-size:13px}
+  .igchip .st{font-size:10.5px;color:#6B6555;font-family:ui-monospace,Menlo,monospace}
+  .ladder{display:flex;align-items:flex-end;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+  .ladder .s{text-align:center}
+  .ladder img{border-radius:50%;display:block;margin:0 auto 5px;border:1px solid var(--line)}
+  .ladder .lab{font-size:10px;font-family:ui-monospace,Menlo,monospace;color:#6B6555}
+  .foot{margin-top:36px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:#7A7362}
+  @media(max-width:680px){ .grid{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Anastomosis.MD · Logo lab · The verified round</div>
+  <h1>O-loops, take three — machine-checked this time</h1>
+  <div class="tag">Your design logic. Our spelling gate. Four survivors.</div>
+  <p class="sub">The design follows your instruction exactly: <b>the infinity's first half is the first o, the second half is the second o, and the m lives subtly at the junction between them</b> — the crossing line weaving through the m's open counters. Every candidate was then read by OCR before reaching this page: misspelled or garbled designs were discarded automatically. Only verified survivors are shown.</p>
+
+  <div class="tally">
+    <div class="box"><b>10</b><span>candidates generated</span></div>
+    <div class="box"><b style="color:#1E5C46">4</b><span>passed the gate</span></div>
+    <div class="box"><b style="color:var(--crimson)">6</b><span>discarded — receipts below</span></div>
+  </div>
+
+  <div class="shame"><b>The discards (what the machine caught):</b>
+    <code>wm-4c1</code> "anast tomosis" · <code>wm-4c2</code> "anaste cmoosis" · <code>wm-4c3</code> "anastmosis" · <code>wm-4c4</code> "sis anast" · <code>wm-4c6</code> "anastcmosis" · <code>wm-3c2</code> "osis xo anast mx" — every one of these would have been another misspelling in front of your eyes. Not this time.</div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="num">Finalist 1 · with .md</div>
+      <h2>wm-4c5</h2>
+      <img class="main" src="logo-lab/wm-4c5.png" alt="wm-4c5">
+      <div class="ocr">OCR: "anastomosis .md" ✓</div>
+      <div class="mech">The crossing line weaves through the m's two open counters — passing between its three stems without touching them.</div>
+      <div class="igchip"><img class="av" src="logo-lab/wm-4c5.png" alt=""><div><div class="hd">anastomosis.md</div><div class="st">1,822 cases · 26 systems</div></div></div>
+      <div class="ladder">
+        <div class="s"><img src="logo-lab/wm-4c5.png" style="width:64px;height:64px" alt=""><div class="lab">64</div></div>
+        <div class="s"><img src="logo-lab/wm-4c5.png" style="width:32px;height:32px" alt=""><div class="lab">32</div></div>
+        <div class="s"><img src="logo-lab/wm-4c5.png" style="width:16px;height:16px" alt=""><div class="lab">16</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="num">Finalist 2 · with .md</div>
+      <h2>wm-4c7</h2>
+      <img class="main" src="logo-lab/wm-4c7.png" alt="wm-4c7">
+      <div class="ocr">OCR: "anastomosis… .md" ✓ (check the .md area with your eyes — a stray read nearby)</div>
+      <div class="mech">Same weave mechanic, different rendering pass.</div>
+      <div class="igchip"><img class="av" src="logo-lab/wm-4c7.png" alt=""><div><div class="hd">anastomosis.md</div><div class="st">1,822 cases · 26 systems</div></div></div>
+      <div class="ladder">
+        <div class="s"><img src="logo-lab/wm-4c7.png" style="width:64px;height:64px" alt=""><div class="lab">64</div></div>
+        <div class="s"><img src="logo-lab/wm-4c7.png" style="width:32px;height:32px" alt=""><div class="lab">32</div></div>
+        <div class="s"><img src="logo-lab/wm-4c7.png" style="width:16px;height:16px" alt=""><div class="lab">16</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="num">Finalist 3 · no .md</div>
+      <h2>wm-3c1</h2>
+      <img class="main" src="logo-lab/wm-3c1.png" alt="wm-3c1">
+      <div class="ocr">OCR: "anastomosis" ✓</div>
+      <div class="mech">The weave mechanic, clean suffix-free rendering.</div>
+      <div class="igchip"><img class="av" src="logo-lab/wm-3c1.png" alt=""><div><div class="hd">anastomosis.md</div><div class="st">1,822 cases · 26 systems</div></div></div>
+      <div class="ladder">
+        <div class="s"><img src="logo-lab/wm-3c1.png" style="width:64px;height:64px" alt=""><div class="lab">64</div></div>
+        <div class="s"><img src="logo-lab/wm-3c1.png" style="width:32px;height:32px" alt=""><div class="lab">32</div></div>
+        <div class="s"><img src="logo-lab/wm-3c1.png" style="width:16px;height:16px" alt=""><div class="lab">16</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="num">Finalist 4 · no .md</div>
+      <h2>wm-3c3</h2>
+      <img class="main" src="logo-lab/wm-3c3.png" alt="wm-3c3">
+      <div class="ocr">OCR: "anastomosis" ✓</div>
+      <div class="mech">Same weave, another pass — font weight and loop curve differ slightly.</div>
+      <div class="igchip"><img class="av" src="logo-lab/wm-3c3.png" alt=""><div><div class="hd">anastomosis.md</div><div class="st">1,822 cases · 26 systems</div></div></div>
+      <div class="ladder">
+        <div class="s"><img src="logo-lab/wm-3c3.png" style="width:64px;height:64px" alt=""><div class="lab">64</div></div>
+        <div class="s"><img src="logo-lab/wm-3c3.png" style="width:32px;height:32px" alt=""><div class="lab">32</div></div>
+        <div class="s"><img src="logo-lab/wm-3c3.png" style="width:16px;height:16px" alt=""><div class="lab">16</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    The verified round · Oct 30, 2026 · wm-4c5 / wm-4c7 / wm-3c1 / wm-3c3 (finalists), six discards retained in logo-lab for the record. The OCR gate reads every wordmark before you ever see it — spelling failures die in the lab now. <b>Your move:</b> pick the finalist whose m and infinity feel right, and I derive its true paired twin (same design, with and without .md), polish to final, and fold it into the official flow — shortlist, phone book, gallery.
+  </div>
+
+</div>
+</body>
+</html>
