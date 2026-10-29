@@ -1533,9 +1533,10 @@ const AnkiEngine = {
     <div class="ct-section">
       <div class="ct-section-head"><span class="ct-label">Number of questions</span></div>
       <div class="ct-count-card">
-        <div class="qcount-display" id="qcountDisplay">10</div>
+        <div class="qcount-display" id="qcountDisplay">20</div>
         <div class="ct-count-label">Questions in this block</div>
-        <input type="range" id="qcountSlider" min="1" max="40" value="10" oninput="updateQCount()">
+        <input type="range" id="qcountSlider" min="1" max="40" value="20" oninput="updateQCount()">
+        <div class="ct-count-time" style="font-size:11.5px">20 = one real exam block (new Step 1 format · 30 minutes) &middot; 40 = double block for stamina</div>
         <div class="ct-count-time" id="qcountAvailable"></div>
         <button class="ct-start" id="generateBtn" onclick="generateTest()">Start block</button>
       </div>
@@ -3148,7 +3149,7 @@ function generateTest() {
 function startBlockFromIds(ids, title = 'Custom Review') {
   if (!ids || ids.length === 0) { showToast('No questions available for this yet.'); return; }
   if (!isSubscribed && freeAccessExpired()) { showPaywall(); return; }
-  const chosen = [...new Set(ids)].map(id => qById(id)).filter(Boolean).sort(() => Math.random() - 0.5).slice(0, 40);
+  const chosen = [...new Set(ids)].map(id => qById(id)).filter(Boolean).sort(() => Math.random() - 0.5).slice(0, 20);
   activeBlock = newBlock(chosen, title); current = 0; submitted = false; tutorMode = true; setModeBtn();
   goScreen('block'); startBlockTimer(); renderBlockQuestion();
 }
@@ -3709,7 +3710,7 @@ document.addEventListener('keydown', e => {
    Function that dedupes fingerprints before creating the account).
    ============================================================ */
 const DAILY_FREE_QUESTIONS = 10;
-const FIRST_DAY_QUESTIONS = 10;           // flat free tier: 10 questions a day, every day (the at-will trial is the "try everything" path)
+const FIRST_DAY_QUESTIONS = 40;           // day one = two real exam blocks (2 × 20, the new Step 1 format) — then 10/day
 
 /* --- clock anchor --- */
 let serverClockOffset = 0;               // ms to add to Date.now()
@@ -3861,8 +3862,11 @@ function checkDeviceReuse() {
       el.style.display = 'block';
       el.innerHTML = `Your free trial has ended &mdash; you're back to <b>${DAILY_FREE_QUESTIONS} free questions a day</b>. <button class="ts-btn" onclick="showPaywall()">Choose a plan</button>`;
     } else {
+      const dayOne = !(blocksUsed > 0 || freeUsedToday > 0);
       el.style.display = 'block';
-      el.innerHTML = `Free tier: <b>${DAILY_FREE_QUESTIONS} questions a day</b>. Your ${FREE_TRIAL_DAYS}-day free trial &mdash; ${TRIAL_QUESTION_LIMIT} questions, every feature &mdash; starts whenever you're ready. <button class="ts-btn" onclick="startFreeTrial()">Start free trial</button>`;
+      el.innerHTML = dayOne
+        ? `Your first day: <b>two real exam blocks &mdash; 2 &times; 20 questions</b>. After that, ${DAILY_FREE_QUESTIONS} free questions a day. <button class="ts-btn" onclick="startFreeTrial()">Start ${FREE_TRIAL_DAYS}-day trial instead</button>`
+        : `Free tier: <b>${DAILY_FREE_QUESTIONS} questions a day</b>. Your ${FREE_TRIAL_DAYS}-day free trial &mdash; ${TRIAL_QUESTION_LIMIT} questions, every feature &mdash; starts whenever you're ready. <button class="ts-btn" onclick="startFreeTrial()">Start free trial</button>`;
     }
   }
   async function startFreeTrial() {
