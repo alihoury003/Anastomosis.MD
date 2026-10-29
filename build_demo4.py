@@ -31,6 +31,12 @@ HEXMAP = {
     'EFA21B': 'C9973C',  # amber -> old gold
     'B87A0C': '9A742C',  # amber-2
     'FBEBC6': 'F4EAD4',  # amber-soft
+    'FFB93B': 'D9AC55',  # amber button hover -> bright gold
+    'F3C6B6': 'E7C6BE',  # live-demo struck border -> muted crimson family
+    '9A6A57': '9E5C52',  # live-demo struck text -> muted crimson
+    '8A5A45': '9A742C',  # live-demo why-wrong text -> deep old gold
+    'BFDCD6': 'C6D6DC',  # border tint -> petrol family
+    '2A2825': '2A2E38',  # ink hover -> cool ink family
 }
 for old, new in HEXMAP.items():
     src = re.sub('#' + old, '#' + new, src, flags=re.IGNORECASE)
@@ -105,7 +111,7 @@ body.a4dash .nav ~ *:not(#a4dash){display:none}
 .a4d-h1{font-size:clamp(34px,4.6vw,52px);font-weight:800;letter-spacing:-.03em;line-height:1.03;margin:12px 0 8px}
 .a4d-h1 em{font-family:var(--serif-accent,'Instrument Serif',serif);font-style:italic;font-weight:400;color:var(--teal,#1B4E5F)}
 .a4d-lede{font-size:16px;color:var(--ink-2,#4A4741);max-width:520px}
-.a4d-strip{margin-top:16px;display:inline-block;background:var(--teal-soft,#DDE8EC);border:1px solid #BFDCD6;border-radius:6px;padding:9px 14px;font-size:13px;color:var(--ink-2,#4A4741)}
+.a4d-strip{margin-top:16px;display:inline-block;background:var(--teal-soft,#DDE8EC);border:1px solid #C6D6DC;border-radius:6px;padding:9px 14px;font-size:13px;color:var(--ink-2,#4A4741)}
 .a4d-strip b{color:var(--teal-2,#143C4A)}
 .a4d-strip button{margin-left:8px;background:var(--teal,#1B4E5F);color:#fff;border:none;border-radius:5px;padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer}
 .a4d-actions{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
