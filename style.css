@@ -11,12 +11,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root{
-  --paper:#F3EFE6; --paper-2:#EAE5D8; --card:#FFFDF8;
-  --ink:#141311; --ink-2:#4A4741; --ink-3:#8A857A;
-  --rule:#DDD6C6; --rule-2:#EDE8DC; --sand:#E3DCCB;
-  --teal:#0E7C78; --teal-2:#0A5F5C; --teal-soft:#D8ECE8;
-  --coral:#E4572E; --coral-2:#C2441F; --coral-soft:#FBE2D8;
-  --amber:#EFA21B; --amber-2:#B87A0C; --amber-soft:#FBEBC6;
+  --paper:#F7F3EB; --paper-2:#EFE9DC; --card:#FFFDF8;
+  --ink:#101418; --ink-2:#4A4741; --ink-3:#8A857A;
+  --rule:#E3DCCC; --rule-2:#EAE2D3; --sand:#E9E2D2;
+  --teal:#1B4E5F; --teal-2:#143C4A; --teal-soft:#DDE8EC;
+  --coral:#B5342A; --coral-2:#8E2921; --coral-soft:#F2E1DD;
+  --amber:#C9973C; --amber-2:#9A742C; --amber-soft:#F4EAD4;
   --disp:'Inter',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
   --serif-accent:'Instrument Serif',Georgia,serif;
   --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
@@ -40,15 +40,15 @@ h1,h2,h3{font-family:var(--disp);font-weight:800;letter-spacing:-.03em;line-heig
 
 .auth-side{
   background:
-    radial-gradient(820px 520px at 86% -10%, rgba(14,124,120,.14), transparent 62%),
-    radial-gradient(640px 440px at -6% 106%, rgba(228,87,46,.10), transparent 58%),
+    radial-gradient(820px 520px at 86% -10%, rgba(27,78,95,.14), transparent 62%),
+    radial-gradient(640px 440px at -6% 106%, rgba(181,52,42,.10), transparent 58%),
     linear-gradient(170deg,#F7F3EA 0%,#EDE7D9 60%,#E5DECC 100%);
   border-right:1px solid var(--rule);
   padding:42px 50px;display:flex;flex-direction:column;justify-content:space-between;
   position:relative;overflow:hidden;
 }
-.auth-side .rule{position:absolute;right:-70px;top:-70px;width:330px;height:330px;border:1px solid rgba(20,19,17,.05);border-radius:50%}
-.auth-side .rule::after{content:'';position:absolute;inset:62px;border:1px solid rgba(20,19,17,.05);border-radius:50%}
+.auth-side .rule{position:absolute;right:-70px;top:-70px;width:330px;height:330px;border:1px solid rgba(16,20,24,.05);border-radius:50%}
+.auth-side .rule::after{content:'';position:absolute;inset:62px;border:1px solid rgba(16,20,24,.05);border-radius:50%}
 .auth-side-main{margin:auto 0}
 .auth-side .eyebrow{display:flex;align-items:center;gap:9px;color:var(--teal-2);font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:500;margin-bottom:16px}
 .auth-side .eyebrow::before{content:'';width:16px;height:1px;background:var(--teal-2)}
