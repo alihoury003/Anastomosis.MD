@@ -402,6 +402,7 @@ Founder's explicit favorites to date: **WLD-10 the braid + BT textures**, **WLD-
 - **names.html** — the full naming record (wave 1, wave 2, challengers, founder's two)
 - **Legacy Medchanic-era files** (picks.html/.pdf 17 marks, finalists.html, explorations.html) — obsolete for the new brand, kept as history
 - **pin-series.html** — Series XXVII presentation: the five Pinterest-reference designs with full views, IG profile chips, and the 64/32/16 circle-crop ladder
+- **wm3-revision.html** — the O-loops legibility revision: WM-3/WM-4 originals vs WM-3r/WM-4r side by side (founder's Oct 30 request: the m was drowning; revisions clean the m and letter spacing; measured: originals were tall 97%-height compositions, revisions are single-line wordmark bands — flagged for founder's eyes)
 - **build_*.py** — the builders for everything above; rerun after adding images. PDF images embed at 800 px JPEG (repo hygiene: never commit >50 MB files).
 
 ### 16.6 The Appwrite incident — resolved (see also §3.7)
