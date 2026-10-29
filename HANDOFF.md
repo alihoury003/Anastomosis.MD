@@ -405,7 +405,17 @@ Founder's explicit favorites to date: **WLD-10 the braid + BT textures**, **WLD-
 ### 16.6 The Appwrite incident — resolved (see also §3.7)
 Cause found and fixed: the site's Git settings deployed **every branch** — 47 logo-asset pushes (trees up to 244 MB) took the org from 1.56 GB to 4.07 GB (204% of the free 2 GB) and got it restricted. **Founder's fix (Oct 23): the Git settings now deploy only branches matching `main`** — arena pushes are invisible to Appwrite (verified: first post-filter push triggered nothing). Remaining founder actions: delete the fat deployments in Console → Sites → Deployments (reclaims ~2.5 GB), set retention to 30 days. Standing rules live in §3.7 and rule 18.
 
-### 16.7 Current state & next steps
+### 16.7 The domain — anastomosis.md is AVAILABLE; full price research (Oct 29, 2026)
+**Status: available** — verified live at the .md registry whois (nic.md → "No entries found") and DNS (NXDOMAIN), Oct 29, 2026. Not yet bought.
+
+The price landscape (a deliverable page with buy links lives at **`domain-buy.html`** in the repo root, served by the file hub):
+- **Cheapest tier:** host.md (Moldova local) **$39/yr flat** — the registry's own price incl. VAT; **Regery $48.99 → $49.99** (free privacy, pays card/PayPal/bank/**Bitcoin** — the Lebanon-friendly fallback); **Netim $50.50 flat** (ICANN-accredited French registrar, free privacy — the "safe + cheap" pick, and the agent's recommendation).
+- **Correcting earlier advice:** Namecheap, Porkbun, NameSilo, Cloudflare, Dynadot **do not sell .md at all**. The prior "buy it at Namecheap/NameSilo/Porkbun" suggestion was wrong.
+- **Traps:** register.domains $48.99 → **$178.98 renewal**; 101domain $183.99 → $219.99 (no privacy, 1–3 yr terms); EuroDNS €353.50/yr; Network Solutions $199 → $208.99.
+- **Rules learned:** checkout price is the truth (registry-premium flags and country tiers exist — US/UK/Brazil-type buyers pay more; Lebanon is standard tier). Max validity 5 years. **.md has NO redemption period** — 30 days after expiry the name is deleted outright → auto-renew ON + 30-day reminder is mandatory once bought. Activation can take minutes to ~2 days. Transfers keep the expiry date (no free year).
+- **The .com:** Google Workspace's $12/yr anastomosismd.com (Squarespace reseller) = defensive redirect only, optional, renewal likely ~$20+/yr — not the brand domain. Priority: the .md first.
+
+### 16.8 Current state & next steps
 **Now:** the founder eliminates and stars in the master gallery → the Starred view becomes his shortlist → the final pick.
 **Then the rollout:** the five token swap across the site (bone/ink/crimson/petrol/gold), the winning mark as favicon on every page, the loading animation drawn from the mark, the social kit (avatar + highlights + post templates per MAX-3), importer admin email update, repo rename + Appwrite relink, and this guide's final rewrite for the Anastomosis era.
 **Then the real work resumes:** the qbank files upload (Tier 1 — §12), batch 75 (Endocrine → 200), and the launch.

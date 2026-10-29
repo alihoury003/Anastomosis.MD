@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>anastomosis.md — Buy Guide · Oct 29, 2026</title>
+<style>
+  :root{
+    --bone:#F7F3EB; --ink:#101418; --crimson:#B5342A; --petrol:#1B4E5F; --gold:#C9973C;
+    --bone-2:#EFE9DC; --line:#E3DCCC;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:var(--bone); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; padding:28px 16px 60px;
+  }
+  .wrap{max-width:760px;margin:0 auto}
+  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--petrol);font-weight:700}
+  h1{font-size:clamp(26px,6vw,40px);letter-spacing:-.01em;margin:6px 0 2px}
+  h1 .md{color:var(--crimson)}
+  .tag{font-style:italic;color:var(--petrol);margin-bottom:14px}
+  .avail{
+    display:inline-flex;align-items:center;gap:8px;background:#EAF2EE;border:1px solid #BFD8CC;
+    color:#1E5C46;font-weight:700;font-size:14px;padding:7px 14px;border-radius:999px;margin:4px 0 8px;
+  }
+  .avail .dot{width:9px;height:9px;border-radius:50%;background:#2E8B62;box-shadow:0 0 0 3px rgba(46,139,98,.18)}
+  .sub{font-size:14px;color:#5A5548;max-width:600px}
+  h2{font-size:19px;color:var(--petrol);margin:38px 0 12px;letter-spacing:-.01em}
+  h2 .n{color:var(--crimson);font-size:13px;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:2px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  /* the verdict — gold used ONCE, where the join matters */
+  .verdict{border:2px solid var(--gold);background:#fff;border-radius:14px;padding:20px 22px;position:relative}
+  .verdict .badge{
+    position:absolute;top:-12px;left:18px;background:var(--gold);color:#fff;
+    font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:4px 12px;border-radius:999px;
+  }
+  .pick{display:flex;gap:14px;align-items:flex-start;padding:10px 0;border-bottom:1px dashed var(--line)}
+  .pick:last-child{border-bottom:none}
+  .pick .rank{font-size:12px;font-weight:800;color:var(--petrol);background:var(--bone-2);border-radius:8px;padding:5px 9px;white-space:nowrap;margin-top:2px}
+  .pick b{font-size:16px}
+  .pick .price{color:var(--crimson);font-weight:800}
+  .pick p{font-size:13.5px;color:#4C4739;margin-top:2px}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13.5px}
+  th{background:var(--petrol);color:#fff;text-align:left;padding:9px 10px;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase}
+  td{padding:9px 10px;border-top:1px solid var(--line);vertical-align:top}
+  tr:hover td{background:#FBF9F3}
+  .num{white-space:nowrap;font-variant-numeric:tabular-nums}
+  .best{background:#F3EDE0;font-weight:700}
+  .trap td{background:#FBEFED}
+  .trap .name{color:var(--crimson);font-weight:800}
+  .note{font-size:12.5px;color:#6B6555;margin-top:8px}
+  .warn{border-left:4px solid var(--crimson);background:#FBEFED;border-radius:0 10px 10px 0;padding:12px 16px;margin:10px 0;font-size:14px}
+  .warn b{color:var(--crimson)}
+  ul.check{list-style:none}
+  ul.check li{padding:9px 0 9px 34px;position:relative;border-bottom:1px dashed var(--line);font-size:14.5px}
+  ul.check li:last-child{border-bottom:none}
+  ul.check li::before{
+    content:"✓";position:absolute;left:2px;top:8px;width:22px;height:22px;border-radius:50%;
+    background:var(--petrol);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;
+  }
+  a{color:var(--petrol);font-weight:600}
+  .btn{
+    display:inline-block;background:var(--petrol);color:#fff !important;text-decoration:none;
+    padding:9px 16px;border-radius:10px;font-size:14px;font-weight:700;margin:4px 8px 4px 0;
+  }
+  .btn.crimson{background:var(--crimson)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:620px){
+    .grid{grid-template-columns:1fr}
+    .tw{overflow-x:auto;margin:0 -16px;padding:0 16px}
+    table{min-width:560px}
+  }
+  .foot{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:#7A7362}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Anastomosis.MD · Domain Buy Guide</div>
+  <h1>anastomosis<span class="md">.md</span></h1>
+  <div class="tag">Two vessels. One mind. One domain.</div>
+  <div class="avail"><span class="dot"></span> AVAILABLE — verified Oct 29, 2026 at the .md registry (whois: "No entries found")</div>
+  <p class="sub">Full price research across every registrar that sells .md. Short version: it's yours for <b>$39–51/year</b> if you buy from the right place — and <b>$220+/year</b> if you buy from the wrong one. The difference is pure registrar markup: the registry's own price is <b>$39/yr including VAT</b>.</p>
+
+  <!-- ============ VERDICT ============ -->
+  <h2><span class="n">The verdict</span>Where to buy</h2>
+  <div class="verdict">
+    <span class="badge">The suture · buy here</span>
+
+    <div class="pick">
+      <span class="rank">PICK 1</span>
+      <div>
+        <b>Netim</b> — <span class="price">$50.50/yr flat</span> (registration = renewal, no games)
+        <p>Established French registrar, ICANN-accredited, free WHOIS privacy. The "safe + cheap" choice for a domain you'll hold for 10 years. Pays by card, PayPal, bank transfer.</p>
+        <a class="btn" href="https://www.netim.com/" target="_blank">netim.com → search anastomosis.md</a>
+      </div>
+    </div>
+
+    <div class="pick">
+      <span class="rank">PICK 2</span>
+      <div>
+        <b>Regery</b> — <span class="price">$48.99 first yr · $49.99 renewal</span>
+        <p>Cheapest mainstream option, free WHOIS privacy. Accepts <b>Bitcoin</b> alongside card/PayPal/bank transfer — useful if a Lebanese card ever fails at checkout.</p>
+        <a class="btn" href="https://regery.com/en/domains/zone/md" target="_blank">regery.com → .md zone</a>
+      </div>
+    </div>
+
+    <div class="pick">
+      <span class="rank">CHEAPEST</span>
+      <div>
+        <b>host.md</b> — <span class="price">$39/yr flat</span> (registry price, VAT included, $0 transfers)
+        <p>Moldova's local registrar, literally priced at the registry rate. Perfectly legit, but a small local shop — payment from Lebanon and English support are untested. Only pick this if you want the absolute floor price.</p>
+        <a class="btn" href="https://host.md/en/?pag=domains" target="_blank">host.md → order page</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">💡 Budget answer: <b>1 year ≈ $49–51</b>. If you can stretch, 3 years ≈ $150 locks today's price and removes all lapse risk. Max validity at the registry is 5 years.</div>
+
+  <!-- ============ TABLE ============ -->
+  <h2><span class="n">The full picture</span>.md prices — all 17+ registrars compared</h2>
+  <div class="tw">
+  <table>
+    <tr><th>Registrar</th><th>1st year</th><th>Renewal</th><th>5-yr total</th><th>Notes</th></tr>
+    <tr class="best"><td>host.md 🇲🇩</td><td class="num">$39.00</td><td class="num">$39.00</td><td class="num">$195</td><td>Registry price, VAT incl. Local Moldovan shop</td></tr>
+    <tr class="best"><td>Regery</td><td class="num">$48.99</td><td class="num">$49.99</td><td class="num">$249</td><td>Free privacy · pays card/PayPal/Bank/Alipay/<b>Bitcoin</b></td></tr>
+    <tr><td>AtakDomain 🇹🇷</td><td class="num">$49.98</td><td class="num">~$51</td><td class="num">~$255</td><td>Turkish registrar</td></tr>
+    <tr class="best"><td>Netim 🇫🇷</td><td class="num">$50.50</td><td class="num">$50.50</td><td class="num">$253</td><td>ICANN-accredited · free privacy · the safe pick</td></tr>
+    <tr><td>Netcetera 🇬🇧</td><td class="num">$61.16</td><td class="num">$61.16</td><td class="num">$306</td><td>No privacy</td></tr>
+    <tr><td>ClouDNS</td><td class="num">~$60</td><td class="num">$68.79</td><td class="num">~$335</td><td>DNS company, also sells domains</td></tr>
+    <tr><td>Regtons (Gransy) 🇨🇿</td><td class="num">$71.98</td><td class="num">$71.98</td><td class="num">$360</td><td>No privacy</td></tr>
+    <tr><td>Webnames.ca 🇨🇦</td><td class="num">$100.00</td><td class="num">$100.00</td><td class="num">$500</td><td>Privacy +$7.14</td></tr>
+    <tr><td>MrDomain 🇪🇸</td><td class="num">$122.48</td><td class="num">$122.48</td><td class="num">$612</td><td>DonDominio group</td></tr>
+    <tr><td>Hexonet</td><td class="num">$165.00</td><td class="num">$165.00</td><td class="num">$825</td><td>Reseller-focused</td></tr>
+    <tr><td>Web Solutions</td><td class="num">$175.00</td><td class="num">$175.00</td><td class="num">$875</td><td>⚠️ charges US/UK/Brazil buyers even more</td></tr>
+    <tr class="trap"><td class="name">101domain</td><td class="num">$183.99</td><td class="num">$219.99</td><td class="num">$1,064</td><td>Renewal trap · no privacy · 1–3 yr terms only</td></tr>
+    <tr><td>Marcaria</td><td class="num">$184.00</td><td class="num">n/a</td><td class="num">—</td><td>—</td></tr>
+    <tr><td>Network Solutions</td><td class="num">$199.00</td><td class="num">$208.99</td><td class="num">$1,035</td><td>Legacy-expensive</td></tr>
+    <tr class="trap"><td class="name">register.domains</td><td class="num">$48.99</td><td class="num">$178.98</td><td class="num">$765</td><td>Worst trap: 3.6× renewal jump</td></tr>
+    <tr class="trap"><td class="name">EuroDNS 🇱🇺</td><td class="num">€353.50</td><td class="num">€353.50</td><td class="num">~$1,930</td><td>Absurd markup. Avoid</td></tr>
+  </table>
+  </div>
+  <div class="note">Prices from live trackers (tld-list, updated the hour of this research) + registrar pages, Oct 29, 2026. INWX shows $40–48 on some trackers but $151 on the live one — verify at their site before using. <b>Not selling .md at all:</b> Namecheap, Porkbun, NameSilo, Cloudflare, Dynadot — the usual budget suspects don't carry it. <a href="https://tld-list.com/tld/md" target="_blank">Live price tracker →</a></div>
+
+  <!-- ============ BEFORE YOU CLICK ============ -->
+  <h2><span class="n">Before you click buy</span>The 7-point checklist</h2>
+  <div class="card">
+    <ul class="check">
+      <li><b>The checkout price is the truth.</b> It should read ~$49–51. If it suddenly shows hundreds of dollars, the registry has flagged the name "premium" — stop, screenshot it, and bring it back to me.</li>
+      <li><b>You're on the standard country tier.</b> The registry charges US/UK/Brazil-type buyers more; Lebanon is standard tier. (Another reason the price at checkout matters more than any list.)</li>
+      <li><b>Turn auto-renew ON + a calendar reminder 30 days before expiry.</b> This one is critical: .md has <b>no redemption period</b> — 30 days after expiry the name is deleted outright and open to anyone. A missed renewal = the brand domain gone.</li>
+      <li><b>Don't panic if it's not instant.</b> .md registrations can take from a few minutes up to ~2 days to activate (the registry processes payments manually in some flows). Not a scam — just a small registry.</li>
+      <li><b>WHOIS privacy:</b> the .md registry doesn't really support it; Netim and Regery offer a free proxy — take it if offered. If not, your name/email sit in public whois (your contact email is already public on the site anyway).</li>
+      <li><b>Transfers don't add a year</b> on .md (the registry keeps your expiry date), so there's no free-year trick — pick a good registrar now and stay.</li>
+      <li><b>Buy it this week.</b> It's available today. $49 to own the brand's exact name — the cheapest, highest-leverage asset purchase this project will ever make.</li>
+    </ul>
+  </div>
+
+  <!-- ============ PAYING FROM LEBANON ============ -->
+  <h2><span class="n">Paying from Lebanon</span>What actually works</h2>
+  <div class="card" style="font-size:14.5px">
+    <p><b>Credit/debit card (Visa/Mastercard)</b> works at all the picks <i>if</i> your card is enabled for international online payments — that's the usual blocker with Lebanese banks.</p>
+    <p style="margin-top:8px"><b>PayPal</b> is accepted by Netim and Regery if you have (or can get) an account funded.</p>
+    <p style="margin-top:8px"><b>Bitcoin</b> is accepted by Regery and Netcetera — the fallback if cards fail. It's a normal payment rail for them, not a sketchy one.</p>
+    <p style="margin-top:8px"><b>Bank transfer</b> — possible at most, but slow (registry advises 3+ banking days ahead) and painful from Lebanon. Card/PayPal/BTC first.</p>
+  </div>
+
+  <!-- ============ THE .COM ============ -->
+  <h2><span class="n">And the $12 offer you found?</span>anastomosismd.com — defensive only</h2>
+  <div class="card" style="font-size:14.5px">
+    <p>That Google Workspace offer (<b>anastomosismd.com at $12/yr</b> via Squarespace's reseller flow) is <b>not the brand domain</b> — the brand is <b>Anastomosis.MD</b>, and the .md is the whole pun: medicine + the file extension students live in.</p>
+    <p style="margin-top:8px">The .com is a <b>defensive redirect</b> ("anastomosismd.com" → the real site, so typo-traffic still lands). Worth having eventually; not urgent while nobody knows the brand. Two things if you grab it: confirm whether $12 is recurring or first-year only (Squarespace's standard .com renewal runs ~$20+/yr), and know that a Workspace domain works with any site via DNS — buying it there doesn't change your Appwrite hosting.</p>
+    <p style="margin-top:8px"><b>Priority: anastomosis.md first (~$49). The .com can wait for the first stipend.</b></p>
+  </div>
+
+  <!-- ============ AFTER ============ -->
+  <h2><span class="n">After you buy</span>Plugging it in (all part of rollout)</h2>
+  <div class="card" style="font-size:14.5px">
+    <p>Nothing needs to happen on the domain itself until the logo is crowned and rollout starts. Then, in order:</p>
+    <p style="margin-top:8px">1 · <b>Appwrite</b> — Sites → custom domain → point DNS records<br>
+       2 · <b>Google Workspace</b> — verify via the TXT record (any domain works, including this one)<br>
+       3 · <b>Paddle</b> — success URLs + checkout branding on the new domain (ask Charlie for the rebrand checklist)<br>
+       4 · <b>Email</b> — hello@anastomosis.md beats medchanicmd@gmail.com on every page</p>
+    <p style="margin-top:8px">Send me the confirmation when it's bought and I'll write the rollout order into the handoff.</p>
+  </div>
+
+  <div class="foot">
+    Researched Oct 29, 2026 · availability verified live at the <a href="https://nic.md/en/whois/" target="_blank">.md registry whois</a> · prices via <a href="https://tld-list.com/tld/md" target="_blank">tld-list</a>, registrar pages &amp; trackers · registry: STISC (nic.md), standard price $39/yr incl. VAT<br>
+    One honest footnote: Google treats .md as Moldova-geotargeted in search. For a login-based product spread by word-of-mouth and socials, that costs nothing — and the brand value of the name is worth far more. This was the right call.
+  </div>
+
+</div>
+</body>
+</html>
