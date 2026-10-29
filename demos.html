@@ -11,7 +11,7 @@ body{background:var(--bone);color:var(--ink);font-family:'Inter',system-ui,sans-
 .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--petrol);font-weight:700}
 h1{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(36px,6vw,58px);margin:12px 0 6px}
 .sub{color:var(--ink-2);max-width:660px;margin-bottom:40px}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
 .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;display:flex;flex-direction:column;text-decoration:none;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden}
 .card:hover{transform:translateY(-5px);box-shadow:0 22px 44px -20px rgba(16,20,24,.2)}
 .card .glyph{height:96px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;background:var(--bone);border-radius:10px;border:1px solid var(--line)}
@@ -22,7 +22,7 @@ h1{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(36
 .card .go{margin-top:18px;font-weight:700;font-size:13.5px;color:var(--petrol)}
 .card:hover .go{text-decoration:underline;text-underline-offset:4px}
 .foot{margin-top:36px;font-family:var(--mono);font-size:10px;color:var(--ink-3);letter-spacing:.06em;line-height:1.8}
-@media(max-width:820px){.cards{grid-template-columns:1fr}}
+@media(max-width:1080px){.cards{grid-template-columns:1fr 1fr}}@media(max-width:680px){.cards{grid-template-columns:1fr}}
 </style></head><body>
 <div class="wrap">
   <div class="eyebrow">Anastomosis.MD · The re-theme demos</div>
@@ -51,6 +51,14 @@ h1{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(36
       <h2>The Journal</h2>
       <div class="vibe">editorial · precise · luxury</div>
       <p>Your Pinterest instinct, grown up: oversized serif, hairline rules that draw themselves, ruled-paper grids, gold spent exactly once per view. The loader is a single line writing the anastomosis loop. Neat. Professional. Quietly stunning.</p>
+      <div class="go">Open the demo →</div>
+    </a>
+    <a class="card" href="demo-4-replica.html">
+      <div class="glyph"><svg width="120" height="60" viewBox="0 0 120 60"><circle cx="24" cy="30" r="9" fill="#F7F3EB" stroke="#E3DCCC"/><circle cx="46" cy="30" r="9" fill="#101418"/><circle cx="68" cy="30" r="9" fill="#B5342A"/><circle cx="90" cy="30" r="9" fill="#1B4E5F"/><circle cx="112" cy="30" r="7" fill="#C9973C"/></svg></div>
+      <div class="num">DEMO 4</div>
+      <h2>The Replica</h2>
+      <div class="vibe">exact · familiar · safe</div>
+      <p>The current website, untouched — same layout, same copy, same screenshots — with only the Anastomosis palette, the tw-9 mark, and the tree-growth loader swapped in. The "five hex values and one logo swap" re-theme, made visible. The dashboard view shows the stats page re-themed; the test page never changes.</p>
       <div class="go">Open the demo →</div>
     </a>
   </div>
