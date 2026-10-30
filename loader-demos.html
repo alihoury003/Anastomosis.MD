@@ -95,16 +95,32 @@ svg{display:block}
 .rv-mote{fill:var(--gold);opacity:0}
 .rv-done .rv-scene{animation:rvDim .9s 4s forwards}
 @keyframes rvDim{to{opacity:.16}}
+
+/* ============ DEMO 4/5 · THE TREE ============ */
+.tv-trunk{fill:none;stroke:var(--ink);stroke-width:8.5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:rvDraw .65s 1.05s cubic-bezier(.5,0,.3,1) forwards}
+.tv-branch{fill:none;stroke:var(--ink);stroke-width:3.4;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:rvDraw .5s cubic-bezier(.5,0,.3,1) forwards}
+.tv-branch.c{stroke:var(--crimson)}
+.tv-branch.v{stroke:var(--petrol)}
+.tv-branch.t2{stroke-width:2.1}
+.tv-tip{transform-origin:center;transform:scale(0);animation:pop .35s cubic-bezier(.2,1.7,.4,1) forwards}
+.tv-join{transform-origin:center;transform:scale(0);animation:pop .4s cubic-bezier(.2,1.7,.4,1) forwards}
+.tv-mote{fill:var(--gold);opacity:0;animation:tvMote 2.6s linear infinite}
+@keyframes tvMote{0%{opacity:0;transform:translateY(0)}12%{opacity:.8}80%{opacity:.8}100%{opacity:0;transform:translateY(-130px)}}
+.tv-breathe{transform-box:view-box;transform-origin:50% 82%;animation:tvBreathe 4.5s 5.2s ease-in-out infinite}
+@keyframes tvBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.014) rotate(.35deg)}}
+.tv-endtext{position:absolute;bottom:26px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:5px;pointer-events:none}
 </style></head><body>
 
 <div class="eyebrow">Anastomosis.MD · loading demos</div>
-<h1>Three ways to say "loading your dashboard"</h1>
+<h1>Five ways to say "loading your dashboard"</h1>
 <p class="sub">Each one is the boot screen of the dashboard — anastomosis as motion, ending in the mark. Click a tab, or click the stage to replay. Reload-worthy, we hope.</p>
 
 <div class="bar">
   <button class="tab on" id="tab1" onclick="play(1)">01 · THE HEARTBEAT</button>
   <button class="tab" id="tab2" onclick="play(2)">02 · THE SUTURE</button>
   <button class="tab" id="tab3" onclick="play(3)">03 · THE RIVER</button>
+  <button class="tab" id="tab4" onclick="play(4)">04 · THE TREE</button>
+  <button class="tab" id="tab5" onclick="play(5)">05 · THE TREE · PURE</button>
 </div>
 
 <div class="stage" id="stage" onclick="play(current)"></div>
@@ -113,6 +129,8 @@ svg{display:block}
 <div class="caps">
   <div class="capcard on" id="cap1"><div class="n">DEMO 01</div><h3>The Heartbeat</h3><p>A vitals monitor: the arterial trace sweeps in from the left, the venous from the right — and at the moment they meet, one shared QRS. Two vessels, one rhythm, 72 BPM.</p></div>
   <div class="capcard" id="cap2"><div class="n">DEMO 02</div><h3>The Suture</h3><p>A vascular anastomosis, performed live: a gold needle runs eight stitches joining the arterial and venous stumps — then the blood flows through the finished join.</p></div>
+  <div class="capcard" id="cap4"><div class="n">DEMO 04</div><h3>The Tree · marked</h3><p>Two roots — arterial and venous — merge into one ink trunk. The branches that grow from the join carry both parents' colors: crimson, petrol, ink. The canopy completes, dims — and the mark seals it.</p></div>
+  <div class="capcard" id="cap5"><div class="n">DEMO 05</div><h3>The Tree · pure</h3><p>Same growth, richer: seven primaries, six twigs, branches anastomosing with branches, gold motes rising through the canopy. No mark at all — the breathing tree IS the loading screen.</p></div>
   <div class="capcard" id="cap3"><div class="n">DEMO 03</div><h3>The River</h3><p>Two rivers — arterial and venous — flow down, braid around each other, and merge into one ink stream that fans into a delta of branches. The tree, born from the join.</p></div>
 </div>
 
@@ -199,7 +217,21 @@ const DEMOS = {
         `<circle class="rv-mote" style="animation:rvMote 2.2s ${m[1]} linear" r="${3+m[0]}" cx="0" cy="0"><animateMotion dur="2.2s" begin="${m[1]}" repeatCount="3" path="M 60 -20 C 150 90, 240 150, 360 205 C 440 242, 470 262, 500 300 C 500 430, 500 442, 500 452"/></animateMotion></circle>`).join('')}
     </g>
   </svg>
-  <style>.rv-mote{animation-name:rvMote}@keyframes rvMote{0%{opacity:0}12%{opacity:.95}88%{opacity:.95}100%{opacity:0}}</style>
+  <style>.rv-mote{animation-name:rvMote}@keyframes rvMote{0%{opacity:0}12%{opacity:.95}88%{opacity:.95}100%{opacity:0}}
+/* ============ DEMO 4/5 · THE TREE ============ */
+.tv-trunk{fill:none;stroke:var(--ink);stroke-width:8.5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:rvDraw .65s 1.05s cubic-bezier(.5,0,.3,1) forwards}
+.tv-branch{fill:none;stroke:var(--ink);stroke-width:3.4;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:rvDraw .5s cubic-bezier(.5,0,.3,1) forwards}
+.tv-branch.c{stroke:var(--crimson)}
+.tv-branch.v{stroke:var(--petrol)}
+.tv-branch.t2{stroke-width:2.1}
+.tv-tip{transform-origin:center;transform:scale(0);animation:pop .35s cubic-bezier(.2,1.7,.4,1) forwards}
+.tv-join{transform-origin:center;transform:scale(0);animation:pop .4s cubic-bezier(.2,1.7,.4,1) forwards}
+.tv-mote{fill:var(--gold);opacity:0;animation:tvMote 2.6s linear infinite}
+@keyframes tvMote{0%{opacity:0;transform:translateY(0)}12%{opacity:.8}80%{opacity:.8}100%{opacity:0;transform:translateY(-130px)}}
+.tv-breathe{transform-box:view-box;transform-origin:50% 82%;animation:tvBreathe 4.5s 5.2s ease-in-out infinite}
+@keyframes tvBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.014) rotate(.35deg)}}
+.tv-endtext{position:absolute;bottom:26px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:5px;pointer-events:none}
+</style>
   <div class="finale" style="--fd:4.4s">
     <div class="flogo" style="--tw9:url('')"></div>
     <div class="fbrand">Anastomosis<span style="color:var(--petrol)">.</span>MD</div>
@@ -207,7 +239,78 @@ const DEMOS = {
   </div>`,
   js: () => {
     setTimeout(()=>{ document.getElementById('rvScene')?.closest('.stage'); const s=document.getElementById('rvScene'); if(s){s.style.transition='opacity .9s'; setTimeout(()=>s.style.opacity=.16,4000);} }, 3800);
-  }}
+  }},
+
+4: { delay: 3.8, html: `
+  <svg class="rv-svg" viewBox="0 0 1000 560">
+    <g id="tv4Scene">
+      <path class="rv-river c" pathLength="1" d="M 40 560 C 200 545, 350 530, 460 495 C 485 486, 495 472, 500 460"/>
+      <path class="rv-river v" pathLength="1" d="M 960 560 C 800 545, 650 530, 540 495 C 515 486, 505 472, 500 460"/>
+      <path class="rv-flow" d="M 40 560 C 200 545, 350 530, 460 495 C 485 486, 495 472, 500 460"/>
+      <path class="rv-flow" style="animation-delay:.2s" d="M 960 560 C 800 545, 650 530, 540 495 C 515 486, 505 472, 500 460"/>
+      <circle class="rv-x" style="animation-delay:.9s" cx="500" cy="460" r="6" fill="#C9973C"/>
+      <path class="tv-trunk" pathLength="1" d="M 500 460 C 497 420, 503 380, 500 340 C 498 318, 500 298, 500 280"/>
+      ${[['M 500 280 C 430 258, 350 240, 285 208 C 258 194, 232 176, 210 152','c',1.45],
+         ['M 500 280 C 455 248, 415 232, 372 210 C 350 198, 330 182, 316 162','v',1.56],
+         ['M 500 280 C 486 244, 476 212, 472 172 C 470 148, 474 126, 480 104','',1.67],
+         ['M 500 280 C 514 244, 524 212, 528 172 C 530 148, 526 126, 520 104','',1.78],
+         ['M 500 280 C 545 248, 585 232, 628 210 C 650 198, 670 182, 684 162','v',1.89],
+         ['M 500 280 C 570 258, 650 240, 715 208 C 742 194, 768 176, 790 152','c',2.0],
+         ['M 350 240 C 332 226, 312 214, 290 204','c t2',2.15],
+         ['M 650 240 C 668 226, 688 214, 710 204','v t2',2.25],
+         ['M 498 350 C 472 332, 448 322, 424 308','t2',2.35]
+        ].map(b=>'<path class="tv-branch '+b[1]+'" pathLength="1" style="animation-delay:'+b[2]+'s" d="'+b[0]+'"/>').join('')}
+      ${[[210,152,2.05],[316,162,2.15],[480,104,2.25],[520,104,2.35],[684,162,2.45],[790,152,2.55],[290,204,2.7],[710,204,2.8],[424,308,2.9]]
+        .map(t=>'<circle class="tv-tip" style="animation-delay:'+t[2]+'s" cx="'+t[0]+'" cy="'+t[1]+'" r="3.6" fill="#C9973C"/>').join('')}
+    </g>
+  </svg>
+  <div class="finale" style="--fd:3.8s">
+    <div class="flogo" style="--tw9:url('')"></div>
+    <div class="fbrand">Anastomosis<span style="color:var(--petrol)">.</span>MD</div>
+    <div class="fload">Loading your dashboard</div>
+  </div>`,
+  js: () => {
+    setTimeout(()=>{ const s=document.getElementById('tv4Scene'); if(s){s.style.transition='opacity .7s'; s.style.opacity=.13;} }, 3250);
+  }},
+
+5: { delay: 4.8, html: `
+  <svg class="rv-svg" viewBox="0 0 1000 560">
+    <g class="tv-breathe" id="tv5Scene">
+      <path class="rv-river c" pathLength="1" d="M 40 560 C 200 545, 350 530, 460 495 C 485 486, 495 472, 500 460"/>
+      <path class="rv-river v" pathLength="1" d="M 960 560 C 800 545, 650 530, 540 495 C 515 486, 505 472, 500 460"/>
+      <path class="rv-flow" d="M 40 560 C 200 545, 350 530, 460 495 C 485 486, 495 472, 500 460"/>
+      <path class="rv-flow" style="animation-delay:.2s" d="M 960 560 C 800 545, 650 530, 540 495 C 515 486, 505 472, 500 460"/>
+      <circle class="rv-x" style="animation-delay:.9s" cx="500" cy="460" r="6" fill="#C9973C"/>
+      <path class="tv-trunk" pathLength="1" d="M 500 460 C 497 420, 503 380, 500 340 C 498 318, 500 298, 500 280"/>
+      ${[['M 500 280 C 430 258, 350 240, 285 208 C 258 194, 232 176, 210 152','c',1.45],
+         ['M 500 280 C 455 248, 415 232, 372 210 C 350 198, 330 182, 316 162','v',1.55],
+         ['M 500 280 C 486 244, 476 212, 472 172 C 470 148, 474 126, 480 104','',1.65],
+         ['M 500 280 C 514 244, 524 212, 528 172 C 530 148, 526 126, 520 104','',1.75],
+         ['M 500 280 C 545 248, 585 232, 628 210 C 650 198, 670 182, 684 162','v',1.85],
+         ['M 500 280 C 570 258, 650 240, 715 208 C 742 194, 768 176, 790 152','c',1.95],
+         ['M 500 280 C 497 244, 499 200, 500 160 C 500 136, 500 112, 500 88','',2.05],
+         ['M 372 210 C 355 192, 340 176, 322 160','v t2',2.2],
+         ['M 285 208 C 268 196, 252 186, 234 174','c t2',2.28],
+         ['M 472 172 C 458 158, 446 144, 436 126','v t2',2.36],
+         ['M 528 172 C 542 158, 554 144, 564 126','c t2',2.44],
+         ['M 628 210 C 645 192, 660 176, 678 160','v t2',2.52],
+         ['M 715 208 C 732 196, 748 186, 766 174','c t2',2.6],
+         ['M 415 232 C 440 220, 458 208, 472 190','c',2.72],
+         ['M 585 232 C 560 220, 542 208, 528 190','v',2.82]
+        ].map(b=>'<path class="tv-branch '+b[1]+'" pathLength="1" style="animation-delay:'+b[2]+'s" d="'+b[0]+'"/>').join('')}
+      ${[[472,190,3.0],[528,190,3.1]]
+        .map(j=>'<circle class="tv-join" style="animation-delay:'+j[2]+'s" cx="'+j[0]+'" cy="'+j[1]+'" r="4.5" fill="#C9973C"/>').join('')}
+      ${[[210,152,2.1],[316,162,2.2],[480,104,2.3],[520,104,2.4],[684,162,2.5],[790,152,2.6],[500,88,2.7],[322,160,2.85],[234,174,2.95],[436,126,3.05],[564,126,3.15],[678,160,3.25],[766,174,3.35]]
+        .map(t=>'<circle class="tv-tip" style="animation-delay:'+t[2]+'s" cx="'+t[0]+'" cy="'+t[1]+'" r="3.4" fill="#C9973C"/>').join('')}
+      ${[[350,230,'3.4s'],[560,210,'4.1s'],[440,190,'4.8s'],[630,240,'5.5s'],[500,170,'6.2s']]
+        .map(m=>'<circle class="tv-mote" style="animation-delay:'+m[2]+'" cx="'+m[0]+'" cy="'+m[1]+'" r="'+(2.5+(m[0]%7)*0.2)+'"/>').join('')}
+    </g>
+  </svg>
+  <div class="tv-endtext">
+    <div class="fbrand" style="opacity:0;animation:fadeIn .8s 4.6s forwards">Anastomosis<span style="color:var(--petrol)">.</span>MD</div>
+    <div class="fload" style="opacity:0;animation:fadeIn .8s 4.85s forwards">Loading your dashboard</div>
+  </div>`,
+  js: null }
 };
 
 function play(n){
@@ -217,7 +320,7 @@ function play(n){
   let html = d.html.replace(/style="--tw9:url\(''\)"/g, `style="--tw9:url('${TW9}')"`);
   stage.innerHTML = html;
   d.js && d.js();
-  [1,2,3].forEach(i=>{
+  [1,2,3,4,5].forEach(i=>{
     document.getElementById('tab'+i).classList.toggle('on', i===n);
     document.getElementById('cap'+i).classList.toggle('on', i===n);
   });
