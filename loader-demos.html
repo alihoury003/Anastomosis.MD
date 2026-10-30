@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Anastomosis.MD — loading demos v2</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<title>Anastomosis.MD — loading demos v3</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bone:#F7F3EB;--ink:#101418;--ink2:#4A4741;--ink3:#8A857A;--crimson:#B5342A;--petrol:#1B4E5F;--gold:#C9973C;--line:#E3DCCC}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -20,7 +20,7 @@ h1{font-size:clamp(24px,4vw,38px);font-weight:800;letter-spacing:-.03em;margin:8
 .dw{fill:none;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:dwDraw var(--dd,.5s) var(--dl,0s) cubic-bezier(.3,.06,.24,1) forwards}
 @keyframes dwDraw{to{stroke-dashoffset:0}}
 /* shared: spring pop */
-.pop{transform-origin:center;transform:scale(0);animation:popIn var(--pd,.35s) var(--pl,0s) cubic-bezier(.22,1.6,.36,1) forwards}
+.pop{transform-box:fill-box;transform-origin:center;transform:scale(0);animation:popIn var(--pd,.35s) var(--pl,0s) cubic-bezier(.22,1.6,.36,1) forwards}
 @keyframes popIn{to{transform:scale(1)}}
 /* shared: soft fade */
 .fd{opacity:0;animation:fdIn var(--fd-dur,.6s) var(--fd-del,0s) ease forwards}
@@ -37,7 +37,7 @@ h1{font-size:clamp(24px,4vw,38px);font-weight:800;letter-spacing:-.03em;margin:8
 .sway{animation:sway 5s 4.5s ease-in-out infinite;transform-box:view-box;transform-origin:50% 90%}
 @keyframes sway{0%,100%{transform:rotate(0deg) scale(1)}30%{transform:rotate(.5deg) scale(1.008)}70%{transform:rotate(-.4deg) scale(1.005)}}
 /* shared: pulse ring */
-.ping{fill:none;stroke:var(--gold);stroke-width:1.5;opacity:0;transform-origin:center;animation:pingGo 1s var(--pl,0s) ease-out}
+.ping{fill:none;stroke:var(--gold);stroke-width:1.5;opacity:0;transform-box:fill-box;transform-origin:center;animation:pingGo 1s var(--pl,0s) ease-out}
 @keyframes pingGo{0%{opacity:.8;transform:scale(.2)}100%{opacity:0;transform:scale(2.6)}}
 /* shared: vessel flow */
 .vf{fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-dasharray:4 28;opacity:.7;animation:vfGo 1.2s linear infinite}
@@ -45,9 +45,9 @@ h1{font-size:clamp(24px,4vw,38px);font-weight:800;letter-spacing:-.03em;margin:8
 svg{display:block;width:100%;height:100%}
 </style></head><body>
 
-<div class="eyebrow">Anastomosis.MD · loading demos v2</div>
-<h1>Five ways to grow a tree</h1>
-<p class="sub">Each demo uses a different motion technique — procedural recursion, one-line typography, spring blooms, network reorganisation, and canvas particles. All end in the mark. Click the stage to replay.</p>
+<div class="eyebrow">Anastomosis.MD · loading demos v3</div>
+<h1>The name goes big</h1>
+<p class="sub">01–05 grow the mark. 06–09 are the new set — the name itself is the show: a spinning letter-orbit that collapses into the word, a flowering vine that bursts into letters, an EKG that brings a ghost word to life, and a running suture that stitches the name into the page. All flat, all bone-field. Click the stage to replay.</p>
 
 <div class="bar">
   <button class="tab on" id="t1" onclick="go(1)">01 · THE LIVING SKETCH</button>
@@ -55,6 +55,10 @@ svg{display:block;width:100%;height:100%}
   <button class="tab" id="t3" onclick="go(3)">03 · THE BLOOM</button>
   <button class="tab" id="t4" onclick="go(4)">04 · THE PULSE MAP</button>
   <button class="tab" id="t5" onclick="go(5)">05 · THE CASCADE</button>
+  <button class="tab" id="t6" onclick="go(6)">06 · THE ORBIT</button>
+  <button class="tab" id="t7" onclick="go(7)">07 · THE FLOWERING</button>
+  <button class="tab" id="t8" onclick="go(8)">08 · THE EKG</button>
+  <button class="tab" id="t9" onclick="go(9)">09 · THE SUTURE</button>
 </div>
 <div class="stage" id="stage" onclick="go(cur)"></div>
 <div class="hint">click the stage to replay · these would replace the boot loader on dashboard.html</div>
@@ -68,7 +72,7 @@ function T(fn,ms){ timers.push(setTimeout(fn,ms)); }
 
 function fin(delay){
   return `<div class="finale" style="--fd:${delay}s">
-    <div class="flogo" style="--tw9:url('${TW9}')"></div>
+    <div class="flogo" style="--tw9:url('data:image/jpeg;base64,${TW9}')"></div>
     <div class="fbrand">Anastomosis<span style="color:var(--petrol)">.</span>MD</div>
     <div class="fload">Loading your dashboard</div>
   </div>`;
@@ -368,11 +372,396 @@ function demo5(){
   T(()=>{ const s=document.getElementById('d5s'); if(s) s.classList.add('dim'); },3700);
 }
 
+/* ================================================================
+   v3 · THE NAME GOES BIG — shared helpers for demos 06–09.
+   The word is measured with real font metrics first (getSubStringLength),
+   so it is always dead-centre and the letters never collide — whatever
+   font actually loads. Per-letter animation from there.
+   ================================================================ */
+const WORD = 'anastomosis';
+const WFS = 78, WBASE = 312, WLS = 2;
+let RUN = 0;
+
+function fontReady(){
+  try{
+    const want = document.fonts.load("italic 78px 'Instrument Serif'").catch(()=>{});
+    return Promise.race([
+      Promise.all([want, document.fonts.ready]).then(()=>{}),
+      new Promise(r=>setTimeout(r,1800))
+    ]);
+  }catch(e){ return Promise.resolve(); }
+}
+
+/* probe: hidden full word, measured, then per-letter slots returned */
+function probeSVG(id){
+  return `<svg viewBox="0 0 1000 560"><text id="${id}" x="500" y="${WBASE}" text-anchor="middle" font-family="'Instrument Serif',Georgia,serif" font-style="italic" font-size="${WFS}" letter-spacing="${WLS}" opacity="0">${WORD}</text></svg>`;
+}
+
+function wordSlots(id){
+  const p = document.getElementById(id);
+  const n = WORD.length, slots = [];
+  const total = p.getSubStringLength(0, n);
+  for(let i=0;i<n;i++){
+    slots.push({ ch: WORD[i], x: 500 - total/2 + p.getSubStringLength(0,i), w: p.getSubStringLength(i,1) });
+  }
+  return { slots: slots, total: total, x0: 500 - total/2, x1: 500 + total/2 };
+}
+
+/* the arteriovenous word gradient, spanning exactly the word */
+function gradDef(id, x0, x1){
+  return `<linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="${(x0-8).toFixed(1)}" y1="0" x2="${(x1+8).toFixed(1)}" y2="0"><stop offset="0" stop-color="#B5342A"/><stop offset=".4" stop-color="#101418"/><stop offset="1" stop-color="#1B4E5F"/></linearGradient>`;
+}
+
+function letterText(sl, attrs){
+  return `<text x="${sl.x.toFixed(1)}" y="${WBASE}" text-anchor="start" font-family="'Instrument Serif',Georgia,serif" font-style="italic" font-size="${WFS}" letter-spacing="${WLS}" ${attrs}>${sl.ch}</text>`;
+}
+
+/* ================================================================
+   DEMO 6 · THE ORBIT — the letters live as a spinning galaxy
+   around the anastomosis, spiral home one by one to spell the
+   word — then the finished word throws one full flat spin.
+   ================================================================ */
+async function demo6(){
+  const S = document.getElementById('stage');
+  const my = ++RUN;
+  await fontReady();
+  S.innerHTML = probeSVG('pr6');
+  if(RUN!==my) return;
+  const m = wordSlots('pr6'), slots = m.slots;
+  const CX = 500, CY = 292;
+  const cols = ['#B5342A','#1B4E5F','#C9973C','#101418'];
+  const L = slots.map((s,i)=>({
+    ch:s.ch, x:s.x, w:s.w, cm:s.x+s.w/2, col:cols[i%4],
+    a:150+Math.random()*195, b:92+Math.random()*88, tilt:(Math.random()-.5)*.7,
+    th0:Math.random()*6.283, om:(i%2?1:-1)*(1.15+Math.random()*1.5),
+    sx:(i%2?1070+Math.random()*110:-70-Math.random()*110), sy:50+Math.random()*460,
+    tc:2.55+i*.115, ld:2.55+i*.115+.52, side:(i%2?1:-1)*(Math.random()<.5?-1:1),
+    locked:false, el:null, bx:0, by:0, qx:0, qy:0
+  }));
+  function orbPos(l, t){
+    const th = l.th0 + l.om*(t-.85);
+    const ex = l.a*Math.cos(th), ey = l.b*Math.sin(th);
+    const ct = Math.cos(l.tilt), st = Math.sin(l.tilt);
+    return [CX + ex*ct - ey*st, CY + ex*st + ey*ct];
+  }
+  L.forEach(l=>{
+    const f = orbPos(l, l.tc);
+    const mx = (f[0]+l.cm)/2, myy = (f[1]+CY)/2;
+    const dx = l.cm-f[0], dy = CY-f[1];
+    const d = Math.hypot(dx,dy)||1;
+    l.bx = f[0]; l.by = f[1];
+    l.qx = mx + (-dy/d)*62*l.side; l.qy = myy + (dx/d)*62*l.side;
+  });
+  const letters = slots.map((s,i)=>letterText(s, `fill="${L[i].col}" opacity="0" style="transform-box:fill-box;transform-origin:center;transition:fill .35s"`)).join('');
+  const ripples = L.map(l=>`<circle class="rip6" cx="${l.cm.toFixed(1)}" cy="${CY}" r="4" style="animation-delay:${l.ld.toFixed(2)}s"/>`).join('');
+  const ghosts = [0,1,2].map(()=>`<text x="500" y="${WBASE}" text-anchor="middle" font-family="'Instrument Serif',Georgia,serif" font-style="italic" font-size="${WFS}" letter-spacing="${WLS}" fill="url(#g6)" opacity="0">anastomosis</text>`).join('');
+  S.innerHTML = `
+  <style>
+    .rip6{fill:none;stroke:#C9973C;stroke-width:1.5;opacity:0;animation:ripGo6 .55s ease-out forwards}
+    @keyframes ripGo6{0%{opacity:.8;r:4px}100%{opacity:0;r:26px}}
+    #d6letters text{transform-box:fill-box;transform-origin:center}
+    #d6word{transform-box:view-box;transform-origin:500px 292px}
+    #d6gh text{transform-box:view-box;transform-origin:500px 292px}
+    #d6gal{transform-box:fill-box;transform-origin:center}
+    #d6guides{transition:opacity .6s}
+  </style>
+  <svg viewBox="0 0 1000 560">
+    <defs>${gradDef('g6', m.x0, m.x1)}</defs>
+    <g id="d6s">
+      <g id="d6guides" opacity=".5">
+        <ellipse class="fd" style="--fd-dur:.7s;--fd-del:.25s" cx="500" cy="292" rx="290" ry="150" fill="none" stroke="#8A857A" stroke-width="1" stroke-dasharray="3 8"/>
+        <ellipse class="fd" style="--fd-dur:.7s;--fd-del:.45s" cx="500" cy="292" rx="185" ry="98" fill="none" stroke="#8A857A" stroke-width="1" stroke-dasharray="3 8"/>
+      </g>
+      <g id="d6tr"></g>
+      <g id="d6gal">
+        <path d="M 418 292 C 448 283, 470 287, 491 292" fill="none" stroke="#B5342A" stroke-width="5" stroke-linecap="round"/>
+        <path d="M 582 292 C 552 283, 530 287, 509 292" fill="none" stroke="#1B4E5F" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="500" cy="292" r="6" fill="#C9973C"/>
+        <circle class="ping" style="--pl:1s" cx="500" cy="292" r="16"/>
+      </g>
+      <g id="d6gh" opacity="1">${ghosts}</g>
+      <g id="d6word"><g id="d6letters">${letters}</g></g>
+      ${ripples}
+    </g>
+  </svg>
+  ${fin(6.0)}`;
+  const svg = S.querySelector('svg');
+  const lEls = svg.querySelectorAll('#d6letters text');
+  L.forEach((l,i)=> l.el = lEls[i]);
+  const gal = svg.querySelector('#d6gal');
+  const guides = svg.querySelector('#d6guides');
+  const word = svg.querySelector('#d6word');
+  const ghs = Array.prototype.slice.call(svg.querySelectorAll('#d6gh text'));
+  /* comet-trail pool */
+  const NS = 'http://www.w3.org/2000/svg';
+  const trG = svg.querySelector('#d6tr');
+  const pool = [];
+  for(let i=0;i<230;i++){ const c=document.createElementNS(NS,'circle'); c.setAttribute('r','1.7'); c.setAttribute('opacity','0'); trG.appendChild(c); pool.push({el:c,born:-9}); }
+  let pi=0, fr=0, galFaded=false, guidesFaded=false, spinDone=false;
+  const easeOut = u=>1-Math.pow(1-u,3);
+  const easeIO = u=>u<.5?4*u*u*u:1-Math.pow(-2*u+2,3)/2;
+  function trail(l,x,y,t){
+    if(fr%2) return;
+    const p = pool[pi++ % pool.length];
+    p.born = t;
+    p.el.setAttribute('cx', x.toFixed(1)); p.el.setAttribute('cy', y.toFixed(1));
+    p.el.setAttribute('fill', l.col);
+  }
+  const t0 = performance.now();
+  function frame(now){
+    if(RUN!==my) return;
+    const t = (now-t0)/1000;
+    if(!galFaded){
+      gal.style.transform = `scale(${(1+.07*Math.sin(t*5.2)).toFixed(3)})`;
+      if(t>3.8){ galFaded=true; gal.style.transition='opacity .4s'; gal.style.opacity='0'; }
+    }
+    if(!guidesFaded && t>2.5){
+      guidesFaded=true; guides.style.animation='none'; guides.style.opacity='0';
+    }
+    for(let i=0;i<L.length;i++){
+      const l = L[i];
+      let px, py, sc=1, rot=0, op=1;
+      if(t<.85){
+        const u = easeOut(t/.85), o = orbPos(l,.85);
+        px = l.sx+(o[0]-l.sx)*u; py = l.sy+(o[1]-l.sy)*u;
+        sc = .55+.45*u; op = Math.min(1,u*1.7);
+        trail(l,px,py,t);
+      } else if(t<l.tc){
+        const o = orbPos(l,t);
+        px = o[0]; py = o[1];
+        sc = 1+.05*Math.sin(t*3.1+i);
+        trail(l,px,py,t);
+      } else if(t<l.ld){
+        const u = (t-l.tc)/.52, e = easeIO(u), iu = 1-e;
+        px = l.bx*iu*iu + l.qx*2*iu*e + l.cm*e*e;
+        py = l.by*iu*iu + l.qy*2*iu*e + CY*e*e;
+        sc = 1+.42*Math.sin(Math.PI*u)*(1-.45*u);
+        rot = 10*Math.sin(Math.PI*u)*l.side;
+        trail(l,px,py,t);
+      } else {
+        px = l.cm; py = CY;
+        if(!l.locked){ l.locked=true; l.el.style.fill = 'url(#g6)'; }
+      }
+      l.el.setAttribute('opacity', op.toFixed(2));
+      l.el.style.transform = `translate(${(px-l.cm).toFixed(1)}px,${(py-CY).toFixed(1)}px) rotate(${rot.toFixed(1)}deg) scale(${sc.toFixed(3)})`;
+    }
+    for(let k=0;k<pool.length;k++){
+      const p = pool[k];
+      if(p.born<0) continue;
+      const a = (t-p.born)/.5;
+      p.el.setAttribute('opacity', a>=1 ? '0' : (.5*(1-a)).toFixed(2));
+    }
+    /* the money shot: one full flat spin */
+    const SP = 4.3;
+    if(t>=SP){
+      const u = Math.min(1,(t-SP)/.9);
+      let ang = 360*(1-Math.pow(1-u,3));
+      const v = (t-SP-.9)/.5;
+      if(v>0 && v<1) ang += -8*Math.exp(-4.5*v)*Math.sin(11*v);
+      const scw = 1-.08*Math.sin(Math.PI*u);
+      word.style.transform = `rotate(${ang.toFixed(2)}deg) scale(${scw.toFixed(3)})`;
+      const spd = 1-u;
+      for(let k=0;k<ghs.length;k++){
+        ghs[k].style.opacity = spd>0 ? (.2*spd*(1-k*.22)).toFixed(3) : '0';
+        ghs[k].style.transform = `rotate(${(ang-(k+1)*32).toFixed(1)}deg)`;
+      }
+      if(u>=1 && v>=1 && !spinDone){
+        spinDone=true;
+        word.style.transform='rotate(0deg)';
+        ghs.forEach(g=>g.style.opacity='0');
+      }
+    }
+    fr++;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  T(()=>{ const s=S.querySelector('#d6s'); if(s) s.classList.add('dim'); },5500);
+}
+
+/* ================================================================
+   DEMO 7 · THE FLOWERING — a living vine runs beneath the name;
+   at eleven stations a stem rises, a gold bud swells and bursts,
+   and each letter blooms out with petals and gold dust.
+   ================================================================ */
+async function demo7(){
+  const S = document.getElementById('stage');
+  const my = ++RUN;
+  await fontReady();
+  S.innerHTML = probeSVG('pr7');
+  if(RUN!==my) return;
+  const m = wordSlots('pr7'), slots = m.slots;
+  const vine = 'M 64 468 C 96 430, 138 388, 196 362 C 232 347, 258 349, 292 349 C 420 346, 580 353, 712 349 C 752 348, 778 356, 822 380 C 862 402, 905 436, 936 470';
+  const curls = [
+    ['M 214 358 q 16 8 24 -4 q 5 -10 -7 -12', .9],
+    ['M 748 352 q 15 -7 26 2 q 8 9 -6 14', 1.35],
+    ['M 106 428 q -14 -4 -18 8 q -2 10 10 10', .8],
+    ['M 858 394 q 12 -10 24 -2 q 8 8 -4 14', 1.55]
+  ];
+  const pcols = ['#C9973C','#E7C6BE','#F2E1DD','#B5342A','#1B4E5F'];
+  let deco = '', letters = '';
+  slots.forEach((s,i)=>{
+    const ax = s.x + s.w/2;
+    const t = .3 + 2.15*(ax-64)/872;               /* vine front is linear → perfect sync */
+    deco += `<path class="dw" pathLength="1" style="--dl:${(t-.12).toFixed(2)}s;--dd:.18s;stroke-width:1.8px;stroke:var(--petrol)" d="M ${ax.toFixed(0)} 350 C ${(ax-3).toFixed(0)} 341, ${(ax+3).toFixed(0)} 330, ${ax.toFixed(0)} 319"/>`;
+    deco += `<circle class="bud7" style="--bd:${(t-.04).toFixed(2)}s" cx="${ax.toFixed(0)}" cy="307" r="0"/>`;
+    for(let k=0;k<5;k++){
+      const a = (k/5)*6.283 + .35 + Math.random()*.5, dd = 38+Math.random()*40;
+      deco += `<ellipse class="pt7" cx="${ax.toFixed(0)}" cy="300" rx="6" ry="2.5" fill="${pcols[k%5]}" style="--tx:${(Math.cos(a)*dd).toFixed(0)}px;--ty:${(Math.sin(a)*dd*.8-12).toFixed(0)}px;--tr:${(Math.random()*260-130).toFixed(0)}deg;animation-delay:${(t+.22).toFixed(2)}s"/>`;
+    }
+    for(let k=0;k<3;k++){
+      deco += `<circle class="du7" cx="${(ax+(Math.random()-.5)*14).toFixed(0)}" cy="304" r="${(1.4+Math.random()).toFixed(1)}" fill="${Math.random()<.6?'#C9973C':'#B5342A'}" style="--tx:${((Math.random()-.5)*36).toFixed(0)}px;--ty:${(-26-Math.random()*34).toFixed(0)}px;animation-delay:${(t+.24).toFixed(2)}s"/>`;
+    }
+    deco += `<circle class="pop" style="--pl:${(t+.34).toFixed(2)}s" cx="${ax.toFixed(0)}" cy="318" r="2.6" fill="#C9973C"/>`;
+    deco += `<circle class="ping" style="--pl:${(3.5+i*.09).toFixed(2)}s" cx="${ax.toFixed(0)}" cy="300" r="12"/>`;
+    letters += letterText(s, `class="fl7" fill="url(#g7)" style="--fd:${(t+.22).toFixed(2)}s"`);
+  });
+  S.innerHTML = `
+  <style>
+    .bud7{fill:#C9973C;animation:budGo7 .5s var(--bd) ease forwards}
+    @keyframes budGo7{0%{r:0;opacity:0}45%{r:8px;opacity:1}100%{r:1px;opacity:0}}
+    .fl7{opacity:0;transform-box:fill-box;transform-origin:center;animation:flIn7 .55s var(--fd) cubic-bezier(.25,1.5,.4,1) forwards}
+    @keyframes flIn7{0%{opacity:0;transform:scale(.15) rotate(-32deg)}55%{opacity:1;transform:scale(1.22) rotate(4deg)}100%{opacity:1;transform:scale(1) rotate(0deg)}}
+    .pt7{transform-box:fill-box;transform-origin:center;opacity:0;animation:ptGo7 .8s ease-out forwards}
+    @keyframes ptGo7{0%{opacity:0;transform:translate(0,0) rotate(0) scale(.5)}18%{opacity:.95}100%{opacity:0;transform:translate(var(--tx),var(--ty)) rotate(var(--tr)) scale(1)}}
+    .du7{opacity:0;animation:duGo7 .9s ease-out forwards}
+    @keyframes duGo7{0%{opacity:0;transform:translate(0,0)}25%{opacity:.9}100%{opacity:0;transform:translate(var(--tx),var(--ty))}}
+    #d7word{transform-box:view-box;transform-origin:500px 298px}
+    .br7{animation:brGo7 1s 3.6s ease-in-out}
+    @keyframes brGo7{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+  </style>
+  <svg viewBox="0 0 1000 560">
+    <defs>${gradDef('g7', m.x0, m.x1)}</defs>
+    <g id="d7s">
+      <path class="dw" pathLength="1" style="--dl:.25s;--dd:2.15s;stroke-width:5px;stroke:var(--petrol);animation-timing-function:linear" d="${vine}"/>
+      ${curls.map(c=>`<path class="dw" pathLength="1" style="--dl:${c[1]}s;--dd:.4s;stroke-width:2px;stroke:var(--petrol)" d="${c[0]}"/>`).join('')}
+      <g transform="rotate(-34 928 458)"><ellipse class="pop" style="--pl:2.5s" cx="928" cy="458" rx="9" ry="3.4" fill="#C9973C"/></g>
+      <g transform="rotate(28 944 466)"><ellipse class="pop" style="--pl:2.58s" cx="944" cy="466" rx="8" ry="3" fill="#C9973C"/></g>
+      ${deco}
+      <g id="d7word" class="br7"><g class="sway">${letters}</g></g>
+    </g>
+  </svg>
+  ${fin(5.05)}`;
+  T(()=>{ const s=S.querySelector('#d7s'); if(s) s.classList.add('dim'); },4550);
+}
+
+/* ================================================================
+   DEMO 8 · THE EKG — the word appears as a ghost; a heartbeat
+   trace sweeps the page and every letter it passes fills with
+   blood and beats. One last full-word systole, then the mark.
+   ================================================================ */
+async function demo8(){
+  const S = document.getElementById('stage');
+  const my = ++RUN;
+  await fontReady();
+  S.innerHTML = probeSVG('pr8');
+  if(RUN!==my) return;
+  const m = wordSlots('pr8'), slots = m.slots;
+  const ekg = 'M -20 352 L 112 352 Q 128 344 146 352 L 162 352 L 172 358 L 182 262 L 192 368 L 202 352 Q 222 342 244 352 L 428 352 Q 448 344 464 352 L 480 352 L 490 358 L 500 262 L 510 368 L 520 352 Q 540 342 562 352 L 788 352 Q 806 344 822 352 L 838 352 L 848 358 L 858 262 L 868 368 L 878 352 Q 898 342 920 352 L 1020 352';
+  const letters = slots.map(s=>{
+    const t = .3 + 1.75*((s.x+s.w/2+20)/1040);
+    return letterText(s, `class="l8" fill="#E3DCCC" style="--bd:${t.toFixed(2)}s"`);
+  }).join('');
+  const peaks = [[182,262,.72],[500,262,1.26],[858,262,1.87]];
+  S.innerHTML = `
+  <style>
+    .ekg8{fill:none;stroke:var(--crimson);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:dwDraw 1.75s .3s cubic-bezier(.3,.06,.24,1) forwards, ekgFade8 .8s 2.55s forwards}
+    @keyframes ekgFade8{to{opacity:.3}}
+    .l8{opacity:0;transform-box:fill-box;transform-origin:center;animation:ghostIn8 .5s .25s ease forwards, beat8 .62s var(--bd) cubic-bezier(.3,.6,.4,1) forwards}
+    @keyframes ghostIn8{to{opacity:1}}
+    @keyframes beat8{0%{transform:scale(1);fill:#E3DCCC}14%{transform:scale(1.26) translateY(-3px);fill:url(#g8)}32%{transform:scale(.94)}50%{transform:scale(1.1) translateY(-1px)}100%{transform:scale(1) translateY(0);fill:url(#g8)}}
+    .wb8{transform-box:view-box;transform-origin:500px 298px;animation:wbeat8 .75s 2.95s ease-in-out}
+    @keyframes wbeat8{0%,100%{transform:scale(1)}22%{transform:scale(1.05)}45%{transform:scale(.985)}68%{transform:scale(1.025)}}
+  </style>
+  <svg viewBox="0 0 1000 560">
+    <defs>${gradDef('g8', m.x0, m.x1)}</defs>
+    <g id="d8s">
+      <path class="ekg8" pathLength="1" d="${ekg}"/>
+      <g class="fd" style="--fd-dur:.2s;--fd-del:.28s"><circle r="4.5" fill="#C9973C"><animateMotion begin="0.3s" dur="1.75s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.3 0.06 0.24 1" path="${ekg}"/></circle></g>
+      ${peaks.map(p=>`<circle class="pop" style="--pl:${p[2]}s" cx="${p[0]}" cy="${p[1]}" r="3" fill="#C9973C"/>`).join('')}
+      <circle class="ping" style="--pl:1.3s" cx="500" cy="300" r="18"/>
+      <g class="wb8">${letters}</g>
+      <circle class="ping" style="--pl:3.0s" cx="500" cy="300" r="24"/>
+    </g>
+  </svg>
+  ${fin(4.45)}`;
+  T(()=>{ const s=S.querySelector('#d8s'); if(s) s.classList.add('dim'); },3950);
+}
+
+/* ================================================================
+   DEMO 9 · THE SUTURE — a crimson thread runs a continuous
+   suture across the page; every completed loop pulls a letter
+   tight. The tail ties off in a knot and the line snugs home.
+   ================================================================ */
+async function demo9(){
+  const S = document.getElementById('stage');
+  const my = ++RUN;
+  await fontReady();
+  S.innerHTML = probeSVG('pr9');
+  if(RUN!==my) return;
+  const m = wordSlots('pr9'), slots = m.slots;
+  const R = 13, CYL = 340;
+  const pts = [];
+  const P = (x,y)=>pts.push([x,y]);
+  const loopEnd = [];
+  P(30,352);
+  let prevExit = 30;
+  slots.forEach(s=>{
+    const ax = s.x + s.w/2;
+    const gap = (ax-13) - prevExit;
+    if(gap > 70){ P(prevExit+gap*.33, 350.6); P(prevExit+gap*.66, 353.4); }
+    P(ax-19, 350.8); P(ax-9.2, 350.2);
+    for(let a=130;a<=490;a+=10){                      /* one full loop */
+      const r = a*Math.PI/180;
+      P(ax+R*Math.cos(r), CYL+R*Math.sin(r));
+    }
+    P(ax-4, 351.6); P(ax+8, 352.4); P(ax+20, 352);
+    loopEnd.push(pts.length-1);
+    prevExit = ax+20;
+  });
+  P(prevExit+38, 351.6); P(prevExit+72, 351.2);
+  const KX = prevExit+92;
+  for(let a=0;a<=380;a+=15){ const r=a*Math.PI/180; P(KX+7.5*Math.cos(r), 349+7.5*Math.sin(r)); }
+  for(let a=0;a<=400;a+=15){ const r=a*Math.PI/180; P(KX+15+4.5*Math.cos(r), 351+4.5*Math.sin(r)); }
+  /* cumulative length → exact letter timing */
+  let len = 0; const cum = [0];
+  for(let i=1;i<pts.length;i++){ len += Math.hypot(pts[i][0]-pts[i-1][0], pts[i][1]-pts[i-1][1]); cum.push(len); }
+  const dstr = 'M ' + pts.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' L ');
+  const DRAW = 2.7, DL = .3;
+  const del = i => DL + DRAW*cum[loopEnd[i]]/len;
+  let letters = '', dots = '';
+  slots.forEach((s,i)=>{
+    const ax = s.x + s.w/2;
+    letters += letterText(s, `class="sl9" fill="url(#g9)" style="--sd:${(del(i)+.02).toFixed(2)}s"`);
+    dots += `<circle class="pop" style="--pl:${(del(i)+.15).toFixed(2)}s" cx="${ax.toFixed(1)}" cy="352.6" r="2.7" fill="#C9973C"/>`;
+  });
+  const tend = DL + DRAW;
+  S.innerHTML = `
+  <style>
+    .dw9{fill:none;stroke:var(--crimson);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:dwDraw ${DRAW}s ${DL}s linear forwards, thFade9 .8s 4.05s forwards}
+    @keyframes thFade9{to{opacity:.42}}
+    .sl9{opacity:0;transform-box:fill-box;transform-origin:center;animation:slIn9 .5s var(--sd) cubic-bezier(.2,1.4,.35,1) forwards}
+    @keyframes slIn9{0%{opacity:0;transform:scale(1.5) translateY(-11px)}55%{opacity:1;transform:scale(.94) translateY(1px)}78%{transform:scale(1.05) translateY(0)}100%{opacity:1;transform:scale(1) translateY(0)}}
+    .pt9{transform-box:view-box;animation:pull9 .55s 3.55s cubic-bezier(.3,1.2,.4,1)}
+    @keyframes pull9{0%,100%{transform:translateX(0)}35%{transform:translateX(-11px)}72%{transform:translateX(2px)}}
+  </style>
+  <svg viewBox="0 0 1000 560">
+    <defs>${gradDef('g9', m.x0, m.x1)}</defs>
+    <g id="d9s"><g class="pt9">
+      <path class="dw9" pathLength="1" d="${dstr}"/>
+      ${letters}${dots}
+      <circle class="pop" style="--pl:${(tend+.15).toFixed(2)}s" cx="${KX+15}" cy="351" r="4" fill="#C9973C"/>
+      <circle class="ping" style="--pl:${(tend+.3).toFixed(2)}s" cx="${KX+15}" cy="351" r="16"/>
+    </g></g>
+  </svg>
+  ${fin(5.25)}`;
+  T(()=>{ const s=S.querySelector('#d9s'); if(s) s.classList.add('dim'); },4750);
+}
+
 /* ================================================================ */
 function go(n){
-  clearT(); cur = n;
-  [1,2,3,4,5].forEach(i=>document.getElementById('t'+i).classList.toggle('on',i===n));
-  [demo1,demo2,demo3,demo4,demo5][n-1]();
+  clearT(); cur = n; RUN++;
+  for(let i=1;i<=9;i++){ const t=document.getElementById('t'+i); if(t) t.classList.toggle('on',i===n); }
+  [demo1,demo2,demo3,demo4,demo5,demo6,demo7,demo8,demo9][n-1]();
 }
 go(1);
 </script>
