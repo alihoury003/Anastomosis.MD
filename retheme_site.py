@@ -112,65 +112,7 @@ ANGIO_LANDING = f'<div class="angio" id="angioLoader">{ANGIO_SVG}<div class="aca
 ANGIO_LANDING_JS = """<script>(function(){var l=document.getElementById('angioLoader');function f(){l.classList.add('done')}l.addEventListener('click',f);setTimeout(f,3400);})();</script>"""
 ANGIO_CSS_WITH_IMG = ANGIO_CSS.replace('var(--tw9img)', f"url('{TW9}')")
 
-# ---------------- CSS product screenshots for the landing ----------------
-MOCK_CSS = """
-/* ==== live product shots (CSS-built, new palette) ==== */
-.shot{width:100%;aspect-ratio:16/10;background:#FFFDF8;border:none;border-radius:0;padding:14px 16px;display:flex;gap:12px;overflow:hidden;font-size:8px;color:#4A4741;position:relative}
-.shot .ln{height:5px;border-radius:99px;background:#EFE9DC}
-.shot .rail{width:52px;display:flex;flex-direction:column;gap:4px;flex-shrink:0}
-.shot .rail i{width:100%;aspect-ratio:1;border-radius:3px;background:#EFE9DC;border:1px solid #E3DCCC}
-.shot .rail i.on{background:#1B4E5F;border-color:#1B4E5F}
-.shot .rail i.cur{outline:1.5px solid #B5342A;outline-offset:1px}
-.shot .main{flex:1;display:flex;flex-direction:column;gap:5px;min-width:0}
-.shot .bar{display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:.08em;color:#8A857A}
-.shot .bar b{color:#1B4E5F}
-.shot .ch{display:flex;align-items:center;gap:6px;border:1px solid #E3DCCC;border-radius:4px;padding:4px 6px;background:#F7F3EB}
-.shot .ch i{width:12px;height:12px;border-radius:50%;border:1.5px solid #8A857A;flex-shrink:0}
-.shot .ch.sel{border-color:#1B4E5F;background:#DDE8EC}.shot .ch.sel i{border-color:#1B4E5F;background:#1B4E5F}
-.shot .ch.str{opacity:.6}.shot .ch.str .ln{text-decoration:line-through;text-decoration-color:#B5342A}.shot .ch.str i{border-color:#B5342A}
-.shot .big{font-size:30px;font-weight:800;color:#101418;letter-spacing:-.02em;line-height:1}
-.shot .mini{font-size:7px;font-family:'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#8A857A}
-.shot .pill{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:.06em;background:#DDE8EC;color:#143C4A;border-radius:99px;padding:3px 8px}
-.shot .drill{font-size:7.5px;font-weight:700;color:#fff;background:#1B4E5F;border-radius:3px;padding:4px 8px;align-self:flex-start}
-.shot .why{border-left:2px solid #C9973C;background:#F4EAD4;border-radius:0 4px 4px 0;padding:4px 7px;font-size:7.5px}
-.shot .why b{color:#9A742C}
-.shot .row{display:flex;gap:6px;align-items:center}
-.shot .grid2{display:grid;grid-template-columns:1fr 1fr;gap:5px}
-.shot .sysrow{display:flex;align-items:center;gap:6px}
-.shot .sysrow span{width:74px;font-size:7.5px;font-weight:600;color:#101418;white-space:nowrap;overflow:hidden}
-.shot .sysrow .b{flex:1;height:5px;border-radius:99px;background:#EFE9DC;overflow:hidden}
-.shot .sysrow .b i{display:block;height:100%;background:#1B4E5F;border-radius:99px}
-.shot .sysrow.weak .b i{background:#B5342A}.shot .sysrow.weak span{color:#B5342A}
-.shot .card-fl{margin:auto;background:#F7F3EB;border:1px solid #E3DCCC;border-radius:8px;padding:16px 20px;text-align:center;max-width:75%}
-.shot .card-fl .q{font-size:9.5px;color:#101418;line-height:1.5}
-.shot .card-fl .a{margin-top:8px;font-size:9px;font-weight:700;color:#1B4E5F}
-"""
-MOCKS = {
-'block': '''<div class="shot"><div class="rail"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="cur"></i><i></i><i></i><i></i></div><div class="main"><div class="bar"><span>BLOCK 3 · <b>28:36</b></span><span>ITEM 7 OF 20 · <b>01:24</b></span></div><div class="ln" style="width:92%"></div><div class="ln" style="width:78%"></div><div class="ln" style="width:86%"></div><div style="height:4px"></div><div class="ch str"><i></i><span class="ln" style="width:46%"></span></div><div class="ch"><i></i><span class="ln" style="width:52%"></span></div><div class="ch sel"><i></i><span class="ln" style="width:58%"></span></div><div class="ch"><i></i><span class="ln" style="width:44%"></span></div><div class="ch"><i></i><span class="ln" style="width:49%"></span></div></div></div>''',
-'report': '''<div class="shot" style="flex-direction:column;gap:8px"><div class="row" style="justify-content:space-between;width:100%"><div class="row" style="gap:10px"><div><div class="mini">Overall</div><div class="big">68%</div></div><div><div class="mini">Correct</div><div class="big" style="color:#1B4E5F">812</div></div><div><div class="mini">Incorrect</div><div class="big" style="color:#B5342A">334</div></div></div><span class="pill">&uarr; 4 vs prior 14 days</span></div><div class="sysrow"><span>Cardiovascular</span><span class="b"><i style="width:74%"></i></span></div><div class="sysrow weak"><span>Endocrine</span><span class="b"><i style="width:52%"></i></span></div><div class="sysrow"><span>Nervous system</span><span class="b"><i style="width:61%"></i></span></div><div class="sysrow"><span>Renal</span><span class="b"><i style="width:70%"></i></span></div><div class="sysrow"><span>Respiratory</span><span class="b"><i style="width:77%"></i></span></div><div class="drill">Drill Endocrine · 20 questions</div></div>''',
-'analyst': '''<div class="shot" style="flex-direction:column;gap:7px"><span class="pill" style="background:#F4EAD4;color:#9A742C">THE ANALYST · 12 BLOCKS, 432 ANSWERS</span><div class="ln" style="width:96%"></div><div class="ln" style="width:88%"></div><div class="ln" style="width:92%"></div><div class="ln" style="width:64%"></div><div style="height:3px"></div><div class="grid2"><div class="why"><b>Do this next</b> — Endocrine is your largest gap: 52% across 38 questions.</div><div class="why"><b>Pace</b> — 84s/question, inside the 90-second target.</div></div><div class="row"><span class="drill">Drill Endocrine</span><span class="drill" style="background:#B5342A">Drill Thyroid</span><span class="pill">2 drills/day closes the gap by your exam date</span></div></div>''',
-'explain': '''<div class="shot" style="flex-direction:column;gap:6px"><div class="bar"><span>CASE · DISORDERS OF THE EYE</span><span>TUTOR MODE</span></div><div class="ch sel"><i></i><span class="ln" style="width:60%"></span></div><div style="height:2px"></div><div class="why"><b>Why A is wrong:</b> the mechanism it breaks, and the one fact that rules it out.</div><div class="why"><b>Why B is wrong:</b> why it looks inviting — and where the reasoning leaves the road.</div><div class="why"><b>Why D is wrong:</b> the near-miss a student actually picks, explained.</div><div class="why"><b>Why E is wrong:</b> one fact, one line, no "incorrect".</div></div>''',
-'cards': '''<div class="shot"><div class="card-fl"><div class="mini" style="margin-bottom:6px">CARD 118 · ENDOCRINE · THYROID</div><div class="q">A 58-year-old man with painless jaundice, weight loss, and a nodule in the head of the pancreas&hellip;</div><div class="a">Courvoisier sign &mdash; the gallbladder is palpable</div><div class="row" style="margin-top:10px;justify-content:center"><span class="pill">Next review: today</span><span class="pill" style="background:#F4EAD4;color:#9A742C">Born from your miss</span></div></div></div>''',
-'dash': '''<div class="shot" style="flex-direction:column;gap:8px"><div class="row" style="justify-content:space-between;width:100%"><div><div class="mini">Days to your exam</div><div class="big" style="color:#B5342A">84</div><div class="mini">FEB 24 · change date</div></div><div style="text-align:right"><div class="mini">Accuracy</div><div class="big">68%</div><div class="mini">&uarr; 4 this fortnight</div></div></div><div class="row" style="align-items:flex-end;gap:4px;height:34px"><i class="ln" style="width:9px;height:40%"></i><i class="ln" style="width:9px;height:55%"></i><i class="ln" style="width:9px;height:45%"></i><i class="ln" style="width:9px;height:65%"></i><i class="ln" style="width:9px;height:58%"></i><i class="ln" style="width:9px;height:75%"></i><i class="ln" style="width:9px;height:70%"></i><i class="ln" style="width:9px;height:88%;background:#1B4E5F"></i></div><div class="row" style="justify-content:space-between;width:100%"><span class="pill">Weakest: Thyroid disorders · 40%</span><span class="drill">Drill</span></div></div>''',
-}
-
-def swap_marks(src):
-    src = re.sub(r'(<img[^>]*class="(?:mark|logo-mark)"[^>]*src=")data:image/[^"]*(")', r'\g<1>' + TW9 + r'\g<2>', src)
-    return src
-
-def de_medchanic(src):
-    src = src.replace('Medchanic', 'Anastomosis').replace('MEDCHANIC', 'ANASTOMOSIS')
-    return src
-
-def add_favicon(src):
-    if 'rel="icon"' in src:
-        return src
-    return src.replace('</head>', FAV_LINK + '\n</head>')
-
-def report(name, src, allow_old=()):
-    old = [h for h in ('#0E7C78', '#E4572E', '#EFA21B', '#F3EFE6', '#141311', '#D8ECE8', '#FBE2D8', '#FBEBC6')
-           if h.lower() in src.lower() and h not in allow_old]
-    print(f'{name}: {len(src)//1024} KB | old palette left: {old or "none"} | Medchanic: {src.count("Medchanic")} | Step 1: {src.count("Step 1")}')
+# screenshots: handled by recolor_shots.py (real captures, palette-mapped)
 
 # ================= INDEX (landing) =================
 src = open('index.html', encoding='utf-8').read()
@@ -180,14 +122,8 @@ src = de_medchanic(src)
 src = add_favicon(src)
 src = src.replace('The standard Step 1 window — buy exactly the length of the job.',
                   'The standard dedicated window — buy exactly the length of the job.')
-# replace the 6 screenshot <img> payloads with the CSS mocks (in document order)
-order = ['block', 'report', 'analyst', 'explain', 'cards', 'dash']
-imgs = re.findall(r'<img src="data:image/jpeg;base64,[^"]*" alt="[^"]*"[^>]*>', src)
-print(f'index: found {len(imgs)} screenshot imgs')
-for img, key in zip(imgs, order):
-    src = src.replace(img, MOCKS[key])
-# inject mocks CSS + loader
-src = src.replace('</style>', MOCK_CSS + '\n</style>')
+# screenshots: NOT mocked anymore — the real captures are palette-recolored by recolor_shots.py
+# (which recovers the originals from git dfad85f and maps every old-token pixel to the new palette)
 src = src.replace('</head>', '<style>' + ANGIO_CSS_WITH_IMG + '</style>\n</head>')
 src = src.replace('<body>', '<body>\n' + ANGIO_LANDING)
 src = src.replace('</body>', ANGIO_LANDING_JS + '\n</body>')
