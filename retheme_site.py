@@ -115,7 +115,7 @@ ANGIO_CSS_WITH_IMG = ANGIO_CSS.replace('var(--tw9img)', f"url('{TW9}')")
 # ---------------- CSS product screenshots for the landing ----------------
 MOCK_CSS = """
 /* ==== live product shots (CSS-built, new palette) ==== */
-.shot{width:100%;aspect-ratio:16/10;background:#FFFDF8;border:1px solid #E3DCCC;border-radius:6px;padding:14px 16px;display:flex;gap:12px;overflow:hidden;font-size:8px;color:#4A4741;position:relative}
+.shot{width:100%;aspect-ratio:16/10;background:#FFFDF8;border:none;border-radius:0;padding:14px 16px;display:flex;gap:12px;overflow:hidden;font-size:8px;color:#4A4741;position:relative}
 .shot .ln{height:5px;border-radius:99px;background:#EFE9DC}
 .shot .rail{width:52px;display:flex;flex-direction:column;gap:4px;flex-shrink:0}
 .shot .rail i{width:100%;aspect-ratio:1;border-radius:3px;background:#EFE9DC;border:1px solid #E3DCCC}
@@ -182,7 +182,7 @@ src = src.replace('The standard Step 1 window — buy exactly the length of the 
                   'The standard dedicated window — buy exactly the length of the job.')
 # replace the 6 screenshot <img> payloads with the CSS mocks (in document order)
 order = ['block', 'report', 'analyst', 'explain', 'cards', 'dash']
-imgs = re.findall(r'<img src="data:image/jpeg;base64,[^"]*" alt="[^"]*"', src)
+imgs = re.findall(r'<img src="data:image/jpeg;base64,[^"]*" alt="[^"]*"[^>]*>', src)
 print(f'index: found {len(imgs)} screenshot imgs')
 for img, key in zip(imgs, order):
     src = src.replace(img, MOCKS[key])
