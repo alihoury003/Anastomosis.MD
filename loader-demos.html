@@ -51,7 +51,7 @@ svg{display:block;width:100%;height:100%}
 
 <div class="bar">
   <button class="tab on" id="t1" onclick="go(1)">01 · THE LIVING SKETCH</button>
-  <button class="tab" id="t2" onclick="go(2)">02 · THE ONE-LINE WORD</button>
+  <button class="tab" id="t2" onclick="go(2)">02 · THE WORD</button>
   <button class="tab" id="t3" onclick="go(3)">03 · THE BLOOM</button>
   <button class="tab" id="t4" onclick="go(4)">04 · THE PULSE MAP</button>
   <button class="tab" id="t5" onclick="go(5)">05 · THE CASCADE</button>
@@ -131,55 +131,74 @@ function demo1(){
    ================================================================ */
 function demo2(){
   const S = document.getElementById('stage');
-  // letter paths on baseline y=280, each ~65px wide, connected
-  const L = [
-    // a — circle with tail entering right
-    ['M 80 280 C 80 240, 120 230, 125 265 C 128 290, 108 300, 95 290 C 82 280, 82 265, 95 258 C 105 253, 118 255, 122 262 L 122 280', 0],
-    // n — hump
-    ['M 145 285 C 150 250, 165 235, 180 240 C 190 243, 192 255, 190 275 L 188 285', .18],
-    // a — circle
-    ['M 212 285 C 212 248, 245 235, 250 262 C 253 282, 235 295, 225 288 C 215 280, 215 265, 228 257 C 236 253, 245 256, 248 262 L 248 280', .36],
-    // s — S curve
-    ['M 272 262 C 268 245, 282 238, 292 245 C 300 250, 298 262, 290 268 C 282 274, 280 282, 288 287 C 295 291, 305 286, 308 278', .54],
-    // t — vertical with curve
-    ['M 328 245 C 330 255, 330 268, 328 285 M 315 255 C 322 252, 332 252, 340 255', .72],
-    // o — circle
-    ['M 362 285 C 362 248, 395 235, 400 262 C 403 282, 385 295, 375 288 C 365 280, 365 265, 378 257 C 386 253, 395 256, 398 262 C 398 270, 396 278, 390 283', .90],
-    // m — three humps
-    ['M 422 285 L 422 255 C 425 245, 438 243, 442 252 L 444 265 C 446 258, 452 250, 460 252 C 466 254, 468 262, 466 272 L 464 280 C 467 272, 474 265, 482 268 C 488 271, 490 280, 487 287', 1.08],
-    // o — circle
-    ['M 510 285 C 510 248, 543 235, 548 262 C 551 282, 533 295, 523 288 C 513 280, 513 265, 526 257 C 534 253, 543 256, 546 262 C 546 270, 544 278, 538 283', 1.30],
-    // s — S curve
-    ['M 570 262 C 566 245, 580 238, 590 245 C 598 250, 596 262, 588 268 C 580 274, 578 282, 586 287 C 593 291, 603 286, 606 278', 1.48],
-    // i — dot and line
-    ['M 626 245 C 627 255, 627 270, 626 285', 1.66],
-    // s — final S
-    ['M 650 262 C 646 245, 660 238, 670 245 C 678 250, 676 262, 668 268 C 660 274, 658 282, 666 287 C 673 291, 683 286, 686 278', 1.78],
-  ];
-  // gold nodes at letter crossings (the o's, a's)
-  const gold = [[125,268],[250,265],[400,265],[548,265]].map((g,i)=>
-    `<circle class="pop" style="--pl:${(1.05+i*.28).toFixed(2)}s" cx="${g[0]}" cy="${g[1]}" r="4" fill="#C9973C"/>`).join('');
-  // the dot on the i
-  const dot = `<circle class="pop" style="--pl:1.72s" cx="626" cy="238" r="4" fill="#C9973C"/>`;
-  // gradient: crimson left → ink middle → petrol right
-  const paths = L.map(l=>`<path class="dw" pathLength="1" style="--dl:${l[1]}s;--dd:.18s;stroke-width:5px;stroke:${l[1]<.5?'var(--crimson)':l[1]>1.3?'var(--petrol)':'var(--ink)'}" d="${l[0]}"/>`).join('');
-  // underline vessel that draws after the word
-  const under = `<path class="dw" pathLength="1" style="--dl:2.1s;--dd:.5s;stroke-width:3px;stroke:var(--gold)" d="M 70 315 C 200 318, 400 312, 700 315"/>`;
-  const underFlow = `<path class="vf" style="--dl:2.3s;stroke-width:2px;stroke:var(--gold);opacity:.4" d="M 70 315 C 200 318, 400 312, 700 315"/>`;
+  // vessels converge at (500, 340) — the underline IS the vessels
+  const vL = 'M -20 345 C 150 340, 300 338, 480 340';
+  const vR = 'M 1020 345 C 850 340, 700 338, 520 340';
+  // gold underline from the join
+  const under = 'M 480 340 C 490 338, 510 338, 520 340';
+  // open lumen mouths at vessel entries
+  const mL = '<ellipse class="fd" style="--fd-dur:.3s;--fd-del:.05s" cx="-8" cy="345" rx="7" ry="11" fill="none" stroke="var(--crimson)" stroke-width="2.2"/>';
+  const mR = '<ellipse class="fd" style="--fd-dur:.3s;--fd-del:.2s" cx="1008" cy="345" rx="7" ry="11" fill="none" stroke="var(--petrol)" stroke-width="2.2"/>';
+  // gold nodes along the underline (suture points)
+  const nodes = [[380,339,1.3],[500,340,1.5],[620,339,1.7]].map(n =>
+    `<circle class="pop" style="--pl:${n[2]}s" cx="${n[0]}" cy="${n[1]}" r="4" fill="#C9973C"/>`).join('');
   S.innerHTML = `
   <svg viewBox="0 0 1000 560">
+    <defs>
+      <linearGradient id="wg" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#B5342A"/>
+        <stop offset="40%" stop-color="#101418"/>
+        <stop offset="100%" stop-color="#1B4E5F"/>
+      </linearGradient>
+      <clipPath id="wc">
+        <circle cx="500" cy="340" r="0">
+          <animate attributeName="r" from="0" to="520" dur="1.8s" begin="indefinite" fill="freeze" calcMode="spline" keySplines="0.22 0 0.18 1" id="wcA"/>
+        </circle>
+      </clipPath>
+    </defs>
     <g id="d2s">
-      ${paths}${gold}${dot}${under}${underFlow}
+      <!-- vessels converge -->
+      <path class="dw" pathLength="1" style="--dl:.05s;--dd:.6s;stroke-width:5.5px;stroke:var(--crimson)" d="${vL}"/>
+      <path class="dw" pathLength="1" style="--dl:.18s;--dd:.6s;stroke-width:5.5px;stroke:var(--petrol)" d="${vR}"/>
+      ${mL}${mR}
+      <!-- gold suture at the join -->
+      <circle class="ping" style="--pl:.8s" cx="500" cy="340" r="14"/>
+      <circle class="pop" style="--pl:.75s" cx="500" cy="340" r="6" fill="#C9973C"/>
+      <!-- THE WORD: born from the join, revealed by growing circle -->
+      <g clip-path="url(#wc)">
+        <text x="500" y="310" text-anchor="middle"
+          font-family="'Instrument Serif',Georgia,serif" font-style="italic"
+          font-size="78" font-weight="400" letter-spacing="2"
+          fill="url(#wg)">anastomosis</text>
+      </g>
+      <!-- gold underline vessel (draws after the join) -->
+      <path class="dw" pathLength="1" style="--dl:1.4s;--dd:.6s;stroke-width:3px;stroke:var(--gold)" d="${under}"/>
+      <!-- gold suture nodes -->
+      ${nodes}
+      <!-- flowing blood through the completed anastomosis -->
+      <path class="vf" style="--dl:1.8s;stroke-width:2.5px;stroke:#fff;opacity:.5" d="M -10 345 C 150 340, 300 338, 480 340 C 490 338, 510 338, 520 340 C 700 338, 850 340, 1010 345"/>
+      <!-- word settle bounce -->
+      <g id="d2word" style="transform-origin:500px 290px;opacity:0;animation:d2settle .5s 2.5s cubic-bezier(.22,1.4,.36,1) forwards">
+        <text x="500" y="310" text-anchor="middle"
+          font-family="'Instrument Serif',Georgia,serif" font-style="italic"
+          font-size="78" font-weight="400" letter-spacing="2"
+          fill="url(#wg)" opacity="0">anastomosis</text>
+      </g>
     </g>
   </svg>
-  ${fin(3.2)}`;
-  T(()=>{ const s=document.getElementById('d2s'); if(s) s.classList.add('dim'); },2800);
+  <style>
+    @keyframes d2settle{0%{opacity:0;transform:scale(1.03)}40%{opacity:1}100%{opacity:1;transform:scale(1)}}
+    #d2word text{transition:opacity .3s 2.55s}
+  </style>
+  ${fin(4.0)}`;
+  // trigger the clip circle
+  T(()=>{ const a=document.getElementById('wcA'); if(a) a.beginElement(); }, 800);
+  // fill the settle text (cross-fade from clip version to settled version)
+  T(()=>{ const t=document.querySelector('#d2word text'); if(t) t.setAttribute('opacity','1'); }, 2550);
+  // dim
+  T(()=>{ const s=document.getElementById('d2s'); if(s) s.classList.add('dim'); }, 3500);
 }
 
-/* ================================================================
-   DEMO 3 · THE BLOOM — branches grow, then bud-circles pop at tips
-   The climax is the bloom: dozens of colored circles springing open.
-   ================================================================ */
 function demo3(){
   const S = document.getElementById('stage');
   // fixed tree structure (deterministic for consistent bloom)
