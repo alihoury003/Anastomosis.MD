@@ -48,7 +48,32 @@ pre b{color:var(--gold)}
 <p class="sub">Production assets generated from <b>@@SRC</b> (the live mark) at @@NATIVEpx native — background unified to brand bone #F7F3EB. When the logo crown lands on a different mark, the whole kit regenerates with one command.</p>
 
 <div class="sec">
-  <div class="sec-h"><span class="sec-n">01</span><span class="sec-t">The avatar — square and circle</span></div>
+  <div class="sec-h"><span class="sec-n">01</span><span class="sec-t">The logo — two versions, your call</span></div>
+  <div class="avbig">
+    <div><img class="square" src="data:image/png;base64,@@LOGO_A" width="280" height="280" alt="anastomosis.md version"><div class="cap">VERSION A · <b>anastomosis.md</b></div></div>
+    <div><img class="circle" src="data:image/png;base64,@@LOGO_A" width="280" height="280" alt="anastomosis.md circle"><div class="cap">A · CIRCLE CROP</div></div>
+    <div><img class="square" src="data:image/png;base64,@@LOGO_B" width="280" height="280" alt="anastomosis version"><div class="cap">VERSION B · <b>anastomosis</b> (no .md)</div></div>
+    <div><img class="circle" src="data:image/png;base64,@@LOGO_B" width="280" height="280" alt="anastomosis circle"><div class="cap">B · CIRCLE CROP</div></div>
+  </div>
+  <p class="note">Same mark, one difference: the gold <b>.md</b> at the trunk\u2019s side (Version A) is erased in Version B — nothing else was touched, pixel-verified. Both are <b>1024\u00d71024 PNG, sRGB, brand bone background</b>, delivered with 2048 (2\u00d7 resampled), 512 and 400 companions. Pick one, upload it everywhere \u2014 the table below is every platform that matters.</p>
+  <table style="margin-top:16px">
+    <tr><th>PLATFORM</th><th>DISPLAYS AT</th><th>UPLOAD THE 1024 FILE?</th></tr>
+    <tr><td>Instagram profile</td><td>320\u00d7320</td><td class="ok">\u2713 perfect</td></tr>
+    <tr><td>X / Twitter</td><td>400\u00d7400</td><td class="ok">\u2713 perfect</td></tr>
+    <tr><td>Facebook Page</td><td>176\u00d7176</td><td class="ok">\u2713 perfect</td></tr>
+    <tr><td>LinkedIn (company / personal)</td><td>100\u2013400</td><td class="ok">\u2713 perfect</td></tr>
+    <tr><td>TikTok</td><td>200\u00d7200</td><td class="ok">\u2713 perfect</td></tr>
+    <tr><td>YouTube channel icon</td><td>800\u00d7800 rec.</td><td class="ok">\u2713 perfect</td></tr>
+  </table>
+  <div class="spec">
+    <span class="chip">A CIRCLE AUDIT <b>@@LOGO_METRIC_A</b></span>
+    <span class="chip">B CIRCLE AUDIT <b>@@LOGO_METRIC_B</b></span>
+    <span class="chip">FORMAT <b>PNG \u00b7 sRGB \u00b7 1:1</b></span>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-h"><span class="sec-n">02</span><span class="sec-t">The avatar — square and circle</span></div>
   <div class="avbig">
     <div><img class="circle" src="data:image/png;base64,@@AV512" width="300" height="300" alt="avatar circle"><div class="cap">CIRCLE · HOW PLATFORMS CROP IT</div></div>
     <div><img class="square" src="data:image/png;base64,@@AV512" width="300" height="300" alt="avatar square"><div class="cap">SQUARE · THE NATIVE FILE</div></div>
@@ -59,7 +84,7 @@ pre b{color:var(--gold)}
 </div>
 
 <div class="sec">
-  <div class="sec-h"><span class="sec-n">02</span><span class="sec-t">The favicon — down to 16 pixels</span></div>
+  <div class="sec-h"><span class="sec-n">03</span><span class="sec-t">The favicon — down to 16 pixels</span></div>
   <div class="tabbar">
     <div class="tab"><img src="data:image/png;base64,@@F16" alt=""><span>Anastomosis.MD — The Arcade</span><span class="x">×</span></div>
     <div class="tab inactive">New tab</div>
@@ -81,19 +106,19 @@ pre b{color:var(--gold)}
 </div>
 
 <div class="sec">
-  <div class="sec-h"><span class="sec-n">03</span><span class="sec-t">The link card — 1200 × 630</span></div>
+  <div class="sec-h"><span class="sec-n">04</span><span class="sec-t">The link card — 1200 × 630</span></div>
   <img src="data:image/png;base64,@@OG" width="100%" style="border-radius:16px;border:1px solid var(--rule);display:block;box-shadow:0 24px 60px -36px rgba(16,20,24,.35)" alt="og card">
   <p class="note">What people see when a link to anastomosis.md is shared — X, LinkedIn, Discord, WhatsApp, iMessage. Real Instrument Serif wordmark, arteriovenous gradient, brand bone. The tagline matches the loader caption: <b>two vessels, one mind</b>.</p>
 </div>
 
 <div class="sec">
-  <div class="sec-h"><span class="sec-n">04</span><span class="sec-t">The paste-ready favicon snippet</span></div>
+  <div class="sec-h"><span class="sec-n">05</span><span class="sec-t">The paste-ready favicon snippet</span></div>
   <p class="note">The live site serves pages with inline favicons (root files fall back to index.html) — so the deploy path is pasting. These four lines carry the new favicon at 16/32/48 + Apple touch, no file requests. Paste into each page's <b>&lt;head&gt;</b>, replacing the old icon link:</p>
   <pre>@@SNIPPET</pre>
 </div>
 
 <div class="sec">
-  <div class="sec-h"><span class="sec-n">05</span><span class="sec-t">Every file in the kit</span></div>
+  <div class="sec-h"><span class="sec-n">06</span><span class="sec-t">Every file in the kit</span></div>
   <table><tr><td><b>FILE</b></td><td><b>SIZE</b></td><td></td></tr>@@ROWS</table>
 </div>
 </main>

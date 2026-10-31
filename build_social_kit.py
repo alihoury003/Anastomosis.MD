@@ -146,6 +146,27 @@ def build(source):
     ImageDraw.Draw(m).ellipse((0, 0, s - 1, s - 1), fill=255)
     sq.putalpha(m); sq.save(os.path.join(KIT, 'avatar', 'avatar-circle-512.png'))
 
+    # ---- LOGO DELIVERABLES: two versions (with / without the gold ".md") ----
+    # measured on the tw-9 source: the .md floats free of the trunk (trunk right edge <= x566)
+    # and of the lower branches (start ~y830) -- safe box, verified by run-scan.
+    MD_BOX = (571, 719, 700, 781)
+    no_md = master.copy()
+    ImageDraw.Draw(no_md).rectangle(MD_BOX, fill=BONE)
+    lg = os.path.join(KIT, 'logo')
+    os.makedirs(lg, exist_ok=True)
+    for name, img in [('anastomosis-md', master), ('anastomosis', no_md)]:
+        img.save(os.path.join(lg, f'{name}-1024.png'))
+        img.resize((2048, 2048), Image.LANCZOS).save(os.path.join(lg, f'{name}-2048.png'))
+        img.resize((512, 512), Image.LANCZOS).save(os.path.join(lg, f'{name}-512.png'))
+        img.resize((400, 400), Image.LANCZOS).save(os.path.join(lg, f'{name}-400.png'))
+    logoA_b = b64(master.resize((480, 480), Image.LANCZOS))
+    logoB_b = b64(no_md.resize((480, 480), Image.LANCZOS))
+    outA, maxrA, totA = circle_metric(master)
+    outB, maxrB, totB = circle_metric(no_md)
+    logo_metric_a = f'{outA}/{totA} px outside the circle ({outA/totA*100:.3f}%), max radius {maxrA:.0f}/512'
+    logo_metric_b = f'{outB}/{totB} px outside the circle ({outB/totB*100:.3f}%), max radius {maxrB:.0f}/512'
+    report.append(f'logo: two versions built (anastomosis-md + anastomosis, .md box {MD_BOX} erased)')
+
     bbox = content_bbox(master)
     outside, maxr, total = circle_metric(master)
     report.append(f'source: {source} ({native}px native, background {bg_tone} -> bone {BONE})')
@@ -229,6 +250,8 @@ def build(source):
         '@@AV1024': av1024, '@@AV512': av512, '@@AV200': av200,
         '@@F16': fc16, '@@F32': fc32, '@@F48': fc48, '@@FCUT32': fcut32, '@@CMP16': cmp16, '@@APPLE': apple, '@@OG': og,
         '@@SNIPPET': snippet.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;'), '@@ROWS': rows,
+        '@@LOGO_A': logoA_b, '@@LOGO_B': logoB_b,
+        '@@LOGO_METRIC_A': logo_metric_a, '@@LOGO_METRIC_B': logo_metric_b,
         '@@SRC': os.path.basename(source), '@@NATIVE': str(native),
         '@@BG': str(bg_tone),
         '@@METRIC': f'{outside}/{total} content pixels outside the inscribed circle ({outside/total*100:.3f}%) — max content radius {maxr:.0f} of {native//2}',
