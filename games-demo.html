@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anastomosis.MD — The Arcade</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============ ANASTOMOSIS ARCADE — design system ============ */
+:root{
+  --bone:#F7F3EB; --paper:#FFFDF7; --paper2:#EFE9DC; --rule:#E3DCCC; --sand:#E9E2D2;
+  --ink:#101418; --ink2:#4A4741; --ink3:#8A857A;
+  --crimson:#B5342A; --crimson2:#8E2921; --crimsonSoft:#F2E1DD;
+  --petrol:#1B4E5F; --petrol2:#143C4A; --petrolSoft:#DDE8EC;
+  --gold:#C9973C; --gold2:#9A742C; --goldSoft:#F4EAD4;
+  --heBg:#F0D5D8; --hePink:#E9B7BC; --heCyto:#F3DCDF; --hePurple:#6E5391; --hePurple2:#8A6FAE; --heNucleus:#54406D; --heRbc:#E29AA3;
+  --serif:'Instrument Serif',Georgia,serif; --sans:'Inter',system-ui,-apple-system,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  --sh:0 24px 60px -36px rgba(16,20,24,.32); --sh2:0 10px 30px -14px rgba(16,20,24,.22);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bone);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input{font-family:inherit}
+::selection{background:var(--goldSoft)}
+.grad{background:linear-gradient(92deg,var(--crimson) 0%,var(--ink) 45%,var(--petrol) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hidden{display:none!important}
+
+/* ============ topbar ============ */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(247,243,235,.92);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--rule)}
+.tb-in{max-width:1240px;margin:0 auto;padding:0 24px;height:62px;display:flex;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;cursor:pointer;white-space:nowrap}
+.brand .mark{height:32px;width:auto;display:block;border-radius:50%}
+.brand .bname{font-family:var(--serif);font-size:23px;letter-spacing:-.01em}
+.brand .bname em{font-style:italic;color:var(--petrol)}
+.gnav{display:flex;gap:2px;margin-left:6px;flex-wrap:wrap}
+.gnav-btn{font-size:13px;font-weight:600;color:var(--ink2);padding:8px 13px;border-radius:8px;transition:.15s}
+.gnav-btn:hover{background:var(--paper2);color:var(--ink)}
+.gnav-btn.on{background:var(--ink);color:var(--bone)}
+.gnav-btn.on.g1{background:var(--crimson)}.gnav-btn.on.g2{background:var(--petrol)}.gnav-btn.on.g3{background:var(--crimson2)}.gnav-btn.on.g4{background:var(--gold2)}
+.streak{margin-left:auto;display:flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid var(--rule);border-radius:99px;background:var(--paper);transition:.15s;white-space:nowrap}
+.streak:hover{border-color:var(--gold)}
+.streak svg{display:block}
+.streak b{font-family:var(--mono);font-size:14px;color:var(--gold2)}
+.streak span{font-size:11px;color:var(--ink3);font-weight:600;letter-spacing:.02em}
+.streak .sbar{width:46px;height:4px;border-radius:2px;background:var(--sand);overflow:hidden;display:block}
+.streak .sbar i{display:block;height:100%;background:var(--gold);border-radius:2px;width:0;transition:width .6s}
+
+/* ============ page shell ============ */
+main{max-width:1240px;margin:0 auto;padding:34px 24px 90px}
+.page{display:none;animation:pgIn .45s cubic-bezier(.22,1,.36,1)}
+.page.on{display:block}
+@keyframes pgIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ============ home hero ============ */
+.hero{position:relative;text-align:center;padding:64px 20px 40px}
+.hero-vessels{position:absolute;left:0;right:0;top:24px;height:150px;width:100%;pointer-events:none}
+.hero-vessels .vl{stroke-dasharray:1;stroke-dashoffset:1;animation:vw 1.4s .2s cubic-bezier(.3,.06,.24,1) forwards}
+.hero-vessels .vr{stroke-dasharray:1;stroke-dashoffset:1;animation:vw 1.4s .45s cubic-bezier(.3,.06,.24,1) forwards}
+.hero-vessels .vout{stroke-dasharray:1;stroke-dashoffset:1;animation:vw 1s .9s cubic-bezier(.3,.06,.24,1) forwards}
+@keyframes vw{to{stroke-dashoffset:0}}
+.hero-vessels .vpulse{animation:vp 4.5s 2.2s cubic-bezier(.4,0,.6,1) infinite}
+@keyframes vp{0%{offset-distance:0%;opacity:0}6%{opacity:1}94%{opacity:1}100%{offset-distance:100%;opacity:0}}
+.eyebrow{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.34em;color:var(--petrol);text-transform:uppercase}
+.hero h1{font-family:var(--serif);font-size:clamp(46px,7.2vw,86px);line-height:1.02;letter-spacing:-.015em;margin:18px 0 16px;font-weight:400}
+.hero h1 em{font-style:italic}
+.hero .sub{max-width:640px;margin:0 auto;color:var(--ink2);font-size:16px;line-height:1.65}
+.hero .sub b{color:var(--ink)}
+.hero-chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+.hchip{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--ink2);background:var(--paper);border:1px solid var(--rule);padding:7px 12px;border-radius:99px}
+
+/* ============ game cards ============ */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:34px}
+.gcard{position:relative;background:var(--paper);border:1px solid var(--rule);border-radius:20px;overflow:hidden;cursor:pointer;transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s;box-shadow:var(--sh2);display:flex;flex-direction:column}
+.gcard:hover{transform:translateY(-5px);box-shadow:var(--sh)}
+.gcard:after{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--acc)}
+.gcard.g1{--acc:var(--crimson)}.gcard.g2{--acc:var(--petrol)}.gcard.g3{--acc:var(--crimson2)}.gcard.g4{--acc:var(--gold2)}
+.gc-prev{position:relative;height:172px;background:var(--paper2);border-bottom:1px solid var(--rule);overflow:hidden;flex:none}
+.gc-prev svg{position:absolute;inset:0;width:100%;height:100%}
+.gc-body{padding:22px 24px 20px 26px;display:flex;flex-direction:column;gap:9px;flex:1}
+.gc-top{display:flex;align-items:baseline;gap:12px}
+.gc-num{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--acc)}
+.gc-live{margin-left:auto;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.22em;color:var(--ink3);display:flex;align-items:center;gap:6px}
+.gc-live i{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 1.6s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.gcard h2{font-family:var(--serif);font-size:33px;font-weight:400;letter-spacing:-.01em;line-height:1}
+.gc-tag{font-family:var(--serif);font-style:italic;font-size:17px;color:var(--ink2)}
+.gc-desc{font-size:13.5px;line-height:1.6;color:var(--ink2)}
+.gc-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+.gc-chips span{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;color:var(--ink2);background:var(--bone);border:1px solid var(--rule);padding:5px 9px;border-radius:6px}
+.gc-foot{display:flex;align-items:center;margin-top:auto;padding-top:14px;border-top:1px solid var(--rule)}
+.vv{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.16em;color:var(--gold2)}
+.play{margin-left:auto;font-weight:800;font-size:13px;letter-spacing:.06em;color:var(--ink);display:flex;align-items:center;gap:7px;transition:gap .2s}
+.gcard:hover .play{gap:11px}
+
+/* home footer strip */
+.home-strip{margin-top:34px;background:var(--ink);border-radius:20px;padding:30px 34px;display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.home-strip .hs-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--gold);font-weight:700}
+.home-strip h3{font-family:var(--serif);font-size:28px;color:var(--bone);font-weight:400;margin-top:6px}
+.home-strip h3 em{font-style:italic;color:var(--gold)}
+.home-strip p{color:#B9B2A4;font-size:13.5px;line-height:1.6;max-width:520px;margin-top:8px}
+.home-strip .hs-cta{margin-left:auto;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+
+/* ============ shared bits ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:700;font-size:14px;padding:13px 22px;border-radius:11px;transition:.18s;letter-spacing:.01em}
+.btn-ink{background:var(--ink);color:var(--bone)}
+.btn-ink:hover{background:#23272E;transform:translateY(-1px)}
+.btn-line{border:1.5px solid var(--ink);color:var(--ink)}
+.btn-line:hover{background:var(--ink);color:var(--bone)}
+.btn-gold{background:var(--gold);color:var(--ink)}
+.btn-gold:hover{background:#D9AC55;transform:translateY(-1px)}
+.btn-sm{padding:9px 15px;font-size:12.5px}
+.ghead{display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap;margin-bottom:26px}
+.ghead .gh-main{flex:1;min-width:220px}
+.g-eyebrow{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase}
+#page-diff .g-eyebrow{color:var(--crimson)} #page-conn .g-eyebrow{color:var(--petrol)}
+#page-cart .g-eyebrow{color:var(--crimson2)} #page-patho .g-eyebrow{color:var(--gold2)}
+.g-title{font-family:var(--serif);font-size:clamp(34px,4.6vw,52px);font-weight:400;letter-spacing:-.015em;line-height:1.05;margin-top:8px}
+.g-case{font-family:var(--mono);font-size:13px;color:var(--ink3);letter-spacing:.08em;margin-left:10px}
+.g-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.g-tab{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;padding:8px 13px;border-radius:99px;border:1px solid var(--rule);background:var(--paper);color:var(--ink2);transition:.15s}
+.g-tab:hover{border-color:var(--ink)}
+.g-tab.on{background:var(--ink);color:var(--bone);border-color:var(--ink)}
+.g-tab .done{color:var(--gold);margin-left:5px}
+.ghost-btn{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.16em;color:var(--ink2);padding:9px 14px;border:1px solid var(--rule);border-radius:99px;background:var(--paper);transition:.15s}
+.ghost-btn:hover{color:var(--ink);border-color:var(--ink)}
+.end-panel{background:var(--paper);border:1px solid var(--rule);border-radius:18px;padding:30px;box-shadow:var(--sh2);animation:pgIn .5s cubic-bezier(.22,1.4,.36,1)}
+.ep-eyebrow{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--ink3)}
+.ep-title{font-family:var(--serif);font-size:38px;font-weight:400;margin:8px 0 4px;letter-spacing:-.01em}
+.ep-title.win{background:linear-gradient(92deg,var(--crimson),var(--ink) 45%,var(--petrol));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ep-sub{color:var(--ink2);font-size:14px;line-height:1.6}
+.ep-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.stat-row{display:flex;gap:26px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:1px solid var(--rule)}
+.stat b{font-family:var(--mono);font-size:22px;display:block}
+.stat span{font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--ink3);font-weight:700}
+.toast{position:fixed;bottom:26px;left:50%;transform:translate(-50%,80px);background:var(--ink);color:var(--bone);font-size:13px;font-weight:600;padding:13px 20px;border-radius:12px;box-shadow:var(--sh);z-index:200;transition:transform .35s cubic-bezier(.22,1.4,.36,1);max-width:90vw;text-align:center}
+.toast.on{transform:translate(-50%,0)}
+.toast b{color:var(--gold)}
+.modal-bg{position:fixed;inset:0;background:rgba(16,20,24,.44);z-index:150;display:flex;align-items:center;justify-content:center;padding:20px;animation:fdIn .25s}
+@keyframes fdIn{from{opacity:0}to{opacity:1}}
+.modal{background:var(--bone);border-radius:20px;max-width:640px;width:100%;max-height:88vh;overflow:auto;box-shadow:var(--sh);animation:mdIn .35s cubic-bezier(.22,1.3,.36,1)}
+@keyframes mdIn{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
+.modal-hd{display:flex;align-items:center;padding:20px 24px 0}
+.modal-hd .ep-eyebrow{color:var(--petrol)}
+.modal-x{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--ink3);padding:6px 10px;border-radius:8px}
+.modal-x:hover{background:var(--paper2);color:var(--ink)}
+.modal-bd{padding:14px 24px 26px}
+
+/* ============ GAME 01 · DIFFERENTIAL ============ */
+.diff-wrap{display:grid;grid-template-columns:minmax(320px,5fr) minmax(380px,6fr);gap:24px;align-items:start}
+.clues{display:flex;flex-direction:column;gap:12px}
+.clue{background:var(--paper);border:1px solid var(--rule);border-radius:14px;position:relative;padding:16px 18px 15px;box-shadow:var(--sh2)}
+.clue .clue-tab{position:absolute;top:-9px;left:14px;font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.2em;background:var(--ink);color:var(--bone);padding:4px 9px;border-radius:5px}
+.clue .clue-body{font-size:13.5px;line-height:1.65;color:var(--ink2);background:repeating-linear-gradient(transparent,transparent 25px,var(--rule) 25px,var(--rule) 26px);padding-top:1px}
+.clue .clue-body b{color:var(--ink)}
+.clue.locked{opacity:.42;filter:grayscale(.4)}
+.clue.locked .clue-body{color:transparent;user-select:none;background:repeating-linear-gradient(transparent,transparent 12px,var(--sand) 12px,var(--sand) 14px)}
+.clue.locked .clue-tab{background:var(--ink3)}
+.clue.on{animation:clueIn .5s cubic-bezier(.22,1.4,.36,1)}
+@keyframes clueIn{from{transform:translateY(10px) scale(.98);opacity:0}to{transform:none;opacity:1}}
+.guess-panel{background:var(--ink);border-radius:16px;padding:18px;box-shadow:var(--sh2)}
+.gp-label{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.26em;color:#8A857A;margin-bottom:12px}
+.gp-row{display:flex;gap:9px}
+.gp-row input{flex:1;background:var(--bone);border:none;border-radius:10px;padding:13px 15px;font-size:14.5px;font-weight:600;color:var(--ink);outline:none}
+.gp-row input::placeholder{color:var(--ink3);font-weight:500}
+.gp-row .go{background:var(--crimson);color:var(--bone);font-weight:800;font-size:13px;letter-spacing:.08em;padding:0 20px;border-radius:10px;transition:.15s}
+.gp-row .go:hover{background:var(--crimson2)}
+.gp-row .go:disabled{background:#4A4741;cursor:default}
+.gp-dots{display:flex;gap:7px;margin-top:13px;align-items:center}
+.gp-dots i{width:9px;height:9px;border-radius:50%;background:#3A3E44;transition:.3s}
+.gp-dots i.used{background:var(--crimson)}
+.gp-dots span{font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:#8A857A;margin-left:6px;font-weight:700}
+.ac{position:relative;z-index:5}
+.ac-list{position:absolute;left:0;right:0;top:6px;background:var(--paper);border:1px solid var(--rule);border-radius:12px;box-shadow:var(--sh);max-height:216px;overflow:auto;display:none}
+.ac-list.on{display:block;animation:pgIn .18s}
+.ac-it{padding:10px 14px;font-size:13.5px;font-weight:600;color:var(--ink2);display:flex;justify-content:space-between;gap:10px;cursor:pointer}
+.ac-it:hover,.ac-it.hot{background:var(--paper2);color:var(--ink)}
+.ac-it small{font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:.08em;white-space:nowrap;padding-top:3px}
+.fb-row{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:14px 16px;margin-top:12px;box-shadow:var(--sh2);animation:fbIn .45s cubic-bezier(.22,1.3,.36,1)}
+@keyframes fbIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.fb-name{font-family:var(--serif);font-style:italic;font-size:20px;margin-bottom:10px}
+.fb-cells{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.fb-c{border-radius:9px;padding:8px 10px;border:1px solid var(--rule);background:var(--bone)}
+.fb-c i{display:block;font-style:normal;font-family:var(--mono);font-size:7.5px;font-weight:700;letter-spacing:.18em;color:var(--ink3);margin-bottom:3px}
+.fb-c b{font-size:12px;font-weight:700}
+.fb-c.hit{background:var(--petrol);border-color:var(--petrol)}
+.fb-c.hit i,.fb-c.hit b{color:var(--bone)}
+.fb-c.near{background:var(--goldSoft);border-color:var(--gold)}
+.fb-c.near b{color:var(--gold2)}
+.fb-c.near i{color:var(--gold2)}
+.fb-c.miss b{color:var(--ink3);font-weight:600}
+
+/* ============ GAME 02 · CONNECTIONS ============ */
+.conn-wrap{max-width:660px;margin:0 auto}
+.conn-mistakes{display:flex;gap:7px;align-items:center}
+.conn-mistakes .mk-label{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.18em;color:var(--ink3);margin-right:4px}
+.heart{width:26px;height:22px;position:relative}
+.heart svg{position:absolute;inset:0;width:100%;height:100%}
+.heart .tr{stroke:var(--crimson);fill:none;stroke-width:1.6;stroke-dasharray:1;stroke-dashoffset:1;animation:vw .8s cubic-bezier(.3,.06,.24,1) forwards}
+.heart.dead{opacity:.35}
+.heart.dead svg{filter:grayscale(1)}
+.conn-solved{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.band{border-radius:12px;padding:13px 16px;animation:bandIn .5s cubic-bezier(.22,1.4,.36,1);display:flex;flex-direction:column;gap:4px}
+@keyframes bandIn{from{transform:scale(.9);opacity:0}to{transform:none;opacity:1}}
+.band .b-cat{font-weight:800;font-size:13px;letter-spacing:.02em}
+.band .b-its{font-size:13px;opacity:.92}
+.band .b-why{font-family:var(--mono);font-size:10px;opacity:.75;margin-top:2px;line-height:1.5}
+.band.y{background:var(--goldSoft);border:1px solid var(--gold);color:var(--gold2)}
+.band.g{background:var(--petrolSoft);border:1px solid var(--petrol);color:var(--petrol2)}
+.band.b{background:var(--crimsonSoft);border:1px solid var(--crimson);color:var(--crimson2)}
+.band.p{background:#E7E0EF;border:1px solid #6E5391;color:#54406D}
+.conn-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tile{background:var(--paper);border:1px solid var(--rule);border-radius:12px;min-height:76px;padding:10px 8px;font-size:13px;font-weight:700;color:var(--ink);display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.25;transition:transform .16s,background .16s,border-color .16s,box-shadow .16s;box-shadow:var(--sh2)}
+.tile:hover{transform:translateY(-2px)}
+.tile.sel{background:var(--ink);color:var(--bone);border-color:var(--ink);transform:translateY(-2px)}
+.tile.gone{display:none}
+.tile.shake{animation:tshake .4s}
+@keyframes tshake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.conn-bar{display:flex;gap:9px;margin-top:14px}
+.conn-bar .cb{flex:1;font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.14em;padding:13px;border-radius:11px;border:1px solid var(--rule);background:var(--paper);color:var(--ink2);transition:.15s}
+.conn-bar .cb:hover{border-color:var(--ink);color:var(--ink)}
+.conn-bar .cb.primary{background:var(--petrol);color:var(--bone);border-color:var(--petrol);flex:1.4}
+.conn-bar .cb.primary:disabled{background:var(--paper2);border-color:var(--rule);color:var(--ink3);cursor:default}
+.conn-bar .cb:disabled{color:var(--ink3);cursor:default}
+
+/* ============ GAME 03 · CRASH CART ============ */
+.cart-wrap{max-width:980px;margin:0 auto;position:relative}
+.monitor{position:relative;background:var(--petrol2);border-radius:18px;padding:14px 18px 10px;box-shadow:var(--sh);overflow:hidden;border:1px solid #0E2E3A}
+.monitor:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 58px,rgba(221,232,236,.05) 58px,rgba(221,232,236,.05) 59px);pointer-events:none}
+#cartStrip{display:block;width:100%;height:96px}
+#cartStrip .beat{stroke:var(--gold);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+#cartStrip .gridline{stroke:rgba(221,232,236,.07);stroke-width:1}
+.mon-hud{position:absolute;top:10px;right:16px;display:flex;align-items:flex-start;gap:16px}
+.mon-timer{font-family:var(--mono);font-size:40px;font-weight:700;color:var(--bone);line-height:1;letter-spacing:-.02em}
+.mon-timer.low{color:var(--crimsonSoft);animation:tick 1s infinite}
+@keyframes tick{0%,100%{opacity:1}50%{opacity:.55}}
+.mon-lives{display:flex;gap:4px;padding-top:6px}
+.mon-lives .life{width:10px;height:10px;border-radius:50%;background:var(--gold);transition:.3s}
+.mon-lives .life.lost{background:var(--crimson);transform:scale(.7)}
+.mon-tags{position:absolute;top:12px;left:18px;font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.22em;color:#7FA9B8}
+.flat-flash{position:absolute;inset:0;background:rgba(181,52,42,.24);opacity:0;pointer-events:none;transition:opacity .12s}
+.flat-flash.on{opacity:1}
+.cart-body{display:grid;grid-template-columns:1fr 230px;gap:18px;margin-top:18px}
+.cart-main{background:var(--paper);border:1px solid var(--rule);border-radius:18px;padding:22px 24px;box-shadow:var(--sh2);min-height:330px;display:flex;flex-direction:column}
+.cart-pt{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.pt-chip{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;background:var(--crimsonSoft);color:var(--crimson2);padding:6px 11px;border-radius:7px}
+.pt-chip.vt{background:var(--petrolSoft);color:var(--petrol2)}
+.cart-q{font-family:var(--serif);font-size:clamp(21px,2.6vw,27px);line-height:1.28;margin:16px 0 18px;letter-spacing:-.01em}
+.cart-choices{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.choice{position:relative;border:2px solid var(--rule);border-radius:14px;padding:16px 15px 14px;text-align:left;background:var(--bone);transition:.15s;min-height:96px}
+.choice .ch-l{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--ink3);letter-spacing:.16em;display:block;margin-bottom:7px}
+.choice .ch-t{font-size:15px;font-weight:700;line-height:1.35}
+.choice:hover{border-color:var(--ink);transform:translateY(-2px)}
+.choice.right{border-color:var(--petrol);background:var(--petrolSoft)}
+.choice.right .ch-l{color:var(--petrol2)}
+.choice.wrong{border-color:var(--crimson);background:var(--crimsonSoft)}
+.choice.wrong .ch-l{color:var(--crimson2)}
+.choice:disabled{cursor:default;transform:none}
+.cart-why{margin-top:auto;padding-top:16px;font-size:13px;line-height:1.6;color:var(--ink2);min-height:20px}
+.cart-why b{color:var(--ink)}
+.cart-why.ok b{color:var(--petrol2)}
+.cart-why.no b{color:var(--crimson2)}
+.cart-side{display:flex;flex-direction:column;gap:12px}
+.cs-box{background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:16px;box-shadow:var(--sh2)}
+.cs-label{font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.22em;color:var(--ink3);margin-bottom:6px}
+.cs-score{font-family:var(--mono);font-size:34px;font-weight:700;line-height:1;letter-spacing:-.02em}
+.cs-combo{font-size:12px;font-weight:700;color:var(--gold2);margin-top:6px;height:16px}
+.cs-board .row{display:flex;justify-content:space-between;gap:8px;font-size:12px;padding:6px 0;border-bottom:1px solid var(--rule);color:var(--ink2)}
+.cs-board .row:last-child{border:none}
+.cs-board .row b{font-family:var(--mono);font-size:11.5px}
+.cs-board .row.you{color:var(--gold2);font-weight:800}
+.cs-board .row.you b{color:var(--gold2)}
+.cart-start,.cart-over{position:absolute;inset:-6px;background:rgba(247,243,235,.96);backdrop-filter:blur(6px);border-radius:20px;display:flex;align-items:center;justify-content:center;z-index:10;animation:fdIn .3s}
+.cart-start .cs-inner,.cart-over .cs-inner{text-align:center;max-width:420px;padding:20px}
+.cart-start h3,.cart-over h3{font-family:var(--serif);font-size:40px;font-weight:400;margin:10px 0 8px}
+.cart-start p,.cart-over p{color:var(--ink2);font-size:14px;line-height:1.65}
+.cart-rules{display:flex;flex-direction:column;gap:9px;margin:20px 0;text-align:left}
+.cart-rules div{display:flex;gap:11px;align-items:baseline;font-size:13.5px;color:var(--ink2)}
+.cart-rules b{font-family:var(--mono);font-size:10px;color:var(--crimson2);letter-spacing:.1em;white-space:nowrap}
+
+/* ============ GAME 04 · PATHO-GUESSER ============ */
+.pg-wrap{display:grid;grid-template-columns:minmax(340px,7fr) minmax(300px,4fr);gap:22px;align-items:start}
+.pg-scorebar{display:flex;gap:22px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+.pg-scorebar .cs-score{font-size:26px}
+.pg-view{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--rule);box-shadow:var(--sh);background:var(--heBg);aspect-ratio:25/16;cursor:crosshair;touch-action:none;user-select:none}
+.pg-view:after{content:"";position:absolute;inset:0;border-radius:18px;box-shadow:inset 0 0 0 8px rgba(255,253,247,.16),inset 0 0 70px 26px rgba(84,64,109,.18);pointer-events:none}
+#pgSvg{display:block;width:100%;height:100%}
+.pg-hud{position:absolute;top:12px;left:14px;display:flex;gap:8px}
+.pg-hud span{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;color:#54406D;background:rgba(255,253,247,.85);padding:6px 10px;border-radius:7px}
+.pg-mini{position:absolute;right:12px;bottom:12px;width:86px;height:56px;border-radius:8px;background:rgba(255,253,247,.88);border:1px solid var(--rule);overflow:hidden}
+.pg-mini i{position:absolute;width:34%;height:34%;border:1.5px solid var(--crimson);border-radius:3px;background:rgba(181,52,42,.14);transition:.2s}
+.pg-tip{position:absolute;bottom:12px;left:14px;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.16em;color:#54406D;background:rgba(255,253,247,.85);padding:7px 11px;border-radius:7px}
+.pg-side{display:flex;flex-direction:column;gap:12px}
+.pg-info{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:16px 18px;box-shadow:var(--sh2)}
+.pg-info .sl-tag{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.22em;color:var(--gold2)}
+.pg-info h3{font-family:var(--serif);font-size:24px;font-weight:400;margin-top:4px}
+.pg-state{font-size:12.5px;color:var(--ink2);font-weight:600;display:flex;align-items:center;gap:8px}
+.pg-state .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex:none}
+.pg-opt{border:1.5px solid var(--rule);background:var(--paper);border-radius:12px;padding:13px 15px;text-align:left;font-size:13.5px;font-weight:700;color:var(--ink2);transition:.15s;display:flex;gap:10px;align-items:center}
+.pg-opt .l{font-family:var(--mono);font-size:10px;color:var(--ink3);font-weight:700}
+.pg-opt:hover{border-color:var(--ink);color:var(--ink)}
+.pg-opt.sel{border-color:var(--gold2);background:var(--goldSoft);color:var(--ink)}
+.pg-opt.sel .l{color:var(--gold2)}
+.pg-opt.right{border-color:var(--petrol);background:var(--petrolSoft);color:var(--petrol2)}
+.pg-opt.wrong{border-color:var(--crimson);background:var(--crimsonSoft);color:var(--crimson2)}
+.pg-reveal{background:var(--paper);border:1px solid var(--gold);border-radius:14px;padding:16px 18px;animation:fbIn .5s}
+.pg-reveal .rv-tag{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.2em;color:var(--gold2);margin-bottom:6px}
+.pg-reveal h4{font-family:var(--serif);font-size:21px;font-weight:400}
+.pg-reveal p{font-size:12.5px;color:var(--ink2);line-height:1.6;margin-top:6px}
+.pg-reveal .rv-score{font-family:var(--mono);font-weight:700;color:var(--petrol2);margin-top:8px;font-size:13px}
+
+/* ============ conversion panels ============ */
+.convert{margin-top:22px;border:1.5px solid var(--ink);border-radius:18px;overflow:hidden;background:var(--paper)}
+.convert .cv-top{background:var(--ink);padding:14px 22px;display:flex;align-items:center;gap:12px}
+.convert .cv-top .ep-eyebrow{color:var(--gold)}
+.convert .cv-top b{color:var(--bone);font-size:14px;font-weight:700}
+.convert .cv-body{padding:20px 22px;display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.convert .cv-body p{flex:1;min-width:240px;font-size:13.5px;color:var(--ink2);line-height:1.65}
+.convert .cv-body p b{color:var(--ink)}
+.cv-bonus{display:flex;flex-direction:column;gap:8px;margin-top:14px;padding-top:14px;border-top:1px dashed var(--rule)}
+.cv-bonus .bl{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--ink2);cursor:pointer}
+.cv-bonus .bl:hover{color:var(--ink)}
+.cv-bonus .bl .lock{width:15px;height:15px;flex:none}
+/* vignette preview (bank question mock) */
+.vq-stem{font-size:14.5px;line-height:1.7;color:var(--ink)}
+.vq-stem b{color:var(--crimson2)}
+.vq-opts{margin-top:16px;display:flex;flex-direction:column;gap:8px}
+.vq-opt{display:flex;gap:12px;padding:11px 13px;border:1.5px solid var(--rule);border-radius:10px;font-size:13.5px;line-height:1.5;background:var(--paper)}
+.vq-opt .l{font-family:var(--mono);font-weight:700;font-size:11px;color:var(--ink3);flex:none;padding-top:1px}
+.vq-opt.right{border-color:var(--petrol);background:var(--petrolSoft)}
+.vq-opt.right .l{color:var(--petrol2)}
+.vq-opt.struck{text-decoration:line-through;color:var(--ink3)}
+.vq-why{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.vq-why .w{font-size:12.5px;line-height:1.55;color:var(--ink2);background:var(--bone);border:1px solid var(--rule);border-radius:9px;padding:10px 12px}
+.vq-why .w b{color:var(--crimson2)}
+.vq-cta{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.vq-cta .note{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--ink3);font-weight:700}
+
+/* confetti */
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:180;overflow:hidden}
+.confetti i{position:absolute;width:9px;height:13px;top:-20px;animation:cf linear forwards}
+@keyframes cf{to{transform:translateY(108vh) rotate(660deg);opacity:.9}}
+
+/* ============ responsive ============ */
+@media (max-width:1020px){
+  .diff-wrap{grid-template-columns:1fr}
+  .pg-wrap{grid-template-columns:1fr}
+  .cart-body{grid-template-columns:1fr}
+  .cart-side{flex-direction:row;flex-wrap:wrap}
+  .cart-side .cs-box{flex:1;min-width:200px}
+}
+@media (max-width:860px){
+  .grid{grid-template-columns:1fr}
+  .gnav-btn{padding:8px 9px;font-size:12px}
+  .streak span,.streak .sbar{display:none}
+  .home-strip .hs-cta{margin-left:0;align-items:flex-start}
+  .tb-in{padding:0 14px;gap:10px}
+  .brand .bname{display:none}
+  .fb-cells{grid-template-columns:1fr 1fr}
+  .cart-choices{grid-template-columns:1fr}
+  main{padding:22px 14px 70px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation-duration:.001s!important;transition-duration:.001s!important}
+}
+</style></head>
+<body>
+
+<header class="topbar"><div class="tb-in">
+  <a class="brand" onclick="show('home')"><img class="mark" alt="Anastomosis.MD" src="data:image/jpeg;base64,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"><span class="bname">Anastomosis<em>.MD</em></span></a>
+  <nav class="gnav">
+    <button class="gnav-btn on" data-page="home" onclick="show('home')">Arcade</button>
+    <button class="gnav-btn g1" data-page="diff" onclick="show('diff')">Differential</button>
+    <button class="gnav-btn g2" data-page="conn" onclick="show('conn')">Connections</button>
+    <button class="gnav-btn g3" data-page="cart" onclick="show('cart')">Crash Cart</button>
+    <button class="gnav-btn g4" data-page="patho" onclick="show('patho')">Patho-Guesser</button>
+  </nav>
+  <button class="streak" id="streakChip" onclick="openStreakModal()" title="Daily play streak">
+    <svg width="14" height="16" viewBox="0 0 14 16" fill="none"><path d="M7 0C8 3 11 4 11 8c0 1.6-.8 2.8-1.7 3.5.2-1.3-.3-2.5-1.3-3.2.1 2.2-1 3.1-2.4 4C4.2 13.2 3 14.4 3 16c-1.8-1.3-3-3.5-3-6C0 5.5 4 4.5 4.5 1 5.5 2 6.2 3 6.4 4.4 6.8 2.9 7 1.5 7 0Z" fill="#C9973C"/></svg>
+    <b id="streakN">0</b><span>day streak</span><i class="sbar"><i id="streakBar"></i></i>
+  </button>
+</div></header>
+
+<main>
+
+<!-- ================= HOME ================= -->
+<section class="page on" id="page-home">
+  <div class="hero">
+    <svg class="hero-vessels" viewBox="0 0 1240 150" fill="none" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <path class="vl" pathLength="1" d="M -20 120 C 200 96, 380 60, 560 56 C 600 55, 615 54, 620 54" stroke="#B5342A" stroke-width="3.2" stroke-linecap="round"/>
+      <path class="vr" pathLength="1" d="M 1260 120 C 1040 96, 860 60, 680 56 C 640 55, 625 54, 620 54" stroke="#1B4E5F" stroke-width="3.2" stroke-linecap="round"/>
+      <path class="vout" pathLength="1" d="M 620 54 C 618 44, 620 34, 620 24" stroke="#101418" stroke-width="2.6" stroke-linecap="round"/>
+      <circle class="pop" cx="620" cy="54" r="5" fill="#C9973C" style="animation-delay:1.3s"/>
+      <circle cx="620" cy="54" r="0" fill="none" stroke="#C9973C" stroke-width="1.4">
+        <animate attributeName="r" from="6" to="30" dur="1.6s" begin="2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" from=".7" to="0" dur="1.6s" begin="2s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+    <div class="eyebrow">Anastomosis.MD · The Arcade</div>
+    <h1>Four games.<br><em class="grad">One brain.</em></h1>
+    <p class="sub">Daily clinical puzzles from the team that explains <b>why the other four answers were wrong</b>. No account, no cost — one minute or one coffee. Fair warning: Connections starts arguments.</p>
+    <div class="hero-chips">
+      <span class="hchip">NEW DAILY AT MIDNIGHT</span>
+      <span class="hchip">BUILT FROM 1,822 REAL CASES</span>
+      <span class="hchip">EVERY DISTRACTOR EXPLAINED</span>
+    </div>
+  </div>
+
+  <div class="grid">
+    <article class="gcard g1" onclick="show('diff')">
+      <div class="gc-prev"><svg id="pv1" viewBox="0 0 520 172" preserveAspectRatio="xMidYMid meet"></svg></div>
+      <div class="gc-body">
+        <div class="gc-top"><span class="gc-num">GAME 01</span><span class="gc-live"><i></i>THE DAILY DEDUCTION</span></div>
+        <h2>Differential</h2>
+        <p class="gc-tag">Five clues. One diagnosis.</p>
+        <p class="gc-desc">A daily case revealed in five stages — vignette, exam, labs, image, mechanism. Every guess narrows the field the way it does on the ward: organ, cause, age, treatment.</p>
+        <div class="gc-chips"><span>DAILY</span><span>5 GUESSES</span><span>~4 MIN</span></div>
+        <div class="gc-foot"><span class="vv">VIRAL VECTOR · THE SHARE GRID</span><span class="play">PLAY <svg width="15" height="12" viewBox="0 0 16 12" fill="none"><path d="M0 6h13M9 1l5 5-5 5" stroke="currentColor" stroke-width="2"/></svg></span></div>
+      </div>
+    </article>
+
+    <article class="gcard g2" onclick="show('conn')">
+      <div class="gc-prev"><svg id="pv2" viewBox="0 0 520 172" preserveAspectRatio="xMidYMid meet"></svg></div>
+      <div class="gc-body">
+        <div class="gc-top"><span class="gc-num">GAME 02</span><span class="gc-live"><i></i>THE DAILY SORT</span></div>
+        <h2>Connections</h2>
+        <p class="gc-tag">Sixteen terms. Four groups.</p>
+        <p class="gc-desc">The puzzle that starts arguments. Four categories, four items each — and always one term that almost fits two places. Almost. You get four heartbeats of error margin.</p>
+        <div class="gc-chips"><span>DAILY</span><span>4 MISTAKES</span><span>~3 MIN</span></div>
+        <div class="gc-foot"><span class="vv">VIRAL VECTOR · THE ARGUMENT</span><span class="play">PLAY <svg width="15" height="12" viewBox="0 0 16 12" fill="none"><path d="M0 6h13M9 1l5 5-5 5" stroke="currentColor" stroke-width="2"/></svg></span></div>
+      </div>
+    </article>
+
+    <article class="gcard g3" onclick="show('cart')">
+      <div class="gc-prev"><svg id="pv3" viewBox="0 0 520 172" preserveAspectRatio="xMidYMid meet"></svg></div>
+      <div class="gc-body">
+        <div class="gc-top"><span class="gc-num">GAME 03</span><span class="gc-live"><i></i>THE RESUSCITATION</span></div>
+        <h2>Crash Cart</h2>
+        <p class="gc-tag">Sixty seconds. Three lives.</p>
+        <p class="gc-desc">The ward is crashing and you are the resident. Rapid-fire calls, two options each — a right answer buys you two seconds, a wrong one costs five and a heartbeat.</p>
+        <div class="gc-chips"><span>60 SECONDS</span><span>3 LIVES</span><span>DAILY BOARD</span></div>
+        <div class="gc-foot"><span class="vv">VIRAL VECTOR · THE LEADERBOARD</span><span class="play">PLAY <svg width="15" height="12" viewBox="0 0 16 12" fill="none"><path d="M0 6h13M9 1l5 5-5 5" stroke="currentColor" stroke-width="2"/></svg></span></div>
+      </div>
+    </article>
+
+    <article class="gcard g4" onclick="show('patho')">
+      <div class="gc-prev"><svg id="pv4" viewBox="0 0 520 172" preserveAspectRatio="xMidYMid meet"></svg></div>
+      <div class="gc-body">
+        <div class="gc-top"><span class="gc-num">GAME 04</span><span class="gc-live"><i></i>THE MICROSCOPE</span></div>
+        <h2>Patho-Guesser</h2>
+        <p class="gc-tag">One slide. Hidden hallmark.</p>
+        <p class="gc-desc">GeoGuessr for the microscope. Pan the slide, zoom in, find the cell that makes the diagnosis — then pin it before you commit to the wrong field.</p>
+        <div class="gc-chips"><span>3 SLIDES</span><span>PAN &amp; ZOOM</span><span>GEOGUSSR-SCORED</span></div>
+        <div class="gc-foot"><span class="vv">VIRAL VECTOR · THE CLIP</span><span class="play">PLAY <svg width="15" height="12" viewBox="0 0 16 12" fill="none"><path d="M0 6h13M9 1l5 5-5 5" stroke="currentColor" stroke-width="2"/></svg></span></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="home-strip">
+    <div>
+      <div class="hs-eyebrow">FROM THE ARCADE TO THE BANK</div>
+      <h3>Every game ends where the <em>real prep</em> begins.</h3>
+      <p>Finish a game and the case continues — the full vignette, the imaging, and why every distractor was wrong. Second-order bonuses stay in the bank, where your streak earns free questions.</p>
+    </div>
+    <div class="hs-cta">
+      <button class="btn btn-gold" onclick="openVignette()">See a real vignette <svg width="15" height="12" viewBox="0 0 16 12" fill="none"><path d="M0 6h13M9 1l5 5-5 5" stroke="currentColor" stroke-width="2"/></svg></button>
+      <button class="btn btn-line" style="border-color:#4A4741;color:#B9B2A4" onclick="toast('This is the demo — the real arcade plugs into <b>anastomosis.md</b>')">Start free — 7 days</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GAME 01 · DIFFERENTIAL ================= -->
+<section class="page" id="page-diff">
+  <div class="ghead">
+    <div class="gh-main">
+      <div class="g-eyebrow">Game 01 · The daily deduction</div>
+      <h2 class="g-title">Differential<span class="g-case" id="diffCaseTag"></span></h2>
+    </div>
+    <div class="g-tabs" id="diffTabs"></div>
+    <button class="ghost-btn" onclick="show('home')">← ARCADE</button>
+  </div>
+  <div class="diff-wrap">
+    <div>
+      <div class="clues" id="diffClues"></div>
+    </div>
+    <div>
+      <div class="guess-panel">
+        <div class="gp-label">ENTER A REAL DIAGNOSIS — THE FIELD NARROWS WITH EVERY GUESS</div>
+        <div class="gp-row">
+          <input id="diffInput" placeholder="e.g. Graves disease…" autocomplete="off" spellcheck="false" aria-label="Diagnosis guess">
+          <button class="go" id="diffGo">GUESS</button>
+        </div>
+        <div class="ac"><div class="ac-list" id="diffAc"></div></div>
+        <div class="gp-dots" id="diffDots"><i></i><i></i><i></i><i></i><i></i><span id="diffDotsLabel">5 GUESSES LEFT</span></div>
+      </div>
+      <div id="diffFeedback"></div>
+      <div id="diffEnd"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GAME 02 · CONNECTIONS ================= -->
+<section class="page" id="page-conn">
+  <div class="ghead">
+    <div class="gh-main">
+      <div class="g-eyebrow">Game 02 · The daily sort</div>
+      <h2 class="g-title">Connections<span class="g-case" id="connCaseTag"></span></h2>
+    </div>
+    <div class="conn-mistakes" id="connMistakes"><span class="mk-label">MISTAKES</span></div>
+    <div class="g-tabs" id="connTabs"></div>
+    <button class="ghost-btn" onclick="show('home')">← ARCADE</button>
+  </div>
+  <div class="conn-wrap">
+    <div class="conn-solved" id="connSolved"></div>
+    <div class="conn-grid" id="connGrid"></div>
+    <div class="conn-bar">
+      <button class="cb" id="connShuffle">SHUFFLE</button>
+      <button class="cb" id="connDeselect">DESELECT</button>
+      <button class="cb primary" id="connSubmit" disabled>SUBMIT · 0/4</button>
+    </div>
+    <div id="connEnd"></div>
+  </div>
+</section>
+
+<!-- ================= GAME 03 · CRASH CART ================= -->
+<section class="page" id="page-cart">
+  <div class="ghead">
+    <div class="gh-main">
+      <div class="g-eyebrow">Game 03 · The resuscitation</div>
+      <h2 class="g-title">Crash Cart<span class="g-case">WARD 4 · CODE DAY</span></h2>
+    </div>
+    <button class="ghost-btn" onclick="cartStop(true)">← ARCADE</button>
+  </div>
+  <div class="cart-wrap">
+    <div class="monitor">
+      <svg id="cartStrip" viewBox="0 0 900 96" preserveAspectRatio="none" aria-hidden="true"></svg>
+      <div class="mon-tags">LEAD II · 25 mm/s</div>
+      <div class="mon-hud">
+        <div class="mon-lives" id="cartLives"><i class="life"></i><i class="life"></i><i class="life"></i></div>
+        <div class="mon-timer" id="cartTimer">60</div>
+      </div>
+      <div class="flat-flash" id="cartFlat"></div>
+    </div>
+    <div class="cart-body">
+      <div class="cart-main">
+        <div class="cart-pt" id="cartPt"></div>
+        <div class="cart-q" id="cartQ">The ward is quiet. Too quiet.</div>
+        <div class="cart-choices">
+          <button class="choice" id="cartA"><span class="ch-l">OPTION A</span><span class="ch-t"></span></button>
+          <button class="choice" id="cartB"><span class="ch-l">OPTION B</span><span class="ch-t"></span></button>
+        </div>
+        <div class="cart-why" id="cartWhy"></div>
+      </div>
+      <div class="cart-side">
+        <div class="cs-box"><div class="cs-label">SCORE</div><div class="cs-score" id="cartScore">0</div><div class="cs-combo" id="cartCombo"></div></div>
+        <div class="cs-box cs-board"><div class="cs-label">TOP RESUSCITATIONS · TODAY</div><div id="cartBoard"></div></div>
+      </div>
+    </div>
+    <div class="cart-start" id="cartStart">
+      <div class="cs-inner">
+        <div class="ep-eyebrow" style="color:var(--crimson2)">YOU ARE THE ON-CALL RESIDENT</div>
+        <h3>Sixty seconds.<br>Three lives.</h3>
+        <div class="cart-rules">
+          <div><b>RIGHT CALL</b> +2 seconds on the clock, combo grows — chain them for multipliers.</div>
+          <div><b>WRONG CALL</b> −5 seconds, one heartbeat gone, the monitor remembers.</div>
+          <div><b>FAST CALL</b> Answer within 2 seconds for a +50 speed bonus.</div>
+        </div>
+        <button class="btn btn-ink" onclick="cartStartRun()">Start the code <svg width="15" height="12" viewBox="0 0 16 12" fill="none"><path d="M0 6h13M9 1l5 5-5 5" stroke="currentColor" stroke-width="2"/></svg></button>
+      </div>
+    </div>
+    <div class="cart-over hidden" id="cartOver"></div>
+  </div>
+</section>
+
+<!-- ================= GAME 04 · PATHO-GUESSER ================= -->
+<section class="page" id="page-patho">
+  <div class="ghead">
+    <div class="gh-main">
+      <div class="g-eyebrow">Game 04 · The microscope</div>
+      <h2 class="g-title">Patho-Guesser<span class="g-case" id="pgSlideTag">SLIDE 1/3</span></h2>
+    </div>
+    <button class="ghost-btn" onclick="show('home')">← ARCADE</button>
+  </div>
+  <div class="pg-scorebar">
+    <div class="cs-box" style="padding:12px 18px"><div class="cs-label">TOTAL</div><div class="cs-score" id="pgScore">0</div></div>
+    <div class="cs-box" style="padding:12px 18px"><div class="cs-label">THIS SLIDE</div><div class="cs-score" id="pgSlideScore">—</div></div>
+    <div class="cs-box" style="padding:12px 18px;flex:1"><div class="cs-label">FIELD</div><div class="pg-state" id="pgTimerState"><span class="dot"></span>Scanning…</div></div>
+  </div>
+  <div class="pg-wrap">
+    <div class="pg-view" id="pgView">
+      <svg id="pgSvg" viewBox="0 0 1000 640"></svg>
+      <div class="pg-hud"><span id="pgZoom">×1.0</span><span id="pgSpec">H&amp;E</span></div>
+      <div class="pg-tip" id="pgTip">DRAG TO PAN · SCROLL TO ZOOM · TAP TO PIN</div>
+      <div class="pg-mini"><i id="pgMiniRect"></i></div>
+    </div>
+    <div class="pg-side">
+      <div class="pg-info">
+        <div class="sl-tag" id="pgSpecTag">SPECIMEN 01 · H&amp;E STAIN</div>
+        <h3 id="pgSpecName">Lymph node</h3>
+        <div class="pg-state" style="margin-top:8px"><span class="dot"></span><span id="pgState">Find the hallmark and pin it.</span></div>
+      </div>
+      <div id="pgOptions" style="display:flex;flex-direction:column;gap:8px"></div>
+      <button class="btn btn-ink hidden" id="pgSubmit" onclick="pgSubmit()">DIAGNOSE</button>
+      <div class="pg-reveal hidden" id="pgReveal"></div>
+      <button class="btn btn-gold hidden" id="pgNext" onclick="pgNext()">NEXT SLIDE →</button>
+      <div id="pgEnd"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer style="border-top:1px solid var(--rule);padding:26px 24px;text-align:center">
+  <div class="eyebrow" style="color:var(--ink3)">ANASTOMOSIS.MD · THE ARCADE · CONCEPTS DEMO</div>
+  <p style="color:var(--ink3);font-size:12px;margin-top:10px">Four candidates. One ships. Pick the one you'd screenshot, argue about, or lose a lunch break to — and we'll make it daily.</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+<div id="modalRoot"></div>
+
+<script>
+/* ================================================================
+   ANASTOMOSIS ARCADE — data layer
+   ================================================================ */
+const ORGANS = ['Endocrine','Cardiovascular','Pulmonary','Renal','GI','Neurologic','Hematologic','Rheumatologic','Musculoskeletal','Psychiatric','Reproductive','Dermatologic'];
+const ETIOS  = ['Immune-mediated','Infectious','Neoplastic','Genetic','Toxic-metabolic','Vascular','Idiopathic'];
+const AGES   = ['pediatric','young','mid','older'];
+const AGE_L  = {pediatric:'PEDIATRIC', young:'YOUNG ADULT', mid:'MID ADULT', older:'OLDER ADULT'};
+const TXS    = {antimicrobial:'Antimicrobial', immunosuppressant:'Immunosuppressant', surgery:'Surgery / procedure', repletion:'Repletion / lifestyle', cv:'Cardiovascular drug', hormone:'Hormone therapy', chemo:'Chemo / targeted', supportive:'Supportive / symptomatic'};
+
+/* [name, organ, etiology, age band, sex skew, tx class] */
+const DISEASES = [
+  ['Pheochromocytoma','Endocrine','Neoplastic','mid','~','surgery'],
+  ['Graves disease','Endocrine','Immune-mediated','young','F>','hormone'],
+  ['Hashimoto thyroiditis','Endocrine','Immune-mediated','mid','F>','hormone'],
+  ['Cushing disease','Endocrine','Neoplastic','mid','F>','surgery'],
+  ['Primary hyperaldosteronism','Endocrine','Neoplastic','mid','~','cv'],
+  ['Primary hyperparathyroidism','Endocrine','Neoplastic','older','F>','surgery'],
+  ['Addison disease','Endocrine','Immune-mediated','mid','F>','hormone'],
+  ['Insulinoma','Endocrine','Neoplastic','mid','~','surgery'],
+  ['Type 2 diabetes mellitus','Endocrine','Toxic-metabolic','mid','~','repletion'],
+  ['Carcinoid syndrome','GI','Neoplastic','mid','~','surgery'],
+  ['Essential hypertension','Cardiovascular','Idiopathic','mid','~','cv'],
+  ['Atrial fibrillation','Cardiovascular','Idiopathic','older','M>','cv'],
+  ['Wolff-Parkinson-White','Cardiovascular','Genetic','young','M>','surgery'],
+  ['Coarctation of the aorta','Cardiovascular','Genetic','young','M>','surgery'],
+  ['Fibromuscular dysplasia','Cardiovascular','Idiopathic','young','F>','surgery'],
+  ['Renal artery stenosis','Cardiovascular','Vascular','older','M>','cv'],
+  ['Infective endocarditis','Cardiovascular','Infectious','mid','M>','antimicrobial'],
+  ['Giant cell arteritis','Rheumatologic','Vascular','older','F>','immunosuppressant'],
+  ['Systemic lupus erythematosus','Rheumatologic','Immune-mediated','young','F>','immunosuppressant'],
+  ['Rheumatoid arthritis','Rheumatologic','Immune-mediated','mid','F>','immunosuppressant'],
+  ['Ankylosing spondylitis','Rheumatologic','Immune-mediated','young','M>','immunosuppressant'],
+  ['Fibromyalgia','Musculoskeletal','Idiopathic','mid','F>','supportive'],
+  ['Gout','Musculoskeletal','Toxic-metabolic','mid','M>','supportive'],
+  ['Osteoarthritis','Musculoskeletal','Idiopathic','older','F>','supportive'],
+  ['Panic disorder','Psychiatric','Idiopathic','young','F>','supportive'],
+  ['Major depressive disorder','Psychiatric','Idiopathic','young','F>','supportive'],
+  ['Migraine','Neurologic','Idiopathic','young','F>','supportive'],
+  ['Multiple sclerosis','Neurologic','Immune-mediated','young','F>','immunosuppressant'],
+  ['Guillain-Barré syndrome','Neurologic','Immune-mediated','young','~','immunosuppressant'],
+  ['Subarachnoid hemorrhage','Neurologic','Vascular','mid','~','surgery'],
+  ['Obstructive sleep apnea','Pulmonary','Toxic-metabolic','mid','M>','repletion'],
+  ['Asthma','Pulmonary','Immune-mediated','young','~','supportive'],
+  ['Sarcoidosis','Pulmonary','Idiopathic','mid','F>','immunosuppressant'],
+  ['Tuberculosis','Pulmonary','Infectious','young','~','antimicrobial'],
+  ['Polycystic kidney disease','Renal','Genetic','mid','~','supportive'],
+  ['Nephrolithiasis','Renal','Toxic-metabolic','mid','M>','supportive'],
+  ['Renal cell carcinoma','Renal','Neoplastic','older','M>','surgery'],
+  ['Celiac disease','GI','Immune-mediated','young','F>','repletion'],
+  ['Crohn disease','GI','Immune-mediated','young','~','immunosuppressant'],
+  ['Irritable bowel syndrome','GI','Idiopathic','young','F>','supportive'],
+  ['Chronic pancreatitis','GI','Toxic-metabolic','mid','M>','repletion'],
+  ['Peptic ulcer disease','GI','Infectious','mid','~','antimicrobial'],
+  ['Multiple myeloma','Hematologic','Neoplastic','older','M>','chemo'],
+  ['Acute myeloid leukemia','Hematologic','Neoplastic','older','~','chemo'],
+  ['Iron deficiency anemia','Hematologic','Toxic-metabolic','mid','F>','repletion'],
+  ['Pernicious anemia','Hematologic','Immune-mediated','older','F>','repletion'],
+  ['Sickle cell disease','Hematologic','Genetic','pediatric','~','supportive'],
+  ['Hereditary spherocytosis','Hematologic','Genetic','pediatric','~','surgery'],
+  ['Endometriosis','Reproductive','Idiopathic','young','F>','hormone'],
+  ['Polycystic ovary syndrome','Reproductive','Toxic-metabolic','young','F>','hormone'],
+  ['Preeclampsia','Reproductive','Vascular','young','F>','supportive'],
+  ['Melanoma','Dermatologic','Neoplastic','mid','M>','surgery'],
+  ['Psoriasis','Dermatologic','Immune-mediated','young','~','immunosuppressant'],
+  ['Lyme disease','Musculoskeletal','Infectious','young','~','antimicrobial']
+];
+const DISEASE_MAP = Object.fromEntries(DISEASES.map(d => [d[0], {organ:d[1], etio:d[2], age:d[3], sex:d[4], tx:d[5]}]));
+
+const DIFF_CASES = [
+  {
+    tag:'DAILY · CASE #7', answer:'Pheochromocytoma',
+    nearOrgan:['Neurologic','Cardiovascular'], nearEtio:['Genetic'], nearTx:['cv'],
+    clues:[
+      ['CHIEF COMPLAINT','A <b>38-year-old woman</b> reports two months of episodes — sudden <b>pounding headaches, drenching sweats, and a racing heart</b>. Each lasts 10–20 minutes and resolves completely. Between episodes she feels entirely well; her clinic blood pressure today is 122/78.'],
+      ['PHYSICAL EXAM','During an episode: <b>BP 178/102</b>, pale and diaphoretic with a fine tremor. Abdomen unremarkable. No thyromegaly, no eye signs, no stigmata of chronic disease.'],
+      ['LABS','<b>24-hour urine metanephrines and normetanephrines 5× the upper limit.</b> TSH normal, free T4 normal. Glucose 118 mg/dL. Potassium 4.0.'],
+      ['IMAGING · HISTO','Contrast CT: <b>4.2-cm right adrenal mass</b>, avidly enhancing. Tumor cells stain <b>chromogranin and synaptophysin positive</b>; electron microscopy shows dense-core neurosecretory granules.'],
+      ['MECHANISM','A <b>catecholamine-secreting tumor of chromaffin tissue</b>. The rule of 10s: 10% bilateral, 10% extra-adrenal, 10% malignant, 10% familial — MEN 2A/2B, VHL, NF1.']
+    ],
+    why:'The classic triad is episodic <b>headache + sweating + palpitations</b> with paroxysmal hypertension, and feeling completely normal between spells. Screen with plasma free metanephrines; confirm with 24-hour urine. Always establish <b>α-blockade before β-blockade</b> — a β-blocker alone leaves vasoconstriction unopposed and can precipitate a crisis.',
+    bonus:'Bonus · second-order: which embryonic structure gave us the adrenal medulla?',
+    vignette:{
+      stem:'A 38-year-old woman is evaluated in clinic for recurrent episodes of pounding headaches accompanied by drenching sweats and palpitations. Each episode lasts roughly 15 minutes and resolves without intervention; she feels well between episodes. Blood pressure today is 124/78; during a prior episode it was recorded at 186/104. She has no personal or family history of hypertension. Which of the following is the most appropriate next step in management?',
+      opts:[
+        ['A','Begin an oral β-blocker and reassess in two weeks',false,true],
+        ['B','Start an α-blocker before considering any β-blockade',true,false],
+        ['C','Begin a thiazide diuretic and restrict sodium',false,true],
+        ['D','Reassure; order ambulatory blood-pressure monitoring only',false,true]
+      ],
+      why:[['A','Unopposed α-stimulation from a β-blocker can worsen hypertension and precipitate vascular crisis — blockade order matters.'],['C','An antihypertensive treats the number, not the catecholamine source — and medical therapy starts with α-blockade anyway.'],['D','Her episodic spells with documented severe hypertension plus classic triad warrant biochemical screening now — plasma free metanephrines.']]
+    }
+  },
+  {
+    tag:'PRACTICE · CASE #A3', answer:'Celiac disease',
+    nearOrgan:['Hematologic','Dermatologic'], nearEtio:['Infectious'], nearTx:['supportive'],
+    clues:[
+      ['CHIEF COMPLAINT','A <b>26-year-old woman</b> has six months of bloating, loose stools, and a 6-kg weight loss. Last summer she had an <b>itchy blistering rash over her elbows</b>.'],
+      ['PHYSICAL EXAM','<b>BMI 18.4</b>. Mild pallor. Post-inflammatory marks over the extensor surfaces of both forearms. No edema, no ascites, no joint findings.'],
+      ['LABS','Hgb <b>10.9</b>, <b>MCV 79</b>, low ferritin and low folate. <b>Anti-tissue-transglutaminase IgA strongly positive</b>; total IgA normal. TSH normal.'],
+      ['HISTO · BIOPSY','Duodenal biopsy: <b>villus atrophy, crypt hyperplasia, intraepithelial lymphocytosis</b>. Biopsy of the elbow rash shows <b>IgA deposited at the dermal papillae</b>.'],
+      ['MECHANISM','Deamidated <b>gliadin peptides presented on HLA-DQ2/DQ8</b> drive an immune attack on the proximal small bowel — iron and folate are absorbed exactly where the mucosa suffers most.']
+    ],
+    why:'Malabsorption with <b>iron and folate deficiency first</b> points to the proximal duodenum; anti-tTG IgA with villous atrophy confirms. Dermatitis herpetiformis is the skin of the same disease — dapsone treats the rash, only a <b>gluten-free diet treats the bowel</b>. Persistent symptoms despite diet warrant hunting for small-bowel lymphoma.',
+    bonus:'Bonus · second-order: which HLA haplotype carries most of the genetic risk?',
+    vignette:{
+      stem:'A 26-year-old woman presents with six months of bloating, non-bloody diarrhea, and unintentional weight loss. Laboratory studies show iron deficiency and folate deficiency with a microcytic anemia. Serology is strongly positive for anti-tissue transglutaminase IgA. Which of the following findings would most likely be seen on small-bowel biopsy?',
+      opts:[
+        ['A','Villous atrophy with crypt hyperplasia and intraepithelial lymphocytosis',true,false],
+        ['B','Non-caseating granulomas with transmural skip lesions',false,true],
+        ['C','Continuous mucosal inflammation starting at the rectum',false,true],
+        ['D','Pseudomembranes overlying an inflamed mucosa',false,true]
+      ],
+      why:[['B','Transmural skip lesions with non-caseating granulomas describe Crohn disease.'],['C','Continuous rectal involvement describes ulcerative colitis.'],['D','Pseudomembranes point to Clostridioides difficile — not chronic malabsorption with positive tTG serology.']]
+    }
+  },
+  {
+    tag:'PRACTICE · CASE #B1', answer:'Multiple myeloma',
+    nearOrgan:['Renal','Musculoskeletal'], nearEtio:['Genetic'], nearTx:['surgery'],
+    clues:[
+      ['CHIEF COMPLAINT','A <b>68-year-old man</b> has three months of fatigue and "arthritis" — <b>back and rib pain</b> worse with movement, unrelieved by rest. Two chest infections this winter.'],
+      ['PHYSICAL EXAM','Pallor and thoracic spine tenderness. <b>No joint swelling or morning stiffness</b>. No fever. Prostate exam unremarkable.'],
+      ['LABS','Hgb <b>9.8</b> (normocytic), creatinine <b>1.9</b>, calcium <b>11.8</b>, total protein <b>9.6</b> with normal albumin. Peripheral smear: <b>red cells stacked like coins</b>.'],
+      ['IMAGING · HISTO','Skeletal survey: <b>punched-out lytic lesions</b> of the skull and ribs without osteoblastic reaction. Marrow: <b>sheets of plasma cells</b>; serum electrophoresis shows an <b>IgG κ M-spike</b>.'],
+      ['MECHANISM','A single plasma-cell clone makes monoclonal immunoglobulin. <b>CRAB</b> — hyper<b>C</b>alcemia, <b>R</b>enal injury from cast nephropathy, <b>A</b>nemia, <b>B</b>one disease via osteoclast-activating RANKL. Not arthritis at all.']
+    ],
+    why:'Older adult + back pain + anemia + renal impairment + hypercalcemia = think <b>CRAB</b>. The M protein stacks erythrocytes into <b>rouleaux</b> (elevated ESR) while functional immunoglobulin falls — hence recurrent infections with encapsulated organisms. Roughly 1% of smoldering cases convert per year.',
+    bonus:'Bonus · second-order: which immunoglobulin heavy chain is the most common M-spike?',
+    vignette:{
+      stem:'A 68-year-old man is evaluated for three months of fatigue, mid-back pain, and two episodes of lobar pneumonia. Laboratory studies reveal a normocytic anemia, elevated creatinine, and serum calcium of 11.8 mg/dL. Serum protein electrophoresis demonstrates a monoclonal IgG κ spike. Which of the following mechanisms best explains his bone findings?',
+      opts:[
+        ['A','Osteoclast activation by tumor-derived RANKL producing lytic lesions',true,false],
+        ['B','Osteoblastic metastasis from prostate cancer',false,true],
+        ['C','Humoral hypercalcemia via PTH-related peptide',false,true],
+        ['D','Immune complex deposition causing erosive arthropathy',false,true]
+      ],
+      why:[['B','Prostate metastases are osteoblastic — his survey showed purely lytic, punched-out lesions.'],['C','PTHrP is the mechanism of squamous-cell lung carcinoma hypercalcemia, not plasma-cell disease.'],['D','His pain is bone destruction, not synovitis — no true joint disease on exam.']]
+    }
+  }
+];
+
+/* ---------------- CONNECTIONS PUZZLES ---------------- */
+const CONN_PUZZLES = [
+  {
+    tag:'DAILY · #4', title:'The infectious ones',
+    cats:[
+      {d:'y', name:'Bloody, invasive diarrhea', items:['Shigella','Campylobacter','Salmonella','E. coli O157:H7'], why:'Mucosal invasion → dysentery. No antibiotics for O157:H7 — Shiga-like toxin drives HUS.'},
+      {d:'g', name:'Watery, secretory diarrhea', items:['Vibrio cholerae','Rotavirus','ETEC','Cryptosporidium'], why:'Toxin-mediated secretion without invasion: cholera ADP-ribosylates Gs; rotavirus makes NSP4; ETEC ships LT/ST.'},
+      {d:'b', name:'In metronidazole\u2019s crosshairs', items:['Giardia','Entamoeba histolytica','Trichomonas vaginalis','Bacteroides fragilis'], why:'The anaerobe workhorse — flagellates, amoebae, and the anaerobe behind most intra-abdominal abscesses.'},
+      {d:'p', name:'Toxin-mediated food poisoning (no invasion)', items:['S. aureus','B. cereus','C. perfringens','C. botulinum'], why:'Vomiting <6 h means preformed toxin (staph, B. cereus emetic); cramps 8–16 h point to C. perfringens; botulinum blocks ACh release.'}
+    ]
+  },
+  {
+    tag:'PRACTICE · #A1', title:'The pharmacist\u2019s drawer',
+    cats:[
+      {d:'y', name:'Dry cough', items:['Enalapril','Lisinopril','Captopril','Benazepril'], why:'ACE degrades bradykinin — inhibit it and bradykinin accumulates: cough in up to 15%, plus angioedema risk.'},
+      {d:'g', name:'Gingival hyperplasia', items:['Phenytoin','Cyclosporine','Verapamil','Nifedipine'], why:'Three unrelated mechanisms, one overgrown gum — the classic exam quartet.'},
+      {d:'b', name:'Drug-induced lupus', items:['Hydralazine','Procainamide','Isoniazid','Minocycline'], why:'Anti-histone antibodies; renal and CNS involvement almost never occur.'},
+      {d:'p', name:'Raise serum urate', items:['Hydrochlorothiazide','Furosemide','Niacin','Low-dose aspirin'], why:'All four can flare gout — low-dose aspirin is the favorite "wait, that too?" answer.'}
+    ]
+  },
+  {
+    tag:'PRACTICE · #B2', title:'The smear',
+    cats:[
+      {d:'y', name:'Sickle cell disease', items:['Sickled cells','Vaso-occlusive pain crisis','Salmonella osteomyelitis','Howell-Jolly bodies'], why:'HbS polymerizes under low O₂; autosplenectomy removes Howell-Jolly clearance and encapsulated-bug immunity.'},
+      {d:'g', name:'G6PD deficiency', items:['Heinz bodies','Bite cells','X-linked recessive','Primaquine-triggered hemolysis'], why:'No reduced glutathione → oxidant stress denatures Hb into Heinz bodies; the spleen bites them out.'},
+      {d:'b', name:'Multiple myeloma', items:['Rouleaux','Punched-out lesions','Bence-Jones proteinuria','Hypercalcemia'], why:'Monoclonal protein stacks the red cells; RANKL-driven osteolysis empties calcium from lytic bone.'},
+      {d:'p', name:'Acute promyelocytic leukemia', items:['Auer rods','t(15;17)','DIC at presentation','ATRA differentiation cure'], why:'PML-RARA freezes the cell at the promyelocyte stage; ATRA forces it to grow up — granule rupture drives the DIC.'}
+    ]
+  }
+];
+
+/* ---------------- CRASH CART SCENARIOS ---------------- */
+const CART_CASES = [
+  {pt:'78M · dialysis patient · K⁺ 7.2', q:'Peaked T waves, widening QRS. Stabilize the myocardium — what goes in first?', a:'IV calcium gluconate', b:'Insulin + dextrose', ok:0, why:'Calcium restores the threshold gradient <b>immediately</b> — insulin shifts potassium but takes 30 minutes. Do both; calcium buys the time.'},
+  {pt:'24M · stabbed at the 5th intercostal line', q:'Absent left breath sounds, trachea deviated, BP 76/40. Next move?', a:'Needle decompression', b:'CT chest', ok:0, why:'Tension pneumothorax is a <b>clinical</b> diagnosis — the CT suite is where tension physiology goes to die. Needle first, imaging never.'},
+  {pt:'22F · palpitations · narrow-complex 190', q:'Stable SVT in a young patient. Your first maneuver?', a:'Vagal maneuvers', b:'IV adenosine', ok:0, why:'Valsalva or carotid massage terminates up to a third of cases — adenosine is the first <b>drug</b>, not the first move.'},
+  {pt:'19M · penicillin · minutes ago', q:'Urticaria, wheeze, BP 82/50 after IV amoxicillin. First line?', a:'IM epinephrine, anterolateral thigh', b:'IV diphenhydramine', ok:0, why:'Epinephrine is the only drug that reverses the whole cascade — α tone, bronchodilation, mast-cell stabilization. Antihistamines treat the rash, not the death.'},
+  {pt:'61M · seizing for 6 minutes', q:'Generalized convulsion, no history, glucose normal. First-line agent?', a:'IV lorazepam', b:'IV levetiracetam', ok:0, why:'Benzodiazepines are first-line in status — GABA-A agonism stops seizures <b>now</b>; second-line agents come after a benzodiazepine fails.'},
+  {pt:'49F · obtunded · found at home', q:'Chronically alcoholic, obtunded, needs glucose. What goes in with it?', a:'Thiamine first, then glucose', b:'Glucose alone, thiamine later', ok:0, why:'Glucose drives thiamine-depleted neurons into Wernicke encephalopathy — <b>thiamine before glucose</b> is the order that never changes.'},
+  {pt:'33M · DKA · pH 6.98', q:'Ketotic, dry, Kussmaul breathing. What is the first step of therapy?', a:'IV isotonic saline', b:'IV insulin bolus', ok:0, why:'Rehydrate first — insulin without volume drops into a shrunken vessel and plasma potassium with it. Fluids, then insulin, then potassium replacement.'},
+  {pt:'27F · swallowed her whole bottle', q:'Amitriptyline overdose: QRS 140 ms, twitching. What do you push?', a:'Sodium bicarbonate', b:'Physostigmine', ok:0, why:'TCAs block fast sodium channels — sodium loading plus alkalinization narrows the QRS. Physostigmine risks asystole here.'},
+  {pt:'58M · tearing pain to the back', q:'Widened mediastinum, SBP 190, aortic dissection. Which first?', a:'IV esmolol', b:'IV nitroprusside', ok:0, why:'Rate and shear come first — lower the pressure only <b>after</b> the heart is slowed, or reflex tachycardia tears the flap further.'},
+  {pt:'31F · 34 weeks, seizing', q:'Eclamptic seizure on the ward. Drug of choice?', a:'IV magnesium sulfate', b:'IV lorazepam + induction', ok:0, why:'Magnesium stops the seizure and prevents the next one — delivery is the cure, but magnesium protects the mother on the way there.'},
+  {pt:'20M · fever, stiff neck, petechiae', q:'Suspected meningococcemia, BP 84/48. Empiric therapy timing?', a:'Antibiotics now, before imaging', b:'CT first, then LP, then antibiotics', ok:0, why:'Never delay antibiotics for a CT or LP — every hour of delay measurably raises mortality. Steroids can wait a minute; ceftriaxone cannot.'},
+  {pt:'66M · 2 days post-MI', q:'Hypotension, JVD, muffled sounds, pulsus paradoxus. Treatment?', a:'Pericardiocentesis', b:'IV diuretic', ok:0, why:'Beck triad = tamponade. Diuresing a compressed heart with no preload to spare is how you convert tamponade into arrest.'},
+  {pt:'44F · β-blocker overdose', q:'Bradycardia 34, hypotensive, two doses of atropine did nothing. Now what?', a:'IV glucagon', b:'More atropine', ok:0, why:'Glucagon bypasses the blocked β-receptor entirely — it activates adenylyl cyclase directly. Atropine rarely rescues β-blocker overdose.'},
+  {pt:'74F · found unresponsive at home', q:'Unresponsive, no focal signs, fingerstick reads 32. Push what?', a:'IV dextrose', b:'IV naloxone', ok:0, why:'In any altered patient: glucose, thiamine, naloxone — but the meter already told you the answer. Sugar first.'},
+  {pt:'69M · septic · MAP 54 after 2 L', q:'Septic shock, still hypotensive after fluids. First vasopressor?', a:'Norepinephrine', b:'Dopamine', ok:0, why:'Norepinephrine is first-line — dopamine brings more arrhythmia for the same pressure. The trials settled this.'},
+  {pt:'12M · after succinylcholine', q:'OR day: masseter spasm, 41.5°C, rigid core. What do you push?', a:'Dantrolene', b:'Cooling blankets only', ok:0, why:'Malignant hyperthermia = runaway calcium release from the ryanodine receptor. Dantrolene closes the channel; everything else is decoration.'},
+  {pt:'28F · on sertraline, given linezolid', q:'Clonus, hyperreflexia, diaphoresis after an SSRI plus an MAOI-active antibiotic. Antidote?', a:'Cyproheptadine', b:'Bromocriptine', ok:0, why:'Serotonin syndrome → 5-HT blockade with cyproheptadine. Bromocriptine is for NMS — and dopamine agonists can worsen serotonin toxicity.'},
+  {pt:'41M · pesticide worker', q:'Pinpoint pupils, salivating, bradycardic after organophosphate exposure. Give?', a:'Atropine + pralidoxime', b:'Physostigmine', ok:0, why:'Atropine for the muscarinic flood, pralidoxime to reactivate cholinesterase before it ages. Physostigmine is another cholinesterase inhibitor — you would be watering the fire.'},
+  {pt:'16F · 8 hours after a Tylenol fight', q:'Acetaminophen level sits above the treatment line. Antidote?', a:'N-acetylcysteine', b:'Hemodialysis', ok:0, why:'NAC replenishes glutathione so the liver stops making NAPQI. Dialysis is for levels far beyond the line or instability — not first-line.'},
+  {pt:'55M · massive PE · BP 70', q:'RV strain on echo, hypotensive embolus. Beyond anticoagulation?', a:'Systemic thrombolysis', b:'Anticoagulation alone', ok:0, why:'A hypotensive PE is a <b>massive</b> PE — clot lysis is life-saving if there is no contraindication. Heparin alone is for the stable.'},
+  {pt:'23F · QT drug + hypokalemia', q:'Torsades de pointes on the monitor. First drug?', a:'IV magnesium', b:'IV amiodarone', ok:0, why:'Magnesium terminates torsades even when the level is normal. Amiodarone prolongs QT — it is the wrong drum for this rhythm.'},
+  {pt:'61F · confusion · Ca²⁺ 13.9', q:'Altered with symptomatic hypercalcemia. Initial therapy?', a:'IV isotonic saline', b:'IV furosemide', ok:0, why:'She is dry — volume first, always. Loop diuretics come after repletion, and only if calcium will not fall.'},
+  {pt:'48M · cirrhosis · hematemesis', q:'Known varices, vomiting blood, Hgb 7.2. Next step?', a:'Octreotide + PPI, then urgent endoscopy', b:'Immediate surgical shunt', ok:0, why:'Pharmacologic control first, scope within 12 hours — shunts are rescue therapy, not the opening move.'}
+];
+
+/* ---------------- PATHO SLIDE DATA (drawn, seeded) ---------------- */
+const PG_SLIDES = [
+  {
+    spec:'SPECIMEN 01 · H&E STAIN', name:'Lymph node', field:'node',
+    find:'Somewhere in this node hides the cell that makes the diagnosis.',
+    options:['Hodgkin lymphoma','Follicular lymphoma','Metastatic carcinoma','Reactive hyperplasia'], correct:0,
+    pearl:['Reed-Sternberg cell','A binucleate (or bilobed) B-cell with <b>owl-eye nucleoli</b> and abundant cytoplasm — CD15⁺/CD30⁺, CD45⁻. Find one and you have Hodgkin lymphoma; the background crowd reacting to it is the rest of the story.']
+  },
+  {
+    spec:'SPECIMEN 02 · WRIGHT STAIN', name:'Peripheral smear', field:'smear',
+    find:'The shape of the red cells tells on the hemoglobin inside them.',
+    options:['Sickle cell disease','β-thalassemia major','G6PD deficiency','Hereditary spherocytosis'], correct:0,
+    pearl:['Irreversibly sickled erythrocytes','HbS <b>polymerizes under low O₂</b> into tactoids that warp the membrane — the crescents you pinned. Once the spleen auto-infarcts, expect target cells and Howell-Jolly bodies next door.']
+  },
+  {
+    spec:'SPECIMEN 03 · H&E STAIN', name:'Bone marrow', field:'marrow',
+    find:'One needle in a haystack of blasts — and it is the needle that names the disease.',
+    options:['Acute promyelocytic leukemia','Acute lymphoblastic leukemia','CML blast phase','Myelodysplastic syndrome'], correct:0,
+    pearl:['Auer rods','Azurophilic primary-granule aggregates — <b>pathognomonic for myeloid lineage</b>. In t(15;17) APL, promyelocyte granules also drive the DIC that kills these patients before the leukemia does.']
+  }
+];
+
+/* ================================================================
+   SHELL — navigation, streak, toast, modal, share
+   ================================================================ */
+const $ = id => document.getElementById(id);
+let PAGE = 'home';
+function show(p){
+  PAGE = p;
+  document.querySelectorAll('.page').forEach(s => s.classList.toggle('on', s.id === 'page-'+p));
+  document.querySelectorAll('.gnav-btn').forEach(b => b.classList.toggle('on', b.dataset.page === p));
+  window.scrollTo({top:0, behavior:'instant' in window ? 'instant' : 'auto'});
+  if(p === 'home') startPreviews();
+}
+let toastT = null;
+function toast(msg, ms){
+  const t = $('toast');
+  t.innerHTML = msg; t.classList.add('on');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => t.classList.remove('on'), ms || 2600);
+}
+function openModal(html){
+  $('modalRoot').innerHTML = `<div class="modal-bg" onclick="if(event.target===this)closeModal()"><div class="modal">${html}</div></div>`;
+}
+function closeModal(){ $('modalRoot').innerHTML = ''; }
+function copyText(t, label){
+  const done = () => toast((label || 'Copied') + ' — paste it anywhere.<br><b>' + t.split('\n')[0].slice(0,60) + (t.split('\n')[0].length>60?'…':'') + '</b>');
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(done, () => fallbackCopy(t, done));
+  } else fallbackCopy(t, done);
+}
+function fallbackCopy(t, done){
+  try{
+    const ta = document.createElement('textarea');
+    ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta); done();
+  }catch(e){ toast('Copy blocked — select it manually'); }
+}
+function confetti(){
+  const c = document.createElement('div'); c.className = 'confetti';
+  const cols = ['#B5342A','#1B4E5F','#C9973C','#101418'];
+  for(let i=0;i<34;i++){
+    const s = document.createElement('i');
+    s.style.left = (Math.random()*100) + 'vw';
+    s.style.background = cols[i%4];
+    s.style.animationDuration = (1.1 + Math.random()*0.9) + 's';
+    s.style.animationDelay = (Math.random()*0.25) + 's';
+    s.style.transform = 'rotate(' + (Math.random()*360) + 'deg)';
+    c.appendChild(s);
+  }
+  document.body.appendChild(c);
+  setTimeout(() => c.remove(), 2400);
+}
+/* ---- streak ---- */
+function store(){ try{ return JSON.parse(localStorage.getItem('anastomosis-arcade') || '{}'); }catch(e){ return {}; } }
+function saveStore(s){ try{ localStorage.setItem('anastomosis-arcade', JSON.stringify(s)); }catch(e){} }
+function todayStr(){ return new Date().toISOString().slice(0,10); }
+function markStreak(){
+  const s = store();
+  const t = todayStr();
+  if(s.last === t) { renderStreak(); return; }
+  const y = new Date(Date.now()-864e5).toISOString().slice(0,10);
+  s.count = (s.last === y) ? (s.count||0) + 1 : 1;
+  s.last = t;
+  if(s.count === 7){ s.count = 0; saveStore(s); renderStreak(); openStreakUnlock(); return; }
+  saveStore(s); renderStreak();
+}
+function renderStreak(){
+  const s = store();
+  const n = (s.last === todayStr()) ? (s.count||0) : 0;
+  $('streakN').textContent = n;
+  $('streakBar').style.width = Math.min(100, (n/7)*100) + '%';
+}
+function openStreakModal(){
+  const s = store();
+  const n = (s.last === todayStr()) ? (s.count||0) : 0;
+  openModal(`<div class="modal-hd"><div class="ep-eyebrow">DAILY STREAK</div><button class="modal-x" onclick="closeModal()">CLOSE ✕</button></div>
+  <div class="modal-bd">
+    <div class="ep-title" style="font-size:32px">${n}-day streak</div>
+    <p class="ep-sub">Play any game to keep it alive — miss a day and it resets. Streaks are the arcade's memory of you.</p>
+    <div class="stat-row"><div class="stat"><b>${n}/7</b><span>TO UNLOCK</span></div><div class="stat"><b>20</b><span>FREE QUESTIONS</span></div><div class="stat"><b>1</b><span>CHEAT SHEET PDF</span></div></div>
+    <div class="ep-actions"><button class="btn btn-ink btn-sm" onclick="closeModal();show('diff')">Keep it going</button></div>
+  </div>`);
+}
+function openStreakUnlock(){
+  confetti();
+  openModal(`<div class="modal-hd"><div class="ep-eyebrow" style="color:var(--gold2)">7-DAY STREAK UNLOCKED</div><button class="modal-x" onclick="closeModal()">CLOSE ✕</button></div>
+  <div class="modal-bd">
+    <div class="ep-title win">20 free questions.</div>
+    <p class="ep-sub">A matched set from the systems you've been guessing wrong in the arcade — every distractor explained, like always.</p>
+    <div class="ep-actions"><button class="btn btn-gold btn-sm" onclick="toast('This is the demo — rewards live on <b>anastomosis.md</b>')">Claim in the bank</button></div>
+  </div>`);
+}
+
+/* ---- conversion machinery ---- */
+function conversionPanel(c){
+  return `<div class="convert">
+    <div class="cv-top"><div class="ep-eyebrow">FROM THE ARCADE TO THE BANK</div><b>${c.tag}</b></div>
+    <div class="cv-body">
+      <p>${c.body}</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        ${c.vignette ? `<button class="btn btn-ink btn-sm" onclick="openVignette()">Review the full vignette <svg width="13" height="10" viewBox="0 0 16 12" fill="none"><path d="M0 6h13M9 1l5 5-5 5" stroke="currentColor" stroke-width="2"/></svg></button>` : ''}
+        <button class="btn btn-line btn-sm" onclick="toast('This is the demo — the bank lives on <b>anastomosis.md</b>')">Open the bank</button>
+      </div>
+    </div>
+    <div style="padding:0 22px 18px">
+      <div class="cv-bonus">
+        <div class="bl" onclick="toast('Second-order questions live in the bank — <b>free to start</b>')">
+          <svg class="lock" viewBox="0 0 15 15" fill="none"><rect x="2" y="6.5" width="11" height="7.5" rx="1.5" stroke="#9A742C" stroke-width="1.6"/><path d="M4.5 6.5V4.8a3 3 0 0 1 6 0v1.7" stroke="#9A742C" stroke-width="1.6"/></svg>
+          ${c.bonus}
+        </div>
+        <div class="bl" style="color:var(--ink3);font-weight:600" onclick="openStreakModal()">
+          <svg class="lock" viewBox="0 0 15 15" fill="none"><path d="M7.5 1C8.4 3.4 11 4.4 11 8a3.5 3.5 0 0 1-7 0C4 4.4 6.6 3.4 7.5 1Z" fill="#C9973C"/><path d="M6 12.5h3" stroke="#C9973C" stroke-width="1.4" stroke-linecap="round"/></svg>
+          Streak: <b id="cvStreak" style="color:var(--gold2)">${(store().count)||1} days</b> · 7 unlocks 20 free questions
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+function openVignette(v){
+  v = v || DIFF_CASES[0].vignette;
+  const opts = v.opts.map((o,i) => `<div class="vq-opt ${o[3]?'struck':''}" data-right="${o[2]}" onclick="vqPick(this)"><span class="l">${o[0]}</span><span>${o[1]}</span></div>`).join('');
+  const why = v.why.map(w => `<div class="w"><b>${w[0]} is wrong.</b> ${w[1]}</div>`).join('');
+  openModal(`<div class="modal-hd"><div class="ep-eyebrow">BANK QUESTION · STYLE PREVIEW</div><button class="modal-x" onclick="closeModal()">CLOSE ✕</button></div>
+  <div class="modal-bd">
+    <div class="vq-stem">${v.stem}</div>
+    <div class="vq-opts">${opts}</div>
+    <div class="vq-why" id="vqWhy" style="display:none">${why}
+      <div class="w"><b style="color:var(--petrol2)">Why the right answer works.</b> The arcade case and the bank vignette share the same reasoning — the bank just takes it three orders deeper, with imaging and a full distractor autopsy.</div>
+    </div>
+    <div class="vq-cta">
+      <button class="btn btn-gold btn-sm" onclick="toast('This is the demo — the bank lives on <b>anastomosis.md</b>')">Try 7 days free</button>
+      <span class="note">NO CARD REQUIRED · AUTO-RENEW IS YOUR CHOICE, NOT OUR DEFAULT</span>
+    </div>
+  </div>`);
+}
+function vqPick(el){
+  document.querySelectorAll('.vq-opt').forEach(o => o.style.pointerEvents = 'none');
+  if(el.dataset.right === 'true'){ el.classList.add('right'); toast('<b>Correct.</b> Now imagine this with the imaging, the labs panel, and the second-order bonus.'); }
+  else { el.classList.add('right'); el.classList.remove('struck'); el.style.borderColor = 'var(--crimson)'; el.style.background = 'var(--crimsonSoft)'; toast('In the bank, every wrong pick gets its <b>why</b> — see below.'); }
+  $('vqWhy').style.display = 'flex';
+}
+
+/* ================================================================
+   HOME PREVIEWS — the attract mode
+   ================================================================ */
+const PV = {t:0, timer:60};
+function pvSVG(id, w, h, inner){ const s = $(id); if(s){ s.setAttribute('viewBox', `0 0 ${w} ${h}`); s.innerHTML = inner; } }
+function buildPreviews(){
+  /* 01 Differential — attribute grid filling */
+  let d = '';
+  for(let r=0;r<4;r++) for(let c=0;c<4;c++){
+    const st = [[0,1,0,2],[1,1,1,0],[2,0,1,1],[1,1,1,1]][r][c]; /* 0 miss 1 near 2 hit */
+    d += `<rect class="pv1-c" data-r="${r}" data-c="${c}" data-st="${st}" x="${96+c*40}" y="${22+r*34}" width="26" height="26" rx="6" fill="#E3DCCC"/>`;
+  }
+  d += `<text x="96" y="172" font-family="'Instrument Serif',serif" font-style="italic" font-size="21" fill="#101418">anastomosis</text>`;
+  pvSVG('pv1', 520, 172, d);
+  /* 02 Connections — grouping tiles */
+  const cols = ['#EFE9DC','#EFE9DC','#EFE9DC','#EFE9DC'];
+  let c2 = '';
+  const names = ['Shigella','Vibrio','Giardia','Staph','Campy','Rota','Amoeba','B. cer','Salmon','ETEC','Trich','Perfr','O157','Crypto','Bact','Botul'];
+  names.forEach((n,i) => {
+    const r = Math.floor(i/4), c = i%4;
+    c2 += `<rect class="pv2-c" data-i="${i}" x="${60+c*104}" y="${18+r*38}" width="96" height="30" rx="7" fill="#FFFDF7" stroke="#E3DCCC"/>
+           <text x="${60+c*104+48}" y="${18+r*38+19}" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#4A4741">${n}</text>`;
+  });
+  pvSVG('pv2', 520, 172, c2);
+  /* 03 Crash Cart — monitor + timer */
+  const beats = [];
+  for(let i=0;i<7;i++){ const x = 30+i*74; beats.push(`M ${x} 60 L ${x+18} 60 L ${x+24} 44 L ${x+30} 74 L ${x+36} 8 L ${x+42} 82 L ${x+48} 60 L ${x+66} 60`); }
+  pvSVG('pv3', 520, 172,
+    `<g clip-path="url(#pv3c)"><defs><clipPath id="pv3c"><rect x="40" y="30" width="380" height="70" rx="10"/></clipPath></defs>
+     <rect x="40" y="30" width="380" height="70" rx="10" fill="#143C4A"/>
+     <path class="pv3-trace" d="${beats.join(' ')}" stroke="#C9973C" stroke-width="2.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/></g>
+     <text class="pv3-num" x="446" y="58" font-family="'JetBrains Mono',monospace" font-size="30" font-weight="700" fill="#101418">60</text>
+     <text x="446" y="82" font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#8A857A" letter-spacing="2">SEC</text>
+     <g>
+       <circle cx="446" cy="118" r="5" fill="#B5342A"/><circle cx="468" cy="118" r="5" fill="#B5342A"/><circle cx="490" cy="118" r="5" fill="#B5342A"/>
+       <text x="40" y="122" font-family="'JetBrains Mono',monospace" font-size="9" font-weight="700" fill="#8A857A" letter-spacing="2">LIVES</text>
+     </g>`);
+  /* 04 Patho-Guesser — drifting field + ping */
+  let cells = '';
+  for(let i=0;i<16;i++){
+    const x = 60+((i*53)%400), y = 18+((i*31)%130);
+    cells += `<circle cx="${x}" cy="${y}" r="${5+(i%4)}" fill="#E9B7BC"/><circle cx="${x+2}" cy="${y-2}" r="${2.4+(i%2)}" fill="#6E5391"/>`;
+  }
+  pvSVG('pv4', 520, 172,
+    `<g clip-path="url(#pv4c)"><defs><clipPath id="pv4c"><rect x="40" y="16" width="380" height="120" rx="12"/></clipPath></defs>
+     <rect x="40" y="16" width="380" height="120" rx="12" fill="#F0D5D8"/>
+     <g class="pv4-drift">${cells}
+       <circle cx="330" cy="80" r="13" fill="#F3DCDF" stroke="#6E5391" stroke-width="1.4"/>
+       <circle cx="326" cy="76" r="5.5" fill="#54406D"/><circle cx="336" cy="78" r="5.5" fill="#54406D"/>
+       <circle cx="326" cy="76" r="1.7" fill="#C9973C"/><circle cx="336" cy="78" r="1.7" fill="#C9973C"/>
+     </g>
+     <circle class="pv4-ping" cx="330" cy="80" r="10" fill="none" stroke="#B5342A" stroke-width="1.6"/></g>
+     <text x="40" y="156" font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#8A857A" letter-spacing="2">×3.2 · FIND THE OWL EYES</text>`);
+}
+const pv1States = ['#101418','#C9973C','#1B4E5F'];
+function tickPreviews(){
+  PV.t++;
+  /* pv1: reveal cells column by column */
+  document.querySelectorAll('.pv1-c').forEach(r => {
+    const step = (+r.dataset.r)*4 + (+r.dataset.c);
+    r.setAttribute('fill', (PV.t % 34) > step ? pv1States[+r.dataset.st] : '#E3DCCC');
+  });
+  /* pv2: groups resolve */
+  const ph = PV.t % 44;
+  document.querySelectorAll('.pv2-c').forEach(r => {
+    const i = +r.dataset.i, g = Math.floor(i/4);
+    const on = ph > 10 + g*8;
+    const fill = ['#F4EAD4','#DDE8EC','#F2E1DD','#E7E0EF'][g];
+    r.setAttribute('fill', on ? fill : '#FFFDF7');
+    r.setAttribute('stroke', on ? ['#C9973C','#1B4E5F','#B5342A','#6E5391'][g] : '#E3DCCC');
+  });
+  /* pv3: countdown */
+  PV.timer = 60 - (PV.t % 60);
+  const num = document.querySelector('.pv3-num');
+  if(num){ num.textContent = PV.timer; num.setAttribute('fill', PV.timer <= 10 ? '#B5342A' : '#101418'); }
+}
+function startPreviews(){
+  buildPreviews();
+  if(!tickPreviews._iv){
+    tickPreviews._iv = setInterval(() => { if(PAGE === 'home') tickPreviews(); }, 380);
+  }
+}
+
+/* ================================================================
+   GAME 01 · DIFFERENTIAL
+   ================================================================ */
+const DIFF = {caseIdx:0, guesses:[], over:false, acHot:-1};
+function diffInit(idx){
+  DIFF.caseIdx = idx; DIFF.guesses = []; DIFF.over = false; DIFF.acHot = -1;
+  const c = DIFF_CASES[idx];
+  $('diffCaseTag').textContent = c.tag;
+  $('diffClues').innerHTML = c.clues.map((cl,i) =>
+    `<div class="clue ${i===0?'on':'locked'}" id="clue${i}"><div class="clue-tab">CLUE ${i+1} · ${cl[0]}</div><div class="clue-body">${cl[1]}</div></div>`).join('');
+  $('diffFeedback').innerHTML = '';
+  $('diffEnd').innerHTML = '';
+  $('diffDots').querySelectorAll('i').forEach(i => i.classList.remove('used'));
+  $('diffDotsLabel').textContent = '5 GUESSES LEFT';
+  $('diffInput').value = ''; $('diffInput').disabled = false; $('diffGo').disabled = false;
+  renderDiffTabs();
+  closeAc();
+}
+function renderDiffTabs(){
+  const s = store().diff || [];
+  $('diffTabs').innerHTML = DIFF_CASES.map((c,i) =>
+    `<button class="g-tab ${i===DIFF.caseIdx?'on':''}" onclick="diffInit(${i})">${c.tag.split('·')[0].trim()}${s[i]?'<span class="done">✔</span>':''}</button>`).join('');
+}
+function diffSubmit(){
+  if(DIFF.over) return;
+  const name = $('diffInput').value.trim();
+  if(!DISEASE_MAP[name]){ toast('Pick a diagnosis from the list — real diseases only.'); return; }
+  if(DIFF.guesses.includes(name)){ toast('You already ran <b>' + name + '</b>.'); return; }
+  DIFF.guesses.push(name);
+  const c = DIFF_CASES[DIFF.caseIdx], A = DISEASE_MAP[c.answer], G = DISEASE_MAP[name];
+  const ageIdx = a => AGES.indexOf(a);
+  const nearAge = Math.abs(ageIdx(G.age) - ageIdx(A.age)) === 1;
+  const cells = [
+    ['ORGAN', G.organ, G.organ === A.organ ? 'hit' : (c.nearOrgan.includes(G.organ) ? 'near' : 'miss')],
+    ['ETIOLOGY', G.etio, G.etio === A.etio ? 'hit' : (c.nearEtio.includes(G.etio) ? 'near' : 'miss')],
+    ['AGE · SEX', AGE_L[G.age] + ' · ' + (G.sex === 'F>' ? 'F skew' : G.sex === 'M>' ? 'M skew' : 'either'), (G.age === A.age && G.sex === A.sex) ? 'hit' : (nearAge || G.sex === A.sex) ? 'near' : 'miss'],
+    ['FIRST-LINE', TXS[G.tx], G.tx === A.tx ? 'hit' : ((c.nearTx||[]).includes(G.tx) ? 'near' : 'miss')]
+  ];
+  const row = document.createElement('div');
+  row.className = 'fb-row';
+  row.innerHTML = `<div class="fb-name">${name}</div><div class="fb-cells">${cells.map(x =>
+    `<div class="fb-c ${x[2]}"><i>${x[0]}</i><b>${x[1]}</b></div>`).join('')}</div>`;
+  $('diffFeedback').appendChild(row);
+  const used = DIFF.guesses.length;
+  $('diffDots').querySelectorAll('i').forEach((d,i) => d.classList.toggle('used', i < used));
+  $('diffDotsLabel').textContent = (5-used) + (used===4 ? ' GUESS LEFT' : ' GUESSES LEFT');
+  $('diffInput').value = '';
+  closeAc();
+  if(name === c.answer){ diffEnd(true); return; }
+  if(used >= 5){ diffEnd(false); return; }
+  const nclue = $('clue'+used);
+  if(nclue){ nclue.classList.remove('locked'); nclue.classList.add('on'); }
+}
+function diffEnd(win){
+  DIFF.over = true;
+  $('diffInput').disabled = true; $('diffGo').disabled = true;
+  const c = DIFF_CASES[DIFF.caseIdx];
+  const st = store(); st.diff = st.diff || []; st.diff[DIFF.caseIdx] = true; saveStore(st);
+  renderDiffTabs();
+  markStreak();
+  if(win) confetti();
+  const rows = DIFF.guesses.map(g => {
+    const A = DISEASE_MAP[c.answer], G = DISEASE_MAP[g];
+    const e = st => st === 'hit' ? '🟩' : st === 'near' ? '🟨' : '⬛';
+    const ageIdx = a => AGES.indexOf(a);
+    const nearAge = Math.abs(ageIdx(G.age) - ageIdx(A.age)) === 1;
+    return e(G.organ===A.organ?'hit':c.nearOrgan.includes(G.organ)?'near':'miss') +
+           e(G.etio===A.etio?'hit':c.nearEtio.includes(G.etio)?'near':'miss') +
+           e((G.age===A.age&&G.sex===A.sex)?'hit':(nearAge||G.sex===A.sex)?'near':'miss') +
+           e(G.tx===A.tx?'hit':((c.nearTx||[]).includes(G.tx)?'near':'miss'));
+  }).join('\n');
+  const shareTxt = `Anastomosis Differential ${c.tag.includes('#7')?'#7':'(practice)'} — ${win ? DIFF.guesses.length : 'X'}/5 🩺\n${rows}\nthe arcade → anastomosis.md`;
+  $('diffEnd').innerHTML = `
+    <div class="end-panel">
+      <div class="ep-eyebrow">${win ? 'DIAGNOSIS MADE' : 'THE CASE GOT AWAY'}</div>
+      <div class="ep-title ${win?'win':''}">${c.answer}</div>
+      <p class="ep-sub">${c.why}</p>
+      <div class="stat-row">
+        <div class="stat"><b>${win ? DIFF.guesses.length : 5}</b><span>GUESSES</span></div>
+        <div class="stat"><b>${Math.min(5, DIFF.guesses.length + 1)}</b><span>CLUES USED</span></div>
+        <div class="stat"><b>${win ? 'SOLVED' : 'REVEALED'}</b><span>STATUS</span></div>
+      </div>
+      <div class="ep-actions">
+        <button class="btn btn-ink btn-sm" onclick='copyText(${JSON.stringify(shareTxt)}, "Share grid copied")'>Copy share grid</button>
+        <button class="btn btn-line btn-sm" onclick="diffInit(${DIFF.caseIdx === 0 ? 1 : 0})">Play another case</button>
+      </div>
+      ${conversionPanel({
+        tag:'THIS CASE LIVES IN THE BANK',
+        body:`The arcade case is the tip — the bank vignette carries the full stem, the imaging, and an autopsy of <b>every distractor</b>. Same brain, three orders deeper.`,
+        bonus:c.bonus
+      })}
+    </div>`;
+  $('diffEnd').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+/* autocomplete */
+function closeAc(){ $('diffAc').classList.remove('on'); DIFF.acHot = -1; }
+function acRender(q){
+  const list = $('diffAc');
+  if(!q){ closeAc(); return; }
+  const ql = q.toLowerCase();
+  const hits = DISEASES.filter(d => d[0].toLowerCase().startsWith(ql)).concat(DISEASES.filter(d => !d[0].toLowerCase().startsWith(ql) && d[0].toLowerCase().includes(ql))).slice(0,7);
+  if(!hits.length){ closeAc(); return; }
+  list.innerHTML = hits.map((h,i) => `<div class="ac-it ${i===DIFF.acHot?'hot':''}" onmousedown="acPick('${h[0].replace(/'/g,"\\'")}')">${h[0]}<small>${h[1].toUpperCase()}</small></div>`).join('');
+  list.classList.add('on');
+}
+function acPick(name){ $('diffInput').value = name; closeAc(); diffSubmit(); }
+
+/* ================================================================
+   GAME 02 · CONNECTIONS
+   ================================================================ */
+const CONN = {p:0, sel:[], solved:[], mistakes:0, over:false, hist:[]};
+const BAND_CLS = {y:'y', g:'g', b:'b', p:'p'};
+const BAND_EMO = {y:'🟨', g:'🟩', b:'🟦', p:'🟪'};
+function connInit(idx){
+  CONN.p = idx; CONN.sel = []; CONN.solved = []; CONN.mistakes = 0; CONN.over = false; CONN.hist = [];
+  const pz = CONN_PUZZLES[idx];
+  $('connCaseTag').textContent = pz.tag + ' · ' + pz.title;
+  const items = [];
+  pz.cats.forEach((c,ci) => c.items.forEach(t => items.push({t, ci})));
+  connShuffleItems(items);
+  $('connGrid').innerHTML = items.map(it => `<button class="tile" data-t="${it.t}" data-ci="${it.ci}" onclick="connTile(this)">${it.t}</button>`).join('');
+  $('connSolved').innerHTML = '';
+  $('connEnd').innerHTML = '';
+  $('connSubmit').disabled = true;
+  $('connSubmit').textContent = 'SUBMIT · 0/4';
+  $('connMistakes').innerHTML = '<span class="mk-label">MISTAKES</span>' + [0,1,2,3].map(i =>
+    `<span class="heart" id="hrt${i}"><svg viewBox="0 0 26 22"><path pathLength="1" class="tr" style="animation-delay:${.15+i*.12}s" d="M13 19 C5 13 2 8 6 4 C9 1.5 12 3 13 5.5 C14 3 17 1.5 20 4 C24 8 21 13 13 19 Z" fill="#F2E1DD" stroke="#B5342A" stroke-width="1.5"/></svg></span>`).join('');
+  renderConnTabs();
+}
+function renderConnTabs(){
+  const s = store().conn || [];
+  $('connTabs').innerHTML = CONN_PUZZLES.map((p,i) =>
+    `<button class="g-tab ${i===CONN.p?'on':''}" onclick="connInit(${i})">${p.tag.split('·')[0].trim()}${s[i]?'<span class="done">✔</span>':''}</button>`).join('');
+}
+function connShuffleItems(arr){
+  for(let i=arr.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [arr[i],arr[j]] = [arr[j],arr[i]]; }
+  return arr;
+}
+function connTile(el){
+  if(CONN.over || el.classList.contains('gone')) return;
+  const t = el.dataset.t;
+  const i = CONN.sel.indexOf(t);
+  if(i >= 0){ CONN.sel.splice(i,1); el.classList.remove('sel'); }
+  else { if(CONN.sel.length >= 4) return; CONN.sel.push(t); el.classList.add('sel'); }
+  $('connSubmit').disabled = CONN.sel.length !== 4;
+  $('connSubmit').textContent = 'SUBMIT · ' + CONN.sel.length + '/4';
+}
+function connSubmit(){
+  if(CONN.over || CONN.sel.length !== 4) return;
+  const pz = CONN_PUZZLES[CONN.p];
+  const selEls = CONN.sel.map(t => document.querySelector(`.tile[data-t="${t}"]`));
+  const cis = selEls.map(e => +e.dataset.ci);
+  const counts = {};
+  cis.forEach(c => counts[c] = (counts[c]||0) + 1);
+  const top = Math.max(...Object.values(counts));
+  const winCat = cis.find(c => counts[c] === 4);
+  CONN.hist.push(CONN.sel.map(t => BAND_EMO[pz.cats[+document.querySelector(`.tile[data-t="${t}"]`).dataset.ci].d]));
+  if(top === 4){
+    const cat = pz.cats[winCat];
+    CONN.solved.push(winCat);
+    selEls.forEach(e => e.classList.add('gone'));
+    const band = document.createElement('div');
+    band.className = 'band ' + BAND_CLS[cat.d];
+    band.innerHTML = `<div class="b-cat">${cat.name}</div><div class="b-its">${CONN.sel.join(' · ')}</div><div class="b-why">${cat.why}</div>`;
+    $('connSolved').appendChild(band);
+    CONN.sel = [];
+    $('connSubmit').disabled = true;
+    $('connSubmit').textContent = 'SUBMIT · 0/4';
+    if(CONN.solved.length === 4) connEnd(true);
+  } else {
+    CONN.mistakes++;
+    selEls.forEach(e => { e.classList.add('shake'); setTimeout(() => e.classList.remove('shake'), 420); });
+    const h = $('hrt' + (CONN.mistakes-1));
+    if(h) h.classList.add('dead');
+    toast(top === 3 ? '<b>One away…</b> three of those belong together.' : 'Not a group. <b>' + (4-CONN.mistakes) + '</b> mistake' + (4-CONN.mistakes===1?'':'s') + ' left.');
+    if(CONN.mistakes >= 4) connEnd(false);
+  }
+}
+function connEnd(win){
+  CONN.over = true;
+  const pz = CONN_PUZZLES[CONN.p];
+  if(!win){
+    pz.cats.forEach((c,ci) => {
+      if(CONN.solved.includes(ci)) return;
+      const band = document.createElement('div');
+      band.className = 'band ' + BAND_CLS[c.d];
+      band.style.opacity = '.6';
+      band.innerHTML = `<div class="b-cat">${c.name}</div><div class="b-its">${c.items.join(' · ')}</div><div class="b-why">${c.why}</div>`;
+      $('connSolved').appendChild(band);
+    });
+  }
+  const st = store(); st.conn = st.conn || []; st.conn[CONN.p] = win; saveStore(st);
+  renderConnTabs();
+  markStreak();
+  if(win) confetti();
+  const share = `Anastomosis Connections ${pz.tag.includes('#4')?'#4':'(practice)'} — ${win ? CONN.mistakes + ' mistake' + (CONN.mistakes===1?'':'s') : 'flatlined 💀'}\n${CONN.hist.map(h => h.join('')).join('\n')}\nthe arcade → anastomosis.md`;
+  $('connEnd').innerHTML = `
+    <div class="end-panel" style="margin-top:16px">
+      <div class="ep-eyebrow">${win ? 'GROUPS RESOLVED' : 'OUT OF HEARTBEATS'}</div>
+      <div class="ep-title ${win?'win':''}">${win ? 'Sorted.' : 'It sorted you.'}</div>
+      <p class="ep-sub">${win ? 'Every connection found with ' + CONN.mistakes + ' mistak' + (CONN.mistakes===1?'e':'es') + ' to spare. The arguments start when you post it.' : 'Four mistakes and the board wins. In the bank, every one of these sixteen terms comes with its second-order trap.'}</p>
+      <div class="stat-row">
+        <div class="stat"><b>${CONN.solved.length}/4</b><span>GROUPS</span></div>
+        <div class="stat"><b>${CONN.mistakes}</b><span>MISTAKES</span></div>
+        <div class="stat"><b>${CONN.hist.length}</b><span>SUBMISSIONS</span></div>
+      </div>
+      <div class="ep-actions">
+        <button class="btn btn-ink btn-sm" onclick='copyText(${JSON.stringify(share)}, "Result copied")'>Copy result</button>
+        <button class="btn btn-line btn-sm" onclick="connInit(${(CONN.p+1)%CONN_PUZZLES.length})">Next puzzle</button>
+      </div>
+      ${conversionPanel({
+        tag:'THE TERMS ARE THE QUESTION',
+        body:'Every one of these sixteen terms anchors a real bank item — where the distractors are <b>the other three categories</b>. That\u2019s the step the arcade can\u2019t take you.',
+        bonus:'Bonus · second-order: which of today\u2019s four groups shares a mechanism with warfarin resistance?'
+      })}
+    </div>`;
+  $('connEnd').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+/* ================================================================
+   GAME 03 · CRASH CART
+   ================================================================ */
+const CART = {running:false, t:60, lives:3, score:0, combo:0, best:0, solved:0, right:0, wrong:0, qi:0, queue:[], lock:true, iv:null, qT:0};
+function cartBeatD(mode){
+  /* one 450-unit period per mode, seamless under translateX(-450) */
+  const specs = {nsr:{n:3, gap:150, h:34}, tach:{n:5, gap:90, h:34}, agonal:{n:5, gap:90, h:30}};
+  const sp = specs[mode];
+  let d = 'M -450 48';
+  for(let p=0; p<5; p++){
+    const base = -450 + p*450;
+    for(let i=0;i<sp.n;i++){
+      const x = base + i*sp.gap;
+      const hh = (mode === 'agonal' && i === 2) ? 13 : sp.h;
+      d += ` L ${x} 48 Q ${x+8} ${40} ${x+16} 48 L ${x+26} 48 L ${x+31} 54 L ${x+36} ${48-hh} L ${x+41} ${62} L ${x+46} 48 Q ${x+58} ${38} ${x+70} 48 L ${x+sp.gap-8} 48`;
+    }
+  }
+  return d;
+}
+function cartBuildStrip(){
+  const g = `<g class="strip-scroll"><path class="beat" pathLength="1" d=""/></g>
+    <path id="cartFlatLine" d="M -20 48 L 920 48" stroke="#F2E1DD" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0"/>
+    <line class="gridline" x1="0" y1="24" x2="900" y2="24"/><line class="gridline" x1="0" y1="72" x2="900" y2="72"/>`;
+  $('cartStrip').innerHTML = g;
+  const st = document.createElementNS('http://www.w3.org/2000/svg','style');
+  st.textContent = '.strip-scroll{animation:cartScroll 7s linear infinite}@keyframes cartScroll{to{transform:translateX(-450px)}}';
+  $('cartStrip').appendChild(st);
+}
+function cartStripPhase(){
+  const p = document.querySelector('.strip-scroll .beat');
+  if(!p) return;
+  const d = CART.t > 35 ? cartBeatD('nsr') : CART.t > 15 ? cartBeatD('tach') : cartBeatD('agonal');
+  p.setAttribute('d', d);
+}
+function cartBoardRender(){
+  const rows = [
+    ['Rhea K. · AUB','6,840'],['Priya N. · AIIMS','6,210'],['Maya H. · LAU','5,975'],['Tanner J. · Johns Hopkins','5,540'],['Karim S. · USJ','5,310'],['Noor A. · BAU','4,860']
+  ];
+  const all = rows.concat([['YOU · today', (CART.score||0).toLocaleString()]]).sort((a,b) => parseInt(b[1].replace(',','')) - parseInt(a[1].replace(',','')));
+  $('cartBoard').innerHTML = all.map(r => `<div class="row ${r[0]==='YOU · today'?'you':''}"><span>${r[0]}</span><b>${r[1]}</b></div>`).join('');
+}
+function cartStartRun(){
+  CART.running = true; CART.t = 60; CART.lives = 3; CART.score = 0; CART.combo = 0; CART.best = 0; CART.solved = 0; CART.right = 0; CART.wrong = 0;
+  CART.queue = CART_CASES.map((_,i)=>i);
+  for(let i=CART.queue.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [CART.queue[i],CART.queue[j]]=[CART.queue[j],CART.queue[i]]; }
+  $('cartStart').classList.add('hidden');
+  $('cartOver').classList.add('hidden');
+  cartBoardRender();
+  cartNext();
+  CART.iv = setInterval(cartTick, 100);
+  cartStripPhase();
+}
+function cartTick(){
+  if(!CART.running) return;
+  CART.t -= 0.1;
+  if(CART.t <= 0){ CART.t = 0; cartEnd(false); return; }
+  $('cartTimer').textContent = Math.ceil(CART.t);
+  $('cartTimer').classList.toggle('low', CART.t <= 10);
+  const ph = CART.t > 35 ? 0 : CART.t > 15 ? 1 : 2;
+  if(cartTick._ph !== ph){ cartTick._ph = ph; cartStripPhase(); }
+}
+function cartNext(){
+  if(CART.qi >= CART.queue.length) CART.qi = 0;
+  const c = CART_CASES[CART.queue[CART.qi++]];
+  CART.cur = c;
+  CART.lock = false;
+  CART.qT = performance.now();
+  const flip = Math.random() < .5;                    /* randomize button order — never reward "always A" */
+  CART.okIdx = flip ? 1 - c.ok : c.ok;
+  $('cartPt').innerHTML = `<span class="pt-chip">${c.pt.split('·')[0].trim()}</span><span class="pt-chip vt">${c.pt.split('·').slice(1).join('·').trim()}</span>`;
+  $('cartQ').textContent = c.q;
+  $('cartA').querySelector('.ch-t').textContent = flip ? c.b : c.a;
+  $('cartB').querySelector('.ch-t').textContent = flip ? c.a : c.b;
+  $('cartA').className = 'choice'; $('cartB').className = 'choice';
+  $('cartA').disabled = false; $('cartB').disabled = false;
+  $('cartWhy').textContent = ''; $('cartWhy').className = 'cart-why';
+}
+function cartAnswer(el, k){
+  if(!CART.running || CART.lock) return;
+  CART.lock = true;
+  const c = CART.cur;
+  const ok = k === CART.okIdx;
+  const fast = (performance.now() - CART.qT) < 2000;
+  if(ok){
+    CART.right++; CART.solved++; CART.combo++;
+    CART.best = Math.max(CART.best, CART.combo);
+    const pts = Math.round(100 * (1 + 0.1*(CART.combo-1))) + (fast ? 50 : 0);
+    CART.score += pts;
+    CART.t = Math.min(99, CART.t + 2);
+    el.classList.add('right');
+    $('cartWhy').className = 'cart-why ok';
+    $('cartWhy').innerHTML = `<b>Stabilized · +${pts}${fast ? ' · fast call +50' : ''} · +2s</b> — ${c.why}`;
+  } else {
+    CART.wrong++; CART.combo = 0; CART.lives--;
+    CART.t = Math.max(0.1, CART.t - 5);
+    el.classList.add('wrong');
+    const good = $(CART.okIdx === 0 ? 'cartA' : 'cartB');
+    if(good) good.classList.add('right');
+    $('cartWhy').className = 'cart-why no';
+    $('cartWhy').innerHTML = `<b>Flatline · −5s · one heartbeat gone</b> — ${c.why}`;
+    const f = $('cartFlat'), fl = $('cartFlatLine');
+    if(f) f.classList.add('on');
+    if(fl) fl.setAttribute('opacity', '.9');
+    setTimeout(() => { if(f) f.classList.remove('on'); if(fl) fl.setAttribute('opacity', '0'); }, 700);
+    $('cartLives').querySelectorAll('.life').forEach((l,i) => l.classList.toggle('lost', i >= CART.lives));
+    if(CART.lives <= 0){ setTimeout(() => cartEnd(true), 900); return; }
+  }
+  $('cartScore').textContent = CART.score.toLocaleString();
+  $('cartCombo').textContent = CART.combo > 1 ? 'COMBO ×' + CART.combo : '';
+  $('cartA').disabled = true; $('cartB').disabled = true;
+  setTimeout(() => { if(CART.running) cartNext(); }, 1500);
+}
+function cartStop(leave){
+  CART.running = false;
+  if(CART.iv){ clearInterval(CART.iv); CART.iv = null; }
+  if(leave){ $('cartStart').classList.remove('hidden'); $('cartOver').classList.add('hidden'); }
+}
+function cartEnd(){
+  CART.running = false;
+  if(CART.iv){ clearInterval(CART.iv); CART.iv = null; }
+  markStreak();
+  const acc = (CART.right + CART.wrong) ? Math.round(100*CART.right/(CART.right+CART.wrong)) : 0;
+  const share = `Anastomosis Crash Cart 🚑\nSCORE ${CART.score.toLocaleString()} · ${CART.solved} stabilized · best combo ×${CART.best} · ${acc}% accuracy\nthe arcade → anastomosis.md`;
+  cartBoardRender();
+  $('cartOver').classList.remove('hidden');
+  $('cartOver').innerHTML = `<div class="cs-inner">
+    <div class="ep-eyebrow" style="color:var(--crimson2)">${CART.lives <= 0 ? 'NO HEARTBEATS LEFT' : 'THE CLOCK RAN OUT'}</div>
+    <h3>Code ended.</h3>
+    <div class="stat-row" style="justify-content:center">
+      <div class="stat"><b>${CART.score.toLocaleString()}</b><span>SCORE</span></div>
+      <div class="stat"><b>${CART.solved}</b><span>STABILIZED</span></div>
+      <div class="stat"><b>×${CART.best}</b><span>BEST COMBO</span></div>
+      <div class="stat"><b>${acc}%</b><span>ACCURACY</span></div>
+    </div>
+    <div class="ep-actions" style="justify-content:center">
+      <button class="btn btn-ink btn-sm" onclick='copyText(${JSON.stringify(share)}, "Report copied")'>Copy report</button>
+      <button class="btn btn-line btn-sm" onclick="cartStartRun()">Run it back</button>
+    </div>
+    <div style="margin-top:20px">${conversionPanel({
+      tag:'EVERY CALL IS A BANK QUESTION',
+      body:'Each split-second decision here is a full vignette there — with the vitals, the strip, and <b>why the other option kills</b>. Speed is a skill; judgment is the curriculum.',
+      bonus:'Bonus · second-order: which two Crash Cart scenarios share the same antidote class?'
+    })}</div>
+  </div>`;
+}
+
+/* ================================================================
+   GAME 04 · PATHO-GUESSER
+   ================================================================ */
+const PG = {slide:0, total:0, s:1, tx:0, ty:0, pin:null, opt:-1, revealed:false, t0:0, hallmarks:[]};
+function mulberry(seed){ return function(){ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+const SCENE_W = 1600, SCENE_H = 1000;
+function pgDraw(field, rnd){
+  let out = '', hallmarks = [];
+  if(field === 'node'){
+    out += `<rect x="0" y="0" width="${SCENE_W}" height="${SCENE_H}" fill="#F0D5D8"/>`;
+    for(let i=0;i<260;i++){
+      const x = 40+rnd()*(SCENE_W-80), y = 30+rnd()*(SCENE_H-60), r = 4+rnd()*4;
+      out += `<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${r.toFixed(1)}" fill="#6E5391" opacity="${(.55+rnd()*.4).toFixed(2)}"/>`;
+      if(rnd()>.5) out += `<circle cx="${(x-r).toFixed(0)}" cy="${(y+r*1.1).toFixed(0)}" r="${(r*.62).toFixed(1)}" fill="#8A6FAE" opacity=".8"/>`;
+    }
+    for(let i=0;i<44;i++){
+      const x = 60+rnd()*(SCENE_W-120), y = 50+rnd()*(SCENE_H-100);
+      out += `<ellipse cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" rx="7" ry="6" fill="#F3DCDF"/><circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="3.4" fill="#54406D" opacity=".85"/>`;
+    }
+    const spots = [[420,300],[1180,620],[860,180]];
+    spots.forEach(s => hallmarks.push({x:s[0], y:s[1]}));
+    spots.forEach(s => {
+      out += `<g>
+        <ellipse cx="${s[0]}" cy="${s[1]}" rx="34" ry="30" fill="#F3DCDF"/>
+        <ellipse cx="${s[0]-9}" cy="${s[1]-7}" rx="14" ry="12" fill="#54406D"/>
+        <ellipse cx="${s[0]+11}" cy="${s[1]+3}" rx="14" ry="12" fill="#54406D"/>
+        <circle cx="${s[0]-9}" cy="${s[1]-7}" r="3.4" fill="#C9973C"/>
+        <circle cx="${s[0]+11}" cy="${s[1]+3}" r="3.4" fill="#C9973C"/>
+      </g>`;
+    });
+  }
+  if(field === 'smear'){
+    out += `<rect x="0" y="0" width="${SCENE_W}" height="${SCENE_H}" fill="#F3DCDF"/>`;
+    for(let i=0;i<150;i++){
+      const x = 30+rnd()*(SCENE_W-60), y = 24+rnd()*(SCENE_H-48), r = 11+rnd()*5;
+      out += `<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${r.toFixed(1)}" fill="#E29AA3"/><circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${(r*.55).toFixed(1)}" fill="#EFC3C8"/>`;
+    }
+    for(let i=0;i<26;i++){
+      const x = 60+rnd()*(SCENE_W-120), y = 40+rnd()*(SCENE_H-80);
+      out += `<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="3" fill="#6E5391" opacity=".85"/><circle cx="${(x+5).toFixed(0)}" cy="${(y+3).toFixed(0)}" r="2.2" fill="#8A6FAE"/>`;
+    }
+    const spots = [[380,260],[980,540],[1250,240],[640,760]];
+    spots.forEach(s => hallmarks.push({x:s[0], y:s[1]}));
+    spots.forEach((s,i) => {
+      const fl = i%2 ? 1 : -1;
+      out += `<path d="M ${s[0]-16} ${s[1]-6*fl} C ${s[0]-10} ${s[1]-18*fl}, ${s[0]+10} ${s[1]-16*fl}, ${s[0]+15} ${s[1]-4*fl} C ${s[0]+8} ${s[1]+8*fl}, ${s[0]-8} ${s[1]+9*fl}, ${s[0]-16} ${s[1]-6*fl} Z" fill="#C4626B"/>`;
+    });
+    for(let i=0;i<8;i++){
+      const x = 100+rnd()*(SCENE_W-200), y = 60+rnd()*(SCENE_H-120);
+      out += `<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="12" fill="#E29AA3"/><circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="7" fill="#EFC3C8"/><circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="3.4" fill="#54406D" opacity=".8"/>`;
+    }
+  }
+  if(field === 'marrow'){
+    out += `<rect x="0" y="0" width="${SCENE_W}" height="${SCENE_H}" fill="#F0D5D8"/>`;
+    for(let i=0;i<120;i++){
+      const x = 30+rnd()*(SCENE_W-60), y = 24+rnd()*(SCENE_H-48);
+      out += `<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${(3+rnd()*2).toFixed(1)}" fill="#E29AA3" opacity=".8"/>`;
+    }
+    for(let i=0;i<46;i++){
+      const x = 60+rnd()*(SCENE_W-120), y = 40+rnd()*(SCENE_H-80);
+      out += `<ellipse cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" rx="15" ry="13" fill="#F3DCDF"/>
+              <circle cx="${x.toFixed(0)}" cy="${(y-1).toFixed(0)}" r="9.5" fill="#54406D" opacity=".92"/>
+              <circle cx="${(x+2).toFixed(0)}" cy="${(y-2).toFixed(0)}" r="2.6" fill="#C9973C"/>`;
+    }
+    const spots = [[500,320],[1100,660]];
+    spots.forEach(s => hallmarks.push({x:s[0], y:s[1]}));
+    spots.forEach(s => {
+      const ang = -35;
+      out += `<g>
+        <ellipse cx="${s[0]}" cy="${s[1]}" rx="24" ry="20" fill="#F3DCDF"/>
+        <circle cx="${s[0]}" cy="${s[1]}" r="14" fill="#54406D"/>
+        <circle cx="${s[0]+3}" cy="${s[1]-3}" r="3.6" fill="#C9973C"/>
+        <rect x="${s[0]-2}" y="${s[1]+2}" width="4.6" height="22" rx="2" fill="#B5342A" transform="rotate(${ang} ${s[0]} ${s[1]})"/>
+      </g>`;
+    });
+  }
+  return {svg:out, hallmarks};
+}
+function pgInit(i){
+  PG.slide = i; PG.pin = null; PG.opt = -1; PG.revealed = false; PG.t0 = performance.now();
+  PG.s = 1; PG.tx = -(SCENE_W-1000)/2; PG.ty = -(SCENE_H-640)/2;
+  const sl = PG_SLIDES[i];
+  const rnd = mulberry(97 + i*131);
+  const gen = pgDraw(sl.field, rnd);
+  PG.hallmarks = gen.hallmarks;
+  $('pgSvg').innerHTML = `<g id="pgScene">${gen.svg}<g id="pgPinLayer"></g><g id="pgRings"></g></g>`;
+  $('pgSpecTag').textContent = sl.spec;
+  $('pgSpecName').textContent = sl.name;
+  $('pgSpec').textContent = sl.field === 'smear' ? 'WRIGHT' : 'H&E';
+  $('pgSlideTag').textContent = 'SLIDE ' + (i+1) + '/3';
+  $('pgState').textContent = sl.find;
+  $('pgOptions').innerHTML = sl.options.map((o,k) => `<button class="pg-opt" onclick="pgOpt(this,${k})"><span class="l">${'ABCD'[k]}</span>${o}</button>`).join('');
+  $('pgSubmit').classList.add('hidden');
+  $('pgNext').classList.add('hidden');
+  $('pgReveal').classList.add('hidden');
+  $('pgSlideScore').textContent = '—';
+  $('pgTip').textContent = 'DRAG TO PAN · SCROLL TO ZOOM · TAP TO PIN';
+  pgApply();
+}
+function pgApply(){
+  const g = $('pgScene');
+  if(g) g.setAttribute('transform', `translate(${PG.tx.toFixed(1)} ${PG.ty.toFixed(1)}) scale(${PG.s.toFixed(3)})`);
+  $('pgZoom').textContent = '×' + PG.s.toFixed(1);
+  const wv = 1000/PG.s, hv = 640/PG.s;
+  const fx = Math.max(0, Math.min(1, -PG.tx/(SCENE_W-wv))), fy = Math.max(0, Math.min(1, -PG.ty/(SCENE_H-hv)));
+  const mr = $('pgMiniRect');
+  if(mr){
+    mr.style.width = Math.min(100, wv/SCENE_W*100) + '%';
+    mr.style.height = Math.min(100, hv/SCENE_H*100) + '%';
+    mr.style.left = (fx*(100 - Math.min(100, wv/SCENE_W*100))) + '%';
+    mr.style.top = (fy*(100 - Math.min(100, hv/SCENE_H*100))) + '%';
+  }
+}
+function pgOpt(el, k){
+  if(PG.revealed) return;
+  document.querySelectorAll('.pg-opt').forEach(o => o.classList.remove('sel'));
+  el.classList.add('sel');
+  PG.opt = k;
+  if(PG.pin) $('pgSubmit').classList.remove('hidden');
+}
+function pgSceneFromClient(cx, cy){
+  const svg = $('pgSvg'), r = svg.getBoundingClientRect();
+  const vx = (cx - r.left) / r.width * 1000, vy = (cy - r.top) / r.height * 640;
+  return [ (vx - PG.tx)/PG.s, (vy - PG.ty)/PG.s ];
+}
+function pgPlacePin(sx, sy){
+  PG.pin = [sx, sy];
+  $('pgPinLayer').innerHTML = `<g>
+    <circle cx="${sx.toFixed(0)}" cy="${sy.toFixed(0)}" r="${(16/PG.s).toFixed(1)}" fill="none" stroke="#B5342A" stroke-width="${(2.4/PG.s).toFixed(2)}"/>
+    <path d="M ${sx} ${(sy-26/PG.s).toFixed(1)} L ${sx} ${(sy+26/PG.s).toFixed(1)} M ${(sx-26/PG.s).toFixed(1)} ${sy} L ${(sx+26/PG.s).toFixed(1)} ${sy}" stroke="#B5342A" stroke-width="${(1.8/PG.s).toFixed(2)}"/>
+  </g>`;
+  if(PG.opt >= 0) $('pgSubmit').classList.remove('hidden');
+  $('pgTip').textContent = 'PIN PLACED — CHOOSE THE DIAGNOSIS';
+}
+function pgSubmit(){
+  if(PG.revealed || !PG.pin || PG.opt < 0) return;
+  PG.revealed = true;
+  const sl = PG_SLIDES[PG.slide];
+  const dist = Math.min(...PG.hallmarks.map(h => Math.hypot(h.x-PG.pin[0], h.y-PG.pin[1])));
+  const acc = Math.max(.05, 1 - dist/700);
+  const secs = (performance.now() - PG.t0)/1000;
+  const timeB = Math.max(0, Math.round((90-secs)*11));
+  const right = PG.opt === sl.correct;
+  const pts = right ? Math.round(acc*4000 + timeB) : Math.round((acc*4000 + timeB)*.15);
+  PG.total += pts;
+  $('pgScore').textContent = PG.total.toLocaleString();
+  $('pgSlideScore').textContent = pts.toLocaleString();
+  document.querySelectorAll('.pg-opt').forEach((o,i) => {
+    o.style.pointerEvents = 'none';
+    if(i === sl.correct) o.classList.add('right');
+    else if(i === PG.opt) o.classList.add('wrong');
+  });
+  const rings = PG.hallmarks.map(h => `<circle cx="${h.x}" cy="${h.y}" r="46" fill="none" stroke="#C9973C" stroke-width="3"/><circle cx="${h.x}" cy="${h.y}" r="60" fill="none" stroke="#C9973C" stroke-width="1.4" opacity=".6"/>`).join('');
+  $('pgRings').innerHTML = rings;
+  const opt = document.querySelectorAll('.pg-opt')[PG.opt];
+  const dxName = opt ? opt.textContent.slice(1) : '';
+  $('pgReveal').classList.remove('hidden');
+  $('pgReveal').innerHTML = `<div class="rv-tag">${right ? 'HALLMARK PINNED · ' + Math.round(acc*100) + '% ACCURACY' : 'WRONG FIELD · ' + Math.round(acc*100) + '% ACCURACY'}</div>
+    <h4>${sl.pearl[0]}</h4><p>${sl.pearl[1]}</p>
+    <div class="rv-score">+${pts.toLocaleString()} pts${right ? '' : ' · correct diagnosis doubles down: ' + sl.options[sl.correct]}</div>`;
+  $('pgSubmit').classList.add('hidden');
+  $('pgState').textContent = right ? 'Found it. The crowd around it tells the rest.' : 'The field argued back. Scroll to the rings for the truth.';
+  if(PG.slide < 2){ $('pgNext').classList.remove('hidden'); }
+  else { pgEndRun(); }
+}
+function pgNext(){ pgInit(PG.slide + 1); }
+function pgEndRun(){
+  markStreak();
+  if(PG.total > 11000) confetti();
+  const share = `Anastomosis Patho-Guesser 🔬\n${PG.total.toLocaleString()}/15,000 · 3 slides · every hallmark found\nthe arcade → anastomosis.md`;
+  $('pgEnd').innerHTML = `<div class="end-panel" style="margin-top:14px">
+    <div class="ep-eyebrow">ROTATION COMPLETE</div>
+    <div class="ep-title win">${PG.total.toLocaleString()} points.</div>
+    <p class="ep-sub">Three specimens, three seconds-order reads. In the bank, each of these findings comes attached to the vignette that asks the harder question: not <b>what is it</b>, but <b>what will it do next</b>.</p>
+    <div class="ep-actions">
+      <button class="btn btn-ink btn-sm" onclick='copyText(${JSON.stringify(share)}, "Score copied")'>Copy score</button>
+      <button class="btn btn-line btn-sm" onclick="PG.total=0;$('pgScore').textContent='0';pgInit(0)">New rotation</button>
+    </div>
+    ${conversionPanel({
+      tag:'THE SLIDE IS A QUESTION',
+      body:'“Can you spot the cancer in 5 seconds?” works because recognition is fast. The bank teaches the slow part — staging, prognosis, the management fork the finding forces.',
+      bonus:'Bonus · second-order: which of today\u2019s three diagnoses carries a tumor-bleed emergency?'
+    })}
+  </div>`;
+  $('pgNext').classList.add('hidden');
+}
+
+/* ---- patho pointer interactions ---- */
+(function(){
+  const view = $('pgView');
+  let ptrs = new Map(), moved = 0, lastPinch = 0;
+  function clampView(){
+    const wv = 1000/PG.s, hv = 640/PG.s;
+    PG.tx = Math.min(0, Math.max(1000-wv, PG.tx));
+    PG.ty = Math.min(0, Math.max(640-hv, PG.ty));
+  }
+  function zoomAt(cx, cy, f){
+    const [sx, sy] = pgSceneFromClient(cx, cy);
+    PG.s = Math.max(1, Math.min(4.2, PG.s*f));
+    const r = $('pgSvg').getBoundingClientRect();
+    const vx = (cx - r.left)/r.width*1000, vy = (cy - r.top)/r.height*640;
+    PG.tx = vx - sx*PG.s; PG.ty = vy - sy*PG.s;
+    clampView(); pgApply();
+  }
+  view.addEventListener('pointerdown', e => {
+    view.setPointerCapture(e.pointerId);
+    ptrs.set(e.pointerId, {x:e.clientX, y:e.clientY});
+    moved = 0;
+    if(ptrs.size === 2){
+      const p = [...ptrs.values()];
+      lastPinch = Math.hypot(p[0].x-p[1].x, p[0].y-p[1].y);
+    }
+  });
+  view.addEventListener('pointermove', e => {
+    if(!ptrs.has(e.pointerId)) return;
+    const prev = ptrs.get(e.pointerId);
+    const dx = e.clientX - prev.x, dy = e.clientY - prev.y;
+    ptrs.set(e.pointerId, {x:e.clientX, y:e.clientY});
+    moved += Math.abs(dx) + Math.abs(dy);
+    if(ptrs.size === 1){
+      const r = $('pgSvg').getBoundingClientRect();
+      PG.tx += dx/r.width*1000; PG.ty += dy/r.height*640;
+      clampView(); pgApply();
+    } else if(ptrs.size === 2){
+      const p = [...ptrs.values()];
+      const d = Math.hypot(p[0].x-p[1].x, p[0].y-p[1].y);
+      if(lastPinch > 0 && Math.abs(d-lastPinch) > 2){
+        zoomAt((p[0].x+p[1].x)/2, (p[0].y+p[1].y)/2, d/lastPinch);
+        lastPinch = d;
+      }
+    }
+  });
+  view.addEventListener('pointerup', e => {
+    ptrs.delete(e.pointerId);
+    if(moved < 7 && !PG.revealed){
+      const [sx, sy] = pgSceneFromClient(e.clientX, e.clientY);
+      if(sx > 0 && sx < SCENE_W && sy > 0 && sy < SCENE_H) pgPlacePin(sx, sy);
+    }
+  });
+  view.addEventListener('pointercancel', e => ptrs.delete(e.pointerId));
+  view.addEventListener('wheel', e => {
+    e.preventDefault();
+    zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.16 : 1/1.16);
+  }, {passive:false});
+})();
+
+/* ================================================================
+   BOOT
+   ================================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  renderStreak();
+  startPreviews();
+  diffInit(0);
+  connInit(0);
+  cartBuildStrip();
+  pgInit(0);
+  $('diffGo').addEventListener('click', diffSubmit);
+  $('diffInput').addEventListener('input', e => acRender(e.target.value));
+  $('diffInput').addEventListener('keydown', e => {
+    const items = [...document.querySelectorAll('#diffAc .ac-it')];
+    if(e.key === 'ArrowDown' && items.length){ e.preventDefault(); DIFF.acHot = Math.min(items.length-1, DIFF.acHot+1); acRender($('diffInput').value); }
+    else if(e.key === 'ArrowUp' && items.length){ e.preventDefault(); DIFF.acHot = Math.max(0, DIFF.acHot-1); acRender($('diffInput').value); }
+    else if(e.key === 'Enter'){ e.preventDefault(); if(DIFF.acHot >= 0 && items[DIFF.acHot]) acPick(items[DIFF.acHot].textContent); else diffSubmit(); }
+    else if(e.key === 'Escape'){ closeAc(); }
+  });
+  $('diffInput').addEventListener('blur', () => setTimeout(closeAc, 140));
+  $('connSubmit').addEventListener('click', connSubmit);
+  $('connShuffle').addEventListener('click', () => {
+    const tiles = [...document.querySelectorAll('.conn-grid .tile:not(.gone)')];
+    const parent = $('connGrid');
+    connShuffleItems(tiles);
+    tiles.forEach(t => parent.appendChild(t));
+  });
+  $('connDeselect').addEventListener('click', () => {
+    CONN.sel = [];
+    document.querySelectorAll('.tile.sel').forEach(t => t.classList.remove('sel'));
+    $('connSubmit').disabled = true;
+    $('connSubmit').textContent = 'SUBMIT · 0/4';
+  });
+  $('cartA').addEventListener('click', e => cartAnswer(e.currentTarget, 0));
+  $('cartB').addEventListener('click', e => cartAnswer(e.currentTarget, 1));
+  document.addEventListener('keydown', e => {
+    if(PAGE !== 'cart' || !CART.running || CART.lock) return;
+    if(e.key === 'ArrowLeft') cartAnswer($('cartA'), 0);
+    if(e.key === 'ArrowRight') cartAnswer($('cartB'), 1);
+  });
+  if(location.search.includes('debug')){ window.ARCADE = {DIFF, CONN, CART, PG, pgPlacePin, pgSubmit, pgNext, diffSubmit, diffInit, connInit, connSubmit, cartStartRun, cartAnswer, pgInit, show}; }
+});
+</script>
+</body></html>
