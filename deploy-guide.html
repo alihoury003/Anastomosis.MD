@@ -110,7 +110,20 @@ ol.steps li b{color:var(--ink)}
 </div>
 
 <div class="sec">
-  <div class="sec-h"><span class="sec-n">05</span><span class="sec-t">After this upload — your list, not code</span></div>
+  <div class="sec-h"><span class="sec-n">05</span><span class="sec-t">If the tab still shows the old "M" — troubleshooting</span></div>
+  <p class="note"><b>Fact:</b> the repository is verified correct — all 13 files are on <b>main</b>, every page carries the unified icon set, byte-identical to the build. So a leftover "M" means the <b>live site is serving older pages than the repo</b> — the Appwrite deployment did not pick up the last upload. Confirm and fix:</p>
+  <ol class="steps">
+    <li><span><b>The 20-second test.</b> Incognito window → open the site → right-click → <b>View page source</b> (or Ctrl+U) → Ctrl+F → search for <b>16x16</b>. Found = the page is current (tell me and we dig deeper). Not found = confirmed stale deployment — continue below.</span></li>
+    <li><span>Appwrite Console → your project → <b>Static site / Hosting</b> → <b>Deployments</b> tab. Look at the latest deployment's date and commit — it will predate the favicon upload.</span></li>
+    <li><span>If the GitHub connection shows <b>disconnected</b> (possible fallout from the repo rename to Anastomosis.MD), reconnect it: it must point to <b>alihoury003/Anastomosis.MD</b>, branch <b>main</b>, auto-deploy ON.</span></li>
+    <li><span>Trigger a redeploy — either the console's deploy action, or the lazy way: on GitHub, edit any file on main (add a character to a README via the web UI) and commit. The webhook fires, Appwrite rebuilds (~2 min).</span></li>
+    <li><span>Re-test in a <b>fresh</b> incognito window. The tree appears; your normal browser may need one hard refresh (Ctrl+Shift+R) after.</span></li>
+  </ol>
+  <p class="note">Note: if the <b>homepage</b> shows the tree but another page (login, pricing) shows the M — same signature, same fix. The old mixed favicons lived in those pages.</p>
+</div>
+
+<div class="sec">
+  <div class="sec-h"><span class="sec-n">06</span><span class="sec-t">After this upload — your list, not code</span></div>
   <ol class="steps">
     <li><span><b>Eyeball the mark's spelling — it's live now.</b> Zoom into the logo: the branches spell <i>anastomosis</i> and <i>.md</i>. The ".md" is machine-verified; the tree-letters have never passed OCR, and your eyes are the final gate. If anything's off: tell me — I regenerate the mark and every asset from it (site, favicons, social kit) in one pass, and you re-upload.</span></li>
     <li><span><b>Buy the domain.</b> Re-check that <i>anastomosis.md</i> is still free (I can't reach the registry from the sandbox), then buy via Netim or Regery — the walkthrough is in <code>domain-buy.html</code> on the hub. Then point it at Appwrite (Console → your site → Domains). The site works on the appwrite.network address meanwhile.</span></li>
