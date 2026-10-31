@@ -339,6 +339,131 @@ main{max-width:1240px;margin:0 auto;padding:34px 24px 90px}
 .confetti i{position:absolute;width:9px;height:13px;top:-20px;animation:cf linear forwards}
 @keyframes cf{to{transform:translateY(108vh) rotate(660deg);opacity:.9}}
 
+/* ============ GAME 05 · THE CASCADE ============ */
+#page-cascade .g-eyebrow{color:var(--petrol2)} #page-lesion .g-eyebrow{color:var(--crimson)}
+#page-bracket .g-eyebrow{color:var(--gold2)} #page-so .g-eyebrow{color:var(--ink2)}
+.gcard.g5{--acc:var(--petrol2)} .gcard.g6{--acc:var(--crimson)} .gcard.g7{--acc:var(--gold)} .gcard.g8{--acc:var(--ink)}
+.gnav-btn.on.g5{background:var(--petrol2)} .gnav-btn.on.g6{background:var(--crimson)}
+.gnav-btn.on.g7{background:var(--gold);color:var(--ink)} .gnav-btn.on.g8{background:var(--ink)}
+.cas-wrap{display:grid;grid-template-columns:minmax(360px,7fr) minmax(280px,4fr);gap:22px;align-items:start}
+.cas-board{position:relative;background:var(--paper);border:1px solid var(--rule);border-radius:18px;padding:14px;box-shadow:var(--sh2)}
+#casSvg{display:block;width:100%;height:auto}
+.cas-sock{cursor:pointer}
+.cas-sock rect{fill:var(--bone);stroke:var(--rule);stroke-width:1.6;rx:12}
+.cas-sock .sock-q{font-family:var(--mono);font-size:20px;font-weight:700;fill:var(--ink3)}
+.cas-sock .sock-hint{font-family:var(--mono);font-size:7.3px;letter-spacing:.06em;fill:var(--ink3)}
+.cas-sock .sock-lab{font-family:var(--mono);font-size:10px;font-weight:700;fill:var(--ink)}
+.cas-sock.filled rect{stroke:var(--ink);fill:var(--paper)}
+.cas-sock.ok rect{fill:var(--petrol);stroke:var(--petrol)}
+.cas-sock.ok .sock-lab{fill:var(--bone)} .cas-sock.ok .sock-q{display:none} .cas-sock.ok .sock-hint{display:none}
+.cas-sock.bad rect{fill:var(--crimsonSoft);stroke:var(--crimson)}
+.cas-sock.hot rect{stroke:var(--gold);stroke-width:2.4}
+.cas-edge{stroke:var(--ink3);stroke-width:1.6;fill:none}
+.cas-edge .arw{fill:var(--ink3)}
+.cas-edge.live{stroke:var(--gold);stroke-dasharray:1;stroke-dashoffset:1;animation:vw .7s cubic-bezier(.3,.06,.24,1) forwards}
+.cas-edge.live .arw{fill:var(--gold)}
+.cas-flow{fill:var(--crimson);opacity:0}
+.cas-flow.go{animation:casFlow 2.8s .2s linear infinite}
+@keyframes casFlow{0%{opacity:0}8%{opacity:1}88%{opacity:1}100%{opacity:0}}
+.cas-side{display:flex;flex-direction:column;gap:12px}
+.cas-bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.cas-tile{font-family:var(--mono);font-size:11px;font-weight:700;padding:10px 13px;border-radius:10px;border:1.6px solid var(--rule);background:var(--bone);transition:.14s;color:var(--ink)}
+.cas-tile:hover{border-color:var(--ink);transform:translateY(-2px)}
+.cas-tile.sel{background:var(--goldSoft);border-color:var(--gold);color:var(--gold2)}
+.cas-tile:disabled{opacity:.25;cursor:default;transform:none}
+.cas-prog{display:flex;gap:18px}
+.cas-prog .stat b{font-family:var(--mono);font-size:20px}
+
+/* ============ GAME 06 · THE LESION ============ */
+.les-wrap{display:grid;grid-template-columns:minmax(340px,7fr) minmax(300px,4fr);gap:22px;align-items:start}
+.les-view{position:relative;background:var(--paper);border:1px solid var(--rule);border-radius:18px;overflow:hidden;box-shadow:var(--sh2);cursor:crosshair;user-select:none}
+#lesSvg{display:block;width:100%;height:auto}
+.les-view:after{content:"";position:absolute;inset:0;border-radius:18px;box-shadow:inset 0 0 0 8px rgba(247,243,235,.28),inset 0 0 60px 18px rgba(27,78,95,.1);pointer-events:none}
+.les-case{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:18px 20px;box-shadow:var(--sh2)}
+.les-case .lc-tag{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.22em;color:var(--crimson)}
+.les-case p{font-family:var(--serif);font-size:19px;line-height:1.45;margin-top:8px;letter-spacing:-.005em}
+.les-reveal{background:var(--paper);border:1px solid var(--gold);border-radius:14px;padding:16px 18px;animation:fbIn .5s}
+.les-reveal .rv-tag{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.2em;color:var(--gold2);margin-bottom:6px}
+.les-reveal h4{font-family:var(--serif);font-size:21px;font-weight:400}
+.les-reveal p{font-size:12.5px;color:var(--ink2);line-height:1.6;margin-top:6px}
+.les-reveal .rv-score{font-family:var(--mono);font-weight:700;color:var(--petrol2);margin-top:8px;font-size:13px}
+.les-lab{font-family:var(--mono);font-size:9px;font-weight:700;fill:var(--ink2);opacity:0;transition:opacity .4s}
+.les-lab.on{opacity:1}
+.les-anat{fill:none;stroke:var(--petrol);stroke-width:2.2;stroke-linejoin:round}
+.les-gray{fill:#DDE8EC;stroke:var(--petrol);stroke-width:2}
+.les-wm{fill:#FBF8F0;stroke:var(--petrol);stroke-width:2.2}
+.les-pin{fill:none;stroke:#B5342A;stroke-width:2.4}
+
+/* ============ GAME 07 · THE BRACKET ============ */
+.brk-wrap{display:grid;grid-template-columns:minmax(230px,320px) minmax(340px,7fr);gap:24px;align-items:start}
+.brk-tree{background:var(--paper);border:1px solid var(--rule);border-radius:18px;padding:16px;box-shadow:var(--sh2);position:sticky;top:84px}
+#brkSvg{display:block;width:100%;height:auto}
+.brk-seed{font-family:var(--mono);font-size:9px;font-weight:700;fill:var(--ink3)}
+.brk-name{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:700;fill:var(--ink)}
+.brk-name.win{fill:var(--gold2)}
+.brk-name.dead{fill:var(--ink3);text-decoration:line-through}
+.brk-line{stroke:var(--rule);stroke-width:2;fill:none}
+.brk-line.gold{stroke:var(--gold)}
+.brk-champ{fill:var(--goldSoft);stroke:var(--gold);stroke-width:2}
+.brk-main{display:flex;flex-direction:column;gap:16px}
+.brk-round{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.28em;color:var(--gold2)}
+.brk-vs{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch}
+.brk-vslabel{font-family:var(--serif);font-style:italic;font-size:26px;color:var(--ink3);align-self:center}
+.brk-card{border:2px solid var(--rule);border-radius:16px;padding:20px 18px;text-align:center;background:var(--paper);transition:.16s;box-shadow:var(--sh2)}
+.brk-card:hover{border-color:var(--ink);transform:translateY(-3px)}
+.brk-card .b-num{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--gold2);letter-spacing:.06em}
+.brk-card .b-name{font-family:var(--serif);font-size:26px;line-height:1.06;margin-top:8px}
+.brk-card .b-sub{font-size:11.5px;color:var(--ink3);margin-top:7px;font-weight:600}
+.brk-card.right{border-color:var(--petrol);background:var(--petrolSoft)}
+.brk-card.wrong{border-color:var(--crimson);background:var(--crimsonSoft)}
+.brk-card:disabled{cursor:default;transform:none}
+.brk-bars{display:flex;flex-direction:column;gap:10px}
+.brk-bar{display:grid;grid-template-columns:130px 1fr 90px;gap:12px;align-items:center}
+.brk-bar .bb-l{font-size:12px;font-weight:700;text-align:right;color:var(--ink2)}
+.brk-bar .bb-track{height:26px;background:var(--paper2);border-radius:8px;overflow:hidden;border:1px solid var(--rule)}
+.brk-bar .bb-fill{display:block;height:100%;width:0;border-radius:7px;transition:width 1s cubic-bezier(.22,1,.36,1)}
+.brk-bar .bb-fill.a{background:var(--petrol)} .brk-bar .bb-fill.b{background:var(--crimson)}
+.brk-bar .bb-n{font-family:var(--mono);font-size:14px;font-weight:700}
+.brk-reveal{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:16px 18px;animation:fbIn .45s}
+.brk-reveal .rv-tag{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.2em;margin-bottom:6px}
+.brk-reveal p{font-size:13px;color:var(--ink2);line-height:1.6}
+.brk-reveal p b{color:var(--ink)}
+
+/* ============ GAME 08 · SECOND OPINION ============ */
+.so-wrap{max-width:760px;margin:0 auto}
+.so-head{display:flex;gap:22px;align-items:center;margin-bottom:18px;flex-wrap:wrap}
+.so-head .sh{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--ink2);background:var(--paper);border:1px solid var(--rule);padding:9px 14px;border-radius:9px}
+.so-head .sh b{color:var(--petrol2)}
+.so-theme{font-family:var(--serif);font-style:italic;font-size:24px;margin-bottom:14px;color:var(--ink2)}
+.so-line{display:grid;grid-template-columns:34px 1fr 30px;gap:14px;align-items:center;width:100%;text-align:left;background:var(--paper);border:1.6px solid var(--rule);border-radius:13px;padding:18px 18px;margin-bottom:10px;transition:.15s;box-shadow:var(--sh2)}
+.so-line:hover{border-color:var(--ink);transform:translateY(-2px)}
+.so-line .sl-n{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--ink3)}
+.so-line .sl-t{font-size:15.5px;font-weight:600;line-height:1.5}
+.so-line .sl-m{width:24px;height:24px;border-radius:50%;border:2px solid var(--rule);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;font-weight:700;color:transparent}
+.so-line.picked{border-color:var(--gold);background:var(--goldSoft)}
+.so-line.lie{border-color:var(--crimson);background:var(--crimsonSoft)}
+.so-line.lie .sl-t{text-decoration:line-through;text-decoration-thickness:2px;color:var(--crimson2)}
+.so-line.lie .sl-m{border-color:var(--crimson);color:var(--crimson2)}
+.so-line.truth{border-color:var(--petrol)}
+.so-line.truth .sl-m{border-color:var(--petrol);color:var(--petrol2);content:"✓"}
+.so-line:disabled{cursor:default;transform:none}
+.so-expl{background:var(--bone);border:1px solid var(--rule);border-radius:11px;padding:13px 15px;margin-top:4px;animation:fbIn .4s}
+.so-expl b{font-family:var(--mono);font-size:10px;letter-spacing:.16em}
+.so-expl p{font-size:13px;color:var(--ink2);line-height:1.55;margin-top:4px}
+.so-expl.lie{border-color:var(--crimson)} .so-expl.lie b{color:var(--crimson2)}
+.so-expl.truth{border-color:var(--petrol)} .so-expl.truth b{color:var(--petrol2)}
+
+@media (max-width:1020px){
+  .cas-wrap,.les-wrap,.brk-wrap{grid-template-columns:1fr}
+  .brk-tree{position:static}
+  .brk-vs{grid-template-columns:1fr}
+  .brk-vslabel{text-align:center}
+}
+@media (max-width:860px){
+  .brk-bar{grid-template-columns:80px 1fr 70px}
+  .brk-bar .bb-n{font-size:11px}
+}
+
 /* ============ responsive ============ */
 @media (max-width:1020px){
   .diff-wrap{grid-template-columns:1fr}
@@ -371,7 +496,11 @@ main{max-width:1240px;margin:0 auto;padding:34px 24px 90px}
     <button class="gnav-btn g1" data-page="diff" onclick="show('diff')">Differential</button>
     <button class="gnav-btn g2" data-page="conn" onclick="show('conn')">Connections</button>
     <button class="gnav-btn g3" data-page="cart" onclick="show('cart')">Crash Cart</button>
-    <button class="gnav-btn g4" data-page="patho" onclick="show('patho')">Patho-Guesser</button>
+    <button class="gnav-btn g4" data-page="patho" onclick="show('patho')">Patho</button>
+    <button class="gnav-btn g5" data-page="cascade" onclick="show('cascade')">Cascade</button>
+    <button class="gnav-btn g6" data-page="lesion" onclick="show('lesion')">Lesion</button>
+    <button class="gnav-btn g7" data-page="bracket" onclick="show('bracket')">Bracket</button>
+    <button class="gnav-btn g8" data-page="so" onclick="show('so')">2nd Opinion</button>
   </nav>
   <button class="streak" id="streakChip" onclick="openStreakModal()" title="Daily play streak">
     <svg width="14" height="16" viewBox="0 0 14 16" fill="none"><path d="M7 0C8 3 11 4 11 8c0 1.6-.8 2.8-1.7 3.5.2-1.3-.3-2.5-1.3-3.2.1 2.2-1 3.1-2.4 4C4.2 13.2 3 14.4 3 16c-1.8-1.3-3-3.5-3-6C0 5.5 4 4.5 4.5 1 5.5 2 6.2 3 6.4 4.4 6.8 2.9 7 1.5 7 0Z" fill="#C9973C"/></svg>
@@ -395,7 +524,7 @@ main{max-width:1240px;margin:0 auto;padding:34px 24px 90px}
       </circle>
     </svg>
     <div class="eyebrow">Anastomosis.MD · The Arcade</div>
-    <h1>Four games.<br><em class="grad">One brain.</em></h1>
+    <h1>Eight games.<br><em class="grad">One brain.</em></h1>
     <p class="sub">Daily clinical puzzles from the team that explains <b>why the other four answers were wrong</b>. No account, no cost — one minute or one coffee. Fair warning: Connections starts arguments.</p>
     <div class="hero-chips">
       <span class="hchip">NEW DAILY AT MIDNIGHT</span>
@@ -450,6 +579,54 @@ main{max-width:1240px;margin:0 auto;padding:34px 24px 90px}
         <p class="gc-desc">GeoGuessr for the microscope. Pan the slide, zoom in, find the cell that makes the diagnosis — then pin it before you commit to the wrong field.</p>
         <div class="gc-chips"><span>3 SLIDES</span><span>PAN &amp; ZOOM</span><span>GEOGUSSR-SCORED</span></div>
         <div class="gc-foot"><span class="vv">VIRAL VECTOR · THE CLIP</span><span class="play">PLAY <svg width="15" height="12" viewBox="0 0 16 12" fill="none"><path d="M0 6h13M9 1l5 5-5 5" stroke="currentColor" stroke-width="2"/></svg></span></div>
+      </div>
+    </article>
+
+    <article class="gcard g5" onclick="show('cascade')">
+      <div class="gc-prev"><svg id="pv5" viewBox="0 0 520 172" preserveAspectRatio="xMidYMid meet"></svg></div>
+      <div class="gc-body">
+        <div class="gc-top"><span class="gc-num">GAME 05</span><span class="gc-live"><i></i>THE ASSEMBLY</span></div>
+        <h2>The Cascade</h2>
+        <p class="gc-tag">Ten factors. One wiring diagram.</p>
+        <p class="gc-desc">The pathways everyone memorizes and everyone forgets — coagulation, RAAS, complement — as a circuit you wire yourself. Wrong slots bounce; the finished cascade runs its pulse.</p>
+        <div class="gc-chips"><span>3 PATHWAYS</span><span>CLICK TO BUILD</span><span>~3 MIN</span></div>
+        <div class="gc-foot"><span class="vv">VIRAL VECTOR · THE FLEX</span><span class="play">PLAY <svg width="15" height="12" viewBox="0 0 16 12" fill="none"><path d="M0 6h13M9 1l5 5-5 5" stroke="currentColor" stroke-width="2"/></svg></span></div>
+      </div>
+    </article>
+
+    <article class="gcard g6" onclick="show('lesion')">
+      <div class="gc-prev"><svg id="pv6" viewBox="0 0 520 172" preserveAspectRatio="xMidYMid meet"></svg></div>
+      <div class="gc-body">
+        <div class="gc-top"><span class="gc-num">GAME 06</span><span class="gc-live"><i></i>THE CROSS-SECTION</span></div>
+        <h2>The Lesion</h2>
+        <p class="gc-tag">Read the deficit. Find the spot.</p>
+        <p class="gc-desc">A patient loses pain on one side of the face and the other side of the body — where do you click? Brainstem and cord sections, the ones every ward round pretends you know.</p>
+        <div class="gc-chips"><span>2 SECTIONS</span><span>6 CASES</span><span>DISTANCE-SCORED</span></div>
+        <div class="gc-foot"><span class="vv">VIRAL VECTOR · THE STUDY GROUP</span><span class="play">PLAY <svg width="15" height="12" viewBox="0 0 16 12" fill="none"><path d="M0 6h13M9 1l5 5-5 5" stroke="currentColor" stroke-width="2"/></svg></span></div>
+      </div>
+    </article>
+
+    <article class="gcard g7" onclick="show('bracket')">
+      <div class="gc-prev"><svg id="pv7" viewBox="0 0 520 172" preserveAspectRatio="xMidYMid meet"></svg></div>
+      <div class="gc-body">
+        <div class="gc-top"><span class="gc-num">GAME 07</span><span class="gc-live"><i></i>THE SHOWDOWN</span></div>
+        <h2>The Bracket</h2>
+        <p class="gc-tag">Which one kills more?</p>
+        <p class="gc-desc">Epidemiology, March-Madness style. Head-to-head matchups with the real numbers revealed as growing bars — pick your champions, meet the actual top killers, argue with the data.</p>
+        <div class="gc-chips"><span>2 BRACKETS</span><span>REAL CDC DATA</span><span>SHARE IT</span></div>
+        <div class="gc-foot"><span class="vv">VIRAL VECTOR · THE BRACKET</span><span class="play">PLAY <svg width="15" height="12" viewBox="0 0 16 12" fill="none"><path d="M0 6h13M9 1l5 5-5 5" stroke="currentColor" stroke-width="2"/></svg></span></div>
+      </div>
+    </article>
+
+    <article class="gcard g8" onclick="show('so')">
+      <div class="gc-prev"><svg id="pv8" viewBox="0 0 520 172" preserveAspectRatio="xMidYMid meet"></svg></div>
+      <div class="gc-body">
+        <div class="gc-top"><span class="gc-num">GAME 08</span><span class="gc-live"><i></i>THE CHART REVIEW</span></div>
+        <h2>Second Opinion</h2>
+        <p class="gc-tag">Three lines. One is a lie.</p>
+        <p class="gc-desc">Two statements are true medicine. One is a beloved misconception wearing a white coat. Chart by chart, find the lie — and the explanation that un-teaches it.</p>
+        <div class="gc-chips"><span>6 CHARTS</span><span>STREAKS</span><span>GRADED</span></div>
+        <div class="gc-foot"><span class="vv">VIRAL VECTOR · THE MYTH-BUST</span><span class="play">PLAY <svg width="15" height="12" viewBox="0 0 16 12" fill="none"><path d="M0 6h13M9 1l5 5-5 5" stroke="currentColor" stroke-width="2"/></svg></span></div>
       </div>
     </article>
   </div>
@@ -606,11 +783,124 @@ main{max-width:1240px;margin:0 auto;padding:34px 24px 90px}
   </div>
 </section>
 
+<!-- ================= GAME 05 · THE CASCADE ================= -->
+<section class="page" id="page-cascade">
+  <div class="ghead">
+    <div class="gh-main">
+      <div class="g-eyebrow">Game 05 · The assembly</div>
+      <h2 class="g-title">The Cascade<span class="g-case" id="casCaseTag"></span></h2>
+    </div>
+    <div class="g-tabs" id="casTabs"></div>
+    <button class="ghost-btn" onclick="show('home')">← ARCADE</button>
+  </div>
+  <div class="cas-wrap">
+    <div class="cas-board">
+      <svg id="casSvg" viewBox="0 0 640 470" aria-hidden="true"></svg>
+    </div>
+    <div class="cas-side">
+      <div class="cs-box">
+        <div class="cs-label">THE BANK — TAP A FACTOR, THEN TAP ITS SOCKET</div>
+        <div class="cas-bank" id="casBank"></div>
+      </div>
+      <div class="cs-box">
+        <div class="cs-label">PROGRESS</div>
+        <div class="cas-prog">
+          <div class="stat"><b id="casPlaced">0/10</b><span>WIRED</span></div>
+          <div class="stat"><b id="casWrong">0</b><span>BOUNCED</span></div>
+          <div class="stat"><b id="casPts">—</b><span>SCORE</span></div>
+        </div>
+      </div>
+      <button class="btn btn-ink" id="casCheck" onclick="casCheck()">CHECK THE WIRING</button>
+      <button class="btn btn-line btn-sm" id="casReveal" onclick="casReveal()">Reveal (ends the attempt)</button>
+      <div id="casEnd"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GAME 06 · THE LESION ================= -->
+<section class="page" id="page-lesion">
+  <div class="ghead">
+    <div class="gh-main">
+      <div class="g-eyebrow">Game 06 · The cross-section</div>
+      <h2 class="g-title">The Lesion<span class="g-case" id="lesCaseTag">CASE 1/6</span></h2>
+    </div>
+    <button class="ghost-btn" onclick="show('home')">← ARCADE</button>
+  </div>
+  <div class="pg-scorebar">
+    <div class="cs-box" style="padding:12px 18px"><div class="cs-label">TOTAL</div><div class="cs-score" id="lesScore">0</div></div>
+    <div class="cs-box" style="padding:12px 18px"><div class="cs-label">THIS CASE</div><div class="cs-score" id="lesCaseScore">—</div></div>
+  </div>
+  <div class="les-wrap">
+    <div class="les-view" id="lesView">
+      <svg id="lesSvg" viewBox="0 0 640 460"></svg>
+      <div class="pg-tip" id="lesTip">READ THE CASE · CLICK THE LESION</div>
+    </div>
+    <div class="les-side" style="display:flex;flex-direction:column;gap:12px">
+      <div class="les-case" id="lesCase"></div>
+      <div class="les-reveal hidden" id="lesReveal"></div>
+      <button class="btn btn-gold hidden" id="lesNext" onclick="lesNext()">NEXT CASE →</button>
+      <div id="lesEnd"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GAME 07 · THE BRACKET ================= -->
+<section class="page" id="page-bracket">
+  <div class="ghead">
+    <div class="gh-main">
+      <div class="g-eyebrow">Game 07 · The showdown</div>
+      <h2 class="g-title">The Bracket<span class="g-case" id="brkCaseTag"></span></h2>
+    </div>
+    <div class="g-tabs" id="brkTabs"></div>
+    <button class="ghost-btn" onclick="show('home')">← ARCADE</button>
+  </div>
+  <div class="brk-wrap">
+    <div class="brk-tree"><svg id="brkSvg" viewBox="0 0 340 560"></svg></div>
+    <div class="brk-main">
+      <div class="brk-round" id="brkRound"></div>
+      <div class="brk-vs">
+        <button class="brk-card" id="brkA" onclick="brkPick(0)"><div class="b-num" id="brkAn"></div><div class="b-name" id="brkAl"></div><div class="b-sub" id="brkAs"></div></button>
+        <div class="brk-vslabel">vs</div>
+        <button class="brk-card" id="brkB" onclick="brkPick(1)"><div class="b-num" id="brkBn"></div><div class="b-name" id="brkBl"></div><div class="b-sub" id="brkBs"></div></button>
+      </div>
+      <div class="brk-bars" id="brkBars">
+        <div class="brk-bar"><div class="bb-l" id="barAl"></div><div class="bb-track"><span class="bb-fill a" id="barAf"></span></div><div class="bb-n" id="barAn"></div></div>
+        <div class="brk-bar"><div class="bb-l" id="barBl"></div><div class="bb-track"><span class="bb-fill b" id="barBf"></span></div><div class="bb-n" id="barBn"></div></div>
+      </div>
+      <div class="brk-reveal hidden" id="brkReveal"></div>
+      <button class="btn btn-gold hidden" id="brkNext" onclick="brkNext()">NEXT MATCHUP →</button>
+      <div id="brkEnd"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GAME 08 · SECOND OPINION ================= -->
+<section class="page" id="page-so">
+  <div class="ghead">
+    <div class="gh-main">
+      <div class="g-eyebrow">Game 08 · The chart review</div>
+      <h2 class="g-title">Second Opinion<span class="g-case" id="soCaseTag"></span></h2>
+    </div>
+    <button class="ghost-btn" onclick="show('home')">← ARCADE</button>
+  </div>
+  <div class="so-wrap">
+    <div class="so-head">
+      <div class="sh">CHART <b id="soN">1</b>/6</div>
+      <div class="sh">STREAK <b id="soStreak">0</b></div>
+    </div>
+    <div class="so-theme" id="soTheme"></div>
+    <div id="soLines"></div>
+    <div id="soRevealBox" style="margin-top:14px"></div>
+    <button class="btn btn-gold hidden" id="soNext" onclick="soNext()">NEXT CHART →</button>
+    <div id="soEnd"></div>
+  </div>
+</section>
+
 </main>
 
 <footer style="border-top:1px solid var(--rule);padding:26px 24px;text-align:center">
   <div class="eyebrow" style="color:var(--ink3)">ANASTOMOSIS.MD · THE ARCADE · CONCEPTS DEMO</div>
-  <p style="color:var(--ink3);font-size:12px;margin-top:10px">Four candidates. One ships. Pick the one you'd screenshot, argue about, or lose a lunch break to — and we'll make it daily.</p>
+  <p style="color:var(--ink3);font-size:12px;margin-top:10px">Eight candidates. One ships. Pick the one you'd screenshot, argue about, or lose a lunch break to — and we'll make it daily.</p>
 </footer>
 
 <div class="toast" id="toast"></div>
@@ -1032,8 +1322,47 @@ function buildPreviews(){
      </g>
      <circle class="pv4-ping" cx="330" cy="80" r="10" fill="none" stroke="#B5342A" stroke-width="1.6"/></g>
      <text x="40" y="156" font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#8A857A" letter-spacing="2">×3.2 · FIND THE OWL EYES</text>`);
+  buildPreviews2();
 }
 const pv1States = ['#101418','#C9973C','#1B4E5F'];
+function buildPreviews2(){
+  const cn = [[70,52],[190,52],[310,52],[190,118],[310,118]];
+  let p5 = '';
+  for(let i=0;i<cn.length-1;i++) p5 += `<line x1="${cn[i][0]+12}" y1="${cn[i][1]}" x2="${cn[i+1][0]-12}" y2="${cn[i+1][1]}" stroke="#8A857A" stroke-width="1.6"/>`;
+  p5 += `<line x1="${cn[2][0]}" y1="${cn[2][1]+12}" x2="${cn[4][0]}" y2="${cn[4][1]-12}" stroke="#8A857A" stroke-width="1.6"/>`;
+  cn.forEach((c,i) => { p5 += `<circle class="pv5-c" data-i="${i}" cx="${c[0]}" cy="${c[1]}" r="11" fill="#E3DCCC"/>`; });
+  p5 += '<circle r="3.4" fill="#B5342A"><animateMotion dur="2.6s" repeatCount="indefinite" path="M 70 52 L 190 52 L 310 52 M 190 118 L 310 118"/></circle>';
+  p5 += '<text x="400" y="60" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700" fill="#8A857A" letter-spacing="2">CHECK WIRING</text>';
+  p5 += '<text x="400" y="112" font-family="JetBrains Mono,monospace" font-size="20" font-weight="700" fill="#101418">9/10</text>';
+  pvSVG('pv5', 520, 172, p5);
+  let p6 = '<ellipse cx="300" cy="86" rx="64" ry="80" fill="#FBF8F0" stroke="#1B4E5F" stroke-width="2.2"/>'
+    + '<rect x="272" y="46" width="24" height="30" rx="8" fill="#DDE8EC" stroke="#1B4E5F" stroke-width="1.6" transform="rotate(-20 284 61)"/>'
+    + '<rect x="304" y="46" width="24" height="30" rx="8" fill="#DDE8EC" stroke="#1B4E5F" stroke-width="1.6" transform="rotate(20 316 61)"/>'
+    + '<rect x="282" y="66" width="36" height="40" fill="#DDE8EC"/>'
+    + '<circle cx="300" cy="86" r="4" fill="#FBF8F0" stroke="#1B4E5F" stroke-width="1.5"/>'
+    + '<circle class="pv6-ring" cx="300" cy="86" r="16" fill="none" stroke="#B5342A" stroke-width="2.4"/>'
+    + '<text x="410" y="66" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700" fill="#8A857A" letter-spacing="2">CASE 3/6</text>'
+    + '<text x="410" y="90" font-family="Instrument Serif,serif" font-style="italic" font-size="17" fill="#101418">where is it?</text>';
+  pvSVG('pv6', 520, 172, p6);
+  let p7 = '';
+  const bx = [60, 170, 280];
+  for(let i=0;i<8;i++) p7 += `<circle class="pv7-s" data-r="0" data-i="${i}" cx="${bx[0]}" cy="${26 + i*30}" r="6" fill="#E3DCCC"/>`;
+  for(let i=0;i<4;i++) p7 += `<circle class="pv7-s" data-r="1" data-i="${i}" cx="${bx[1]}" cy="${41 + i*60}" r="6" fill="#E3DCCC"/>`;
+  for(let i=0;i<2;i++) p7 += `<circle class="pv7-s" data-r="2" data-i="${i}" cx="${bx[2]}" cy="${71 + i*120}" r="6" fill="#E3DCCC"/>`;
+  for(let i=0;i<4;i++) p7 += `<path class="pv7-l" d="M ${bx[0]+8} ${26+i*60} H ${bx[0]+30} V ${41+i*60-6} H ${bx[1]-8}" stroke="#E3DCCC" stroke-width="2" fill="none"/>`;
+  for(let i=0;i<2;i++) p7 += `<path class="pv7-l" d="M ${bx[1]+8} ${41+i*120} H ${bx[1]+30} V ${71+i*120-6} H ${bx[2]-8}" stroke="#E3DCCC" stroke-width="2" fill="none"/>`;
+  p7 += '<path class="pv7-l2" d="M 288 71 H 330 V 131 H 370" stroke="#E3DCCC" stroke-width="2" fill="none"/>';
+  p7 += '<rect class="pv7-champ" x="372" y="118" width="60" height="26" rx="7" fill="#E3DCCC"/>';
+  p7 += '<text x="402" y="135" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700" fill="#8A857A">CHAMP</text>';
+  pvSVG('pv7', 520, 172, p7);
+  let p8 = '';
+  for(let i=0;i<3;i++){
+    p8 += `<rect class="pv8-r" data-i="${i}" x="70" y="${34+i*40}" width="380" height="26" rx="8" fill="#FFFDF7" stroke="#E3DCCC"/>`
+        + `<line class="pv8-s" data-i="${i}" x1="86" y1="${47+i*40}" x2="434" y2="${47+i*40}" stroke="#B5342A" stroke-width="2.4" opacity="0"/>`;
+  }
+  p8 += '<text x="70" y="160" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700" fill="#8A857A" letter-spacing="2">ONE OF THESE IS A LIE</text>';
+  pvSVG('pv8', 520, 172, p8);
+}
 function tickPreviews(){
   PV.t++;
   /* pv1: reveal cells column by column */
@@ -1054,6 +1383,31 @@ function tickPreviews(){
   PV.timer = 60 - (PV.t % 60);
   const num = document.querySelector('.pv3-num');
   if(num){ num.textContent = PV.timer; num.setAttribute('fill', PV.timer <= 10 ? '#B5342A' : '#101418'); }
+  /* pv5: circuit nodes light in sequence */
+  document.querySelectorAll('.pv5-c').forEach(c => {
+    c.setAttribute('fill', (PV.t % 24) > (+c.dataset.i)*4 + 2 ? '#1B4E5F' : '#E3DCCC');
+  });
+  /* pv6: ring hops between tracts */
+  const spots = [[300,86],[266,52],[334,52]];
+  const sp = spots[Math.floor(PV.t/7) % 3];
+  const ring = document.querySelector('.pv6-ring');
+  if(ring){ ring.setAttribute('cx', sp[0]); ring.setAttribute('cy', sp[1]); }
+  /* pv7: rounds resolve to a champion */
+  const ph7 = PV.t % 40;
+  document.querySelectorAll('.pv7-s').forEach(c => {
+    const r = +c.dataset.r;
+    const on = ph7 > 8 + r*9;
+    c.setAttribute('fill', on ? (r === 0 ? '#1B4E5F' : r === 1 ? '#C9973C' : '#B5342A') : '#E3DCCC');
+  });
+  document.querySelectorAll('.pv7-l').forEach(l => l.setAttribute('stroke', ph7 > 17 ? '#C9973C' : '#E3DCCC'));
+  const l2 = document.querySelector('.pv7-l2');
+  if(l2) l2.setAttribute('stroke', ph7 > 26 ? '#B5342A' : '#E3DCCC');
+  const ch = document.querySelector('.pv7-champ');
+  if(ch) ch.setAttribute('fill', ph7 > 30 ? '#C9973C' : '#E3DCCC');
+  /* pv8: the strike cycles */
+  const ph8 = Math.floor(PV.t/9) % 3;
+  document.querySelectorAll('.pv8-s').forEach(s => s.setAttribute('opacity', (+s.dataset.i === ph8 && (PV.t % 9) > 4) ? '1' : '0'));
+  document.querySelectorAll('.pv8-r').forEach(r => r.setAttribute('stroke', +r.dataset.i === ph8 ? '#B5342A' : '#E3DCCC'));
 }
 function startPreviews(){
   buildPreviews();
@@ -1673,6 +2027,647 @@ function pgEndRun(){
   }, {passive:false});
 })();
 
+
+/* ================================================================
+   GAMES 05-08 — DATA
+   ================================================================ */
+
+/* ---------------- 05 · THE CASCADE ---------------- */
+const CAS_PUZZLES = [
+  {
+    tag:'DAILY · THE COAGULATION CASCADE',
+    nodes:[
+      {id:'xii',  lab:'Factor XII',   hint:'the contact spark — intrinsic start',            x:105, y:62},
+      {id:'xi',   lab:'Factor XI',    hint:'Hemophilia C when missing',                      x:105, y:135},
+      {id:'ix',   lab:'Factor IX',    hint:'Hemophilia B — Christmas disease',               x:105, y:208},
+      {id:'viii', lab:'Factor VIII',  hint:'Hemophilia A — rides with vWF',                  x:205, y:262},
+      {id:'vii',  lab:'Factor VII',   hint:'tissue factor\u2019s partner — shortest half-life', x:540, y:208},
+      {id:'x',    lab:'Factor X',     hint:'Stuart-Prower — the convergence',                x:322, y:268},
+      {id:'v',    lab:'Factor V',     hint:'the labile cofactor at the convergence',         x:432, y:268},
+      {id:'ii',   lab:'Thrombin (II)',hint:'prothrombin, activated',                         x:322, y:348},
+      {id:'i',    lab:'Fibrin (I)',   hint:'fibrinogen — the mesh itself',                   x:322, y:418},
+      {id:'xiii', lab:'Factor XIII',  hint:'cross-links the mesh — delayed bleeding',        x:455, y:418}
+    ],
+    edges:[['xii','xi'],['xi','ix'],['ix','x'],['viii','x',1],['vii','x'],['x','ii'],['v','ii',1],['ii','i'],['ii','xiii',1],['xiii','i',1]]
+  },
+  {
+    tag:'PRACTICE · THE RAAS CIRCUIT',
+    nodes:[
+      {id:'agt',  lab:'Angiotensinogen', hint:'the liver\u2019s substrate',                   x:150, y:62},
+      {id:'ang1', lab:'Angiotensin I',   hint:'after one cut',                                 x:322, y:62},
+      {id:'ang2', lab:'Angiotensin II',  hint:'the effector — binds AT1',                      x:494, y:62},
+      {id:'ren',  lab:'Renin',           hint:'juxtaglomerular cells — released when perfusion falls', x:236, y:170},
+      {id:'ace',  lab:'ACE',             hint:'lung endothelium — the bradykinin link',        x:408, y:170},
+      {id:'aldo', lab:'Aldosterone',     hint:'zona glomerulosa — Na\u207A back, K\u207A out', x:225, y:330},
+      {id:'vaso', lab:'Vasoconstriction',hint:'the immediate AT1 effect on smooth muscle',     x:400, y:330},
+      {id:'adh',  lab:'ADH + thirst',    hint:'the posterior pituitary joins the salvage',     x:560, y:330}
+    ],
+    edges:[['ren','agt',1],['agt','ang1'],['ace','ang1',1],['ang1','ang2'],['ang2','aldo'],['ang2','vaso'],['ang2','adh']]
+  },
+  {
+    tag:'PRACTICE · THE COMPLEMENT CIRCUIT',
+    nodes:[
+      {id:'c1',  lab:'C1qrs',          hint:'binds the Fc of IgG/IgM — the classical start', x:120, y:66},
+      {id:'c4',  lab:'C4',             hint:'first cleavage — opsonizes the surface',        x:120, y:150},
+      {id:'c2',  lab:'C2',             hint:'joins C4b to build the enzyme',                 x:268, y:150},
+      {id:'c3c', lab:'C4b2b',          hint:'the classical C3 convertase',                   x:268, y:238},
+      {id:'c3',  lab:'C3',             hint:'the hub — all three pathways meet here',        x:430, y:238},
+      {id:'c5',  lab:'C5',             hint:'opens the terminal cascade',                    x:430, y:326},
+      {id:'mac', lab:'C5b\u20139 (MAC)', hint:'the membrane attack complex — the pore',        x:430, y:414}
+    ],
+    edges:[['c1','c4'],['c4','c3c'],['c2','c3c',1],['c3c','c3'],['c3','c5'],['c5','mac']]
+  }
+];
+
+/* ---------------- 06 · THE LESION ---------------- */
+const LES_CASES = [
+  {sec:'pons', tag:'PONS · CASE 1',
+   text:'A 62-year-old with sudden vertigo and vomiting. Exam: <b>left facial droop</b>, loss of pain and temperature on the <b>left face</b>, loss of pain and temperature on the <b>right arm and leg</b>, left-sided hearing loss, and falling to the left.',
+   target:[195,295], label:'Lateral pontine syndrome (AICA)',
+   pearl:'One artery, four systems: the spinal trigeminal nucleus (ipsilateral face), the spinothalamic tract (contralateral body), the CN VII nucleus, and the labyrinth — all fed by AICA. The neighbors decide the diagnosis.'},
+  {sec:'pons', tag:'PONS · CASE 2',
+   text:'A 48-year-old with a <b>left facial droop</b> involving both the upper and lower face, inability to abduct the <b>left eye</b>, and <b>right-sided arm and leg weakness</b>.',
+   target:[320,200], label:'The facial colliculus (dorsomedial pons)',
+   pearl:'Facial nerve fibers loop over the abducens nucleus — together they form the facial colliculus in the ventricle floor. A lesion there catches both cranial nerves while the corticospinal tract pays below (Millard-Gubler).'},
+  {sec:'pons', tag:'PONS · CASE 3',
+   text:'A 55-year-old with abrupt <b>right leg and arm weakness</b> with loss of <b>vibration and position sense</b> on the right — <b>no facial findings</b>, and pain and temperature are intact.',
+   target:[320,335], label:'Paramedian pons (perforators of the basilar)',
+   pearl:'Paramedian perforators of the basilar artery: corticospinal tract + medial lemniscus. The face is spared — corticobulbar fibers travel dorsal to the corticospinal tract at this level.'},
+  {sec:'cord', tag:'SPINAL CORD · CASE 1',
+   text:'A 29-year-old stabbed in the right back: <b>right leg weakness</b> with hyperreflexia, loss of <b>vibration and position sense</b> in the right leg, and loss of <b>pain and temperature in the left leg</b> — all below the wound.',
+   target:[243,252], label:'Lateral cord — hemisection (Brown-S\u00E9quard)',
+   pearl:'Cord hemisection splits the crossings: ipsilateral corticospinal and dorsal-column loss BELOW the lesion (they haven\u2019t crossed yet), contralateral pain/temp loss below (spinothalamic fibers already crossed at entry).'},
+  {sec:'cord', tag:'SPINAL CORD · CASE 2',
+   text:'A 66-year-old with sudden <b>bilateral leg weakness</b> and loss of <b>pain and temperature</b> below the trunk — <b>vibration and position sense preserved</b>.',
+   target:[320,362], label:'Anterior two-thirds (anterior spinal artery)',
+   pearl:'The anterior spinal artery feeds the front two-thirds of the cord — motor tracts and spinothalamic, bilaterally. The dorsal columns ride the posterior circulation, which is why they walk away unharmed.'},
+  {sec:'cord', tag:'SPINAL CORD · CASE 3',
+   text:'A 24-year-old with slowly progressive loss of <b>pain and temperature</b> across both shoulders and arms in a cape distribution — <b>touch, vibration, and strength preserved</b>.',
+   target:[320,252], label:'Central canal (syringomyelia)',
+   pearl:'A central cavity catches decussating spinothalamic fibers first — bilateral, suspended, dissociated sensory loss (pain/temp gone, touch fine). Think Chiari malformation or prior trauma.'}
+];
+
+function lesDrawPons(){
+  return `
+  <ellipse class="les-anat" cx="130" cy="158" rx="82" ry="62" fill="#DDE8EC"/>
+  <ellipse class="les-anat" cx="510" cy="158" rx="82" ry="62" fill="#DDE8EC"/>
+  <ellipse class="les-wm" cx="320" cy="295" rx="212" ry="118"/>
+  <path d="M 320 413 L 320 395" stroke="var(--petrol)" stroke-width="2"/>
+  <ellipse class="les-gray" cx="320" cy="182" rx="98" ry="52" fill="#FBF8F0"/>
+  <path d="M 320 130 L 320 204 M 285 148 L 355 148 M 292 216 L 348 216" stroke="var(--petrol)" stroke-width="1.4" opacity=".5" fill="none"/>
+  <circle class="les-gray" cx="292" cy="202" r="11" fill="#DDE8EC"/>
+  <circle class="les-gray" cx="348" cy="202" r="11" fill="#DDE8EC"/>
+  <g id="lesLabels">
+    <text class="les-lab" x="320" y="86" text-anchor="middle">4TH VENTRICLE (FLOOR)</text>
+    <text class="les-lab" x="320" y="110" text-anchor="middle">FACIAL COLLICULUS</text>
+    <text class="les-lab" x="320" y="440" text-anchor="middle">MEDIAL \u00B7 CORTICOSPINAL + MEDIAL LEMNISCUS</text>
+    <text class="les-lab" x="150" y="440" text-anchor="middle">LATERAL PONS</text>
+    <text class="les-lab" x="130" y="252" text-anchor="middle">CEREBELLUM</text>
+    <text class="les-lab" x="512" y="252" text-anchor="middle">CEREBELLUM</text>
+  </g>
+  <g id="lesMarks"></g>`;
+}
+function lesDrawCord(){
+  return `
+  <ellipse class="les-wm" cx="320" cy="252" rx="152" ry="192"/>
+  <path d="M 320 60 L 320 88" stroke="var(--petrol)" stroke-width="2"/>
+  <path d="M 320 416 L 320 444" stroke="var(--petrol)" stroke-width="2"/>
+  <ellipse class="les-gray" cx="288" cy="188" rx="40" ry="56" transform="rotate(-24 288 188)" fill="#DDE8EC"/>
+  <ellipse class="les-gray" cx="352" cy="188" rx="40" ry="56" transform="rotate(24 352 188)" fill="#DDE8EC"/>
+  <ellipse class="les-gray" cx="283" cy="315" rx="42" ry="58" transform="rotate(18 283 315)" fill="#DDE8EC"/>
+  <ellipse class="les-gray" cx="357" cy="315" rx="42" ry="58" transform="rotate(-18 357 315)" fill="#DDE8EC"/>
+  <rect class="les-gray" x="292" y="212" width="56" height="80" fill="#DDE8EC"/>
+  <circle cx="320" cy="252" r="7" fill="#FBF8F0" stroke="var(--petrol)" stroke-width="2"/>
+  <g id="lesLabels">
+    <text class="les-lab" x="320" y="120" text-anchor="middle">DORSAL COLUMNS</text>
+    <text class="les-lab" x="320" y="205" text-anchor="middle">CENTRAL CANAL</text>
+    <text class="les-lab" x="152" y="258" text-anchor="middle">LATERAL</text>
+    <text class="les-lab" x="152" y="274" text-anchor="middle">CORTICOSPINAL + SPINOTHALAMIC</text>
+    <text class="les-lab" x="320" y="400" text-anchor="middle">ANTERIOR 2/3 \u00B7 ANTERIOR SPINAL ARTERY</text>
+  </g>
+  <g id="lesMarks"></g>`;
+}
+
+/* ---------------- 07 · THE BRACKET ---------------- */
+const BRK_DATA = [
+  {
+    tag:'DAILY · AMERICA\u2019S TOP KILLERS', src:'US deaths per year \u00B7 \u2248 CDC leading-causes data',
+    entrants:[
+      {n:'Heart disease', sub:'the reigning champion', d:'\u2248695,000', v:695, pearl:'About <b>1 in 5 US deaths</b>. Every ~40 seconds, someone has a myocardial infarction.'},
+      {n:'Cancer', sub:'all malignancies combined', d:'\u2248605,000', v:605, pearl:'Lung cancer alone kills more than any other single cancer — mostly a smoking story.'},
+      {n:'Accidents', sub:'unintentional injuries', d:'\u2248225,000', v:225, pearl:'The <b>#1 cause of death under 45</b> — overdoses, firearms, and falls.'},
+      {n:'Stroke', sub:'cerebrovascular disease', d:'\u2248163,000', v:163, pearl:'Each untreated minute of ischemia destroys <b>~1.9 million neurons</b>. Time is brain.'},
+      {n:'COPD', sub:'chronic lower respiratory disease', d:'\u2248142,000', v:142, pearl:'Rose for women for decades while falling for men — the tobacco bill arriving on schedule.'},
+      {n:'Alzheimer\u2019s', sub:'and other dementias', d:'\u2248119,000', v:119, pearl:'The most common cause of dementia — deaths climbed steeply as the population aged.'},
+      {n:'Diabetes', sub:'mostly type 2', d:'\u2248103,000', v:103, pearl:'Most people with diabetes die of <b>cardiovascular disease</b> — the sugar is the messenger.'},
+      {n:'Kidney disease', sub:'nephritis & nephrosis', d:'\u224856,000', v:56, pearl:'Usually the end-stage of diabetes and hypertension — the filters pay for both.'}
+    ]
+  },
+  {
+    tag:'PRACTICE · THE BIG CANCERS', src:'US estimated cancer deaths per year \u00B7 \u2248 ACS data',
+    entrants:[
+      {n:'Lung', sub:'the #1 cancer killer', d:'\u2248127,000', v:127, pearl:'Kills more than breast and prostate <b>combined</b> — and 80% of it is tobacco.'},
+      {n:'Colorectal', sub:'screenable, survivable', d:'\u224853,000', v:53, pearl:'Colonoscopy from age 45 — the deaths cluster in the unscreened.'},
+      {n:'Pancreas', sub:'the silent one', d:'\u224850,000', v:50, pearl:'Projected to become the <b>#2 cancer killer by 2030</b> — late presentation is the whole problem.'},
+      {n:'Breast', sub:'most diagnosed in women', d:'\u224843,000', v:43, pearl:'Common but usually survivable — early-stage 5-year survival exceeds 90%.'},
+      {n:'Prostate', sub:'most diagnosed in men', d:'\u224835,000', v:35, pearl:'Most men die <b>with</b> it, not of it — but it still outranks accidents in older men.'},
+      {n:'Liver', sub:'HCV + fatty liver era', d:'\u224830,000', v:30, pearl:'One of the few rising cancer deaths — hepatitis C and NAFLD did that.'},
+      {n:'Ovary', sub:'the cancer that whispers', d:'\u224813,000', v:13, pearl:'Vague symptoms, late stage at diagnosis — screening has failed it so far.'},
+      {n:'Melanoma', sub:'the skin remembers', d:'\u22488,000', v:8, pearl:'Deaths are falling as immunotherapy rises — but the incidence keeps climbing.'}
+    ]
+  }
+];
+
+/* ---------------- 08 · SECOND OPINION ---------------- */
+const SO_ROUNDS = [
+  {theme:'The pharmacist will see you now.', lines:[
+    {t:'Grapefruit juice inhibits CYP3A4 — enough to raise statin levels.', lie:false, expl:'Furanocoumarins knock out intestinal CYP3A4; the liver keeps working, which is why it matters for oral drugs.'},
+    {t:'In cocaine-associated chest pain, \u03B2-blockers are the first-line agents.', lie:true, expl:'The classic trap: \u03B2-blockade leaves \u03B1-mediated vasoconstriction unopposed. Benzodiazepines and nitrates first.'},
+    {t:'Aspirin-desensitized AERD patients are then kept on daily aspirin.', lie:false, expl:'Aspirin-exacerbated respiratory disease: desensitize, then maintain — polyps and asthma stay quieter on it.'}
+  ]},
+  {theme:'The physical exam, unchanged since 1816.', lines:[
+    {t:'A widened pulse pressure is classic for aortic regurgitation.', lie:false, expl:'Diastolic runoff — the same logic as PDA, thyrotoxicosis, beriberi, and severe anemia.'},
+    {t:'Kussmaul respirations are shallow, quiet, and slow.', lie:true, expl:'Kussmaul is <b>deep and rapid</b> — the lungs blowing off a metabolic acidosis. Quiet-and-slow is the opposite problem.'},
+    {t:'Tactile fremitus is increased over a consolidated lung.', lie:false, expl:'Solid lung transmits vibration; an effusion dampens it. Tap one side, compare the other.'}
+  ]},
+  {theme:'Everything is where it always was.', lines:[
+    {t:'The left recurrent laryngeal nerve loops under the aortic arch.', lie:false, expl:'Which is why a Pancoast tumor or an aortic aneurysm can paralyze the left cord — the detour is the vulnerability.'},
+    {t:'The appendix is a retroperitoneal organ.', lie:true, expl:'Secondarily retroperitoneal = duodenum (2nd\u20133rd parts), pancreas, ascending and descending colon. The appendix rides inside.'},
+    {t:'The spleen is the most commonly injured organ in blunt abdominal trauma.', lie:false, expl:'Fractured ribs 9\u201311 should make you think of it — the left kidney is the runner-up.'}
+  ]},
+  {theme:'The kidney ward.', lines:[
+    {t:'Uncomplicated cystitis in women can be treated with as little as a single dose of antibiotic.', lie:false, expl:'Fosfomycin is one dose; TMP-SMX is three days; nitrofurantoin five. Duration follows the diagnosis.'},
+    {t:'Every urinary tract infection needs at least a week of antibiotics.', lie:true, expl:'Pyelonephritis needs longer — cystitis does not. Reflexive 7-day courses are how resistance is farmed.'},
+    {t:'Staphylococcus saprophyticus is a common cause of cystitis in young women.', lie:false, expl:'Second only to E. coli in young, sexually active women — a coagulase-negative staph that is <b>not</b> a contaminant here.'}
+  ]},
+  {theme:'The numbers game.', lines:[
+    {t:'Heart disease remains the leading cause of death in the United States.', lie:false, expl:'It has held the title for a century — except for the influenza years of 1918\u20131920.'},
+    {t:'Prostate cancer is the leading cause of cancer death in men.', lie:true, expl:'It is lung cancer, and it is not close — prostate is #2, ahead of colorectal.'},
+    {t:'Cigarette smoking remains the leading preventable cause of death.', lie:false, expl:'About half of long-term smokers die of it; everything else fights for second place.'}
+  ]},
+  {theme:'The classics, weaponized.', lines:[
+    {t:'In hyperkalemia with ECG changes, IV calcium treats the membrane — not the potassium.', lie:false, expl:'Calcium restores the threshold gradient immediately; insulin and the rest move the number, slower.'},
+    {t:'Giving glucose before thiamine in an alcoholic is harmless.', lie:true, expl:'It can precipitate <b>Wernicke encephalopathy</b>. Thiamine first, always — the sugar can wait seconds.'},
+    {t:'In septic shock, cultures are drawn before antibiotics — but never delay antibiotics for them.', lie:false, expl:'Two sets if you can get them, then coverage and pressors inside the first hour.'}
+  ]}
+];
+
+
+/* ================================================================
+   GAMES 05-08 — ENGINES
+   ================================================================ */
+
+/* ---------------- 05 · THE CASCADE ---------------- */
+const CAS = {p:0, placed:{}, sel:null, wrong:0, done:false};
+function casNode(p, id){ return p.nodes.find(n => n.id === id); }
+function casInit(idx){
+  CAS.p = idx; CAS.placed = {}; CAS.sel = null; CAS.wrong = 0; CAS.done = false;
+  const p = CAS_PUZZLES[idx];
+  $('casCaseTag').textContent = p.tag;
+  $('casEnd').innerHTML = '';
+  $('casPts').textContent = '\u2014';
+  $('casWrong').textContent = '0';
+  $('casCheck').disabled = false;
+  $('casReveal').classList.remove('hidden');
+  let edges = '<defs><marker id="casArw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arw" d="M 0 1 L 9 5 L 0 9 z"/></marker></defs>';
+  p.edges.forEach((e, i) => {
+    const a = casNode(p, e[0]), b = casNode(p, e[1]);
+    const dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy) || 1;
+    const ux = dx/d, uy = dy/d;
+    const x1 = a.x + ux*62, y1 = a.y + uy*24, x2 = b.x - ux*64, y2 = b.y - uy*26;
+    edges += `<path id="cedge${i}" class="cas-edge" ${e[2] ? 'stroke-dasharray="5 5"' : ''} marker-end="url(#casArw)" d="M ${x1.toFixed(0)} ${y1.toFixed(0)} L ${x2.toFixed(0)} ${y2.toFixed(0)}"/>`;
+  });
+  let socks = '';
+  p.nodes.forEach(n => {
+    const hl = n.hint.length > 30 ? [n.hint.slice(0, n.hint.lastIndexOf(' ', 30)), n.hint.slice(n.hint.lastIndexOf(' ', 30)+1)] : [n.hint];
+    socks += `<g class="cas-sock" id="sock-${n.id}" onclick="casSocket('${n.id}')">
+      <rect x="${n.x-54}" y="${n.y-20}" width="108" height="40" rx="11"/>
+      <text class="sock-q" x="${n.x}" y="${n.y+7}" text-anchor="middle">?</text>
+      <text class="sock-lab" x="${n.x}" y="${n.y+6}" text-anchor="middle" style="display:none"></text>
+      <text class="sock-hint" x="${n.x}" y="${n.y+32}" text-anchor="middle">${hl[0]}</text>
+      ${hl[1] ? `<text class="sock-hint" x="${n.x}" y="${n.y+41}" text-anchor="middle">${hl[1]}</text>` : ''}
+    </g>`;
+  });
+  $('casSvg').innerHTML = edges + socks;
+  const bank = p.nodes.map(n => ({...n}));
+  for(let i=bank.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [bank[i],bank[j]] = [bank[j],bank[i]]; }
+  $('casBank').innerHTML = bank.map(n => `<button class="cas-tile" id="tile-${n.id}" onclick="casTile('${n.id}')">${n.lab}</button>`).join('');
+  casProgress();
+  renderCasTabs();
+}
+function renderCasTabs(){
+  const s = store().cas || [];
+  $('casTabs').innerHTML = CAS_PUZZLES.map((p,i) =>
+    `<button class="g-tab ${i===CAS.p?'on':''}" onclick="casInit(${i})">${p.tag.split('\u00B7')[0].trim()}${s[i]?'<span class="done">\u2714</span>':''}</button>`).join('');
+}
+function casTile(id){
+  if(CAS.done) return;
+  const t = $('tile-'+id);
+  if(CAS.placed[id]) return;
+  if(CAS.sel === id){ CAS.sel = null; t.classList.remove('sel'); }
+  else {
+    if(CAS.sel) $('tile-'+CAS.sel).classList.remove('sel');
+    CAS.sel = id; t.classList.add('sel');
+    toast('Now tap the socket where <b>' + t.textContent + '</b> belongs');
+  }
+}
+function casSocket(id){
+  if(CAS.done) return;
+  const sock = $('sock-'+id), p = CAS_PUZZLES[CAS.p];
+  if(sock.classList.contains('ok')) return;
+  if(CAS.placed[id]){
+    $('tile-'+CAS.placed[id]).disabled = false;
+    delete CAS.placed[id];
+    sock.classList.remove('filled','bad');
+    sock.querySelector('.sock-q').style.display = '';
+    sock.querySelector('.sock-lab').style.display = 'none';
+    casProgress();
+    return;
+  }
+  if(!CAS.sel){ toast('Tap a factor from the bank first.'); return; }
+  CAS.placed[id] = CAS.sel;
+  $('tile-'+CAS.sel).disabled = true;
+  $('tile-'+CAS.sel).classList.remove('sel');
+  sock.classList.add('filled');
+  sock.querySelector('.sock-q').style.display = 'none';
+  const lab = sock.querySelector('.sock-lab');
+  lab.textContent = casNode(p, CAS.sel).lab;
+  lab.style.display = '';
+  CAS.sel = null;
+  casProgress();
+}
+function casProgress(){
+  const n = CAS_PUZZLES[CAS.p].nodes.length;
+  $('casPlaced').textContent = Object.keys(CAS.placed).length + '/' + n;
+}
+function casCheck(){
+  if(CAS.done) return;
+  const p = CAS_PUZZLES[CAS.p];
+  const placedIds = Object.keys(CAS.placed);
+  if(!placedIds.length){ toast('Wire at least one socket first \u2014 or reveal if the circuit beats you.'); return; }
+  let bad = 0, good = 0;
+  p.nodes.forEach(n => {
+    const sock = $('sock-'+n.id);
+    if(!CAS.placed[n.id]) return;
+    if(CAS.placed[n.id] === n.id){ sock.classList.add('ok'); good++; }
+    else {
+      bad++;
+      sock.classList.add('bad');
+      setTimeout(() => {
+        sock.classList.remove('bad');
+        const tid = CAS.placed[n.id];
+        $('tile-'+tid).disabled = false;
+        sock.classList.remove('filled');
+        sock.querySelector('.sock-q').style.display = '';
+        sock.querySelector('.sock-lab').style.display = 'none';
+        delete CAS.placed[n.id];
+        casProgress();
+      }, 850);
+    }
+  });
+  if(bad){
+    CAS.wrong++;
+    $('casWrong').textContent = CAS.wrong;
+    toast(bad + ' socket' + (bad>1?'s':'') + ' bounced \u2014 back to the bank.' + (good ? ' ' + good + ' wired correctly stay locked.' : ''));
+  } else if(good){
+    toast(good + ' socket' + (good>1?'s':'') + ' wired correctly \u2014 locked in.');
+  }
+  if(p.nodes.every(n => $('sock-'+n.id).classList.contains('ok'))) casWin();
+}
+function casScore(){ return Math.max(600, 4000 - 700*CAS.wrong); }
+function casFlow(){
+  const p = CAS_PUZZLES[CAS.p];
+  p.edges.forEach((e, i) => {
+    const edge = $('cedge'+i);
+    if(edge){
+      setTimeout(() => edge.classList.add('live'), 90*i);
+      const d = edge.getAttribute('d');
+      const dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      dot.setAttribute('r','4.2'); dot.setAttribute('class','cas-flow');
+      dot.innerHTML = `<animateMotion dur="1.1s" begin="${(0.12*i).toFixed(2)}s" repeatCount="indefinite" path="${d}"/>`;
+      $('casSvg').appendChild(dot);
+      setTimeout(() => dot.classList.add('go'), 90*i);
+    }
+  });
+}
+function casWin(){
+  CAS.done = true;
+  $('casPts').textContent = casScore().toLocaleString();
+  $('casCheck').disabled = true;
+  $('casReveal').classList.add('hidden');
+  casFlow();
+  confetti();
+  markStreak();
+  const st = store(); st.cas = st.cas || []; st.cas[CAS.p] = true; saveStore(st);
+  renderCasTabs();
+  casEndPanel(casScore(), true);
+}
+function casReveal(){
+  if(CAS.done) return;
+  CAS.done = true;
+  const p = CAS_PUZZLES[CAS.p];
+  p.nodes.forEach(n => {
+    const sock = $('sock-'+n.id);
+    sock.classList.add('filled','ok');
+    sock.querySelector('.sock-q').style.display = 'none';
+    const lab = sock.querySelector('.sock-lab');
+    lab.textContent = n.lab; lab.style.display = '';
+  });
+  $('casCheck').disabled = true;
+  $('casReveal').classList.add('hidden');
+  casFlow();
+  casEndPanel(0, false);
+}
+function casEndPanel(score, won){
+  const p = CAS_PUZZLES[CAS.p];
+  const which = p.tag.includes('COAGULATION') ? 'coagulation' : p.tag.includes('RAAS') ? 'RAAS' : 'complement';
+  const share = `Anastomosis The Cascade \u26A1 ${won ? casScore().toLocaleString() + ' pts' : 'revealed'} \u00B7 ${which} wired with ${CAS.wrong} bounce${CAS.wrong===1?'':'s'}\nthe arcade \u2192 anastomosis.md`;
+  $('casEnd').innerHTML = `
+  <div class="end-panel">
+    <div class="ep-eyebrow">${won ? 'CIRCUIT COMPLETE' : 'CIRCUIT REVEALED'}</div>
+    <div class="ep-title ${won?'win':''}">${won ? 'It runs.' : 'Now it runs.'}</div>
+    <p class="ep-sub">${won ? 'Every factor in its socket \u2014 ' + (CAS.wrong === 0 ? 'first pass, no bounces. The pathway is yours now.' : CAS.wrong + ' bounce' + (CAS.wrong===1?'':'s') + ' on the way, and it still runs.') : 'Watch the pulse travel it \u2014 then come back and wire it yourself. The sockets that bounced you are the ones that stick.'}</p>
+    <div class="ep-actions">
+      <button class="btn btn-ink btn-sm" onclick='copyText(${JSON.stringify(share)}, "Score copied")'>Copy score</button>
+      <button class="btn btn-line btn-sm" onclick="casInit(${(CAS.p+1)%CAS_PUZZLES.length})">Next pathway</button>
+    </div>
+    ${conversionPanel({tag:'THE PATHWAY IS A QUESTION SET', body:'Every factor here anchors bank items \u2014 the deficiency, the drug that blocks it, the clot it causes. Wire the pathway once, then let the bank ask you about each junction.', bonus:'Bonus \u00B7 second-order: which cascade factor does warfarin disable \u2014 and which one does heparin potentiate?'})}
+  </div>`;
+}
+
+/* ---------------- 06 · THE LESION ---------------- */
+const LES = {i:0, total:0, done:false, t0:0};
+function lesInit(i){
+  LES.i = i; LES.done = false; LES.t0 = performance.now();
+  const c = LES_CASES[i];
+  const need = (LES._sec !== c.sec);
+  LES._sec = c.sec;
+  if(need) $('lesSvg').innerHTML = (c.sec === 'pons' ? lesDrawPons() : lesDrawCord());
+  else {
+    $('lesSvg').querySelectorAll('.les-lab').forEach(l => l.classList.remove('on'));
+    $('lesSvg').querySelector('#lesMarks').innerHTML = '';
+  }
+  $('lesCaseTag').textContent = 'CASE ' + (i+1) + '/6';
+  $('lesCase').innerHTML = '<div class="lc-tag">' + c.tag + '</div><p>' + c.text + '</p>';
+  $('lesReveal').classList.add('hidden');
+  $('lesNext').classList.add('hidden');
+  $('lesCaseScore').textContent = '\u2014';
+  $('lesTip').textContent = 'READ THE CASE \u00B7 CLICK THE LESION';
+}
+function lesAnswer(vx, vy){
+  if(LES.done) return;
+  LES.done = true;
+  const c = LES_CASES[LES.i];
+  const dist = Math.hypot(vx - c.target[0], vy - c.target[1]);
+  const acc = Math.max(.05, 1 - dist/230);
+  const secs = (performance.now() - LES.t0)/1000;
+  const timeB = Math.max(0, Math.round((75-secs)*10));
+  const pts = Math.round(acc*4000 + timeB);
+  LES.total += pts;
+  $('lesScore').textContent = LES.total.toLocaleString();
+  $('lesCaseScore').textContent = pts.toLocaleString();
+  $('lesSvg').querySelectorAll('.les-lab').forEach(l => l.classList.add('on'));
+  const marks = $('lesSvg').querySelector('#lesMarks');
+  marks.innerHTML = `
+    <g><circle class="les-pin" cx="${vx.toFixed(0)}" cy="${vy.toFixed(0)}" r="15"/>
+       <path d="M ${vx.toFixed(0)} ${(vy-24).toFixed(0)} L ${vx.toFixed(0)} ${(vy+24).toFixed(0)} M ${(vx-24).toFixed(0)} ${vy.toFixed(0)} L ${(vx+24).toFixed(0)} ${vy.toFixed(0)}" stroke="#B5342A" stroke-width="1.8" fill="none"/></g>
+    <g><circle cx="${c.target[0]}" cy="${c.target[1]}" r="40" fill="none" stroke="#C9973C" stroke-width="3"/>
+       <circle cx="${c.target[0]}" cy="${c.target[1]}" r="54" fill="none" stroke="#C9973C" stroke-width="1.4" opacity=".6"/></g>`;
+  $('lesReveal').classList.remove('hidden');
+  $('lesReveal').innerHTML = `<div class="rv-tag">${Math.round(acc*100)}% ACCURACY</div><h4>${c.label}</h4><p>${c.pearl}</p><div class="rv-score">+${pts.toLocaleString()} pts</div>`;
+  $('lesTip').textContent = 'GOLD RINGS = THE TRUE SPOT';
+  if(LES.i < LES_CASES.length-1) $('lesNext').classList.remove('hidden');
+  else lesEndRun();
+}
+function lesNext(){ lesInit(LES.i + 1); }
+function lesEndRun(){
+  markStreak();
+  if(LES.total > 16000) confetti();
+  const share = `Anastomosis The Lesion \U0001FA9C\n${LES.total.toLocaleString()}/28,500 \u00B7 6 cross-sections localized\nthe arcade \u2192 anastomosis.md`;
+  $('lesEnd').innerHTML = `<div class="end-panel" style="margin-top:14px">
+    <div class="ep-eyebrow">LOCALIZATION COMPLETE</div>
+    <div class="ep-title win">${LES.total.toLocaleString()} points.</div>
+    <p class="ep-sub">Six deficits, six clicks. In the bank, each of these sections comes with the imaging that matches it \u2014 and the two-step questions examiners love: <b>not where is it, but what artery feeds it</b>.</p>
+    <div class="ep-actions">
+      <button class="btn btn-ink btn-sm" onclick='copyText(${JSON.stringify(share)}, "Score copied")'>Copy score</button>
+      <button class="btn btn-line btn-sm" onclick="LES.total=0;$('lesScore').textContent='0';lesInit(0)">New rotation</button>
+    </div>
+    ${conversionPanel({tag:'THE SECTION IS THE QUESTION', body:'Localization is the fastest points on any exam and the first thing lost under pressure. The bank drills it with images, vignettes, and the artery-and-tract logic behind every option.', bonus:'Bonus \u00B7 second-order: which artery supplies the structure you just clicked \u2014 and what happens when it occludes?'})}
+  </div>`;
+  $('lesNext').classList.add('hidden');
+}
+
+/* ---------------- 07 · THE BRACKET ---------------- */
+const BRK = {p:0, round:0, match:0, winners:[], next:[], correct:0, picks:0, score:0, done:false, champPick:null};
+const BRK_ROUNDS = ['QUARTERFINAL', 'SEMIFINAL', 'THE FINAL'];
+function brkInit(p){
+  BRK.p = p; BRK.round = 0; BRK.match = 0; BRK.correct = 0; BRK.picks = 0; BRK.score = 0; BRK.done = false;
+  BRK.winners = BRK_DATA[p].entrants.slice(); BRK.next = [];
+  $('brkCaseTag').textContent = BRK_DATA[p].tag;
+  $('brkEnd').innerHTML = '';
+  $('brkReveal').classList.add('hidden');
+  $('brkNext').classList.add('hidden');
+  $('brkBars').style.opacity = '0';
+  brkDrawTree();
+  brkShow();
+  renderBrkTabs();
+}
+function renderBrkTabs(){
+  const s = store().brk || [];
+  $('brkTabs').innerHTML = BRK_DATA.map((b,i) =>
+    `<button class="g-tab ${i===BRK.p?'on':''}" onclick="brkInit(${i})">${b.tag.split('\u00B7')[0].trim()}${s[i]?'<span class="done">\u2714</span>':''}</button>`).join('');
+}
+function brkDrawTree(){
+  const data = BRK_DATA[BRK.p];
+  const r1 = [0,2,4,6].map(i => [data.entrants[i], data.entrants[i+1]].reduce((a,b) => a.v > b.v ? a : b));
+  const r2 = [0,2].map(i => [r1[i], r1[i+1]].reduce((a,b) => a.v > b.v ? a : b));
+  const champ = r2[0].v > r2[1].v ? r2[0] : r2[1];
+  const reached = (ent, roundIdx) => {
+    if(roundIdx === 0) return true;
+    const alive = [r1, r2, [champ]][roundIdx-1];
+    return alive.includes(ent);
+  };
+  let svg = '';
+  const colX = [16, 108, 200, 258];
+  for(let i=0;i<8;i++){
+    const e = data.entrants[i], y = 38 + i*64;
+    svg += `<text class="brk-name ${reached(e,1) ? '' : 'dead'}" x="${colX[0]}" y="${y}">${e.n}</text>`;
+  }
+  for(let i=0;i<4;i++){
+    const e = r1[i], y = 70 + i*128;
+    svg += `<path class="brk-line" d="M 92 ${38+i*128+30} H 100 V ${y-4} H ${colX[1]-6}"/>`;
+    if(BRK.round >= 1) svg += `<text class="brk-name ${reached(e,2)?'':'dead'}" x="${colX[1]}" y="${y}">${e.n}</text>`;
+  }
+  for(let i=0;i<2;i++){
+    const e = r2[i], y = 134 + i*256;
+    svg += `<path class="brk-line" d="M 184 ${70+i*128+26} H 192 V ${y-4} H ${colX[2]-6}"/>`;
+    if(BRK.round >= 2) svg += `<text class="brk-name ${reached(e,3)?'':'dead'}" x="${colX[2]}" y="${y}">${e.n}</text>`;
+  }
+  svg += `<path class="brk-line" d="M 276 ${134+26} H 284 V 258 H ${colX[3]-4}"/>`;
+  if(BRK.round >= 3){
+    svg += `<rect class="brk-champ" x="${colX[3]}" y="244" width="76" height="30" rx="8"/>
+            <text class="brk-name win" x="${colX[3]+38}" y="264" text-anchor="middle">${champ.n.split(' ')[0]}</text>
+            <text class="brk-seed" x="${colX[3]+38}" y="290" text-anchor="middle">CHAMPION</text>`;
+  }
+  $('brkSvg').innerHTML = svg;
+}
+function brkShow(){
+  const pairs = [];
+  for(let i=0;i<BRK.winners.length;i+=2) pairs.push([BRK.winners[i], BRK.winners[i+1]]);
+  if(BRK.round >= 3){ brkEndRun(); return; }
+  const pair = pairs[BRK.match];
+  const total = BRK.round === 0 ? 4 : BRK.round === 1 ? 2 : 1;
+  $('brkRound').textContent = BRK_ROUNDS[BRK.round] + ' \u00B7 ' + (BRK.match+1) + ' OF ' + total;
+  $('brkAl').textContent = pair[0].n; $('brkBl').textContent = pair[1].n;
+  $('brkAs').textContent = pair[0].sub; $('brkBs').textContent = pair[1].sub;
+  $('brkAn').textContent = '?'; $('brkBn').textContent = '?';
+  $('brkA').className = 'brk-card'; $('brkB').className = 'brk-card';
+  $('brkA').disabled = false; $('brkB').disabled = false;
+  $('brkBars').style.opacity = '0';
+  $('barAf').style.width = '0'; $('barBf').style.width = '0';
+  $('brkReveal').classList.add('hidden');
+  $('brkNext').classList.add('hidden');
+}
+function brkPick(k){
+  if(BRK.done) return;
+  const pairs = [];
+  for(let i=0;i<BRK.winners.length;i+=2) pairs.push([BRK.winners[i], BRK.winners[i+1]]);
+  const pair = pairs[BRK.match];
+  const picked = pair[k];
+  const truth = pair[0].v > pair[1].v ? pair[0] : pair[1];
+  const ok = picked === truth;
+  BRK.picks++;
+  if(ok){ BRK.correct++; BRK.score += 1000; }
+  if(BRK.round === 2) BRK.champPick = ok;
+  BRK.next.push(truth);
+  $('brkA').disabled = true; $('brkB').disabled = true;
+  (truth === pair[0] ? $('brkA') : $('brkB')).classList.add('right');
+  if(!ok) (picked === pair[0] ? $('brkA') : $('brkB')).classList.add('wrong');
+  $('brkAn').textContent = pair[0].d; $('brkBn').textContent = pair[1].d;
+  const mx = Math.max(pair[0].v, pair[1].v);
+  $('barAl').textContent = pair[0].n; $('barBl').textContent = pair[1].n;
+  $('barAn').textContent = pair[0].d; $('barBn').textContent = pair[1].d;
+  $('brkBars').style.opacity = '1';
+  setTimeout(() => { $('barAf').style.width = (pair[0].v/mx*100) + '%'; $('barBf').style.width = (pair[1].v/mx*100) + '%'; }, 60);
+  $('brkReveal').classList.remove('hidden');
+  $('brkReveal').innerHTML = `<div class="rv-tag" style="color:${ok ? 'var(--petrol2)' : 'var(--crimson2)'}">${ok ? 'CORRECT \u00B7 +1,000' : 'NOT EVEN CLOSE \u00B7 ' + truth.n.toUpperCase() + ' KILLS MORE'}</div>
+    <p><b>${truth.n}</b> \u2014 ${truth.pearl}</p>`;
+  $('brkNext').classList.remove('hidden');
+  $('brkNext').textContent = BRK.round === 2 ? 'CROWN THE CHAMPION \u2192' : 'NEXT MATCHUP \u2192';
+}
+function brkNext(){
+  BRK.match++;
+  const totalPairs = BRK.winners.length / 2;
+  if(BRK.match >= totalPairs){
+    BRK.winners = BRK.next; BRK.next = [];
+    BRK.round++;
+    BRK.match = 0;
+    brkDrawTree();
+  }
+  brkShow();
+}
+function brkEndRun(){
+  BRK.done = true;
+  const data = BRK_DATA[BRK.p];
+  const champ = data.entrants.reduce((a,b) => a.v > b.v ? a : b);
+  if(BRK.champPick) BRK.score += 2000;
+  markStreak();
+  const st = store(); st.brk = st.brk || []; st.brk[BRK.p] = true; saveStore(st);
+  renderBrkTabs();
+  if(BRK.correct >= 6) confetti();
+  const share = `Anastomosis The Bracket \U0001F3C6\n${champ.n} took the crown \u00B7 ${BRK.correct}/7 calls right\nthe arcade \u2192 anastomosis.md`;
+  $('brkRound').textContent = 'CHAMPION CROWNED';
+  $('brkReveal').classList.remove('hidden');
+  $('brkReveal').innerHTML = `<div class="rv-tag" style="color:var(--gold2)">CHAMPION \u00B7 ${champ.n}</div><p>${champ.pearl}</p>`;
+  $('brkEnd').innerHTML = `<div class="end-panel">
+    <div class="ep-eyebrow">${data.src.toUpperCase()}</div>
+    <div class="ep-title win">${BRK.correct}/7 calls right.</div>
+    <p class="ep-sub">The real bracket runs every year, and most people miss half of it \u2014 epidemiology is the section everyone skims. Your score: <b>${BRK.score.toLocaleString()}</b>${BRK.champPick ? ' including the champion bonus' : ''}.</p>
+    <div class="ep-actions">
+      <button class="btn btn-ink btn-sm" onclick='copyText(${JSON.stringify(share)}, "Bracket copied")'>Copy bracket</button>
+      <button class="btn btn-line btn-sm" onclick="brkInit(${(BRK.p+1)%BRK_DATA.length})">Next bracket</button>
+    </div>
+    ${conversionPanel({tag:'THE NUMBERS ARE TESTABLE', body:'Screening thresholds, mortality rankings, and risk-factor math are the quiet point-losers. The bank teaches them with vignettes \u2014 where the number is the clue, not the question.', bonus:'Bonus \u00B7 second-order: which two of today\u2019s entrants share a modifiable risk factor that tops them both?'})}
+  </div>`;
+}
+
+/* ---------------- 08 · SECOND OPINION ---------------- */
+const SO = {i:0, streak:0, best:0, right:0, score:0, done:false};
+function soShuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function soInit(){
+  SO.i = 0; SO.streak = 0; SO.best = 0; SO.right = 0; SO.score = 0; SO.done = false;
+  $('soEnd').innerHTML = '';
+  soShow();
+}
+function soShow(){
+  const r = SO_ROUNDS[SO.i];
+  $('soN').textContent = SO.i + 1;
+  $('soStreak').textContent = SO.streak;
+  $('soTheme').textContent = r.theme;
+  SO.order = soShuffle(r.lines.slice());
+  $('soLines').innerHTML = SO.order.map((l, i) => `
+    <div class="so-item">
+      <button class="so-line" id="sol${i}" onclick="soPick(${i})">
+        <span class="sl-n">${'ABC'[i]}</span>
+        <span class="sl-t">${l.t}</span>
+        <span class="sl-m">?</span>
+      </button>
+      <div class="so-expl ${l.lie ? 'lie' : 'truth'}" id="sox${i}" style="display:none"><b>${l.lie ? 'THE LIE' : 'TRUE'}</b><p>${l.expl}</p></div>
+    </div>`).join('');
+  $('soRevealBox').innerHTML = '';
+  $('soNext').classList.add('hidden');
+}
+function soPick(idx){
+  if(SO.done && SO.i >= SO_ROUNDS.length) return;
+  const l = SO.order[idx];
+  const correct = l.lie;
+  if(correct){ SO.streak++; SO.right++; SO.score += 400 + 100*SO.streak; }
+  else SO.streak = 0;
+  SO.best = Math.max(SO.best, SO.streak);
+  SO.order.forEach((line, i) => {
+    const b = $('sol'+i);
+    b.disabled = true;
+    b.classList.add(line.lie ? 'lie' : 'truth');
+    if(i === idx) b.classList.add('picked');
+    b.querySelector('.sl-m').textContent = line.lie ? '\u2717' : '\u2713';
+    $('sox'+i).style.display = 'block';
+  });
+  $('soStreak').textContent = SO.streak;
+  $('soRevealBox').innerHTML = correct
+    ? `<div class="so-expl truth" style="margin-top:10px"><b>CALLED IT \u00B7 +${400 + 100*SO.streak}${SO.streak>1 ? ' \u00B7 STREAK \u00D7' + SO.streak : ''}</b><p>The lie was built from a misconception half the class believes. Read why it\u2019s wrong \u2014 that\u2019s the part that sticks.</p></div>`
+    : `<div class="so-expl lie" style="margin-top:10px"><b>THE CHART GOT YOU</b><p>That one was true \u2014 and the lie is still wearing its coat. It\u2019s struck through above with the reason it\u2019s wrong.</p></div>`;
+  $('soNext').classList.remove('hidden');
+  $('soNext').textContent = SO.i >= SO_ROUNDS.length - 1 ? 'SEE THE VERDICT \u2192' : 'NEXT CHART \u2192';
+}
+function soNext(){
+  SO.i++;
+  if(SO.i >= SO_ROUNDS.length){ soEndRun(); return; }
+  soShow();
+}
+function soEndRun(){
+  SO.done = true;
+  markStreak();
+  const grade = SO.right === 6 ? ['Attending material', 'win'] : SO.right === 5 ? ['Chief resident energy', 'win'] : SO.right >= 3 ? ['Senior resident', ''] : SO.right >= 1 ? ['Intern energy', ''] : ['Get a third opinion', ''];
+  if(SO.right === 6) confetti();
+  const share = `Anastomosis Second Opinion \U0001FA7A\n${SO.right}/6 lies caught \u00B7 best streak ${SO.best}\nthe arcade \u2192 anastomosis.md`;
+  $('soEnd').innerHTML = `<div class="end-panel" style="margin-top:16px">
+    <div class="ep-eyebrow">CHART REVIEW COMPLETE</div>
+    <div class="ep-title ${grade[1]}">${grade[0]}.</div>
+    <p class="ep-sub">${SO.right}/6 lies caught, best streak ${SO.best}. Every lie here is a misconception the exam builds distractors from \u2014 with the reasoning attached, they stop tempting you.</p>
+    <div class="stat-row">
+      <div class="stat"><b>${SO.right}/6</b><span>LIES CAUGHT</span></div>
+      <div class="stat"><b>\u00D7${SO.best}</b><span>BEST STREAK</span></div>
+      <div class="stat"><b>${SO.score.toLocaleString()}</b><span>SCORE</span></div>
+    </div>
+    <div class="ep-actions">
+      <button class="btn btn-ink btn-sm" onclick='copyText(${JSON.stringify(share)}, "Result copied")'>Copy result</button>
+      <button class="btn btn-line btn-sm" onclick="soInit()">Run it again</button>
+    </div>
+    ${conversionPanel({tag:'EVERY LIE IS A DISTRACTOR', body:'The misconceptions in this game are the same ones that fill the wrong answer column. The bank shows you all four \u2014 and why each one tempts.', bonus:'Bonus \u00B7 second-order: pick today\u2019s most dangerous lie and find its vignette in the bank.'})}
+  </div>`;
+  $('soNext').classList.add('hidden');
+}
+
 /* ================================================================
    BOOT
    ================================================================ */
@@ -1683,6 +2678,15 @@ document.addEventListener('DOMContentLoaded', () => {
   connInit(0);
   cartBuildStrip();
   pgInit(0);
+  casInit(0);
+  lesInit(0);
+  brkInit(0);
+  soInit(0);
+  $('lesSvg').addEventListener('click', e => {
+    if(LES.done) return;
+    const r = $('lesSvg').getBoundingClientRect();
+    lesAnswer((e.clientX - r.left)/r.width*640, (e.clientY - r.top)/r.height*460);
+  });
   $('diffGo').addEventListener('click', diffSubmit);
   $('diffInput').addEventListener('input', e => acRender(e.target.value));
   $('diffInput').addEventListener('keydown', e => {
@@ -1713,7 +2717,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if(e.key === 'ArrowLeft') cartAnswer($('cartA'), 0);
     if(e.key === 'ArrowRight') cartAnswer($('cartB'), 1);
   });
-  if(location.search.includes('debug')){ window.ARCADE = {DIFF, CONN, CART, PG, pgPlacePin, pgSubmit, pgNext, diffSubmit, diffInit, connInit, connSubmit, cartStartRun, cartAnswer, pgInit, show}; }
+  if(location.search.includes('debug')){ window.ARCADE = {DIFF, CONN, CART, PG, CAS, LES, BRK, SO, pgPlacePin, pgSubmit, pgNext, diffSubmit, diffInit, connInit, connSubmit, cartStartRun, cartAnswer, pgInit, show, casInit, casCheck, casSocket, casTile, lesInit, lesAnswer, brkInit, brkPick, brkNext, soInit, soPick, soNext}; }
 });
 </script>
 </body></html>
