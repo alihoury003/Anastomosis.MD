@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anastomosis.MD — social kit</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bone:#F7F3EB;--paper:#FFFDF7;--paper2:#EFE9DC;--rule:#E3DCCC;--ink:#101418;--ink2:#4A4741;--ink3:#8A857A;--crimson:#B5342A;--petrol:#1B4E5F;--petrol2:#143C4A;--gold:#C9973C;--gold2:#9A742C;--serif:'Instrument Serif',Georgia,serif;--mono:'JetBrains Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bone);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:1080px;margin:0 auto;padding:44px 24px 90px}
+.eyebrow{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.34em;color:var(--petrol);text-transform:uppercase}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(38px,5.4vw,58px);letter-spacing:-.015em;margin:14px 0 8px}
+h1 em{font-style:italic;background:linear-gradient(92deg,var(--crimson),var(--ink) 45%,var(--petrol));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--ink2);font-size:15px;line-height:1.65;max-width:640px}
+.sec{margin-top:52px}
+.sec-h{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:22px}
+.sec-n{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--gold2)}
+.sec-t{font-family:var(--serif);font-size:30px;font-weight:400}
+.note{font-size:13px;color:var(--ink2);line-height:1.6;margin-top:14px}
+.note b{color:var(--ink)}
+.avrow{display:flex;gap:26px;align-items:flex-end;flex-wrap:wrap}
+.avbig{display:flex;gap:26px;align-items:center;flex-wrap:wrap}
+.circle{border-radius:50%;display:block;box-shadow:0 24px 60px -36px rgba(16,20,24,.4)}
+.square{border-radius:24px;display:block;box-shadow:0 10px 30px -14px rgba(16,20,24,.22);border:1px solid var(--rule)}
+.cap{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.18em;color:var(--ink3);text-align:center;margin-top:10px}
+.tabbar{background:var(--paper2);border:1px solid var(--rule);border-bottom:none;border-radius:14px 14px 0 0;padding:10px 12px 0;display:flex;gap:8px}
+.tab{display:flex;align-items:center;gap:9px;background:var(--bone);border:1px solid var(--rule);border-bottom:none;border-radius:10px 10px 0 0;padding:9px 16px;font-size:12.5px;font-weight:600;color:var(--ink)}
+.tab img{width:16px;height:16px;display:block}
+.tab .x{color:var(--ink3);margin-left:6px}
+.tab.inactive{background:var(--paper2);border-color:transparent;color:var(--ink3)}
+.pagebody{background:var(--paper);border:1px solid var(--rule);border-radius:0 0 14px 14px;padding:26px;font-size:13.5px;color:var(--ink2)}
+.lad{display:flex;gap:38px;align-items:flex-end;flex-wrap:wrap;margin-top:26px}
+.lad>div{text-align:center}
+.zoom{image-rendering:pixelated;border:1px solid var(--rule);border-radius:8px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+td{padding:9px 12px;border-bottom:1px solid var(--rule);color:var(--ink2)}
+td code{font-family:var(--mono);font-size:11.5px;color:var(--ink)}
+a{color:var(--petrol);font-weight:700}
+pre{font-family:var(--mono);font-size:10.5px;line-height:1.7;background:var(--ink);color:#DDE8EC;border-radius:14px;padding:20px;overflow:auto;max-height:260px}
+pre b{color:var(--gold)}
+.spec{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.14em;color:var(--ink2);background:var(--paper);border:1px solid var(--rule);padding:7px 11px;border-radius:8px}
+.chip b{color:var(--gold2)}
+</style></head><body>
+<main>
+<div class="eyebrow">Anastomosis.MD · Social Kit</div>
+<h1>One mark. <em>Every surface.</em></h1>
+<p class="sub">Production assets generated from <b>@@SRC</b> (the live mark) at @@NATIVEpx native — background unified to brand bone #F7F3EB. When the logo crown lands on a different mark, the whole kit regenerates with one command.</p>
+
+<div class="sec">
+  <div class="sec-h"><span class="sec-n">01</span><span class="sec-t">The avatar — square and circle</span></div>
+  <div class="avbig">
+    <div><img class="circle" src="data:image/png;base64,@@AV512" width="300" height="300" alt="avatar circle"><div class="cap">CIRCLE · HOW PLATFORMS CROP IT</div></div>
+    <div><img class="square" src="data:image/png;base64,@@AV512" width="300" height="300" alt="avatar square"><div class="cap">SQUARE · THE NATIVE FILE</div></div>
+    <div><img class="circle" src="data:image/png;base64,@@AV200" width="80" height="80" alt="avatar small"><div class="cap">80px</div></div>
+  </div>
+  <p class="note"><b>Circle-crop audit:</b> @@METRIC. Nothing gets clipped — the mark was measured, not guessed. Background is exact brand bone, so it reads identically on light and dark UI chrome.</p>
+  <div class="spec"><span class="chip">MASTER <b>1024</b></span><span class="chip">EXPORTS <b>512 · 400 · 300 · 200</b></span><span class="chip">UPSCALE <b>2048</b> (LANCZOS)</span><span class="chip">BG TONE <b>@@BG → #F7F3EB</b></span></div>
+</div>
+
+<div class="sec">
+  <div class="sec-h"><span class="sec-n">02</span><span class="sec-t">The favicon — down to 16 pixels</span></div>
+  <div class="tabbar">
+    <div class="tab"><img src="data:image/png;base64,@@F16" alt=""><span>Anastomosis.MD — The Arcade</span><span class="x">×</span></div>
+    <div class="tab inactive">New tab</div>
+  </div>
+  <div class="pagebody">The tab above renders the real 16px icon at true size. Below: the full ladder, actual size and 4× zoom.</div>
+  <div class="lad">
+    <div><img src="data:image/png;base64,@@F16" width="16" height="16"><div class="cap">16</div></div>
+    <div><img src="data:image/png;base64,@@F32" width="32" height="32"><div class="cap">32</div></div>
+    <div><img src="data:image/png;base64,@@F48" width="48" height="48"><div class="cap">48</div></div>
+    <div><img src="data:image/png;base64,@@APPLE" width="72" height="72"><div class="cap">180 · APPLE TOUCH</div></div>
+    <div><img class="zoom" src="data:image/png;base64,@@F16" width="64" height="64"><div class="cap">16 AT 4×</div></div>
+    <div><img class="zoom" src="data:image/png;base64,@@FCUT32" width="128" height="128"><div class="cap">32 AT 4× · SMALL CUT</div></div>
+  </div>
+  <div class="lad" style="margin-top:18px">
+    <div><img class="zoom" src="data:image/png;base64,@@CMP16" width="384" style="width:384px;image-rendering:pixelated"><div class="cap">16PX — NATIVE LEFT · SMALL-SIZE CUT RIGHT</div></div>
+  </div>
+  <p class="note"><b>Design note:</b> at 16px the letters of the calligram resolve into the tree itself — the silhouette carries, exactly like classic tree marks. The 16 and 32 icons use a <b>small-size cut</b> — the ink dilated a hair so thin branches survive the downscale (compare above: native left, cut right). 48 and up are the native rendering. Every icon is a tight crop on bone, so it reads as a deliberate bone square in dark and light tab bars. <b>favicon.ico (16+32+48)</b> plus PNG 16/32/48/180/192/512 and a webmanifest are in the kit; the repo-root <b>favicon.ico</b> has been refreshed with the multi-size build.</p>
+  <p class="note"><b>Spelling gate (honest receipt):</b> the OG wordmark reads <b>Anastomosis.MD</b> under OCR ✓. The calligram inside the mark reads <b>.md</b> but the tree-letters remain below OCR threshold even at 2048px with preprocessing — the known tw-9 flag. <b>Your eyeball remains the final gate on the mark's spelling</b>, exactly as flagged since the shortlist.</p>
+</div>
+
+<div class="sec">
+  <div class="sec-h"><span class="sec-n">03</span><span class="sec-t">The link card — 1200 × 630</span></div>
+  <img src="data:image/png;base64,@@OG" width="100%" style="border-radius:16px;border:1px solid var(--rule);display:block;box-shadow:0 24px 60px -36px rgba(16,20,24,.35)" alt="og card">
+  <p class="note">What people see when a link to anastomosis.md is shared — X, LinkedIn, Discord, WhatsApp, iMessage. Real Instrument Serif wordmark, arteriovenous gradient, brand bone. The tagline matches the loader caption: <b>two vessels, one mind</b>.</p>
+</div>
+
+<div class="sec">
+  <div class="sec-h"><span class="sec-n">04</span><span class="sec-t">The paste-ready favicon snippet</span></div>
+  <p class="note">The live site serves pages with inline favicons (root files fall back to index.html) — so the deploy path is pasting. These four lines carry the new favicon at 16/32/48 + Apple touch, no file requests. Paste into each page's <b>&lt;head&gt;</b>, replacing the old icon link:</p>
+  <pre>@@SNIPPET</pre>
+</div>
+
+<div class="sec">
+  <div class="sec-h"><span class="sec-n">05</span><span class="sec-t">Every file in the kit</span></div>
+  <table><tr><td><b>FILE</b></td><td><b>SIZE</b></td><td></td></tr>@@ROWS</table>
+</div>
+</main>
+</body></html>
