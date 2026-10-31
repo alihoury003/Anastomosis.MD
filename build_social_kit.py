@@ -126,7 +126,7 @@ def tracked_text(draw, xy, text, font, fill, tracking):
         draw.text((x, y), chx, font=font, fill=fill)
         x += draw.textlength(chx, font=font) + tracking
 
-def build(source):
+def build(source, no_md=False):
     os.makedirs(KIT, exist_ok=True)
     for sub in ('avatar', 'favicon', 'fonts'):
         os.makedirs(os.path.join(KIT, sub), exist_ok=True)
@@ -134,14 +134,19 @@ def build(source):
 
     master, bg_tone = load_master(source)
     native = master.size[0]
-    master.save(os.path.join(KIT, 'avatar', f'avatar-{native}.png'))
+    # the active brand mark: with or without the gold .md (--no-md)
+    MD_BOX = (571, 719, 700, 781)
+    no_md_img = master.copy()
+    ImageDraw.Draw(no_md_img).rectangle(MD_BOX, fill=BONE)
+    mark = no_md_img if no_md else master
+    mark.save(os.path.join(KIT, 'avatar', f'avatar-{native}.png'))
     # upscaled master (labelled) + platform sizes
-    master.resize((2048, 2048), Image.LANCZOS).save(os.path.join(KIT, 'avatar', 'avatar-2048.png'))
+    mark.resize((2048, 2048), Image.LANCZOS).save(os.path.join(KIT, 'avatar', 'avatar-2048.png'))
     for s in (512, 400, 300, 200):
-        master.resize((s, s), Image.LANCZOS).save(os.path.join(KIT, 'avatar', f'avatar-{s}.png'))
+        mark.resize((s, s), Image.LANCZOS).save(os.path.join(KIT, 'avatar', f'avatar-{s}.png'))
     # circle-transparent variant
     s = 512
-    sq = master.resize((s, s), Image.LANCZOS).convert('RGBA')
+    sq = mark.resize((s, s), Image.LANCZOS).convert('RGBA')
     m = Image.new('L', (s, s), 0)
     ImageDraw.Draw(m).ellipse((0, 0, s - 1, s - 1), fill=255)
     sq.putalpha(m); sq.save(os.path.join(KIT, 'avatar', 'avatar-circle-512.png'))
@@ -149,9 +154,7 @@ def build(source):
     # ---- LOGO DELIVERABLES: two versions (with / without the gold ".md") ----
     # measured on the tw-9 source: the .md floats free of the trunk (trunk right edge <= x566)
     # and of the lower branches (start ~y830) -- safe box, verified by run-scan.
-    MD_BOX = (571, 719, 700, 781)
-    no_md = master.copy()
-    ImageDraw.Draw(no_md).rectangle(MD_BOX, fill=BONE)
+    no_md = no_md_img
     lg = os.path.join(KIT, 'logo')
     os.makedirs(lg, exist_ok=True)
     for name, img in [('anastomosis-md', master), ('anastomosis', no_md)]:
@@ -174,7 +177,7 @@ def build(source):
     assert maxr <= native / 2, 'mark is not circle-crop safe — rescale before shipping'
 
     # ---- favicons: tight crop ----
-    fc = square_crop(master, bbox, 0.025).resize((512, 512), Image.LANCZOS)
+    fc = square_crop(mark, bbox, 0.025).resize((512, 512), Image.LANCZOS)
     fcut = small_cut(fc)
     fv = os.path.join(KIT, 'favicon')
     fc.resize((48, 48), Image.LANCZOS).save(os.path.join(fv, 'favicon-48.png'))
@@ -182,7 +185,7 @@ def build(source):
     fcut.resize((16, 16), Image.LANCZOS).save(os.path.join(fv, 'favicon-16.png'))
     fc.save(os.path.join(fv, 'favicon-512.png'))
     fc.resize((192, 192), Image.LANCZOS).save(os.path.join(fv, 'favicon-192.png'))
-    square_crop(master, bbox, 0.08).resize((180, 180), Image.LANCZOS).save(os.path.join(fv, 'apple-touch-icon.png'))
+    square_crop(mark, bbox, 0.08).resize((180, 180), Image.LANCZOS).save(os.path.join(fv, 'apple-touch-icon.png'))
     write_ico(os.path.join(fv, 'favicon.ico'), [fcut.resize((16, 16), Image.LANCZOS),
                                                 fcut.resize((32, 32), Image.LANCZOS),
                                                 fc.resize((48, 48), Image.LANCZOS)])
@@ -201,7 +204,7 @@ def build(source):
     W, H = 1200, 630
     card = Image.new('RGB', (W, H), BONE)
     mark_h = 348
-    mk = master.resize((mark_h, mark_h), Image.LANCZOS)
+    mk = mark.resize((mark_h, mark_h), Image.LANCZOS)
     card.paste(mk, ((W - mark_h) // 2, 30))
     stops = [(0.0, CRIMSON), (0.45, INK), (1.0, PETROL)]
     wm = gradient_wordmark('Anastomosis.MD', serif, 118, stops)
@@ -217,9 +220,10 @@ def build(source):
     card.save(os.path.join(KIT, 'og-1200x630.png'))
 
     # ---- preview page ----
-    av1024 = b64(master)
-    av512 = b64(master.resize((512, 512), Image.LANCZOS))
-    av200 = b64(master.resize((200, 200), Image.LANCZOS))
+    av1024 = b64(mark)
+    av512 = b64(mark.resize((512, 512), Image.LANCZOS))
+    av200 = b64(mark.resize((200, 200), Image.LANCZOS))
+    mark.resize((240, 240), Image.LANCZOS).save(os.path.join(KIT, 'mark-240.jpg'), quality=85, optimize=True)
     fcut32 = b64(fcut.resize((32, 32), Image.LANCZOS))
     cmp16 = Image.new('RGB', (192, 80), (239, 233, 220))
     cmp16.paste(fc.resize((16, 16), Image.LANCZOS).resize((80, 80), Image.NEAREST), (4, 0))
@@ -260,13 +264,15 @@ def build(source):
     open(os.path.join(KIT, 'preview.html'), 'w').write(html)
     report.append('favicon.ico: 16+32+48 multi-size; 16/32 use the small-size cut (ink dilated for presence), 48+ native')
     report.append(f'og-1200x630.png: mark + serif gradient wordmark + tagline')
+    report.append(f'active brand mark: ' + ('anastomosis (no .md)' if no_md else 'anastomosis.md') + ' -> avatars, favicons, og, mark-240.jpg')
     report.append('preview.html: self-contained preview written')
     for r in report: print('  ' + r)
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--source', default='logo-lab/tw-9.png')
+    ap.add_argument('--no-md', action='store_true', help='brand mark without the gold .md')
     args = ap.parse_args()
-    print(f'building social kit from {args.source} ...')
-    build(args.source)
+    print(f'building social kit from {args.source}{" (no .md)" if args.no_md else ""} ...')
+    build(args.source, args.no_md)
     print('done.')

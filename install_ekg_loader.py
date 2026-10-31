@@ -23,9 +23,13 @@ import re
 import sys
 
 # ---------------------------------------------------------------- tw-9 mark
-TW9 = open('/tmp/tw9.txt').read().strip() if False else None
-if TW9 is None:  # embedded copy (extracted from loader-demos.html const TW9)
-    import os
+import os
+TW9 = ''
+_p = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'social-kit', 'mark-240.jpg')
+if os.path.exists(_p):                      # the active brand mark (built by build_social_kit.py)
+    import base64
+    TW9 = base64.b64encode(open(_p, 'rb').read()).decode()
+else:                                       # legacy fallback: the old tw-9 embed
     _p = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'loader-demos.html')
     _m = re.search(r'const TW9 = "([^"]+)"', open(_p, errors='replace').read())
     TW9 = _m.group(1) if _m else ''
@@ -48,7 +52,7 @@ CSS = """/* ==== THE EKG LOADER (Anastomosis.MD) ==== */
 @keyframes ekgTraceFade{to{opacity:.3}}
 .ekg-l{opacity:0;transform-box:fill-box;transform-origin:center;fill:#E3DCCC}
 .ekg-l.run{animation:ekgBeat .62s cubic-bezier(.3,.6,.4,1) forwards}
-@keyframes ekgBeat{0%{opacity:1;transform:scale(1);fill:#E3DCCC}14%{transform:scale(1.26) translateY(-3px);fill:url(#ekgGrad)}32%{transform:scale(.94)}50%{transform:scale(1.1) translateY(-1px)}100%{opacity:1;transform:scale(1) translateY(0);fill:url(#ekgGrad)}}
+@keyframes ekgBeat{0%{opacity:1;transform:scale(1);fill:#E3DCCC}14%{transform:scale(1.26) translateY(-3px);fill:var(--fb,#101418)}32%{transform:scale(.94)}50%{transform:scale(1.1) translateY(-1px)}100%{opacity:1;transform:scale(1) translateY(0);fill:var(--fb,#101418)}}
 #ekgWord{transform-box:view-box;transform-origin:500px 298px}
 #ekgWord.beat{animation:ekgSystole .75s ease-in-out}
 @keyframes ekgSystole{0%,100%{transform:scale(1)}22%{transform:scale(1.05)}45%{transform:scale(.985)}68%{transform:scale(1.025)}}
@@ -76,11 +80,6 @@ def markup(mode, root_id, caption, caption_id):
 <div class="ekg-load" id="{root_id}" role="status" aria-label="Loading Anastomosis.MD">
   <div class="ekg-stage">
     <svg viewBox="0 0 1000 560" aria-hidden="true">
-      <defs>
-        <linearGradient id="ekgGrad" gradientUnits="userSpaceOnUse" x1="280" y1="0" x2="720" y2="0">
-          <stop offset="0" stop-color="#B5342A"/><stop offset=".4" stop-color="#101418"/><stop offset="1" stop-color="#1B4E5F"/>
-        </linearGradient>
-      </defs>
       <g id="ekgScene">
         <path id="ekgTrace" class="ekg-trace" pathLength="1" d="{EKG_D}"/>
         <text id="ekgProbe" x="500" y="312" text-anchor="middle" font-family="'Instrument Serif',Georgia,serif" font-style="italic" font-size="78" letter-spacing="2" opacity="0">anastomosis</text>
@@ -123,6 +122,13 @@ def markup(mode, root_id, caption, caption_id):
   }};
   if(!els.trace || !els.probe || !els.letters) return;
   var WORD = 'anastomosis', FS = 78, BASE = 312, LS = 2;
+  var RAMP = [[181,52,42],[16,20,24],[27,78,95]];   /* crimson -> ink -> petrol, same stops as the wordmark gradient */
+  function rampColor(f){{
+    f = Math.max(0, Math.min(1, f));
+    var a, b, t;
+    if(f < .4){{ a = RAMP[0]; b = RAMP[1]; t = f/.4; }} else {{ a = RAMP[1]; b = RAMP[2]; t = (f-.4)/.6; }}
+    return 'rgb(' + Math.round(a[0]+(b[0]-a[0])*t) + ',' + Math.round(a[1]+(b[1]-a[1])*t) + ',' + Math.round(a[2]+(b[2]-a[2])*t) + ')';
+  }}
   var faded = false;
   function now(){{ return performance.now() - T0; }}
   function at(ms, fn){{ return setTimeout(fn, Math.max(0, ms - now())); }}
@@ -149,17 +155,14 @@ def markup(mode, root_id, caption, caption_id):
     var n = WORD.length, totalW = 0;
     try {{ totalW = els.probe.getSubStringLength(0, n); }} catch(e){{ return false; }}
     if(!totalW) return false;
-    var g = document.getElementById('ekgGrad');
-    if(g){{
-      g.setAttribute('x1', (500 - totalW/2 - 8).toFixed(1));
-      g.setAttribute('x2', (500 + totalW/2 + 8).toFixed(1));
-    }}
     var NS = 'http://www.w3.org/2000/svg';
     for(var i=0;i<n;i++){{
       var pre = 0, w = 0;
       try {{ pre = els.probe.getSubStringLength(0,i); w = els.probe.getSubStringLength(i,1); }} catch(e){{}}
       var x = 500 - totalW/2 + pre;
+      var col = rampColor((x + w/2 - (500 - totalW/2)) / totalW);
       var el = document.createElementNS(NS,'text');
+      el.style.setProperty('--fb', col);
       el.setAttribute('x', x.toFixed(1));
       el.setAttribute('y', BASE);
       el.setAttribute('text-anchor','start');
@@ -171,13 +174,13 @@ def markup(mode, root_id, caption, caption_id):
       el.textContent = WORD[i];
       els.letters.appendChild(el);
       if(reduced){{
-        el.setAttribute('fill','url(#ekgGrad)');
+        el.setAttribute('fill', col);
         el.style.opacity = '1';
         continue;
       }}
       var d = passAt(x + w/2) - now();
       if(d <= 40){{
-        el.setAttribute('fill','url(#ekgGrad)');
+        el.setAttribute('fill', col);
         el.style.opacity = '1';
       }} else {{
         (function(node, delay){{ at(delay, function(){{ node.classList.add('run'); }}); }})(el, d);
@@ -187,7 +190,7 @@ def markup(mode, root_id, caption, caption_id):
   }}
   function probeFallback(){{
     els.probe.setAttribute('opacity','1');
-    els.probe.setAttribute('fill','url(#ekgGrad)');
+    els.probe.setAttribute('fill','#101418');
   }}
   var fontP;
   try {{

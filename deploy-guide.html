@@ -47,20 +47,20 @@ ol.steps li b{color:var(--ink)}
 <main>
 <div class="eyebrow">Anastomosis.MD · Deploy Guide</div>
 <h1>What now? <em>One upload.</em></h1>
-<p class="sub">First, the good news you may not have realized: <b>the whole site is already live.</b> Your Oct 30 upload to <code>main</code> shipped the re-brand, the rebuilt free tier, the new 20-question format, the $15/$36/$99 ladder, and the EKG loader — verified byte-identical against the deployed branch. Nothing needs re-uploading for any of that.</p>
+<p class="sub"><b>Update for this pass:</b> every file below changed again — the brand mark is now the <b>no-.md version</b> everywhere (navs, loader finale, favicons, link card), and the EKG loader's letter colors were rebuilt bulletproof (per-letter solid fills — they can no longer fail in any browser). <b>Re-download all 13 from the hub.</b> First, the context: <b>the whole site is already live.</b> Your Oct 30 upload to <code>main</code> shipped the re-brand, the rebuilt free tier, the new 20-question format, the $15/$36/$99 ladder, and the EKG loader — verified byte-identical against the deployed branch. Nothing needs re-uploading for any of that.</p>
 
 <div class="banner">
   <div class="bt">STATUS — VERIFIED AGAINST MAIN</div>
-  <p>Everything through the EKG loader: <b>live</b> ✓ &nbsp;·&nbsp; This pass adds the last two polish items — <em>one favicon set on every page</em> (dashboard was carrying an old dark icon) and <em>the link-preview card</em> for sharing. After this upload, there is <b>no more code to ship</b> — only your action list at the bottom.</p>
+  <p><b>Your last upload never deployed</b> — that is why the tab still shows the M and the loader colors misbehave: the live site serves <em>older files than the repo</em> (your view-source test proved it — no <b>16x16</b>). So: upload the 13 files below, <b>then do section 05</b> (the console redeploy) — that is the step that actually puts them live. This pass also swaps the brand mark to the <em>no-.md version</em> everywhere and bulletproofs the loader colors.</p>
 </div>
 
 <div class="sec">
   <div class="sec-h"><span class="sec-n">01</span><span class="sec-t">The upload list — 13 files</span></div>
   <table>
     <tr><th>FILE</th><th>SIZE</th><th>WHAT CHANGED</th></tr>
-    <tr><td><code>index.html</code></td><td>621 KB</td><td>Unified favicon + the OG share card<span class="why">what people see when the link is shared on WhatsApp / X / LinkedIn</span></td></tr>
-    <tr><td><code>dashboard.html</code></td><td>528 KB</td><td>Unified favicon<span class="why">fixes the wrong dark icon that was living in the tab</span></td></tr>
-    <tr><td><code>pricing.html</code></td><td>124 KB</td><td>Unified favicon + the OG share card</td></tr>
+    <tr><td><code>index.html</code></td><td>634 KB</td><td>No-.md mark + bulletproof loader colors + favicon + OG card</td></tr>
+    <tr><td><code>dashboard.html</code></td><td>558 KB</td><td>No-.md mark (7 embeds) + bulletproof loader colors + favicon</td></tr>
+    <tr><td><code>pricing.html</code></td><td>124 KB</td><td>No-.md mark + favicon + OG card</td></tr>
     <tr><td><code>login.html</code></td><td>106 KB</td><td>Unified favicon</td></tr>
     <tr><td><code>signup.html</code></td><td>109 KB</td><td>Unified favicon</td></tr>
     <tr><td><code>forgot-password.html</code></td><td>105 KB</td><td>Unified favicon</td></tr>
@@ -69,7 +69,7 @@ ol.steps li b{color:var(--ink)}
     <tr><td><code>privacy.html</code></td><td>81 KB</td><td>Unified favicon</td></tr>
     <tr><td><code>refund-policy.html</code></td><td>82 KB</td><td>Unified favicon</td></tr>
     <tr><td><code>import.html</code></td><td>142 KB</td><td>Unified favicon<span class="why">your admin importer — unlinked page</span></td></tr>
-    <tr><td><code>og-1200x630.png</code> <span class="tag new">NEW</span></td><td>155 KB</td><td>The link-card image<span class="why">the pages reference it via its raw GitHub URL — it must be on main for share previews to show it</span></td></tr>
+    <tr><td><code>og-1200x630.png</code></td><td>153 KB</td><td>The link-card image — now with the no-.md mark<span class="why">referenced via its raw GitHub URL — must be on main for share previews</span></td></tr>
     <tr><td><code>favicon.ico</code></td><td>8 KB</td><td>Refreshed multi-size fallback (16+32+48)</td></tr>
   </table>
   <p class="note">All 13 files are in the workspace root — download them from the <b>file hub</b> (port 8000). The pages carry the favicons inline (the host doesn't serve root icon files — that's why the icons ride inside the HTML), so uploading the pages <b>is</b> the favicon deploy.</p>
