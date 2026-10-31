@@ -32,9 +32,13 @@ module_defs = set(re.findall(r'\bfunction\s+([A-Za-z_$][\w$]*)\s*\(', module)) |
     re.findall(r'\b(?:const|let)\s+([A-Za-z_$][\w$]*)\s*=', module))
 
 handler_re = re.compile(r'\son\w+\s*=\s*["\']([A-Za-z_$][\w$]*)\s*\(')
+JS_KEYWORDS = {'if', 'return', 'window', 'document', 'this', 'event', 'true',
+               'false', 'null', 'void', 'typeof', 'new', 'await', 'async', 'not'}
 handlers = {}
 for ln, text in enumerate(lines, 1):
     for m in handler_re.finditer(text):
+        if m.group(1) in JS_KEYWORDS:      # e.g. onclick="if(event.target===this)close()"
+            continue
         handlers.setdefault(m.group(1), []).append(ln)
 
 dead = []

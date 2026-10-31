@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anastomosis.MD — deploy guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bone:#F7F3EB;--paper:#FFFDF7;--paper2:#EFE9DC;--rule:#E3DCCC;--ink:#101418;--ink2:#4A4741;--ink3:#8A857A;--crimson:#B5342A;--crimsonSoft:#F2E1DD;--petrol:#1B4E5F;--petrolSoft:#DDE8EC;--gold:#C9973C;--gold2:#9A742C;--goldSoft:#F4EAD4;--serif:'Instrument Serif',Georgia,serif;--mono:'JetBrains Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bone);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:880px;margin:0 auto;padding:46px 24px 100px}
+.eyebrow{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.34em;color:var(--petrol);text-transform:uppercase}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(38px,5.4vw,56px);letter-spacing:-.015em;margin:14px 0 8px}
+h1 em{font-style:italic;background:linear-gradient(92deg,var(--crimson),var(--ink) 45%,var(--petrol));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--ink2);font-size:15.5px;line-height:1.65;max-width:660px}
+.sub b{color:var(--ink)}
+.sec{margin-top:46px}
+.sec-h{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:18px}
+.sec-n{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--gold2)}
+.sec-t{font-family:var(--serif);font-size:29px;font-weight:400}
+.banner{background:var(--ink);border-radius:16px;padding:22px 26px;margin-top:26px}
+.banner .bt{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--gold)}
+.banner p{color:#DDE8EC;font-size:14.5px;line-height:1.65;margin-top:8px}
+.banner p b{color:var(--bone)}
+.banner p em{color:var(--gold);font-style:normal;font-weight:700}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{text-align:left;font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;color:var(--ink3);padding:8px 12px;border-bottom:2px solid var(--rule)}
+td{padding:10px 12px;border-bottom:1px solid var(--rule);color:var(--ink2);vertical-align:top}
+td code{font-family:var(--mono);font-size:12px;color:var(--ink);background:var(--paper2);padding:2px 7px;border-radius:5px}
+td .why{display:block;font-size:12px;color:var(--ink3);margin-top:3px}
+td.ok{color:var(--petrol);font-weight:700}
+ol.steps{counter-reset:s;list-style:none;margin-top:6px}
+ol.steps li{counter-increment:s;display:flex;gap:16px;padding:13px 0;border-bottom:1px solid var(--rule);font-size:14.5px;line-height:1.6;color:var(--ink2)}
+ol.steps li:before{content:counter(s);flex:none;width:30px;height:30px;border-radius:50%;background:var(--petrol);color:var(--bone);font-family:var(--mono);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:2px}
+ol.steps li b{color:var(--ink)}
+.check{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--rule);font-size:14px;line-height:1.55;color:var(--ink2)}
+.check input{flex:none;width:19px;height:19px;margin-top:2px;accent-color:var(--petrol)}
+.check b{color:var(--ink)}
+.warn{background:var(--crimsonSoft);border:1.5px solid var(--crimson);border-radius:14px;padding:16px 20px;font-size:13.5px;line-height:1.6;color:var(--crimson2)}
+.warn b{color:var(--crimson)}
+.note{font-size:13px;color:var(--ink2);line-height:1.6;margin-top:14px}
+.note b{color:var(--ink)}
+.nolist{columns:2;column-gap:34px;font-family:var(--mono);font-size:11.5px;color:var(--ink3);line-height:2}
+.nolist code{color:var(--ink2)}
+.tag{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;padding:4px 9px;border-radius:6px;background:var(--goldSoft);color:var(--gold2);margin-left:8px;vertical-align:2px}
+.tag.new{background:var(--petrolSoft);color:var(--petrol)}
+</style></head><body>
+<main>
+<div class="eyebrow">Anastomosis.MD · Deploy Guide</div>
+<h1>What now? <em>One upload.</em></h1>
+<p class="sub">First, the good news you may not have realized: <b>the whole site is already live.</b> Your Oct 30 upload to <code>main</code> shipped the re-brand, the rebuilt free tier, the new 20-question format, the $15/$36/$99 ladder, and the EKG loader — verified byte-identical against the deployed branch. Nothing needs re-uploading for any of that.</p>
+
+<div class="banner">
+  <div class="bt">STATUS — VERIFIED AGAINST MAIN</div>
+  <p>Everything through the EKG loader: <b>live</b> ✓ &nbsp;·&nbsp; This pass adds the last two polish items — <em>one favicon set on every page</em> (dashboard was carrying an old dark icon) and <em>the link-preview card</em> for sharing. After this upload, there is <b>no more code to ship</b> — only your action list at the bottom.</p>
+</div>
+
+<div class="sec">
+  <div class="sec-h"><span class="sec-n">01</span><span class="sec-t">The upload list — 13 files</span></div>
+  <table>
+    <tr><th>FILE</th><th>SIZE</th><th>WHAT CHANGED</th></tr>
+    <tr><td><code>index.html</code></td><td>621 KB</td><td>Unified favicon + the OG share card<span class="why">what people see when the link is shared on WhatsApp / X / LinkedIn</span></td></tr>
+    <tr><td><code>dashboard.html</code></td><td>528 KB</td><td>Unified favicon<span class="why">fixes the wrong dark icon that was living in the tab</span></td></tr>
+    <tr><td><code>pricing.html</code></td><td>124 KB</td><td>Unified favicon + the OG share card</td></tr>
+    <tr><td><code>login.html</code></td><td>106 KB</td><td>Unified favicon</td></tr>
+    <tr><td><code>signup.html</code></td><td>109 KB</td><td>Unified favicon</td></tr>
+    <tr><td><code>forgot-password.html</code></td><td>105 KB</td><td>Unified favicon</td></tr>
+    <tr><td><code>reset-password.html</code></td><td>69 KB</td><td>Unified favicon</td></tr>
+    <tr><td><code>terms.html</code></td><td>82 KB</td><td>Unified favicon</td></tr>
+    <tr><td><code>privacy.html</code></td><td>81 KB</td><td>Unified favicon</td></tr>
+    <tr><td><code>refund-policy.html</code></td><td>82 KB</td><td>Unified favicon</td></tr>
+    <tr><td><code>import.html</code></td><td>142 KB</td><td>Unified favicon<span class="why">your admin importer — unlinked page</span></td></tr>
+    <tr><td><code>og-1200x630.png</code> <span class="tag new">NEW</span></td><td>155 KB</td><td>The link-card image<span class="why">the pages reference it via its raw GitHub URL — it must be on main for share previews to show it</span></td></tr>
+    <tr><td><code>favicon.ico</code></td><td>8 KB</td><td>Refreshed multi-size fallback (16+32+48)</td></tr>
+  </table>
+  <p class="note">All 13 files are in the workspace root — download them from the <b>file hub</b> (port 8000). The pages carry the favicons inline (the host doesn't serve root icon files — that's why the icons ride inside the HTML), so uploading the pages <b>is</b> the favicon deploy.</p>
+</div>
+
+<div class="sec">
+  <div class="sec-h"><span class="sec-n">02</span><span class="sec-t">The upload — 4 minutes</span></div>
+  <ol class="steps">
+    <li><span>Go to <b>github.com/alihoury003/Anastomosis.MD</b> and make sure the branch selector (top-left of the file list) says <b>main</b>.</span></li>
+    <li><span>Click <b>Add file → Upload files</b>.</span></li>
+    <li><span>Drag all <b>13 files</b> from the list above into the drop zone. GitHub will show them as modified/new — that's exactly right. Upload them flat, at the repo root, not into folders.</span></li>
+    <li><span>Commit message: <b>Unified favicons + OG cards</b> — then click <b>Commit changes</b>.</span></li>
+    <li><span>Wait ~2 minutes. Appwrite picks up the push and redeploys automatically. Done — that's the whole deploy.</span></li>
+  </ol>
+</div>
+
+<div class="sec">
+  <div class="sec-h"><span class="sec-n">03</span><span class="sec-t">Verify — 5 minutes</span></div>
+  <div class="check"><input type="checkbox"><span><b>Tab icon, everywhere.</b> Hard-refresh (Ctrl+F5) the landing, dashboard, pricing, login. Every tab shows the tree mark on bone — same icon on every page. The dashboard was the broken one (dark icon).</span></div>
+  <div class="check"><input type="checkbox"><span><b>Share preview.</b> Paste the site link into a WhatsApp message or iMessage. Within a minute you should see the card: the mark, <i>Anastomosis.MD</i> in serif, "TWO VESSELS · ONE MIND". (If nothing shows at first, caches — send it to yourself again after a few minutes.)</span></div>
+  <div class="check"><input type="checkbox"><span><b>Nothing else moved.</b> Spot-check: pricing shows $15 / $36 / $99 with the founding codes in the boxes, the landing plays the EKG loader once, a new block is 20 questions on a 30:00 clock.</span></div>
+  <div class="check"><input type="checkbox"><span><b>The test page is untouched.</b> Open a block — it should look exactly as it always has. (It's pinned by code; this pass didn't go near it — the diff is head-only, verified.)</span></div>
+</div>
+
+<div class="sec">
+  <div class="sec-h"><span class="sec-n">04</span><span class="sec-t">Do NOT upload these</span></div>
+  <div class="nolist">
+    <div><code>games-demo.html</code> — internal concepts</div>
+    <div><code>social-kit/</code> — internal assets</div>
+    <div><code>logo-lab/</code> — the hunt</div>
+    <div><code>HANDOFF.md</code> — the playbook</div>
+    <div><code>*.py</code> — build tooling</div>
+    <div><code>loader-demos.html</code> — the gallery</div>
+    <div><code>domain-buy.html</code>, <code>paddle-catalog-guide.html</code> — your guides</div>
+    <div><code>demos*.html</code>, <code>wm*.html</code>, <code>tree-word.html</code> — explorations</div>
+  </div>
+  <p class="note">None of these break anything if they land on main — they'd just be publicly reachable. Keep the deployment clean.</p>
+</div>
+
+<div class="sec">
+  <div class="sec-h"><span class="sec-n">05</span><span class="sec-t">After this upload — your list, not code</span></div>
+  <ol class="steps">
+    <li><span><b>Eyeball the mark's spelling — it's live now.</b> Zoom into the logo: the branches spell <i>anastomosis</i> and <i>.md</i>. The ".md" is machine-verified; the tree-letters have never passed OCR, and your eyes are the final gate. If anything's off: tell me — I regenerate the mark and every asset from it (site, favicons, social kit) in one pass, and you re-upload.</span></li>
+    <li><span><b>Buy the domain.</b> Re-check that <i>anastomosis.md</i> is still free (I can't reach the registry from the sandbox), then buy via Netim or Regery — the walkthrough is in <code>domain-buy.html</code> on the hub. Then point it at Appwrite (Console → your site → Domains). The site works on the appwrite.network address meanwhile.</span></li>
+    <li><span><b>Charlie's follow-ups</b> (when he replies): close the duplicate Paddle account (give him the throwaway email it's parked on), green-light the login email switch, ask where verification stands.</span></li>
+    <li><span><b>Send me the qbank files</b> (the toolkit + true_live_bank.json + _src/ — §12 of the handoff). The moment they land, batch 75 resumes and the bank grows toward 200/system.</span></li>
+    <li><span><b>When you're ready</b>: pick the arcade game (the 8-game demo is on the hub), and I'll do the fresh landing screenshots — a 10-minute job once the domain's on.</span></li>
+  </ol>
+</div>
+
+<div class="sec">
+  <div class="warn"><b>One standing reminder:</b> the pricing page, the paywall, and Paddle are welded together by price IDs. If you edit anything in the Paddle catalog, the rule is: code first, catalog second — never archive or re-create a price without syncing me first.</div>
+</div>
+</main>
+</body></html>
