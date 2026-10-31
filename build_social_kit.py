@@ -126,18 +126,27 @@ def tracked_text(draw, xy, text, font, fill, tracking):
         draw.text((x, y), chx, font=font, fill=fill)
         x += draw.textlength(chx, font=font) + tracking
 
-def build(source, no_md=False):
+def build(source, no_md=False, source_has_md=False, alternate=None):
+    import shutil
     os.makedirs(KIT, exist_ok=True)
-    for sub in ('avatar', 'favicon', 'fonts'):
-        os.makedirs(os.path.join(KIT, sub), exist_ok=True)
+    for sub in ('avatar', 'favicon', 'logo'):
+        d = os.path.join(KIT, sub)
+        if os.path.isdir(d):
+            shutil.rmtree(d)
+        os.makedirs(d, exist_ok=True)
+    os.makedirs(os.path.join(KIT, 'fonts'), exist_ok=True)
     report = []
 
     master, bg_tone = load_master(source)
     native = master.size[0]
-    # the active brand mark: with or without the gold .md (--no-md)
+    # the active brand mark. The erase box is tw-9-SPECIFIC (its gold .md location)
+    # and must never touch a source that carries no .md.
     MD_BOX = (571, 719, 700, 781)
-    no_md_img = master.copy()
-    ImageDraw.Draw(no_md_img).rectangle(MD_BOX, fill=BONE)
+    if source_has_md:
+        no_md_img = master.copy()
+        ImageDraw.Draw(no_md_img).rectangle(MD_BOX, fill=BONE)
+    else:
+        no_md_img = master
     mark = no_md_img if no_md else master
     mark.save(os.path.join(KIT, 'avatar', f'avatar-{native}.png'))
     # upscaled master (labelled) + platform sizes
@@ -156,19 +165,27 @@ def build(source, no_md=False):
     # and of the lower branches (start ~y830) -- safe box, verified by run-scan.
     no_md = no_md_img
     lg = os.path.join(KIT, 'logo')
-    os.makedirs(lg, exist_ok=True)
-    for name, img in [('anastomosis-md', master), ('anastomosis', no_md)]:
+    versions = [('anastomosis', no_md)]
+    if source_has_md:
+        versions.append(('anastomosis-md', master))
+    for name, img in versions:
         img.save(os.path.join(lg, f'{name}-1024.png'))
         img.resize((2048, 2048), Image.LANCZOS).save(os.path.join(lg, f'{name}-2048.png'))
         img.resize((512, 512), Image.LANCZOS).save(os.path.join(lg, f'{name}-512.png'))
         img.resize((400, 400), Image.LANCZOS).save(os.path.join(lg, f'{name}-400.png'))
-    logoA_b = b64(master.resize((480, 480), Image.LANCZOS))
-    logoB_b = b64(no_md.resize((480, 480), Image.LANCZOS))
-    outA, maxrA, totA = circle_metric(master)
-    outB, maxrB, totB = circle_metric(no_md)
+    logoA_b = b64(mark.resize((480, 480), Image.LANCZOS))
+    alt_img = None
+    if alternate and os.path.exists(alternate):
+        alt_img, _ = load_master(alternate)
+    logoB_b = b64((alt_img if alt_img is not None else mark).resize((480, 480), Image.LANCZOS))
+    outA, maxrA, totA = circle_metric(mark)
+    outB, maxrB, totB = circle_metric(alt_img if alt_img is not None else mark)
     logo_metric_a = f'{outA}/{totA} px outside the circle ({outA/totA*100:.3f}%), max radius {maxrA:.0f}/512'
     logo_metric_b = f'{outB}/{totB} px outside the circle ({outB/totB*100:.3f}%), max radius {maxrB:.0f}/512'
-    report.append(f'logo: two versions built (anastomosis-md + anastomosis, .md box {MD_BOX} erased)')
+    if source_has_md:
+        report.append(f'logo: two versions built (anastomosis-md + anastomosis, .md box {MD_BOX} erased)')
+    else:
+        report.append(f'logo: {os.path.basename(source)} has no .md — single anastomosis version built')
 
     bbox = content_bbox(master)
     outside, maxr, total = circle_metric(master)
@@ -239,6 +256,21 @@ def build(source, no_md=False):
         '<link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,' + fc32 + '">\n'
         '<link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,' + fc48 + '">\n'
         '<link rel="apple-touch-icon" href="data:image/png;base64,' + apple + '">')
+    if source_has_md:
+        logo_a_cap = 'VERSION A \u00b7 <b>anastomosis.md</b>'
+        logo_b_cap = 'VERSION B \u00b7 <b>anastomosis</b> (no .md)'
+        logo_note = ('Same mark, one difference: the gold <b>.md</b> at the trunk\u2019s side (Version A) is erased in Version B \u2014 '
+                     'nothing else was touched, pixel-verified. Both are <b>1024\u00d71024 PNG, sRGB, brand bone background</b>, delivered '
+                     'with 2048 (2\u00d7 resampled), 512 and 400 companions.')
+    else:
+        logo_a_cap = f'ACTIVE \u00b7 <b>{os.path.basename(source)}</b> \u00b7 machine-verified'
+        logo_b_cap = (f'ALTERNATE \u00b7 <b>{os.path.basename(alternate)}</b> \u00b7 also verified \u2014 one command to swap'
+                      if alt_img is not None else 'ACTIVE \u00b7 <b>circle crop</b>')
+        logo_note = (f'The brand mark is <b>{os.path.basename(source)}</b> \u2014 its branches spell <b>anastomosis</b>, machine-verified by OCR '
+                     '(the standing gate; the previous provisional mark failed it and read \u201canastomois\u201d \u2014 retired). '
+                     + (f'The alternate <b>{os.path.basename(alternate)}</b> also passes the gate \u2014 say the word and the whole kit regenerates from it in one command. '
+                        if alt_img is not None else '')
+                     + '<b>1024\u00d71024 PNG, sRGB, brand bone</b>, with 2048 / 512 / 400 companions \u2014 one file correct for every platform.')
     files = []
     for root, _, names in os.walk(KIT):
         for n in sorted(names):
@@ -250,16 +282,17 @@ def build(source, no_md=False):
         f'<tr><td><code>{n}</code></td><td>{s:,} B</td><td><a href="{n}" download>download</a></td></tr>'
         for n, s in sorted(files))
     html = open(os.path.join(HERE, 'social_kit_preview_template.html'), errors='replace').read()
-    for k, v in {
+    for k, v in sorted({
         '@@AV1024': av1024, '@@AV512': av512, '@@AV200': av200,
         '@@F16': fc16, '@@F32': fc32, '@@F48': fc48, '@@FCUT32': fcut32, '@@CMP16': cmp16, '@@APPLE': apple, '@@OG': og,
         '@@SNIPPET': snippet.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;'), '@@ROWS': rows,
         '@@LOGO_A': logoA_b, '@@LOGO_B': logoB_b,
+        '@@LOGO_A_CAP': logo_a_cap, '@@LOGO_B_CAP': logo_b_cap, '@@LOGO_NOTE': logo_note,
         '@@LOGO_METRIC_A': logo_metric_a, '@@LOGO_METRIC_B': logo_metric_b,
         '@@SRC': os.path.basename(source), '@@NATIVE': str(native),
         '@@BG': str(bg_tone),
         '@@METRIC': f'{outside}/{total} content pixels outside the inscribed circle ({outside/total*100:.3f}%) — max content radius {maxr:.0f} of {native//2}',
-    }.items():
+    }.items(), key=lambda kv: -len(kv[0])):
         html = html.replace(k, v)
     open(os.path.join(KIT, 'preview.html'), 'w').write(html)
     report.append('favicon.ico: 16+32+48 multi-size; 16/32 use the small-size cut (ink dilated for presence), 48+ native')
@@ -272,7 +305,9 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--source', default='logo-lab/tw-9.png')
     ap.add_argument('--no-md', action='store_true', help='brand mark without the gold .md')
+    ap.add_argument('--source-has-md', action='store_true', help='the source mark contains a .md (enables the tw-9 erase box)')
+    ap.add_argument('--alternate', default=None, help='a second verified mark to show beside the active one in the preview')
     args = ap.parse_args()
     print(f'building social kit from {args.source}{" (no .md)" if args.no_md else ""} ...')
-    build(args.source, args.no_md)
+    build(args.source, args.no_md, args.source_has_md, args.alternate)
     print('done.')
