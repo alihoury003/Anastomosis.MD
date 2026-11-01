@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anastomosis.MD — The Arcade, Wave 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bone:#F7F3EB;--paper:#FFFDF7;--paper2:#EFE9DC;--rule:#E3DCCC;--sand:#E9E2D2;--ink:#101418;--ink2:#4A4741;--ink3:#8A857A;--crimson:#B5342A;--crimson2:#8E2921;--crimsonSoft:#F2E1DD;--petrol:#1B4E5F;--petrol2:#143C4A;--petrolSoft:#DDE8EC;--gold:#C9973C;--gold2:#9A742C;--goldSoft:#F4EAD4;--serif:'Instrument Serif',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',monospace;--sh2:0 10px 30px -14px rgba(16,20,24,.22)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bone);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(247,243,235,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+.tb-in{max-width:1240px;margin:0 auto;padding:0 24px;height:62px;display:flex;align-items:center;gap:18px}
+.brand{display:flex;align-items:center;gap:10px;cursor:pointer;white-space:nowrap}
+.brand .bname{font-family:var(--serif);font-size:23px}.brand .bname em{font-style:italic;color:var(--petrol)}
+.gnav{display:flex;gap:2px;flex-wrap:wrap}
+.gnav-btn{font-size:13px;font-weight:600;color:var(--ink2);padding:8px 12px;border-radius:8px}
+.gnav-btn:hover{background:var(--paper2);color:var(--ink)}
+.gnav-btn.on{background:var(--ink);color:var(--bone)}
+main{max-width:1240px;margin:0 auto;padding:34px 24px 90px}
+.page{display:none;animation:pgIn .45s cubic-bezier(.22,1,.36,1)}.page.on{display:block}
+@keyframes pgIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.hero{text-align:center;padding:56px 20px 36px}
+.eyebrow{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.34em;color:var(--petrol);text-transform:uppercase}
+.hero h1{font-family:var(--serif);font-size:clamp(44px,7vw,84px);line-height:1.02;letter-spacing:-.015em;margin:16px 0 14px;font-weight:400}
+.hero h1 em{font-style:italic;background:linear-gradient(92deg,var(--crimson),var(--ink) 45%,var(--petrol));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{max-width:660px;margin:0 auto;color:var(--ink2);font-size:16px;line-height:1.65}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:32px}
+.gcard{position:relative;background:var(--paper);border:1px solid var(--rule);border-radius:20px;overflow:hidden;cursor:pointer;transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s;box-shadow:var(--sh2)}
+.gcard:hover{transform:translateY(-5px);box-shadow:0 24px 60px -36px rgba(16,20,24,.32)}
+.gcard:after{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--acc)}
+.gcard.h1{--acc:var(--crimson)}.gcard.h2{--acc:var(--petrol)}.gcard.h3{--acc:var(--gold2)}.gcard.h4{--acc:var(--crimson2)}.gcard.h5{--acc:var(--petrol2)}
+.gc-prev{height:150px;background:var(--paper2);border-bottom:1px solid var(--rule);overflow:hidden;position:relative}
+.gc-body{padding:20px 22px 18px 26px;display:flex;flex-direction:column;gap:8px}
+.gc-top{display:flex;align-items:baseline;gap:12px}
+.gc-num{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--acc)}
+.gc-live{margin-left:auto;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.22em;color:var(--ink3)}
+.gcard h2{font-family:var(--serif);font-size:31px;font-weight:400;line-height:1}
+.gc-tag{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--ink2)}
+.gc-desc{font-size:13.5px;line-height:1.6;color:var(--ink2)}
+.gc-foot{display:flex;align-items:center;margin-top:auto;padding-top:12px;border-top:1px solid var(--rule)}
+.vv{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.16em;color:var(--gold2)}
+.play{margin-left:auto;font-weight:800;font-size:13px;display:flex;gap:7px;align-items:center}
+.ghead{display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap;margin-bottom:24px}
+.ghead .gh-main{flex:1;min-width:220px}
+.g-eyebrow{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase}
+#page-imp .g-eyebrow{color:var(--crimson)}#page-merge .g-eyebrow{color:var(--petrol)}#page-pump .g-eyebrow{color:var(--gold2)}#page-run .g-eyebrow{color:var(--crimson2)}#page-tower .g-eyebrow{color:var(--petrol2)}
+.g-title{font-family:var(--serif);font-size:clamp(34px,4.4vw,50px);font-weight:400;line-height:1.05;margin-top:8px}
+.g-case{font-family:var(--mono);font-size:13px;color:var(--ink3);letter-spacing:.08em;margin-left:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:700;font-size:14px;padding:13px 22px;border-radius:11px;transition:.18s}
+.btn-ink{background:var(--ink);color:var(--bone)}.btn-ink:hover{background:#23272E}
+.btn-line{border:1.5px solid var(--ink)}.btn-line:hover{background:var(--ink);color:var(--bone)}
+.btn-gold{background:var(--gold);color:var(--ink)}.btn-gold:hover{background:#D9AC55}
+.end-panel{background:var(--paper);border:1px solid var(--rule);border-radius:18px;padding:28px;box-shadow:var(--sh2);animation:pgIn .5s cubic-bezier(.22,1.4,.36,1)}
+.ep-eyebrow{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--ink3)}
+.ep-title{font-family:var(--serif);font-size:36px;font-weight:400;margin:8px 0 4px}
+.ep-title.win{background:linear-gradient(92deg,var(--crimson),var(--ink) 45%,var(--petrol));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ep-sub{color:var(--ink2);font-size:14px;line-height:1.6}
+.stat-row{display:flex;gap:26px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:1px solid var(--rule)}
+.stat b{font-family:var(--mono);font-size:22px;display:block}.stat span{font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--ink3);font-weight:700}
+.ep-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.toast{position:fixed;bottom:26px;left:50%;transform:translate(-50%,90px);background:var(--ink);color:var(--bone);font-size:13px;font-weight:600;padding:13px 20px;border-radius:12px;z-index:200;transition:transform .35s cubic-bezier(.22,1.4,.36,1);max-width:90vw;text-align:center}
+.toast.on{transform:translate(-50%,0)}.toast b{color:var(--gold)}
+.convert{margin-top:20px;border:1.5px solid var(--ink);border-radius:16px;overflow:hidden;background:var(--paper)}
+.convert .cv-top{background:var(--ink);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.convert .cv-top .ep-eyebrow{color:var(--gold)}.convert .cv-top b{color:var(--bone);font-size:13px}
+.convert .cv-body{padding:16px 20px;font-size:13.5px;color:var(--ink2);line-height:1.6}
+/* IMPOSTOR */
+.imp-wrap{max-width:880px;margin:0 auto}
+.imp-round{display:flex;gap:22px;align-items:center;margin-bottom:18px;flex-wrap:wrap}
+.sh{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--ink2);background:var(--paper);border:1px solid var(--rule);padding:9px 14px;border-radius:9px}
+.sh b{color:var(--petrol2)}
+.imp-case{font-family:var(--serif);font-size:26px;margin-bottom:16px}
+.imp-case em{font-style:italic;color:var(--petrol)}
+.imp-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.imp-card{border:2px solid var(--rule);border-radius:13px;padding:16px 12px;text-align:center;background:var(--paper);transition:.15s;min-height:110px;display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:center}
+.imp-card:hover{border-color:var(--ink);transform:translateY(-2px)}
+.imp-card .ic-n{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--ink3)}
+.imp-card .ic-t{font-size:13.5px;font-weight:700;line-height:1.35}
+.imp-card.revealed-true{border-color:var(--petrol);background:var(--petrolSoft)}
+.imp-card.revealed-false{border-color:var(--crimson);background:var(--crimsonSoft)}
+.imp-card.ejected{animation:eject 1.1s cubic-bezier(.5,-.3,.6,1) forwards}
+@keyframes eject{0%{transform:translateY(0) rotate(0)}30%{transform:translateY(-14px) rotate(-4deg)}100%{transform:translateY(560px) rotate(38deg);opacity:.25}}
+.imp-why{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;margin-top:14px;font-size:13.5px;color:var(--ink2);line-height:1.6;animation:pgIn .4s}
+.imp-why b{color:var(--crimson2)}
+/* MERGE */
+.merge-wrap{display:grid;grid-template-columns:minmax(300px,420px) minmax(260px,1fr);gap:24px;align-items:start}
+.mg-board{background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:12px;box-shadow:var(--sh2)}
+.mg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;aspect-ratio:1}
+.mg-cell{border-radius:9px;background:var(--paper2);display:flex;align-items:center;justify-content:center;padding:4px}
+.mg-tile{width:100%;height:100%;border-radius:9px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:10.5px;font-weight:700;line-height:1.2;padding:4px;color:var(--bone);animation:tileIn .18s cubic-bezier(.22,1.4,.36,1)}
+@keyframes tileIn{from{transform:scale(.4);opacity:0}to{transform:scale(1)}}
+.mg-tile.merged{animation:tileMerge .22s cubic-bezier(.3,1.6,.5,1)}
+@keyframes tileMerge{0%{transform:scale(1)}55%{transform:scale(1.14)}100%{transform:scale(1)}}
+.mg-side{display:flex;flex-direction:column;gap:12px}
+.mg-stage{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:12px 14px;font-size:12px;color:var(--ink2);line-height:1.5}
+.mg-stage b{display:block;font-size:13px;color:var(--ink)}
+.mg-log{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:12px 14px;font-size:12.5px;color:var(--ink2);max-height:220px;overflow:auto;line-height:1.6}
+.mg-log div{padding:5px 0;border-bottom:1px solid var(--rule)}
+.mg-log div:last-child{border:none}
+.mg-log b{color:var(--petrol2)}
+.mg-controls{display:flex;gap:6px;justify-content:center;margin-top:10px}
+.mg-btn{width:44px;height:44px;border-radius:10px;border:1px solid var(--rule);background:var(--paper);font-size:16px;font-weight:800}
+.mg-btn:hover{border-color:var(--ink)}
+/* PUMP */
+.pump-wrap{display:grid;grid-template-columns:minmax(340px,560px) minmax(280px,1fr);gap:24px;align-items:start}
+.pm-board{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:12px;box-shadow:var(--sh2);display:grid;grid-template-columns:repeat(8,1fr);gap:5px}
+.pm-cell{aspect-ratio:1;border-radius:7px;background:var(--paper2);border:1.5px solid var(--rule);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:14px;color:var(--ink2);transition:.12s;cursor:pointer}
+.pm-cell:hover{border-color:var(--ink)}
+.pm-cell.dug{background:var(--paper);cursor:default}
+.pm-cell.dug.c1{color:var(--gold2)}.pm-cell.dug.c2{color:var(--petrol2)}.pm-cell.dug.c3{color:var(--crimson2)}.pm-cell.dug.c4{color:var(--crimson)}
+.pm-cell.marked{background:var(--crimsonSoft);border-color:var(--crimson)}
+.pm-cell.pump{background:var(--gold)}
+.pm-side{display:flex;flex-direction:column;gap:12px}
+.pm-bar{height:8px;background:var(--paper2);border-radius:4px;overflow:hidden}
+.pm-bar i{display:block;height:100%;background:var(--gold);transition:width .4s}
+/* RUNNER */
+.run-wrap{max-width:1000px;margin:0 auto}
+.run-canvas{background:var(--paper);border:1px solid var(--rule);border-radius:16px;overflow:hidden;box-shadow:var(--sh2);position:relative;touch-action:none}
+.run-canvas canvas{display:block;width:100%}
+.run-hud{position:absolute;top:10px;left:14px;right:14px;display:flex;justify-content:space-between;font-family:var(--mono);font-weight:700;font-size:13px;pointer-events:none}
+.run-flash{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;font-family:var(--serif);font-style:italic;font-size:30px;opacity:0}
+/* TOWER */
+.tower-wrap{display:grid;grid-template-columns:minmax(320px,460px) minmax(300px,1fr);gap:24px;align-items:start}
+.tw-scene{background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:26px 20px;box-shadow:var(--sh2);display:flex;align-items:flex-end;justify-content:center;min-height:420px;perspective:700px}
+.tw-tower{display:flex;flex-direction:column-reverse;gap:5px;transform:rotateX(8deg)}
+.tw-row{display:flex;gap:5px}
+.tw-block{width:86px;height:30px;border-radius:5px;background:linear-gradient(180deg,#E9E2D2,#DCD3BD);border:1px solid var(--rule);box-shadow:inset 0 2px 0 rgba(255,255,255,.6),0 2px 3px rgba(16,20,24,.12);cursor:pointer;transition:.15s;position:relative}
+.tw-block:hover{background:linear-gradient(180deg,#F4EAD4,#E9E2D2)}
+.tw-block.gone{opacity:0;transform:translateY(8px);pointer-events:none}
+.tw-block.gld{background:linear-gradient(180deg,#D9AC55,#C9973C)}
+.tw-wobble{animation:twWob .5s ease}
+@keyframes twWob{0%,100%{transform:rotateX(8deg) translateX(0)}25%{transform:rotateX(8deg) translateX(-5px)}60%{transform:rotateX(8deg) translateX(4px)}}
+.tw-collapse .tw-block{animation:twFall 1s cubic-bezier(.4,.1,.7,1) forwards}
+@keyframes twFall{to{transform:translateY(60vh) rotate(50deg);opacity:.4}}
+.tw-q{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:20px;box-shadow:var(--sh2)}
+.tw-q .q-t{font-family:var(--serif);font-size:21px;line-height:1.35;margin:10px 0 16px}
+.tw-opts{display:flex;flex-direction:column;gap:8px}
+.tw-opt{text-align:left;border:2px solid var(--rule);border-radius:11px;padding:12px 14px;font-size:14px;font-weight:600;background:var(--bone);transition:.13s}
+.tw-opt:hover{border-color:var(--ink)}
+.tw-opt.right{border-color:var(--petrol);background:var(--petrolSoft)}
+.tw-opt.wrong{border-color:var(--crimson);background:var(--crimsonSoft)}
+@media(max-width:1020px){.merge-wrap,.pump-wrap,.tower-wrap{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.imp-grid{grid-template-columns:repeat(2,1fr)}.brand .bname{display:none}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001s!important;transition-duration:.001s!important}}
+</style></head><body>
+<div class="topbar"><div class="tb-in">
+  <a class="brand" onclick="show('home')"><span class="bname">Anastomosis<em>.MD</em></span></a>
+  <nav class="gnav">
+    <button class="gnav-btn on" data-page="home" onclick="show('home')">Arcade II</button>
+    <button class="gnav-btn" data-page="imp" onclick="show('imp')">Impostor</button>
+    <button class="gnav-btn" data-page="merge" onclick="show('merge')">The Merge</button>
+    <button class="gnav-btn" data-page="pump" onclick="show('pump')">The Pump</button>
+    <button class="gnav-btn" data-page="run" onclick="show('run')">Risk Runner</button>
+    <button class="gnav-btn" data-page="tower" onclick="show('tower')">The Tower</button>
+  </nav>
+</div></header></div>
+<main>
+<section class="page on" id="page-home">
+  <div class="hero">
+    <div class="eyebrow">Anastomosis.MD · The Arcade · Wave 2</div>
+    <h1>Five games<br><em>that broke the internet.</em></h1>
+    <p class="sub">The most viral mechanics on the web — social deduction, tile merging, outbreak logic, the impossible runner, and the tower — rebuilt as clinical reasoning. Your study break now has a body count. Or a case count.</p>
+  </div>
+  <div class="grid">
+    <article class="gcard h1" onclick="show('imp')"><div class="gc-prev"><svg viewBox="0 0 520 150" width="100%" height="100%"><g font-family="JetBrains Mono,monospace" font-weight="700"><rect x="30" y="35" width="88" height="80" rx="10" fill="#FFFDF7" stroke="#E3DCCC"/><rect x="128" y="35" width="88" height="80" rx="10" fill="#FFFDF7" stroke="#E3DCCC"/><rect x="226" y="35" width="88" height="80" rx="10" fill="#FFFDF7" stroke="#E3DCCC"/><rect x="324" y="35" width="88" height="80" rx="10" fill="#FFFDF7" stroke="#E3DCCC"/><rect x="422" y="35" width="88" height="80" rx="10" fill="#F2E1DD" stroke="#B5342A" stroke-width="2.5"/><text x="74" y="80" text-anchor="middle" font-size="22" fill="#4A4741">?</text><text x="172" y="80" text-anchor="middle" font-size="22" fill="#4A4741">?</text><text x="270" y="80" text-anchor="middle" font-size="22" fill="#4A4741">?</text><text x="368" y="80" text-anchor="middle" font-size="22" fill="#4A4741">?</text><text x="466" y="80" text-anchor="middle" font-size="22" fill="#B5342A">?</text></g></svg></div>
+      <div class="gc-body"><div class="gc-top"><span class="gc-num">GAME 01</span><span class="gc-live">SOCIAL DEDUCTION</span></div><h2>The Impostor</h2>
+      <p class="gc-tag">One finding doesn't belong.</p>
+      <p class="gc-desc">Five clinical findings. Four fit the diagnosis — one is the impostor, smuggled in from a different disease. Eject it. Every miss teaches the discriminating feature.</p>
+      <div class="gc-foot"><span class="vv">VIRAL VECTOR · AMONG US</span><span class="play">PLAY →</span></div></div></article>
+    <article class="gcard h2" onclick="show('merge')"><div class="gc-prev"><svg viewBox="0 0 520 150" width="100%" height="100%"><g font-family="JetBrains Mono,monospace" font-weight="700"><rect x="60" y="45" width="70" height="60" rx="9" fill="#C9973C"/><rect x="150" y="45" width="70" height="60" rx="9" fill="#8E2921"/><rect x="240" y="45" width="70" height="60" rx="9" fill="#1B4E5F"/><rect x="330" y="45" width="70" height="60" rx="9" fill="#101418"/><path d="M 415 75 h 20 m -10 -10 v 20" stroke="#4A4741" stroke-width="4" fill="none" stroke-linecap="round"/><rect x="450" y="45" width="60" height="60" rx="9" fill="none" stroke="#1B4E5F" stroke-width="2.5" stroke-dasharray="6 5"/></g></svg></div>
+      <div class="gc-body"><div class="gc-top"><span class="gc-num">GAME 02</span><span class="gc-live">TILE MERGING</span></div><h2>The Merge</h2>
+      <p class="gc-tag">Merge your way to metastasis.</p>
+      <p class="gc-desc">The 2048 mechanic on disease pathways: merge matching stages of atherogenesis or oncogenesis and climb from healthy tissue to the endpoint — every merge explains itself.</p>
+      <div class="gc-foot"><span class="vv">VIRAL VECTOR · 2048</span><span class="play">PLAY →</span></div></div></article>
+    <article class="gcard h3" onclick="show('pump')"><div class="gc-prev"><svg viewBox="0 0 520 150" width="100%" height="100%"><g><rect x="140" y="15" width="240" height="120" rx="10" fill="#FFFDF7" stroke="#E3DCCC"/><g font-family="JetBrains Mono,monospace" font-weight="700" font-size="15"><text x="172" y="52" fill="#9A742C">2</text><text x="220" y="52" fill="#143C4A">3</text><text x="268" y="52" fill="#8E2921">4</text><text x="316" y="52" fill="#8E2921">3</text><text x="364" y="52" fill="#9A742C">1</text><text x="148" y="92" fill="#143C4A">3</text><text x="196" y="92" fill="#8E2921">4</text><circle cx="240" cy="87" r="13" fill="#C9973C"/><text x="240" y="92" text-anchor="middle" fill="#101418">?</text><text x="292" y="92" fill="#8E2921">4</text><text x="340" y="92" fill="#143C4A">3</text><text x="240" y="125" text-anchor="middle" font-size="10" fill="#8A857A">MARK THE SOURCE</text></g></g></svg></div>
+      <div class="gc-body"><div class="gc-top"><span class="gc-num">GAME 03</span><span class="gc-live">OUTBREAK LOGIC</span></div><h2>The Pump</h2>
+      <p class="gc-tag">Find the source before it spreads.</p>
+      <p class="gc-desc">You are John Snow, Soho, 1854. Dig city blocks to reveal case counts, watch the cluster emerge, and mark the contaminated pump. Pure epidemiology, pure Minesweeper — inverted.</p>
+      <div class="gc-foot"><span class="vv">VIRAL VECTOR · MINESWEEPER</span><span class="play">PLAY →</span></div></div></article>
+    <article class="gcard h4" onclick="show('run')"><div class="gc-prev"><svg viewBox="0 0 520 150" width="100%" height="100%"><g font-family="JetBrains Mono,monospace" font-weight="700" font-size="12"><rect x="0" y="0" width="520" height="150" fill="#EFE9DC"/><rect x="30" y="45" width="110" height="34" rx="17" fill="#B5342A"/><text x="85" y="67" text-anchor="middle" fill="#F7F3EB">SMOKING</text><rect x="200" y="95" width="120" height="34" rx="17" fill="#1B4E5F"/><text x="260" y="117" text-anchor="middle" fill="#F7F3EB">EXERCISE</text><rect x="390" y="45" width="100" height="34" rx="17" fill="#B5342A"/><text x="440" y="67" text-anchor="middle" fill="#F7F3EB">HTN</text><circle cx="470" cy="120" r="14" fill="#C9973C"/><path d="M 458 120 h 24 M 470 106 v 28" stroke="#101418" stroke-width="2.5"/><text x="30" y="140" font-size="9" fill="#8A857A" letter-spacing="2">DODGE RED · CATCH PETROL</text></g></svg></div>
+      <div class="gc-body"><div class="gc-top"><span class="gc-num">GAME 04</span><span class="gc-live">THE IMPOSSIBLE RUN</span></div><h2>Risk Runner</h2>
+      <p class="gc-tag">Dodge the risks. Catch the cures.</p>
+      <p class="gc-desc">Three lanes, accelerating traffic. Risk factors must be dodged, protective factors caught — every touch names itself. One run teaches a whole risk-factor list at reflex speed.</p>
+      <div class="gc-foot"><span class="vv">VIRAL VECTOR · FLAPPY BIRD</span><span class="play">PLAY →</span></div></div></article>
+    <article class="gcard h5" onclick="show('tower')"><div class="gc-prev"><svg viewBox="0 0 520 150" width="100%" height="100%"><g><rect x="190" y="110" width="140" height="14" rx="4" fill="#E9E2D2" stroke="#E3DCCC"/><rect x="190" y="90" width="68" height="14" rx="4" fill="#D9AC55"/><rect x="264" y="90" width="66" height="14" rx="4" fill="#E9E2D2" stroke="#E3DCCC"/><rect x="190" y="70" width="140" height="14" rx="4" fill="#E9E2D2" stroke="#E3DCCC"/><rect x="190" y="50" width="68" height="14" rx="4" fill="#E9E2D2" stroke="#E3DCCC"/><rect x="264" y="50" width="66" height="14" rx="4" fill="#D9AC55"/><rect x="190" y="30" width="140" height="14" rx="4" fill="#E9E2D2" stroke="#E3DCCC"/><text x="370" y="80" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700" fill="#8A857A" letter-spacing="2">EVERY BLOCK</text><text x="370" y="96" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700" fill="#8A857A" letter-spacing="2">IS A QUESTION</text></g></svg></div>
+      <div class="gc-body"><div class="gc-top"><span class="gc-num">GAME 05</span><span class="gc-live">THE PHYSICS PARTY GAME</span></div><h2>The Tower</h2>
+      <p class="gc-tag">Pull a block. Answer. Don't let it fall.</p>
+      <p class="gc-desc">Jenga, but every block is a resuscitation question. Correct answers pull blocks cleanly; wrong ones shake the tower. Extract fifteen blocks before the whole thing comes down.</p>
+      <div class="gc-foot"><span class="vv">VIRAL VECTOR · JENGA</span><span class="play">PLAY →</span></div></div></article>
+  </div>
+</section>
+<!-- ================= GAME 01 · THE IMPOSTOR ================= -->
+<section class="page" id="page-imp">
+  <div class="ghead"><div class="gh-main"><div class="g-eyebrow">Wave 2 · Game 01 · Social deduction</div>
+    <h2 class="g-title">The Impostor<span class="g-case" id="impTag"></span></h2></div>
+    <button class="btn btn-line" onclick="show('home')">← ARCADE</button></div>
+  <div class="imp-wrap">
+    <div class="imp-round"><div class="sh">ROUND <b id="impN">1</b>/10</div><div class="sh">LIVES <b id="impLives">●●●</b></div><div class="sh">STREAK <b id="impStreak">0</b></div></div>
+    <div id="impBody"></div>
+    <div id="impEnd"></div>
+  </div>
+</section>
+
+<!-- ================= GAME 02 · THE MERGE ================= -->
+<section class="page" id="page-merge">
+  <div class="ghead"><div class="gh-main"><div class="g-eyebrow">Wave 2 · Game 02 · Tile merging</div>
+    <h2 class="g-title">The Merge<span class="g-case" id="mergeTag"></span></h2></div>
+    <div class="g-tabs" id="mergeTabs"></div>
+    <button class="btn btn-line" onclick="show('home')">← ARCADE</button></div>
+  <div class="merge-wrap">
+    <div>
+      <div class="mg-board"><div class="mg-grid" id="mgGrid"></div>
+        <div class="mg-controls">
+          <button class="mg-btn" onclick="mgMove(-1,0)">←</button>
+          <button class="mg-btn" onclick="mgMove(0,-1)">↑</button>
+          <button class="mg-btn" onclick="mgMove(0,1)">↓</button>
+          <button class="mg-btn" onclick="mgMove(1,0)">→</button>
+        </div>
+      </div>
+    </div>
+    <div class="mg-side">
+      <div class="cs-box" style="padding:14px 16px;background:var(--paper);border:1px solid var(--rule);border-radius:12px">
+        <div class="ep-eyebrow" style="color:var(--petrol)">PATHWAY LADDER</div>
+        <div id="mgLadder" style="margin-top:8px;font-size:12.5px;line-height:1.9;color:var(--ink2)"></div>
+      </div>
+      <div class="sh">SCORE <b id="mgScore">0</b></div>
+      <div class="mg-log" id="mgLog"><div>Merge pairs to climb the pathway. Arrows, WASD, or swipe.</div></div>
+      <div id="mgEnd"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GAME 03 · THE PUMP ================= -->
+<section class="page" id="page-pump">
+  <div class="ghead"><div class="gh-main"><div class="g-eyebrow">Wave 2 · Game 03 · Outbreak logic</div>
+    <h2 class="g-title">The Pump<span class="g-case">SOHO · 1854</span></h2></div>
+    <button class="btn btn-line" onclick="show('home')">← ARCADE</button></div>
+  <div class="pump-wrap">
+    <div>
+      <div class="pm-board" id="pmBoard"></div>
+      <div style="display:flex;gap:10px;margin-top:12px;align-items:center">
+        <button class="btn btn-ink btn-sm" id="pmModeBtn" onclick="pmToggleMode()">DIG MODE</button>
+        <div style="flex:1"><div class="pm-bar"><i id="pmDigsBar" style="width:100%"></i></div></div>
+        <span class="sh" style="padding:6px 10px">DIGS <b id="pmDigs">18</b></span>
+      </div>
+    </div>
+    <div class="pm-side">
+      <div style="background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:16px 18px;font-size:13.5px;color:var(--ink2);line-height:1.65">
+        <b style="color:var(--ink)">You are John Snow.</b> Soho, London, September 1854. Cholera is killing the parish — dig blocks to count cases, watch where they cluster, and <b style="color:var(--crimson2)">mark the water pump</b> you believe is the source. The counts fall off with distance from the source. You have 18 digs. Accuse when ready.
+      </div>
+      <div class="mg-log" id="pmLog"><div>The cluster hides the pump. Numbers are cases per block.</div></div>
+      <div id="pmEnd"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GAME 04 · RISK RUNNER ================= -->
+<section class="page" id="page-run">
+  <div class="ghead"><div class="gh-main"><div class="g-eyebrow">Wave 2 · Game 04 · The impossible run</div>
+    <h2 class="g-title">Risk Runner<span class="g-case" id="runTag"></span></h2></div>
+    <div class="g-tabs" id="runTabs"></div>
+    <button class="btn btn-line" onclick="show('home')">← ARCADE</button></div>
+  <div class="run-wrap">
+    <div class="run-canvas" id="runBox">
+      <canvas id="runCanvas" width="960" height="360"></canvas>
+      <div class="run-hud"><span id="runScore" style="color:var(--ink2)">0</span><span id="runLives" style="color:var(--crimson2)">●●●</span></div>
+      <div class="run-flash" id="runFlash"></div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:14px;align-items:center;flex-wrap:wrap">
+      <button class="btn btn-ink" id="runStart" onclick="runStart()">Start the run</button>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:.1em">← → or A/D to switch lanes · catch petrol · dodge crimson</span>
+    </div>
+    <div id="runEnd" style="margin-top:16px"></div>
+  </div>
+</section>
+
+<!-- ================= GAME 05 · THE TOWER ================= -->
+<section class="page" id="page-tower">
+  <div class="ghead"><div class="gh-main"><div class="g-eyebrow">Wave 2 · Game 05 · The physics party game</div>
+    <h2 class="g-title">The Tower<span class="g-case" id="twCase"></span></h2></div>
+    <button class="btn btn-line" onclick="show('home')">← ARCADE</button></div>
+  <div class="tower-wrap">
+    <div>
+      <div class="tw-scene" id="twScene"><div class="tw-tower" id="twTower"></div></div>
+      <div style="display:flex;gap:10px;margin-top:12px;align-items:center">
+        <span class="sh">BLOCKS <b id="twPulled">0</b>/15</span>
+        <div style="flex:1"><div class="pm-bar"><i id="twStabBar" style="width:100%;background:var(--petrol)"></i></div></div>
+        <span class="sh">STABILITY <b id="twStab">100%</b></span>
+      </div>
+    </div>
+    <div>
+      <div class="tw-q" id="twQ"><div class="ep-eyebrow" style="color:var(--petrol2)">PULL A BLOCK</div>
+        <div class="q-t" style="color:var(--ink2)">Every block holds a resuscitation question. Pull from the sides of a row, answer it, and the block comes out clean — or the tower remembers.</div></div>
+      <div id="twEnd" style="margin-top:14px"></div>
+    </div>
+  </div>
+</section>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+/* ============ SHELL ============ */
+const $ = id => document.getElementById(id);
+let PAGE = 'home';
+function show(p){
+  PAGE = p;
+  document.querySelectorAll('.page').forEach(s => s.classList.toggle('on', s.id === 'page-'+p));
+  document.querySelectorAll('.gnav-btn').forEach(b => b.classList.toggle('on', b.dataset.page === p));
+  window.scrollTo({top:0});
+}
+let toastT = null;
+function toast(msg, ms){ const t = $('toast'); t.innerHTML = msg; t.classList.add('on');
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), ms || 2400); }
+function convert(tag, body){
+  return `<div class="convert"><div class="cv-top"><div class="ep-eyebrow">FROM THE ARCADE TO THE BANK</div><b>${tag}</b></div>
+  <div class="cv-body">${body} In the bank, every one of these facts comes with the vignette, the imaging, and the second-order question.</div></div>`;
+}
+
+/* ============ GAME 01 · THE IMPOSTOR ============ */
+const IMP_ROUNDS = [
+ {dx:'Systemic lupus erythematosus', items:[
+   ['Malar rash sparing the nasolabial folds',1],['Anti-dsDNA antibodies',1],['Nonerosive symmetric arthritis',1],
+   ['Photosensitive rash',1],['Anti-Jo-1 antibodies',0]] , why:'Anti-Jo-1 is the marker of antisynthetase syndrome / dermatomyositis — not SLE. The other four are classic ACR criteria.'},
+ {dx:'Pheochromocytoma', items:[
+   ['Episodic headache-sweating-palpitations',1],['24-hour urine metanephrines 5\u00d7 elevated',1],['Orthostatic hypotension between spells',1],
+   ['Bilateral tumors in MEN 2B',1],['Weight gain with purple striae',0]], why:'Weight gain + purple striae is Cushing syndrome (cortisol excess). Pheochromocytoma drives a hypermetabolic, catabolic picture — patients are often lean.'},
+ {dx:'Celiac disease', items:[
+   ['Anti-tissue-transglutaminase IgA',1],['Villous atrophy with crypt hyperplasia',1],['Dermatitis herpetiformis',1],
+   ['Iron deficiency refractory to oral iron',1],['Positive urea breath test',0]], why:'The urea breath test diagnoses H. pylori. Celiac malabsorption hits the proximal duodenum — iron and folate go first.'},
+ {dx:'Gout', items:[
+   ['First MTP joint arthritis (podagra)',1],['Needle-shaped, negatively birefringent crystals',1],['Tophi on the helix',1],
+   ['Serum urate above the saturation threshold',1],['Rhomboid, weakly positive crystals in the knee',0]], why:'Rhomboid, weakly positive birefringent crystals are calcium pyrophosphate — pseudogout. The needle, negative ones are monosodium urate.'},
+ {dx:'Multiple myeloma', items:[
+   ['M spike on serum protein electrophoresis',1],['Punched-out lytic skull lesions',1],['Rouleaux formation on smear',1],
+   ['Bence-Jones proteinuria',1],['Russell bodies — crystalloid IgG inclusions',0]], why:'That describes \u03b1 heavy-chain disease… no — Russell bodies are plasma cell inclusions seen in various plasma dyscrasias but the classic distractor here: rheumatoid factor complexes. The cleaner truth: MGUS, not myeloma, is asymptomatic without anemia, hyperCalcemia, renal disease or bone lesions (CRAB) — the other four define CRAB plus the M protein.'},
+ {dx:'Hashimoto thyroiditis', items:[
+   ['Antithyroid peroxidase antibodies',1],['Firm, painless goiter',1],['Lymphocytic infiltration with H\u00fcrthle cells',1],
+   ['Postpartum thyroiditis association',1],['Orbitopathy and pretibial myxedema',0]], why:'Orbitopathy and pretibial myxedema are Graves disease — antibody-stimulated. Hashimoto destroys the gland.'},
+ {dx:'Infective endocarditis', items:[
+   ['Janeway lesions on the palms',1],['Osler nodes on the finger pads',1],['Roth spots in the retina',1],
+   ['Positive blood cultures in separate draws',1],['Beefy red, diffuse, painful tongue',0]], why:'A beefy red painful tongue is pernicious anemia (B12 deficiency) — glossitis. Endocarditis lives on the valves, the skin, and the retina.'},
+ {dx:'Primary hyperparathyroidism', items:[
+   ['Hypercalcemia with low phosphate',1],['Osteitis fibrosa cystica',1],['Nephrolithiasis with calcium oxalate stones',1],
+   ['Elevated PTH with elevated or inappropriately normal calcium',1],['Hypocalcemia with Chvostek sign',0]], why:'Chvostek and Trousseau signs are HYPOcalcemia — tetany. Everything else is calcium leaking from bone under PTH drive.'},
+ {dx:'Guillain-Barr\u00e9 syndrome', items:[
+   ['Ascending symmetric weakness',1],['Areflexia',1],['Elevated CSF protein with few cells',1],
+   ['Predominant sensory level at the umbilicus',0]], why:'A sharp sensory LEVEL is a spinal cord lesion (e.g., transverse myelitis). GBS is motor-dominant, symmetric, ascending, and areflexic.'},
+ {dx:'Sickle cell disease', items:[
+   ['Vaso-occlusive pain crises',1],['Functional asplenia with Howell-Jolly bodies',1],['Salmonella osteomyelitis',1],
+   ['Sickled cells on peripheral smear',1],['Positive osmotic fragility test',0]], why:'Osmotic fragility is hereditary SPHEROCYTosis. Sickle is the solubility/dehydration test and hemoglobin electrophoresis — HbS polymerization, not membrane loss.'}
+];
+const IMP = {i:0, lives:3, streak:0, best:0, done:false, order:null};
+function impInit(){
+  IMP.i = 0; IMP.lives = 3; IMP.streak = 0; IMP.done = false;
+  $('impEnd').innerHTML = '';
+  impShow();
+}
+function impShow(){
+  if(IMP.i >= IMP_ROUNDS.length || IMP.lives <= 0){ impEnd(); return; }
+  const r = IMP_ROUNDS[IMP.i];
+  IMP.order = r.items.map((it, idx) => ({t: it[0], ok: it[1], idx})).sort(() => Math.random() - .5);
+  $('impN').textContent = IMP.i + 1;
+  $('impLives').textContent = '\u25cf'.repeat(Math.max(0, IMP.lives));
+  $('impStreak').textContent = IMP.streak;
+  $('impTag').textContent = 'ROUND ' + (IMP.i+1) + ' OF ' + IMP_ROUNDS.length;
+  $('impBody').innerHTML = `<div class="imp-case">The diagnosis under investigation: <em>${r.dx}</em></div>
+  <div class="imp-grid">${IMP.order.map((o, k) =>
+    `<button class="imp-card" id="imc${k}" onclick="impPick(${k})"><span class="ic-n">${'ABCDE'[k]}</span><span class="ic-t">${o.t}</span></button>`).join('')}</div>`;
+}
+function impPick(k){
+  if(IMP.done) return;
+  const r = IMP_ROUNDS[IMP.i], o = IMP.order[k];
+  const cards = IMP.order.map((_, j) => $('imc'+j));
+  cards.forEach(c => c.style.pointerEvents = 'none');
+  if(!o.ok){
+    $('imc'+k).classList.add('ejected');
+    IMP.streak++; IMP.best = Math.max(IMP.best, IMP.streak);
+    setTimeout(() => {
+      cards.forEach((c, j) => c.classList.add(IMP.order[j].ok ? 'revealed-true' : 'revealed-false'));
+      $('impBody').insertAdjacentHTML('beforeend', `<div class="imp-why"><b>${o.t} was The Impostor.</b> ${r.why}</div>`);
+      setTimeout(() => { IMP.i++; impShow(); }, 2300);
+    }, 1000);
+  } else {
+    IMP.streak = 0; IMP.lives--;
+    $('imc'+k).classList.add('revealed-false');
+    $('impBody').insertAdjacentHTML('beforeend', `<div class="imp-why"><b>${o.t} was NOT The Impostor.</b> One life lost. ${r.why}</div>`);
+    if(IMP.lives <= 0){ setTimeout(impEnd, 1800); }
+    else setTimeout(() => { IMP.i++; impShow(); }, 2600);
+  }
+}
+function impEnd(){
+  IMP.done = true;
+  const won = IMP.lives > 0;
+  const share = `Anastomosis The Impostor \U0001F47E\n${IMP.i}/${IMP_ROUNDS.length} impostors ejected \u00b7 best streak ${IMP.best}\nthe arcade \u2192 anastomosis.md`;
+  $('impBody').innerHTML = '';
+  $('impEnd').innerHTML = `<div class="end-panel">
+    <div class="ep-eyebrow">${won ? 'CREW VICTORY' : 'THE IMPOSTORS WON'}</div>
+    <div class="ep-title ${won?'win':''}">${won ? IMP.i + ' ejected.' : 'Overrun.'}</div>
+    <p class="ep-sub">${won ? 'Every impostor you caught was a discriminating feature you will never confuse again.' : 'The findings that fooled you are now the ones you will never forget.'}</p>
+    <div class="stat-row"><div class="stat"><b>${IMP.i}/${IMP_ROUNDS.length}</b><span>EJECTED</span></div>
+    <div class="stat"><b>\u00d7${IMP.best}</b><span>BEST STREAK</span></div><div class="stat"><b>${IMP.lives}</b><span>LIVES LEFT</span></div></div>
+    <div class="ep-actions"><button class="btn btn-ink btn-sm" onclick="impInit()">Play again</button></div>
+    ${convert('EVERY IMPOSTOR IS A DISTRACTOR', 'Finding the odd one out is exactly the skill the exam tests — our distractors each carry their own why-you-were-tempted.')}
+  </div>`;
+}
+/* ============ GAME 02 · THE MERGE (2048) ============ */
+const MG_TRACKS = {
+ athero: {name:'Atherogenesis', stages:[
+   ['Intact endothelium','#C9973C','Healthy endothelium keeps LDL out of the wall — shear stress and HDL do the housekeeping.'],
+   ['Fatty streak','#B87A0C','LDL slips into the intima and oxidizes — the first visible lesion, even in teenagers.'],
+   ['Foam cells','#8E2921','Oxidized LDL attracts monocytes; they engulf lipid and become foam cells — the plaque\u2019s first residents.'],
+   ['Fibrous plaque','#B5342A','Smooth muscle migrates in and lays a collagen cap over the lipid core — a raised, firm plaque.'],
+   ['Complicated plaque','#1B4E5F','The cap thins, calcifies, ulcerates; neovascularization brings fragile vessels in.'],
+   ['Rupture & thrombosis','#101418','The cap breaks, the core meets blood, and a thrombus occludes the artery — the MI.']]},
+ onco: {name:'Oncogenesis', stages:[
+   ['Normal tissue','#C9973C','Homeostasis: division balanced by differentiation and apoptosis.'],
+   ['Hyperplasia','#B87A0C','More cells, normal architecture — reversible if the drive stops.'],
+   ['Metaplasia','#8E2921','One mature cell type replaced by another — squamous in the bronchus, intestinal in the stomach.'],
+   ['Dysplasia','#B5342A','Disordered growth: pleomorphism, loss of polarity. The last reversible-ish step.'],
+   ['Carcinoma in situ','#1B4E5F','Full malignant cytology, still behind the basement membrane.'],
+   ['Invasive carcinoma','#101418','The basement membrane is breached — invasion of surrounding tissue.'],
+   ['Metastasis','#0E2E3A','Colonization of distant organs — the property that makes cancer lethal.']]}
+};
+const MG = {track:'athero', grid:[], score:0, over:false, won:false};
+function mgInit(track){
+  MG.track = track || MG.track; MG.grid = Array.from({length:4}, () => [0,0,0,0]); MG.score = 0; MG.over = false; MG.won = false;
+  $('mergeTag').textContent = MG_TRACKS[MG.track].name;
+  $('mgEnd').innerHTML = '';
+  $('mgLog').innerHTML = '<div>Merge pairs to climb the pathway. Arrows, WASD, or swipe.</div>';
+  $('mgScore').textContent = '0';
+  const T = MG_TRACKS[MG.track];
+  $('mgLadder').innerHTML = T.stages.map((s, i) =>
+    `<div><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:${s[1]};margin-right:8px;vertical-align:-1px"></span>${i+1}. ${s[0]}</div>`).join('');
+  mgSpawn(); mgSpawn(); mgRender();
+}
+function mgSpawn(){
+  const free = [];
+  for(let r=0;r<4;r++) for(let c=0;c<4;c++) if(!MG.grid[r][c]) free.push([r,c]);
+  if(!free.length) return;
+  const [r,c] = free[Math.floor(Math.random()*free.length)];
+  MG.grid[r][c] = Math.random() < .85 ? 1 : 2;
+}
+const MG_COLS = n => MG_TRACKS[MG.track].stages[n-1] ? MG_TRACKS[MG.track].stages[n-1][1] : '#101418';
+function mgRender(){
+  const g = $('mgGrid');
+  g.innerHTML = '';
+  for(let r=0;r<4;r++) for(let c=0;c<4;c++){
+    const cell = document.createElement('div'); cell.className = 'mg-cell';
+    const v = MG.grid[r][c];
+    if(v){
+      const t = document.createElement('div');
+      t.className = 'mg-tile' + (t && MG.justMerged && MG.justMerged.includes(r+'-'+c) ? ' merged' : '');
+      t.style.background = MG_COLS(v);
+      t.textContent = MG_TRACKS[MG.track].stages[v-1][0];
+      cell.appendChild(t);
+    }
+    g.appendChild(cell);
+  }
+  $('mgScore').textContent = MG.score;
+  MG.justMerged = null;
+}
+function mgMove(dx, dy){
+  if(MG.over || MG.won) return;
+  const T = MG_TRACKS[MG.track].stages;
+  const g = MG.grid;
+  let moved = false; MG.justMerged = [];
+  const line = i => {
+    if(dx === -1) return g[i];
+    if(dx === 1) return g[i].slice().reverse();
+    if(dy === -1) return g.map(r => r[i]);
+    return g.map(r => r[i]).reverse();
+  };
+  const write = (i, vals) => {
+    if(dx === -1) g[i] = vals;
+    else if(dx === 1) g[i] = vals.slice().reverse();
+    else if(dy === -1) vals.forEach((v, k) => g[k][i] = v);
+    else vals.forEach((v, k) => g[3-k][i] = v);
+  };
+  const at = (i, j) => {
+    if(dx === -1) return g[i][j];
+    if(dx === 1) return g[i][3-j];
+    if(dy === -1) return g[j][i];
+    return g[3-j][i];
+  };
+  const put = (i, j, v) => {
+    if(dx === -1) g[i][j] = v;
+    else if(dx === 1) g[i][3-j] = v;
+    else if(dy === -1) g[j][i] = v;
+    else g[3-j][i] = v;
+  };
+  const pos = (i, j) => {
+    if(dx === -1) return i+'-'+j;
+    if(dx === 1) return i+'-'+(3-j);
+    if(dy === -1) return j+'-'+i;
+    return (3-j)+'-'+i;
+  };
+  for(let i=0;i<4;i++){
+    let vals = line(i).filter(v => v);
+    const out = [];
+    for(let k=0;k<vals.length;k++){
+      if(k+1 < vals.length && vals[k] === vals[k+1]){
+        out.push(vals[k]+1); MG.score += 10;
+        const rr = pos(i, out.length-1);
+        (MG.justMerged = MG.justMerged || []).push(rr);
+        const stage = T[vals[k]];  // merged-into stage is vals[k]+1
+        const into = T[vals[k]+1] ? T[vals[k]+1] : null;
+        if(into) mgLogAdd(`<b>${into[0]}.</b> ${into[2]}`);
+        k++;
+      } else out.push(vals[k]);
+    }
+    while(out.length < 4) out.push(0);
+    const orig = line(i).join(',');
+    write(i, out);
+    if(orig !== out.join(',')) moved = true;
+    // check win: final stage reached
+    if(out.includes(T.length)) MG.won = true;
+  }
+  if(moved){ mgSpawn(); mgRender(); if(MG.won) mgWin(); else if(!mgCanMove()) mgLose(); }
+}
+function mgCanMove(){
+  for(let r=0;r<4;r++) for(let c=0;c<4;c++){
+    if(!MG.grid[r][c]) return true;
+    if(c<3 && MG.grid[r][c] === MG.grid[r][c+1]) return true;
+    if(r<3 && MG.grid[r][c] === MG.grid[r+1][c]) return true;
+  }
+  return false;
+}
+function mgLogAdd(html){
+  const l = $('mgLog');
+  l.insertAdjacentHTML('afterbegin', `<div>${html}</div>`);
+  while(l.children.length > 10) l.removeChild(l.lastChild);
+}
+function mgWin(){
+  const T = MG_TRACKS[MG.track];
+  confettiLite();
+  $('mgEnd').innerHTML = `<div class="end-panel"><div class="ep-eyebrow">PATHWAY COMPLETE</div>
+  <div class="ep-title win">${T.stages[T.stages.length-1][0]}.</div>
+  <p class="ep-sub">You merged your way up the whole ladder — every step is now a story you can tell, not a list you memorize.</p>
+  <div class="stat-row"><div class="stat"><b>${MG.score}</b><span>SCORE</span></div><div class="stat"><b>${T.stages.length}</b><span>STAGES CLIMBED</span></div></div>
+  <div class="ep-actions"><button class="btn btn-ink btn-sm" onclick="mgInit('${MG.track==='athero'?'onco':'athero'}')">Next pathway</button></div>
+  ${convert('THE LADDER IS THE LESSON', 'Progression questions are free points when the ladder is automatic — the bank drills each rung with the vignette that tests it.')}</div>`;
+}
+function mgLose(){
+  const T = MG_TRACKS[MG.track];
+  let highest = 0;
+  MG.grid.flat().forEach(v => highest = Math.max(highest, v));
+  $('mgEnd').innerHTML = `<div class="end-panel"><div class="ep-eyebrow">GRID LOCKED</div>
+  <div class="ep-title">${T.stages[highest-1] ? T.stages[highest-1][0] : '—'}</div>
+  <p class="ep-sub">The board filled at rung ${highest} of ${T.stages.length}. The ladder recap is on the right — run it again.</p>
+  <div class="ep-actions"><button class="btn btn-ink btn-sm" onclick="mgInit()">Run it back</button></div></div>`;
+}
+function confettiLite(){
+  const c = document.createElement('div');
+  c.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:180';
+  const cols = ['#B5342A','#1B4E5F','#C9973C','#101418'];
+  for(let i=0;i<30;i++){
+    const s = document.createElement('i');
+    s.style.cssText = `position:absolute;left:${Math.random()*100}vw;top:-20px;width:9px;height:13px;background:${cols[i%4]};animation:cf ${1.1+Math.random()*.9}s ${Math.random()*.25}s linear forwards`;
+    const st = document.createElement('style');
+    st.textContent = '@keyframes cf{to{transform:translateY(108vh) rotate(660deg)}}';
+    document.head.appendChild(st);
+    c.appendChild(s);
+  }
+  document.body.appendChild(c);
+  setTimeout(() => c.remove(), 2400);
+}
+document.addEventListener('keydown', e => {
+  if(PAGE !== 'merge') return;
+  const k = e.key.toLowerCase();
+  if(k === 'arrowleft' || k === 'a'){ e.preventDefault(); mgMove(-1,0); }
+  if(k === 'arrowright' || k === 'd'){ e.preventDefault(); mgMove(1,0); }
+  if(k === 'arrowup' || k === 'w'){ e.preventDefault(); mgMove(0,-1); }
+  if(k === 'arrowdown' || k === 's'){ e.preventDefault(); mgMove(0,1); }
+});
+let mgTx = null;
+document.addEventListener('touchstart', e => { if(PAGE==='merge') mgTx = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+  if(PAGE !== 'merge' || mgTx === null) return;
+  const dx2 = e.changedTouches[0].clientX - mgTx;
+  if(Math.abs(dx2) > 30) mgMove(dx2 > 0 ? 1 : -1, 0);
+  mgTx = null;
+});
+
+/* ============ GAME 03 · THE PUMP ============ */
+const PM = {n:8, cases:null, pump:null, digs:18, maxDigs:18, mode:'dig', over:false, dug:null, marks:null};
+function pmNew(){
+  PM.over = false; PM.digs = PM.maxDigs; PM.mode = 'dig';
+  PM.dug = Array.from({length:PM.n}, () => Array(PM.n).fill(false));
+  PM.marks = Array.from({length:PM.n}, () => Array(PM.n).fill(false));
+  PM.pump = [2 + Math.floor(Math.random()*(PM.n-4)), 2 + Math.floor(Math.random()*(PM.n-4))];
+  PM.cases = Array.from({length:PM.n}, () => Array(PM.n).fill(0));
+  for(let k=0;k<14;k++){
+    const ang = Math.random()*Math.PI*2;
+    const dist = Math.random()*Math.random()*3.2;
+    const r = Math.round(PM.pump[0] + Math.sin(ang)*dist);
+    const c = Math.round(PM.pump[1] + Math.cos(ang)*dist);
+    if(r>=0 && r<PM.n && c>=0 && c<PM.n) PM.cases[r][c] = Math.min(4, PM.cases[r][c]+1);
+  }
+  $('pmEnd').innerHTML = '';
+  $('pmLog').innerHTML = '<div>The cluster hides the pump. Numbers are cases per block. Switch to MARK mode to accuse.</div>';
+  pmRender();
+}
+function pmToggleMode(){
+  PM.mode = PM.mode === 'dig' ? 'mark' : 'dig';
+  $('pmModeBtn').textContent = PM.mode.toUpperCase() + ' MODE';
+  $('pmModeBtn').classList.toggle('btn-ink', PM.mode === 'dig');
+  $('pmModeBtn').classList.toggle('btn-gold', PM.mode === 'mark');
+}
+function pmRender(){
+  const b = $('pmBoard');
+  b.innerHTML = '';
+  for(let r=0;r<PM.n;r++) for(let c=0;c<PM.n;c++){
+    const cell = document.createElement('button');
+    cell.className = 'pm-cell';
+    if(PM.dug[r][c]){ cell.classList.add('dug'); if(PM.cases[r][c]) cell.classList.add('c'+PM.cases[r][c]); cell.textContent = PM.cases[r][c] || '\u00b7'; }
+    else if(PM.marks[r][c]){ cell.classList.add('marked'); cell.textContent = '\u2691'; }
+    cell.onclick = () => pmClick(r, c);
+    b.appendChild(cell);
+  }
+  $('pmDigs').textContent = PM.digs;
+  $('pmDigsBar').style.width = (PM.digs/PM.maxDigs*100) + '%';
+}
+function pmClick(r, c){
+  if(PM.over) return;
+  if(PM.mode === 'dig'){
+    if(PM.dug[r][c]) return;
+    if(PM.digs <= 0){ toast('Out of digs — <b>switch to MARK mode</b> and accuse.'); return; }
+    PM.dug[r][c] = true; PM.digs--;
+    const n = PM.cases[r][c];
+    if(n >= 3) pmLogAdd(`<b>${n} cases</b> — heavy cluster nearby.`);
+    else if(n > 0) pmLogAdd(`${n} case${n>1?'s':''} recorded.`);
+    else pmLogAdd('Clean block — the cluster is elsewhere.');
+    pmRender();
+  } else {
+    if(!PM.dug[r][c] && PM.digs > 0){ toast('Dig it first, or dig more — are you sure?'); }
+    pmAccuse(r, c);
+  }
+}
+function pmAccuse(r, c){
+  const correct = (r === PM.pump[0] && c === PM.pump[1]);
+  PM.over = true;
+  // reveal all
+  for(let rr=0;rr<PM.n;rr++) for(let cc=0;cc<PM.n;cc++) PM.dug[rr][cc] = true;
+  PM.marks[r][c] = true;
+  pmRender();
+  const pcell = $('pmBoard').children[PM.pump[0]*PM.n + PM.pump[1]];
+  if(pcell){ pcell.classList.add('pump'); pcell.textContent = '\u26fd'; }
+  const digsUsed = PM.maxDigs - PM.digs;
+  const share = `Anastomosis The Pump \U0001F6B0\n${correct ? 'Source found in ' + digsUsed + ' digs' : 'The outbreak outlived you'}\nthe arcade \u2192 anastomosis.md`;
+  $('pmEnd').innerHTML = `<div class="end-panel">
+    <div class="ep-eyebrow">${correct ? 'SOURCE CONTAINED' : 'WRONG PUMP'}</div>
+    <div class="ep-title ${correct?'win':''}">${correct ? 'The Broad Street pump.' : 'The cluster kept spreading.'}</div>
+    <p class="ep-sub">${correct ? 'Snow removed the handle on September 8, 1854 — the deaths fell, and epidemiology was born. You found it in ' + digsUsed + ' digs.' : 'You accused the wrong block. The real pump is marked \u26fd — see how the counts peak around it? That gradient is the whole discipline.'}</p>
+    <div class="stat-row"><div class="stat"><b>${digsUsed}/${PM.maxDigs}</b><span>DIGS USED</span></div><div class="stat"><b>14</b><span>CASES</span></div></div>
+    <div class="ep-actions"><button class="btn btn-ink btn-sm" onclick="pmNew()">New outbreak</button></div>
+    ${convert('THE PUMP IS THE EXAM QUESTION', 'Screening, incidence vs prevalence, study designs — the bank teaches epidemiology with the same logic you just used.')}</div>`;
+}
+function pmLogAdd(html){
+  const l = $('pmLog');
+  l.insertAdjacentHTML('afterbegin', `<div>${html}</div>`);
+  while(l.children.length > 8) l.removeChild(l.lastChild);
+}
+/* ============ GAME 04 · RISK RUNNER ============ */
+const RUN_THEMES = {
+ stroke: {name:'STROKE', risks:['Smoking','Hypertension','Atrial fibrillation','Diabetes','Hyperlipidemia','Carotid stenosis','Cocaine use','Oral contraceptives + smoking'], prots:['Treating AF anticoagulation','BP control','Statins','Exercise','Smoking cessation','Diet']},
+ mi: {name:'MYOCARDIAL INFARCTION', risks:['Smoking','LDL \u2191','Diabetes','HTN','Family history <55','Methamphetamine','Obesity','Sedentary life'], prots:['Statins','Aspirin prophylaxis in high risk','Exercise','Mediterranean diet','Smoking cessation']},
+ dm: {name:'TYPE 2 DIABETES', risks:['Obesity','Sedentary life','Metabolic syndrome','PCOS','Gestational DM history','Acanthosis nigricans','Steroid use'], prots:['Metformin','Weight loss of 7%','150 min/week exercise','Bariatric surgery']}
+};
+const RUN = {theme:'stroke', lane:1, items:[], score:0, lives:3, speed:190, running:false, t0:0, raf:null, flash:null};
+function runInit(theme){
+  RUN.theme = theme || RUN.theme;
+  $('runTag').textContent = RUN_THEMES[RUN.theme].name;
+  $('runTabs').innerHTML = Object.keys(RUN_THEMES).map(k =>
+    `<button class="g-tab ${k===RUN.theme?'on':''}" onclick="runInit('${k}')">${RUN_THEMES[k].name}</button>`).join('');
+  $('runEnd').innerHTML = '';
+  drawRoad(Date.now());
+}
+function drawRoad(now){
+  const cv = $('runCanvas'), ctx = cv.getContext('2d');
+  ctx.fillStyle = '#F7F3EB'; ctx.fillRect(0,0,960,360);
+  const scroll = (now * RUN.speed/1000) % 120;
+  ctx.strokeStyle = '#E3DCCC'; ctx.lineWidth = 3;
+  for(let y = -120 + scroll; y < 400; y += 120){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(960,y); ctx.stroke(); }
+  ctx.strokeStyle = '#8A857A'; ctx.setLineDash([14,18]);
+  ctx.beginPath(); ctx.moveTo(320,0); ctx.lineTo(320,360); ctx.moveTo(640,0); ctx.lineTo(640,360); ctx.stroke(); ctx.setLineDash([]);
+  // items
+  const lanesX = [160, 480, 800];
+  RUN.items.forEach(it => {
+    const x = lanesX[it.lane] + it.xo, y = it.y;
+    ctx.fillStyle = it.risk ? '#B5342A' : '#1B4E5F';
+    rrect(ctx, x-78, y-19, 156, 38, 19);
+    ctx.fillStyle = '#F7F3EB';
+    ctx.font = '700 13px "JetBrains Mono", monospace';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(it.t, x, y, 140);
+  });
+  // player
+  if(RUN.running){
+    const px = lanesX[RUN.lane], py = 310;
+    ctx.fillStyle = '#C9973C';
+    ctx.beginPath(); ctx.arc(px, py, 17, 0, 7); ctx.fill();
+    ctx.strokeStyle = '#101418'; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.moveTo(px-26, py); ctx.lineTo(px+26, py); ctx.moveTo(px, py-26); ctx.lineTo(px, py+26); ctx.stroke();
+  }
+  $('runScore').textContent = RUN.score;
+  $('runLives').textContent = '\u25cf'.repeat(Math.max(0, RUN.lives));
+}
+function rrect(ctx, x, y, w, h, r){
+  ctx.beginPath(); ctx.moveTo(x+r, y);
+  ctx.arcTo(x+w, y, x+w, y+h, r); ctx.arcTo(x+w, y+h, x, y+h, r);
+  ctx.arcTo(x, y+h, x, y, r); ctx.arcTo(x, y, x+w, y, r); ctx.closePath(); ctx.fill();
+}
+function runStart(){
+  if(RUN.running) return;
+  RUN.running = true; RUN.lane = 1; RUN.items = []; RUN.score = 0; RUN.lives = 3; RUN.speed = 190;
+  RUN.t0 = performance.now(); RUN.lastSpawn = 0; RUN.elapsed = 0;
+  $('runEnd').innerHTML = '';
+  runLoop(performance.now());
+}
+function runFlash(text, color){
+  const f = $('runFlash');
+  f.textContent = text; f.style.color = color || '#B5342A';
+  f.style.transition = 'none'; f.style.opacity = 1;
+  requestAnimationFrame(() => { f.style.transition = 'opacity .8s'; f.style.opacity = 0; });
+}
+function runLoop(now){
+  if(!RUN.running) return;
+  RUN.elapsed = (now - RUN.t0)/1000;
+  RUN.speed = 190 + RUN.elapsed * 9;
+  const T = RUN_THEMES[RUN.theme];
+  if(now - RUN.lastSpawn > Math.max(520, 900 - RUN.elapsed*14)){
+    RUN.lastSpawn = now;
+    const risk = Math.random() < .62;
+    const pool = risk ? T.risks : T.prots;
+    RUN.items.push({t: pool[Math.floor(Math.random()*pool.length)], risk, lane: Math.floor(Math.random()*3), y: -40, xo: (Math.random()-.5)*30});
+  }
+  const lanesX = [160, 480, 800];
+  RUN.items.forEach(it => it.y += RUN.speed * 0.016);
+  // collisions
+  RUN.items = RUN.items.filter(it => {
+    if(it.y > 285 && it.y < 340 && it.lane === RUN.lane){
+      if(it.risk){
+        RUN.lives--; RUN.score = Math.max(0, RUN.score - 30);
+        runFlash(it.t.toUpperCase(), '#B5342A');
+        if(RUN.lives <= 0){ runEnd(); return false; }
+      } else {
+        RUN.score += 100; runFlash('+' + it.t, '#1B4E5F');
+      }
+      return false;
+    }
+    return it.y < 420;
+  });
+  drawRoad(now);
+  if(RUN.elapsed > 60){ runEnd(true); return; }
+  RUN.raf = requestAnimationFrame(runLoop);
+}
+function runEnd(survived){
+  RUN.running = false;
+  cancelAnimationFrame(RUN.raf);
+  const won = !!survived;
+  const share = `Anastomosis Risk Runner \U0001F3C3\n${RUN.score} pts on the ${RUN_THEMES[RUN.theme].name} run\nthe arcade \u2192 anastomosis.md`;
+  $('runEnd').innerHTML = `<div class="end-panel"><div class="ep-eyebrow">${won ? 'SIXTY SECONDS SURVIVED' : 'TRIPPED ON A RISK FACTOR'}</div>
+  <div class="ep-title ${won?'win':''}">${RUN.score} points.</div>
+  <p class="ep-sub">Every chip you touched is on the ${RUN_THEMES[RUN.theme].name} risk list — the ones you dodged are the ones you now know. Reflex memory is still memory.</p>
+  <div class="stat-row"><div class="stat"><b>${RUN.score}</b><span>SCORE</span></div><div class="stat"><b>${RUN.lives}</b><span>LIVES</span></div><div class="stat"><b>${Math.round(RUN.elapsed)}s</b><span>SURVIVED</span></div></div>
+  <div class="ep-actions"><button class="btn btn-ink btn-sm" onclick="runStart()">Run it back</button></div>
+  ${convert('THE LIST IS THE LESSON', 'Whole risk-factor lists are the quiet free points of any exam — the bank drills them inside vignettes, where the risk IS the clue.')}</div>`;
+}
+document.addEventListener('keydown', e => {
+  if(PAGE !== 'run' || !RUN.running) return;
+  const k = e.key.toLowerCase();
+  if(k === 'arrowleft' || k === 'a'){ RUN.lane = Math.max(0, RUN.lane-1); }
+  if(k === 'arrowright' || k === 'd'){ RUN.lane = Math.min(2, RUN.lane+1); }
+});
+let runTx = null;
+$('runBox').addEventListener('touchstart', e => { runTx = e.touches[0].clientX; });
+$('runBox').addEventListener('touchend', e => {
+  if(runTx === null) return;
+  const dx2 = e.changedTouches[0].clientX - runTx;
+  if(Math.abs(dx2) > 26 && RUN.running) RUN.lane = Math.max(0, Math.min(2, RUN.lane + (dx2 > 0 ? 1 : -1)));
+  runTx = null;
+});
+$('runBox').addEventListener('click', e => {
+  if(!RUN.running) return;
+  const r = $('runBox').getBoundingClientRect();
+  RUN.lane = e.clientX - r.left < r.width/3 ? 0 : (e.clientX - r.left > 2*r.width/3 ? 2 : 1);
+});
+
+/* ============ GAME 05 · THE TOWER ============ */
+const TW_QBANK = [
+ ['Hyperkalemia with peaked T waves and widening QRS. Stabilize the membrane — what goes in first?','IV calcium gluconate','Insulin + dextrose',0],
+ ['Obtunded alcoholic who needs glucose. What goes in with it?','Thiamine first','Naloxone first',0],
+ ['Tension pneumothorax after a stab wound, BP 76/40. Next move?','Needle decompression','CT chest',0],
+ ['Stable SVT in a young patient. First maneuver?','Vagal maneuvers','IV adenosine',0],
+ ['Anaphylaxis minutes after IV antibiotic. First line?','IM epinephrine','IV diphenhydramine',0],
+ ['Generalized seizure >5 min, glucose normal. First-line agent?','IV lorazepam','IV levetiracetam',0],
+ ['Aortic dissection, SBP 190. Which first?','IV esmolol (rate control)','IV nitroprusside alone',0],
+ ['Eclamptic seizure at 34 weeks. Drug of choice?','IV magnesium sulfate','IV lorazepam + delivery now',0],
+ ['Suspected meningococcemia, BP 84/48. Timing of empiric antibiotics?','Now — before imaging','After the LP results',0],
+ ['Tamponade physiology post-MI. Treatment?','Pericardiocentesis','IV diuretic',0],
+ ['\u03b2-blocker overdose, bradycardic, atropine failed. Now what?','IV glucagon','More atropine',0],
+ ['Septic shock, MAP 55 despite 2L fluids. First vasopressor?','Norepinephrine','Dopamine',0],
+ ['Malignant hyperthermia after succinylcholine. Push?','Dantrolene','Cooling blankets only',0],
+ ['Serotonin syndrome with clonus after linezolid + SSRI. Antidote?','Cyproheptadine','Bromocriptine',0],
+ ['Organophosphate poisoning, salivating and bradycardic. Give?','Atropine + pralidoxime','Physostigmine',0],
+ ['Torsades de pointes after a QT drug. First drug?','IV magnesium','IV amiodarone',0],
+ ['Acetaminophen level above the line, 8h post-ingestion. Antidote?','N-acetylcysteine','Hemodialysis',0],
+ ['Massive PE with hypotension. Beyond anticoagulation?','Systemic thrombolysis','Heparin alone',0],
+ ['DKA, pH 6.98. First step of therapy?','IV isotonic saline','IV insulin bolus',0],
+ ['Variceal bleed in a cirrhotic. First pharmacologic move?','Octreotide + PPI, then urgent EGD','Immediate surgical shunt',0],
+ ['Symptomatic hypercalcemia of 13.9, altered. Initial therapy?','IV isotonic saline','IV furosemide first',0],
+ ['Cocaine-associated chest pain. Which agent is avoided?','\u03b2-blockers (unopposed \u03b1)','Benzodiazepines',0]
+];
+const TW = {blocks:[], stability:100, pulled:0, over:false, bank:[], current:null, rows:8};
+function twInit(){
+  TW.stability = 100; TW.pulled = 0; TW.over = false; TW.current = null;
+  TW.bank = TW_QBANK.map((q, i) => ({q, used:false}));
+  TW.blocks = [];
+  for(let r=0;r<TW.rows;r++){
+    for(let c=0;c<3;c++){
+      TW.blocks.push({r, c, alive:true, q:null});
+    }
+  }
+  $('twEnd').innerHTML = '';
+  $('twScene').classList.remove('tw-collapse');
+  $('twQ').innerHTML = `<div class="ep-eyebrow" style="color:var(--petrol2)">PULL A BLOCK</div>
+    <div class="q-t" style="color:var(--ink2)">Every block holds a resuscitation question. Pull from the sides of a row, answer it, and the block comes out clean — or the tower remembers.</div>`;
+  twRender();
+}
+function twRender(){
+  const t = $('twTower');
+  t.innerHTML = '';
+  for(let r=TW.rows-1;r>=0;r--){
+    const row = document.createElement('div'); row.className = 'tw-row';
+    for(let c=0;c<3;c++){
+      const b = TW.blocks.find(x => x.r === r && x.c === c);
+      const el = document.createElement('button');
+      el.className = 'tw-block' + (b && !b.alive ? ' gone' : '') + (b && b.q ? ' gld' : '');
+      el.onclick = () => twPull(r, c);
+      row.appendChild(el);
+    }
+    t.appendChild(row);
+  }
+  $('twPulled').textContent = TW.pulled;
+  $('twStab').textContent = TW.stability + '%';
+  $('twStabBar').style.width = TW.stability + '%';
+  $('twStabBar').style.background = TW.stability > 50 ? 'var(--petrol)' : 'var(--crimson)';
+  $('twCase').textContent = 'BLOCKS ' + TW.pulled + '/15 · STABILITY ' + TW.stability + '%';
+}
+function twPull(r, c){
+  if(TW.over) return;
+  const b = TW.blocks.find(x => x.r === r && x.c === c);
+  if(!b || !b.alive) return;
+  const rowAlive = TW.blocks.filter(x => x.r === r && x.alive).length;
+  if(rowAlive <= 1){ toast('You cannot take the <b>last block of a row</b> — the tower needs its spine.'); return; }
+  const avail = TW.bank.filter(x => !x.used);
+  if(!avail.length) return;
+  const pick = avail[Math.floor(Math.random()*avail.length)];
+  pick.used = true;
+  b.q = pick.q;
+  TW.current = {b, q: pick.q};
+  const opts = [pick.q[1], pick.q[2]].sort(() => Math.random() - .5);
+  $('twQ').innerHTML = `<div class="ep-eyebrow" style="color:var(--petrol2)">BLOCK \u00b7 ROW ${r+1}</div>
+    <div class="q-t">${pick.q[0]}</div>
+    <div class="tw-opts">${opts.map((o, i) => `<button class="tw-opt" onclick="twAnswer('${o.replace(/'/g, "\\'")}', ${i})">${o}</button>`).join('')}</div>`;
+  TW.current.opts = opts;
+}
+function twAnswer(chosen, i){
+  if(!TW.current || TW.over) return;
+  const {b, q} = TW.current;
+  const correct = chosen === q[1 + (q[3] === 0 ? 0 : 1)] || chosen === q[1];
+  const isRight = q[1] === chosen;
+  document.querySelectorAll('.tw-opt').forEach(o => { o.style.pointerEvents = 'none'; if(o.textContent === q[1]) o.classList.add('right'); });
+  if(isRight){
+    b.alive = false; TW.pulled++;
+    twRender();
+    if(TW.pulled >= 15){ twWin(); return; }
+    $('twQ').innerHTML = `<div class="ep-eyebrow" style="color:var(--petrol2)">CLEAN PULL</div>
+      <div class="q-t" style="color:var(--ink2)">Right. The tower holds. ${TW.pulled} of 15 — pull another.</div>`;
+  } else {
+    document.querySelectorAll('.tw-opt').forEach(o => { if(o.textContent === chosen) o.classList.add('wrong'); });
+    TW.stability -= 25;
+    const tw = $('twTower');
+    tw.classList.remove('tw-wobble'); void tw.offsetWidth; tw.classList.add('tw-wobble');
+    twRender();
+    if(TW.stability <= 0){ twCollapse(); return; }
+    $('twQ').innerHTML = `<div class="ep-eyebrow" style="color:var(--crimson2)">THE TOWER SHUDDERS</div>
+      <div class="q-t" style="color:var(--ink2)">Wrong — stability down to ${TW.stability}%. ${TW.pulled} of 15 pulled. Pull again.</div>`;
+  }
+  TW.current = null;
+}
+function twCollapse(){
+  TW.over = true;
+  $('twScene').classList.add('tw-collapse');
+  $('twQ').innerHTML = `<div class="ep-eyebrow" style="color:var(--crimson2)">COLLAPSE</div>
+    <div class="q-t">The tower is down — ${TW.pulled} blocks pulled, four wrong answers.</div>`;
+  twEndPanel(false);
+}
+function twWin(){
+  TW.over = true;
+  confettiLite();
+  twEndPanel(true);
+}
+function twEndPanel(won){
+  const share = `Anastomosis The Tower \U0001F9F1\n${TW.pulled}/15 blocks \u00b7 ${won ? 'standing' : 'collapsed'}\nthe arcade \u2192 anastomosis.md`;
+  $('twEnd').innerHTML = `<div class="end-panel"><div class="ep-eyebrow">${won ? 'THE TOWER STANDS' : 'THE TOWER FELL'}</div>
+  <div class="ep-title ${won?'win':''}">${TW.pulled} blocks pulled.</div>
+  <p class="ep-sub">${won ? 'Fifteen clean pulls — that is a resuscitation bank you can run on reflex.' : 'Every wobble was a fact you half-knew. Now you know it.'}</p>
+  <div class="stat-row"><div class="stat"><b>${TW.pulled}/15</b><span>BLOCKS</span></div><div class="stat"><b>${TW.stability}%</b><span>STABILITY</span></div></div>
+  <div class="ep-actions"><button class="btn btn-ink btn-sm" onclick="twInit()">Rebuild it</button></div>
+  ${convert('EVERY BLOCK IS A VIGNETTE', 'The resuscitation decisions in these blocks are the same first-line calls the bank asks with full vitals, labs, and why-the-other-option-kills.')}</div>`;
+}
+
+/* ============ BOOT ============ */
+document.addEventListener('DOMContentLoaded', () => {
+  impInit();
+  mgInit('athero');
+  pmNew();
+  runInit('stroke');
+  twInit();
+  if(location.search.includes('debug')){
+    window.A2 = {IMP, MG, PM, RUN, TW, show, impInit, impPick, mgInit, mgMove, pmNew, pmAccuse, runStart, twInit, twPull, twAnswer, MG_TRACKS, RUN_THEMES};
+  }
+});
+</script>
+</body></html>
