@@ -11,7 +11,7 @@
    * a 1024x1024 bone field (#F7F3EB) with paper grain
    * the word "anastomosis" as 11 branch-letter glyphs riding an arc:
        letters 1-4  "anas"   -> arterial crimson
-       letters 5-11 "tomsis" -> venous petrol
+       letters 5-11 "tomosis" -> venous petrol
      (no ".md" — founder decision)
    * a tapering trunk with a lean, root flare with sub-roots
    * a recursive canopy: 12 crown limbs + 58 filler sprigs
@@ -68,7 +68,7 @@ CANVAS       = 1024       # canvas edge in px
 # ---- palette (brand tokens) ------------------------------------------------
 BONE         = (247, 243, 235)   # #F7F3EB  the field, always
 CRIMSON      = (152, 51, 44)     # letters "anas"  (arterial)
-PETROL       = (50, 88, 97)      # letters "tomsis" + all the wood (venous)
+PETROL       = (50, 88, 97)      # letters "tomosis" + all the wood (venous)
 HALO_TINT    = (255, 252, 243)   # soft paper glow behind each letter
 
 # ---- the word --------------------------------------------------------------
@@ -340,6 +340,10 @@ def render(seed=SEED, letter_size=LETTER_SIZE, font_path=None, halo=HALO,
              rng.uniform(*SPRIG_LEN), rng.uniform(*SPRIG_W), SPRIG_DEPTH)
         placed += 1
 
+    if placed < SPRIGS:
+        print("note: only %d of %d sprigs placed — crown ellipse too small "
+              "for the rejection rules" % (placed, SPRIGS))
+
     wood = wood.filter(ImageFilter.MaxFilter(WOOD_DILATE))
     wood = wood.filter(ImageFilter.GaussianBlur(0.8))
     petrol_layer = Image.new("RGB", (CANVAS, CANVAS), PETROL)
@@ -458,7 +462,7 @@ def main():
     font = ImageFont.truetype(font_path, args.letter_size)
 
     out = render(seed=args.seed, letter_size=args.letter_size,
-                 font_path=args.font, halo=not args.no_halo, out=args.out)
+                 font_path=font_path, halo=not args.no_halo, out=args.out)
     proof = None
     if not args.no_proof:
         root, ext = os.path.splitext(out)
