@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild the 50-mark Anastomosis November shortlist from repository root.
+"""Rebuild the 60-mark Anastomosis November shortlist from repository root.
 
 Requires Pillow and NumPy. If rapidocr-onnxruntime is installed, OCR checks
 are run against the actual shortlist header; absence of OCR is reported.
@@ -15,26 +15,33 @@ try:
 except ImportError:
     RapidOCR = None
 paths=sorted(Path('logo-lab').glob('fresh-[0-9][0-9]-*.png'))+sorted(Path('logo-lab').glob('november-[0-9][0-9]-*.png'))
-assert len(paths)==50, f"Expected 50 marks, found {len(paths)}"
+assert len(paths)==60, f"Expected 60 marks, found {len(paths)}"
 for i, path in enumerate(paths, start=1):
     actual = int(path.name.split('-')[1])
     assert actual == i, f"Expected {i:02d}, found {path.name}"
 BG=(247,243,235); INK=(16,20,24); PETROL=(27,78,95); RED=(181,52,42); RULE=(227,220,204)
-W,H=2400,7600; img=Image.new('RGB',(W,H),BG);d=ImageDraw.Draw(img)
+W,H=2400,8700; img=Image.new('RGB',(W,H),BG);d=ImageDraw.Draw(img)
 serif=ImageFont.truetype('social-kit/fonts/InstrumentSerif-Italic.ttf',108)
 mono=ImageFont.truetype('social-kit/fonts/JetBrainsMono-Regular.ttf',25)
 small=ImageFont.truetype('social-kit/fonts/JetBrainsMono-Regular.ttf',20)
 d.text((100,55),'Anastomosis November',font=serif,fill=INK)
-d.text((105,190),'50 SYMBOL CONCEPTS  /  41—50 NEW  /  V5',font=mono,fill=PETROL)
+d.text((105,190),'60 CIRCLE PREVIEWS  /  51—60 NEW  /  V6',font=mono,fill=PETROL)
 d.line((100,255,2300,255),fill=RULE,width=3)
 start_x=100; gap_x=25; cell_w=531; row_h=552; y0=290; size=465
 for i,p in enumerate(paths):
  c=i%4;r=i//4;x=start_x+c*(cell_w+gap_x);y=y0+r*row_h
  logo=Image.open(p).convert('RGB').resize((size,size),Image.Resampling.LANCZOS)
- img.paste(logo,(x+(cell_w-size)//2,y))
+ # Simulate the actual Instagram circle crop, not just an outline on a square.
+ circular_mask=Image.new('L',(size,size),0)
+ ImageDraw.Draw(circular_mask).ellipse((0,0,size-1,size-1),fill=255)
+ avatar=Image.new('RGB',(size,size),BG)
+ avatar.paste(logo,(0,0),circular_mask)
+ icon_x=x+(cell_w-size)//2
+ img.paste(avatar,(icon_x,y))
+ d.ellipse((icon_x,y,icon_x+size-1,y+size-1),outline=RULE,width=2)
  d.line((x,y+477,x+cell_w,y+477),fill=RULE,width=2)
  d.text((x+3,y+493),f'{i+1:02d}',font=mono,fill=RED if i<10 else PETROL)
- d.text((x+cell_w,y+495),'SYMBOL',font=small,fill=(128,126,117),anchor='ra')
+ d.text((x+cell_w,y+495),'CIRCLE',font=small,fill=(128,126,117),anchor='ra')
 img.save('logo-lab/anastomosis-november.png',optimize=True)
 print('saved',img.size,'with',len(paths),'symbols')
 # Read exactly what the final raster actually contains; no synthetic proof.
