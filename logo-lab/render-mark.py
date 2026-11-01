@@ -22,11 +22,13 @@
  The letters sit at the arc anchors but stand UPRIGHT — the italic cut of
  Instrument Serif supplies all the lean. That is why the word reads.
 
- Why the spelling cannot break
- -----------------------------
+ Spelling and visual readability
+ -------------------------------
  The letters are drawn glyph-by-glyph from the string LETTERS below, in
  order, one glyph per anchor in SLOTS. There is no image, no trace, no
- transplant. If this file says "anastomosis", the picture says it too.
+ transplant. The input string is correct, but overlap, clipping, branches,
+ or later image edits can make the finished mark hard to read. Review the
+ actual final image independently; the typeset proof is not an OCR test of it.
 
  How to run
  ----------
@@ -37,8 +39,8 @@
    python render-mark.py --letter-size 200
 
  Every run also writes <out>-proof.png — the letter pass typeset flat in
- a row, same glyphs the mark uses. That strip is the spelling proof: what
- you read there is exactly what the branches spell.
+ a row, using the same text and font. This checks the source string only;
+ it does not establish that the finished tree is visually readable.
 
  Needs the font InstrumentSerif-Italic.ttf next to this file, or at
  ../social-kit/fonts/ (it is in the repo), or pass --font /path/to/it.ttf
@@ -248,7 +250,7 @@ def glyph_tile(ch, font, size, rng, wobble, drift, dilate):
 def proof_strip(font, letter_size, out):
     """Typeset the letter pass flat on one baseline, same string, font,
     size, colors and dilation the mark itself uses. This is the spelling
-    proof: what you read here is exactly what the branches spell.
+    proof of the text input, not of the finished image’s visual readability.
     (OCR-friendly on purpose — one baseline, natural spacing.)"""
     head, tail = LETTERS[:CRIMSON_COUNT], LETTERS[CRIMSON_COUNT:]
     W = int(font.getlength(LETTERS)) + 90
@@ -419,14 +421,14 @@ def audit(path, proof=None):
     print("  spelling      : '%s' drawn glyph-by-glyph (%d anchors)"
           % (LETTERS, len(SLOTS)))
     if proof:
-        print("  proof strip   : %s  (read it — that is the word)" % proof)
+        print("  proof strip   : %s  (source text only; inspect the final image separately)" % proof)
         try:
             from rapidocr_onnxruntime import RapidOCR
             res, _ = RapidOCR()(np.asarray(
                 Image.open(proof).convert("RGB")))
             txt = "".join(x[1] for x in res).lower() if res else ""
             ok_s = LETTERS in txt
-            print("  OCR read-back : %r  %s" % (txt, "PASS" if ok_s else "FAIL"))
+            print("  proof-strip OCR (not final image): %r  %s" % (txt, "PASS" if ok_s else "FAIL"))
         except ImportError:
             print("  OCR read-back : skipped (rapidocr not installed here)")
     print("  canvas        : %dx%d" % (w, h))
