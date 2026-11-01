@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild the 20-mark Anastomosis November shortlist from repository root.
+"""Rebuild the 30-mark Anastomosis November shortlist from repository root.
 
 Requires Pillow and NumPy. If rapidocr-onnxruntime is installed, OCR checks
 are run against the actual shortlist header; absence of OCR is reported.
@@ -15,14 +15,17 @@ try:
 except ImportError:
     RapidOCR = None
 paths=sorted(Path('logo-lab').glob('fresh-[0-9][0-9]-*.png'))+sorted(Path('logo-lab').glob('november-[0-9][0-9]-*.png'))
-assert len(paths)==20
+assert len(paths)==30, f"Expected 30 marks, found {len(paths)}"
+for i, path in enumerate(paths, start=1):
+    actual = int(path.name.split('-')[1])
+    assert actual == i, f"Expected {i:02d}, found {path.name}"
 BG=(247,243,235); INK=(16,20,24); PETROL=(27,78,95); RED=(181,52,42); RULE=(227,220,204)
-W,H=2400,3150; img=Image.new('RGB',(W,H),BG);d=ImageDraw.Draw(img)
+W,H=2400,4800; img=Image.new('RGB',(W,H),BG);d=ImageDraw.Draw(img)
 serif=ImageFont.truetype('social-kit/fonts/InstrumentSerif-Italic.ttf',108)
 mono=ImageFont.truetype('social-kit/fonts/JetBrainsMono-Regular.ttf',25)
 small=ImageFont.truetype('social-kit/fonts/JetBrainsMono-Regular.ttf',20)
 d.text((100,55),'Anastomosis November',font=serif,fill=INK)
-d.text((105,190),'20 SYMBOL CONCEPTS  /  01—10 FIRST ROUND  /  11—20 NEW',font=mono,fill=PETROL)
+d.text((105,190),'30 SYMBOL CONCEPTS  /  21—30 NEW  /  V3',font=mono,fill=PETROL)
 d.line((100,255,2300,255),fill=RULE,width=3)
 start_x=100; gap_x=25; cell_w=531; row_h=552; y0=290; size=465
 for i,p in enumerate(paths):
