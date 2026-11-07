@@ -22,7 +22,7 @@ export async function getCurrentUser() {
 }
 
 export async function sendPasswordReset(email) {
-  const resetURL = `https://medchanic-md.appwrite.network/reset-password.html`;
+  const resetURL = new URL("reset-password.html", window.location.href).href;
   await account.createRecovery(email, resetURL);
 }
 
