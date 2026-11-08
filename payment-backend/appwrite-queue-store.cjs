@@ -18,6 +18,11 @@ function createQueueStore({endpoint,projectId,databaseId,collectionId,apiKey,fet
     const res=await fetchImpl(`${base}/${encodeURIComponent(id)}`,{method:'PATCH',headers,body:JSON.stringify({data:{processingStatus:status}}),signal:AbortSignal.timeout(4000)});
     if(!res.ok) throw Error('Queue update failed');
   }
-  return {listPending,complete};
+  async function count(status) {
+    if(!['pending','manual_review','done'].includes(status))throw Error('Invalid queue status');
+    const url=new URL(base);url.searchParams.append('queries[]',JSON.stringify({method:'equal',attribute:'processingStatus',values:[status]}));url.searchParams.append('queries[]',JSON.stringify({method:'limit',values:[1]}));url.searchParams.append('queries[]',JSON.stringify({method:'select',values:['$id']}));
+    const res=await fetchImpl(url.href,{method:'GET',headers,signal:AbortSignal.timeout(4000)});if(!res.ok)throw Error('Queue count failed');const data=await res.json();if(!Number.isSafeInteger(data.total)||data.total<0)throw Error('Invalid queue count');return data.total;
+  }
+  return {listPending,complete,count};
 }
 module.exports={createQueueStore};

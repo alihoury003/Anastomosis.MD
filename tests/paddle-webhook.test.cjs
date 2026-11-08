@@ -5,7 +5,7 @@ const crypto = require('node:crypto');
 const { verifySignature, handleWebhook, MAX_BODY_BYTES } = require('../payment-backend/paddle-webhook.cjs');
 const secret = 'example-test-secret-not-a-real-credential';
 const now = 1800000000000, ts = String(now / 1000);
-const event = { event_id:'evt_0123456789abcdefghijklmnop', event_type:'transaction.completed', data:{ id:'txn_sample', text:'α' } };
+const event = { event_id:'evt_0123456789abcdefghijklmnop', event_type:'transaction.completed', occurred_at:'2026-10-22T12:00:00Z', data:{ id:'txn_sample', text:'α' } };
 const body = Buffer.from(JSON.stringify(event));
 function sign(payload = body, timestamp = ts, key = secret) {
   return crypto.createHmac('sha256', key).update(timestamp + ':').update(payload).digest('hex');

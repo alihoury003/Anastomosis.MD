@@ -3,6 +3,7 @@
 // Pure verification and request handling for the staged Paddle integration.
 // The archive must persist events durably and idempotently before acknowledging.
 const crypto = require('node:crypto');
+const {parseEvent}=require('./event-fingerprint.cjs');
 const MAX_BODY_BYTES = 1_000_000;
 
 function verifySignature(rawBody, header, secret, now = Date.now(), toleranceSeconds = 5) {
@@ -38,13 +39,7 @@ async function handleWebhook({ method, rawBody, signature, secret, archive, now 
   if (rawBody.length > MAX_BODY_BYTES) return { status: 413, body: 'Payload too large' };
   if (!verifySignature(rawBody, signature, secret, now)) return { status: 401, body: 'Invalid signature' };
   let event;
-  try { event = JSON.parse(rawBody.toString('utf8')); } catch (_) { return { status: 400, body: 'Invalid payload' }; }
-  if (!event || typeof event !== 'object' || Array.isArray(event) ||
-      typeof event.event_id !== 'string' || !/^evt_[a-z0-9]{26}$/.test(event.event_id) ||
-      typeof event.event_type !== 'string' || !/^[a-z][a-z0-9_]*\.[a-z][a-z0-9_]*$/.test(event.event_type) ||
-      !event.data || typeof event.data !== 'object' || Array.isArray(event.data)) {
-    return { status: 400, body: 'Invalid payload' };
-  }
+  try { event = parseEvent(rawBody).event; } catch (_) { return { status: 400, body: 'Invalid payload' }; }
   try {
     const result = await archive({ id: event.event_id, type: event.event_type, rawBody });
     if (result !== 'stored' && result !== 'duplicate') throw new Error('Invalid archive result');

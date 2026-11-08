@@ -1,6 +1,7 @@
 'use strict';
 
 const crypto = require('node:crypto');
+const {parseEvent}=require('./event-fingerprint.cjs');
 // The private Appwrite collection must be explicitly provisioned with a string
 // payloadBase64 column of at least 44,000 characters. No client permissions.
 const MAX_STORED_BYTES = 32000;
@@ -14,8 +15,9 @@ function createEventArchive({ endpoint, projectId, databaseId, collectionId, api
   const headers = { 'content-type':'application/json', 'x-appwrite-project':projectId, 'x-appwrite-key':apiKey };
   return async function archive({ id, type, rawBody }) {
     if (!/^evt_[a-z0-9]{26}$/.test(id) || !/^[a-z][a-z0-9_]*\.[a-z][a-z0-9_]*$/.test(type) || !Buffer.isBuffer(rawBody) || rawBody.length > MAX_STORED_BYTES) throw Error('Invalid event');
+    const parsed=parseEvent(rawBody);if(parsed.event.event_id!==id||parsed.event.event_type!==type)throw Error('Event mismatch');
     const hash = crypto.createHash('sha256').update(rawBody).digest('hex');
-    const payload = { documentId:id, data:{ eventType:type, payloadBase64:rawBody.toString('base64'), payloadSha256:hash, processingStatus:'pending' }, permissions:[] };
+    const payload = { documentId:id, data:{ eventType:type, eventFingerprint:parsed.fingerprint, payloadBase64:rawBody.toString('base64'), payloadSha256:hash, processingStatus:'pending' }, permissions:[] };
     // One shared deadline bounds both write and duplicate verification so
     // Paddle receives a response before its five-second delivery timeout.
     const signal = AbortSignal.timeout(3500);
@@ -28,7 +30,7 @@ function createEventArchive({ endpoint, projectId, databaseId, collectionId, api
     const previous = await fetchImpl(`${base}/${encodeURIComponent(id)}`, { method:'GET', headers, signal });
     if (!previous.ok) throw Error('Unable to verify duplicate');
     const doc = await previous.json();
-    if (doc.$id !== id || doc.payloadSha256 !== hash || doc.eventType !== type) throw Error('Event collision');
+    if (doc.$id !== id || doc.eventFingerprint !== parsed.fingerprint || doc.eventType !== type) throw Error('Event collision');
     return 'duplicate';
   };
 }

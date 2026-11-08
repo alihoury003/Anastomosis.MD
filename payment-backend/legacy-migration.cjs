@@ -17,10 +17,10 @@ function dayKey(value){
   return Math.floor(ms/DAY);
 }
 function integer(value){if(typeof value==='number'&&Number.isSafeInteger(value))return value;if(typeof value==='string'&&/^\d{1,16}$/.test(value)&&Number.isSafeInteger(Number(value)))return Number(value);return 0;}
-function buildLegacyMigrationPlan({userId,accountCreatedAt,snapshotAt,cutoffAt,prefs,allowedQuestionIds,allowUnverifiedGrandfathering=false}){
-  if(!ID.test(userId||'')||![accountCreatedAt,snapshotAt,cutoffAt].every(v=>Number.isSafeInteger(v)&&v>=0)||accountCreatedAt>snapshotAt||snapshotAt>cutoffAt||!prefs||typeof prefs!=='object'||!Array.isArray(allowedQuestionIds)||allowedQuestionIds.length>MAX_IDS||allowedQuestionIds.some(x=>typeof x!=='string'||!ID.test(x)))throw Error('Invalid trusted snapshot');
+function buildLegacyMigrationPlan({userId,accountCreatedAt,snapshotAt,cutoffAt,prefs,allowedQuestionIds,localQuestionIds=[],allowUnverifiedGrandfathering=false}){
+  if(!ID.test(userId||'')||![accountCreatedAt,snapshotAt,cutoffAt].every(v=>Number.isSafeInteger(v)&&v>=0)||accountCreatedAt>snapshotAt||snapshotAt>cutoffAt||!prefs||typeof prefs!=='object'||!Array.isArray(allowedQuestionIds)||allowedQuestionIds.length>MAX_IDS||allowedQuestionIds.some(x=>typeof x!=='string'||!ID.test(x))||!Array.isArray(localQuestionIds)||localQuestionIds.length>100||localQuestionIds.some(x=>typeof x!=='string'||!ID.test(x)))throw Error('Invalid trusted snapshot');
   if(allowUnverifiedGrandfathering!==true)return{status:'approval_required',authorizationGranted:false};
-  const allowed=new Set(allowedQuestionIds),candidates=[];
+  const allowed=new Set(allowedQuestionIds),local=new Set(localQuestionIds),candidates=[];
   const used=parseArray(prefs.used);for(const x of used)if(typeof x==='string'&&ID.test(x))candidates.push(x);
   const notebook=parseArray(prefs.notebook);for(const x of notebook)if(x&&typeof x.qid==='string'&&ID.test(x.qid))candidates.push(x.qid);
   const history=summarizeLegacyHistory(prefs.tests||[]);for(const test of history.records)candidates.push(...test.questionIds);
@@ -40,7 +40,7 @@ function buildLegacyMigrationPlan({userId,accountCreatedAt,snapshotAt,cutoffAt,p
   const trialStartedAt=trialEndsAt?Math.max(0,trialEndsAt-7*DAY):null;
   const trialUsed=trialStartedAt===null?0:Math.min(150,Math.max(0,integer(prefs.trialQuestionsUsed)));
   const state={version:1,legacyMigrationComplete:true,firstFreeDay,lastFreeDay,freeUsedToday,trialStartedAt,trialUsed,grantedIds};
-  return{status:'approved_snapshot',userId,state,source:'legacy-unverified',unknownQuestionReferences:new Set(candidates.filter(id=>!allowed.has(id))).size,skippedLegacyBlocks:history.skipped,trialEndCapped:requestedEnd>trialEndsAt&&trialEndsAt>0,authorizationGrantedFromPaidPrefs:false};
+  return{status:'approved_snapshot',userId,state,source:'legacy-unverified',unknownQuestionReferences:new Set(candidates.filter(id=>!allowed.has(id)&&!local.has(id))).size,skippedLegacyBlocks:history.skipped,trialEndCapped:requestedEnd>trialEndsAt&&trialEndsAt>0,authorizationGrantedFromPaidPrefs:false};
 }
 function createLegacyMigrationWriter({tables,databaseId,tableId}){
   if(!tables||typeof tables.createRow!=='function'||typeof tables.getRow!=='function'||!ID.test(databaseId||'')||!ID.test(tableId||''))throw Error('Migration store not configured');

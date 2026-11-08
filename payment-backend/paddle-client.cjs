@@ -4,12 +4,15 @@
 const ID = /^sub_[a-z0-9]{26}$/;
 const TXN = /^txn_[a-z0-9]{26}$/;
 const PRICE = /^pri_[a-z0-9]{26}$/;
+const EVENT = /^evt_[a-z0-9]{26}$/;
+const {parseEvent}=require('./event-fingerprint.cjs');
+const EVENT_TYPES=['subscription.created','subscription.updated','subscription.activated','subscription.canceled','subscription.paused','subscription.resumed','subscription.past_due','transaction.completed','adjustment.created','adjustment.updated'];
 function createPaddleClient({environment, apiKey, fetchImpl=globalThis.fetch}) {
   if (!['sandbox','live'].includes(environment) || typeof apiKey !== 'string' || !apiKey || typeof fetchImpl !== 'function') throw Error('Paddle client not configured');
   const origin = environment === 'sandbox' ? 'https://sandbox-api.paddle.com' : 'https://api.paddle.com';
   async function read(url) {
     const parsed = new URL(url);
-    if (parsed.origin !== origin || !['/adjustments'].includes(parsed.pathname) && !/^\/(?:subscriptions\/sub|transactions\/txn|prices\/pri)_[a-z0-9]{26}$/.test(parsed.pathname)) throw Error('Invalid Paddle URL');
+    if (parsed.origin !== origin || !['/adjustments','/events'].includes(parsed.pathname) && !/^\/(?:subscriptions\/sub|transactions\/txn|prices\/pri)_[a-z0-9]{26}$/.test(parsed.pathname)) throw Error('Invalid Paddle URL');
     const response = await fetchImpl(parsed.href, {method:'GET',redirect:'error',headers:{authorization:`Bearer ${apiKey}`,'accept':'application/json','skip-count':'true'},signal:AbortSignal.timeout(4000)});
     if (!response.ok) throw Error('Paddle request failed');
     const body=await response.json();
@@ -51,6 +54,25 @@ function createPaddleClient({environment, apiKey, fetchImpl=globalThis.fetch}) {
       current=next.href;
     }
   }
-  return {getPrice,getTransaction,getSubscription,listAdjustments};
+  async function listEventPage({after=null,limit=10}={}) {
+    if(after!==null&&(!EVENT.test(after||'')))throw Error('Invalid event cursor');
+    if(!Number.isInteger(limit)||limit<1||limit>50)throw Error('Invalid page limit');
+    const url=new URL(`${origin}/events`);url.searchParams.set('event_type',EVENT_TYPES.join(','));url.searchParams.set('order_by','id[ASC]');url.searchParams.set('per_page',String(limit));if(after)url.searchParams.set('after',after);
+    const body=await read(url.href),page=body.meta?.pagination;
+    if(!Array.isArray(body.data)||body.data.length>limit||typeof page?.has_more!=='boolean')throw Error('Invalid event page');
+    let previous=after;
+    for(const event of body.data){
+      const parsed=parseEvent(Buffer.from(JSON.stringify(event),'utf8')).event;
+      if(!EVENT_TYPES.includes(parsed.event_type)||(previous&&parsed.event_id<=previous))throw Error('Invalid event page');
+      previous=parsed.event_id;
+    }
+    if(page.has_more){
+      if(!body.data.length)throw Error('Invalid event pagination');
+      let next;try{next=new URL(page.next);}catch(_){throw Error('Invalid event pagination');}
+      if(next.origin!==origin||next.pathname!=='/events'||next.searchParams.get('event_type')!==EVENT_TYPES.join(',')||next.searchParams.get('order_by')!=='id[ASC]'||next.searchParams.get('per_page')!==String(limit)||next.searchParams.get('after')!==previous)throw Error('Invalid event pagination');
+    }
+    return{events:body.data,hasMore:page.has_more};
+  }
+  return {getPrice,getTransaction,getSubscription,listAdjustments,listEventPage};
 }
-module.exports = {createPaddleClient};
+module.exports = {createPaddleClient,EVENT_TYPES};
