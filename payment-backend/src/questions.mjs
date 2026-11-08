@@ -8,6 +8,7 @@ import mappingModule from '../appwrite-mapping-store.cjs';
 import paddleModule from '../paddle-client.cjs';
 import entitlementModule from '../entitlement-service.cjs';
 import catalogModule from '../catalog-config.cjs';
+import reviewModule from '../refund-review-store.cjs';
 // Staged only. Never enable or remove public read before a tested migration,
 // including importer access, existing user data and full dashboard integration.
 export default async ({req,res})=>{
@@ -24,8 +25,10 @@ export default async ({req,res})=>{
     const environment=process.env.PADDLE_ENVIRONMENT,paddle=paddleModule.createPaddleClient({environment,apiKey:process.env.PADDLE_API_KEY});
     const encoded=process.env.CHECKOUT_BINDING_KEY_BASE64;if(typeof encoded!=='string'||!/^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(encoded))throw Error('Invalid key');
     const bindingKey=Buffer.from(encoded,'base64');if(bindingKey.length<32||bindingKey.toString('base64')!==encoded)throw Error('Invalid key');
+    const reviewTables=new TablesDB(new Client().setEndpoint(endpoint).setProject(projectId).setKey(process.env.PAYMENT_EVENT_API_KEY));
+    const reviews=reviewModule.createRefundReviewStore({tables:reviewTables,query:Query,databaseId:process.env.PAYMENT_EVENT_DATABASE,tableId:process.env.REFUND_REVIEW_TABLE});
     const {allowedRecurringPriceIds,oneTimeDays,productId}=catalogModule.catalogConfig(process.env);
-    const lookup=entitlementModule.createEntitlementService({mappings,paddle,bindingKey,environment,allowedRecurringPriceIds,oneTimeDays,productId});
+    const lookup=entitlementModule.createEntitlementService({mappings,paddle,bindingKey,environment,allowedRecurringPriceIds,oneTimeDays,productId,reviews});
     const adminId=process.env.QUESTION_ADMIN_USER_ID;
     if(adminId && !/^[A-Za-z0-9][A-Za-z0-9._-]{0,35}$/.test(adminId))throw Error('Invalid admin');
     const entitlements={check:async userId=>adminId&&userId===adminId?{status:200,body:{subscribed:true,admin:true,activeBillingIds:[],reviewableBillingIds:[]}}:lookup(userId)};

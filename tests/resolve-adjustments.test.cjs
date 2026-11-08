@@ -1,0 +1,6 @@
+'use strict';const {test}=require('node:test');const assert=require('node:assert/strict');const {resolveAdjustments}=require('../payment-backend/resolve-adjustments.cjs');
+const id='adj_'+'1'.repeat(26),billingId='txn_'+'1'.repeat(26),userId='u1',base={id,transaction_id:billingId,action:'refund',type:'partial',status:'approved',updated_at:'2026-10-22T12:00:00Z'};
+function run(adjustment,decision){return resolveAdjustments({adjustments:[adjustment],billingId,userId,reviews:{getDecision:async()=>decision}});}
+test('pending partial review retains access while pending full refund restricts it',async()=>{let r=await run(base,null);assert.equal(r.reviewPending,true);assert.equal(r.effective.length,0);r=await run({...base,type:'full'},null);assert.equal(r.reviewPending,true);assert.equal(r.effective.length,1);});
+test('a valid operator decision overrides the default for the exact adjustment',async()=>{assert.equal((await run(base,'restrict')).effective.length,1);assert.equal((await run({...base,type:'full'},'allow')).effective.length,0);});
+test('invalid adjustments or review-store failures fail closed',async()=>{await assert.rejects(run({...base,updated_at:'bad'},null));await assert.rejects(resolveAdjustments({adjustments:[base],billingId,userId,reviews:{getDecision:async()=>{throw Error('down')}}}));});

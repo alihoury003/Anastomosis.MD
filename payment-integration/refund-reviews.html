@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer"><meta name="robots" content="noindex,nofollow"><title>Payment reviews — Anastomosis.MD</title>
+  <style>
+    :root{color-scheme:light;font-family:system-ui,-apple-system,sans-serif;background:#F7F3EB;color:#101418}*{box-sizing:border-box}body{margin:0;padding:clamp(20px,4vw,48px)}main{max-width:900px;margin:auto}.brand{color:#1B4E5F;font-weight:750;letter-spacing:-.03em}h1{font-size:clamp(28px,5vw,42px);letter-spacing:-.04em;margin:24px 0 8px}p{color:#455056;line-height:1.6}.notice,.case{background:white;border:1px solid #ddd6cc;border-radius:12px;padding:20px;margin:18px 0}.notice{border-left:4px solid #B5342A}.case h2{font-size:18px;margin:0 0 12px;overflow-wrap:anywhere}.details{display:grid;gap:6px;color:#455056;font-size:14px;overflow-wrap:anywhere}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}button{border:1px solid #1B4E5F;border-radius:8px;padding:10px 14px;background:#1B4E5F;color:white;font:inherit;font-weight:650;cursor:pointer}button.secondary{background:white;color:#1B4E5F}button:disabled{opacity:.55;cursor:not-allowed}a{color:#1B4E5F}#message{min-height:1.5em;color:#101418}
+  </style>
+</head>
+<body>
+<main>
+  <div class="brand">Anastomosis.MD</div><h1>Payment reviews</h1>
+  <p>Private access decisions for payment adjustments.</p>
+  <div class="notice">These decisions change access only; they do not issue, cancel or reverse a Paddle refund or extend an expired plan. For subscriptions, a restriction affects that entire subscription, not just one billing period. Check Paddle before deciding.</div>
+  <section class="notice" aria-labelledby="catalogHeading">
+    <h2 id="catalogHeading">Catalog check</h2><p>This read-only check compares price and discount settings. It does not certify checkout or launch readiness.</p>
+    <button id="checkCatalog" type="button" disabled>Check catalog</button><div id="catalogReport" role="status" aria-live="polite"></div>
+  </section>
+  <p id="message" role="status" aria-live="polite">Checking configuration…</p>
+  <button id="refresh" type="button" disabled>Refresh reviews</button>
+  <section id="reviews" aria-label="Pending payment reviews"></section>
+  <p><a href="dashboard.html">Back to dashboard</a></p>
+</main>
+<script type="module" src="./refund-admin-ui.mjs"></script>
+</body>
+</html>

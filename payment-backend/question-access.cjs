@@ -42,7 +42,7 @@ function createQuestionAccess({questions,usage,entitlements,clock=()=>Date.now()
     if(!ID.test(userId||''))return{status:401,body:{error:'Sign in required'}};
     const now=clock();if(!Number.isSafeInteger(now)||now<0)return{status:503,body:{error:'Service unavailable'}};
     let entitlement;try{entitlement=await entitlements.check(userId);if(entitlement?.status!==200||typeof entitlement.body?.subscribed!=='boolean')throw Error('Entitlement unavailable');}catch(_){return{status:503,body:{error:'Service unavailable'}};}
-    try{const previous=await usage.read(userId);const state=previous===null?freshState():structuredClone(previous);if(!validState(state))throw Error('Invalid usage state');return{status:200,body:{subscribed:entitlement.body.subscribed,usage:summarizeUsage(state,now)}};}catch(_){return{status:503,body:{error:'Service unavailable'}};}
+    try{const previous=await usage.read(userId);const state=previous===null?freshState():structuredClone(previous);if(!validState(state))throw Error('Invalid usage state');return{status:200,body:{subscribed:entitlement.body.subscribed,reviewPending:entitlement.body.reviewPending===true,usage:summarizeUsage(state,now)}};}catch(_){return{status:503,body:{error:'Service unavailable'}};}
   }
   async function startTrial(userId){
     if(!ID.test(userId||''))return{status:401,body:{error:'Sign in required'}};

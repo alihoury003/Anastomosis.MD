@@ -36,7 +36,7 @@ export function createGateway({account,functions,questionFunctionId,checkoutFunc
   }
   async function questions(ids){return fetchQuestions(ids,'/questions');}
   async function review(ids){return fetchQuestions(ids,'/review');}
-  async function questionStatus(){const body=await call(questionFunctionId,'/status','GET');if(typeof body.subscribed!=='boolean'||typeof body.migrationRequired!=='boolean'||!validUsage(body.usage))throw new GatewayError(503);return body;}
+  async function questionStatus(){const body=await call(questionFunctionId,'/status','GET');if(typeof body.subscribed!=='boolean'||typeof body.reviewPending!=='boolean'||typeof body.migrationRequired!=='boolean'||!validUsage(body.usage))throw new GatewayError(503);return body;}
   async function startTrial(){const body=await call(questionFunctionId,'/trial','POST',{});if(!validUsage(body.usage))throw new GatewayError(503);return body;}
   async function paidAccess(){const body=await call(accessFunctionId,'/','GET');if(typeof body.subscribed!=='boolean')throw new GatewayError(503);return body;}
   async function checkout(plan,autoRenew){

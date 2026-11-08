@@ -1,8 +1,10 @@
+import {Client,TablesDB,Query} from 'node-appwrite';
 import queueModule from '../appwrite-queue-store.cjs';
 import mappingModule from '../appwrite-mapping-store.cjs';
 import paddleModule from '../paddle-client.cjs';
 import workerModule from '../process-queue.cjs';
 import catalogModule from '../catalog-config.cjs';
+import refundReviewModule from '../refund-review-store.cjs';
 
 // Staged only. Separate scheduled execution, never public HTTP. This remains
 // disabled until question access, reconciliation and monitoring are built.
@@ -19,7 +21,9 @@ export default async ({req,res,error}) => {
     if(typeof encoded!=='string'||!/^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(encoded)) throw Error('Invalid binding key');
     const bindingKey=Buffer.from(encoded,'base64');if(bindingKey.length<32||bindingKey.toString('base64')!==encoded) throw Error('Invalid binding key');
     const {allowedRecurringPriceIds,oneTimeDays,productId}=catalogModule.catalogConfig(process.env);
-    dependencies={paddle,mappings,bindingKey,environment,allowedRecurringPriceIds,oneTimeDays,productId};
+    const tables=new TablesDB(new Client().setEndpoint(common.endpoint).setProject(common.projectId).setKey(common.apiKey));
+    const reviews=refundReviewModule.createRefundReviewStore({tables,query:Query,databaseId:common.databaseId,tableId:process.env.REFUND_REVIEW_TABLE});
+    dependencies={paddle,mappings,reviews,bindingKey,environment,allowedRecurringPriceIds,oneTimeDays,productId};
   } catch (_) {return res.text('Not configured',503);}
   try {
     const records=await queue.listPending(3);let failures=0;

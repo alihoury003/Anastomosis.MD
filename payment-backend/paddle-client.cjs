@@ -4,6 +4,8 @@
 const ID = /^sub_[a-z0-9]{26}$/;
 const TXN = /^txn_[a-z0-9]{26}$/;
 const PRICE = /^pri_[a-z0-9]{26}$/;
+const ADJUSTMENT = /^adj_[a-z0-9]{26}$/;
+const DISCOUNT = /^dsc_[a-z0-9]{26}$/;
 const EVENT = /^evt_[a-z0-9]{26}$/;
 const {parseEvent}=require('./event-fingerprint.cjs');
 const EVENT_TYPES=['subscription.created','subscription.updated','subscription.activated','subscription.canceled','subscription.paused','subscription.resumed','subscription.past_due','transaction.completed','adjustment.created','adjustment.updated'];
@@ -12,7 +14,7 @@ function createPaddleClient({environment, apiKey, fetchImpl=globalThis.fetch}) {
   const origin = environment === 'sandbox' ? 'https://sandbox-api.paddle.com' : 'https://api.paddle.com';
   async function read(url) {
     const parsed = new URL(url);
-    if (parsed.origin !== origin || !['/adjustments','/events'].includes(parsed.pathname) && !/^\/(?:subscriptions\/sub|transactions\/txn|prices\/pri)_[a-z0-9]{26}$/.test(parsed.pathname)) throw Error('Invalid Paddle URL');
+    if (parsed.origin !== origin || !['/adjustments','/events'].includes(parsed.pathname) && !/^\/(?:subscriptions\/sub|transactions\/txn|prices\/pri|discounts\/dsc)_[a-z0-9]{26}$/.test(parsed.pathname)) throw Error('Invalid Paddle URL');
     const response = await fetchImpl(parsed.href, {method:'GET',redirect:'error',headers:{authorization:`Bearer ${apiKey}`,'accept':'application/json','skip-count':'true'},signal:AbortSignal.timeout(4000)});
     if (!response.ok) throw Error('Paddle request failed');
     const body=await response.json();
@@ -32,6 +34,17 @@ function createPaddleClient({environment, apiKey, fetchImpl=globalThis.fetch}) {
   async function getTransaction(id) {
     if (!TXN.test(id || '')) throw Error('Invalid transaction ID');
     const body=await read(`${origin}/transactions/${id}`);if (!body.data || body.data.id!==id) throw Error('Invalid Paddle response');return body.data;
+  }
+  async function getDiscount(id) {
+    if(!DISCOUNT.test(id||''))throw Error('Invalid discount ID');
+    const body=await read(`${origin}/discounts/${id}`);if(!body.data||body.data.id!==id)throw Error('Invalid Paddle response');return body.data;
+  }
+  async function getAdjustment(id) {
+    if(!ADJUSTMENT.test(id||''))throw Error('Invalid adjustment ID');
+    const url=new URL(`${origin}/adjustments`);url.searchParams.set('id',id);url.searchParams.set('per_page','1');
+    const body=await read(url.href);
+    if(!Array.isArray(body.data)||body.data.length!==1||body.data[0]?.id!==id||body.meta?.pagination?.has_more!==false)throw Error('Invalid Paddle response');
+    return body.data[0];
   }
   async function listAdjustments(id) {
     if (!ID.test(id || '') && !TXN.test(id || '')) throw Error('Invalid billing ID');
@@ -73,6 +86,6 @@ function createPaddleClient({environment, apiKey, fetchImpl=globalThis.fetch}) {
     }
     return{events:body.data,hasMore:page.has_more};
   }
-  return {getPrice,getTransaction,getSubscription,listAdjustments,listEventPage};
+  return {getPrice,getTransaction,getSubscription,getDiscount,getAdjustment,listAdjustments,listEventPage};
 }
 module.exports = {createPaddleClient,EVENT_TYPES};

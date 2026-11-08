@@ -3,7 +3,7 @@
 // Function IDs and price IDs are public identifiers, NOT API keys or secrets.
 export const SECURE_CONFIG={
   enabled:false,
-  questionFunctionId:'', checkoutFunctionId:'', accessFunctionId:'',
+  questionFunctionId:'', checkoutFunctionId:'', accessFunctionId:'', refundAdminFunctionId:'', catalogPreflightFunctionId:'',
   priceIds:{
     monthly:{oneTime:'',recurring:'pri_01kxgfap9cs231vrkcyhcd055t'},
     threeMonth:{oneTime:'',recurring:'pri_01kxgfe4kvnx3jh70fd9xzkybw'},

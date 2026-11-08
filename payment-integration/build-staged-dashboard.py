@@ -28,10 +28,12 @@ import {createGateway} from "./browser-gateway.mjs";
 import {createDashboardBridge} from "./dashboard-bridge.mjs";
 import {createCheckoutUI} from "./checkout-ui.mjs";
 import {SECURE_CONFIG} from "./secure-config.mjs";''')
+once('      <div class="trial-strip" id="trialStrip" style="display:none"></div>', '''      <div class="trial-strip" id="trialStrip" style="display:none"></div>
+      <div id="secureAdjustmentNotice" role="status" hidden style="margin:10px 0;padding:10px 12px;border-left:3px solid #B5342A;color:#101418;font-size:13px">A payment adjustment is under review. If access looks incorrect, <a href="mailto:anastomosis.md@gmail.com">contact support</a>.</div>''')
 once('    <button class="paywall-cta" id="subscribeBtn" onclick="handleSubscribeClick()">Subscribe with card</button>', '''    <label id="secureRenewalOption" hidden style="display:none;margin:10px 0;color:var(--ink-2);font-size:13px;line-height:1.45"><input id="secureAutoRenew" type="checkbox"> Auto-renew my access. Leave unchecked for one payment only.</label>
     <button class="paywall-cta" id="subscribeBtn" onclick="handleSubscribeClick()">Subscribe with card</button>''')
 once("const _functions = new Functions(_client);", '''const _functions = new Functions(_client);
-let secureGateway=null, secureBridge=null, secureUsage=null, secureCheckoutUI=null, secureStartPending=false, secureNavigationPending=false;
+let secureGateway=null, secureBridge=null, secureUsage=null, secureCheckoutUI=null, secureStartPending=false, secureNavigationPending=false, secureReviewNoticeShown=false;
 function initSecureIntegration() {
   if (!SECURE_CONFIG.enabled) return;
   secureGateway=createGateway({account:_account,functions:_functions,questionFunctionId:SECURE_CONFIG.questionFunctionId,checkoutFunctionId:SECURE_CONFIG.checkoutFunctionId,accessFunctionId:SECURE_CONFIG.accessFunctionId,priceIds:SECURE_CONFIG.priceIds});
@@ -43,7 +45,7 @@ function applySecureUsage(usage) {
   if(!usage || !Number.isInteger(usage.freeRemaining) || typeof usage.trialActive!=='boolean') throw Error('Usage unavailable');
   secureUsage=usage;trialEndsAt=usage.trialEndsAt||0;trialQuestionsUsed=usage.trialUsed||0;
 }
-async function refreshSecureStatus(){const snapshot=await secureGateway.questionStatus();isSubscribed=snapshot.subscribed;applySecureUsage(snapshot.usage);renderTrialStrip();return snapshot;}
+async function refreshSecureStatus(){const snapshot=await secureGateway.questionStatus();isSubscribed=snapshot.subscribed;applySecureUsage(snapshot.usage);renderTrialStrip();const notice=$('secureAdjustmentNotice');if(notice)notice.hidden=!snapshot.reviewPending;if(snapshot.reviewPending&&!secureReviewNoticeShown){secureReviewNoticeShown=true;showToast('A payment adjustment is under review. Contact support if access looks incorrect.');}return snapshot;}
 async function secureHydrate(ids,reviewOnly=false){
   const result=await (reviewOnly?secureBridge.loadReview(ids):secureBridge.loadBlock(ids));
   if(result.usage){isSubscribed=false;applySecureUsage(result.usage);renderTrialStrip();}
@@ -177,6 +179,6 @@ if(SECURE_CONFIG.enabled){
 # The secure path must never treat the browser event itself as paid entitlement.
 once("eventCallback: function (data) { if (data && data.name === 'checkout.completed') { alert('Payment completed. Your access will activate once payment confirmation is processed. If it does not unlock shortly, refresh once or contact support.'); } }", "eventCallback: function (data) { if (data && data.name === 'checkout.completed') { if(SECURE_CONFIG.enabled){showToast('Payment submitted. Checking account access.');refreshSecureStatus().then(()=>{if(isSubscribed)showToast('Your access is active.');else showToast('Payment is being confirmed. Refresh later or contact support.');}).catch(()=>showToast('Payment is being confirmed. Refresh later or contact support.'));}else alert('Payment completed. Your access will activate once payment confirmation is processed. If it does not unlock shortly, refresh once or contact support.'); } }")
 (OUT/'dashboard.html').write_text(text,encoding='utf-8')
-for name in ('browser-gateway.mjs','dashboard-bridge.mjs','checkout-ui.mjs'):
+for name in ('browser-gateway.mjs','dashboard-bridge.mjs','checkout-ui.mjs','browser-refund-admin.mjs','browser-catalog-preflight.mjs'):
     shutil.copyfile(ROOT/'payment-backend'/name,OUT/name)
 print('Built disabled candidate dashboard from pinned main commit 2d8d0d0')

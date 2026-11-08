@@ -1579,6 +1579,7 @@ const AnkiEngine = {
         <h1 id="dashGreeting">Welcome back<em>.</em></h1>
         <p class="lede" id="dashLede">Loading your progress.</p>
       <div class="trial-strip" id="trialStrip" style="display:none"></div>
+      <div id="secureAdjustmentNotice" role="status" hidden style="margin:10px 0;padding:10px 12px;border-left:3px solid #B5342A;color:#101418;font-size:13px">A payment adjustment is under review. If access looks incorrect, <a href="mailto:anastomosis.md@gmail.com">contact support</a>.</div>
         <div class="hero-actions" id="dashActions">
           <button class="btn btn-ink" onclick="goScreen('create')">Create a test
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
@@ -2698,7 +2699,7 @@ const _client = new Client().setEndpoint("https://nyc.cloud.appwrite.io/v1").set
 const _account   = new Account(_client);
 const _databases = new Databases(_client);
 const _functions = new Functions(_client);
-let secureGateway=null, secureBridge=null, secureUsage=null, secureCheckoutUI=null, secureStartPending=false, secureNavigationPending=false;
+let secureGateway=null, secureBridge=null, secureUsage=null, secureCheckoutUI=null, secureStartPending=false, secureNavigationPending=false, secureReviewNoticeShown=false;
 function initSecureIntegration() {
   if (!SECURE_CONFIG.enabled) return;
   secureGateway=createGateway({account:_account,functions:_functions,questionFunctionId:SECURE_CONFIG.questionFunctionId,checkoutFunctionId:SECURE_CONFIG.checkoutFunctionId,accessFunctionId:SECURE_CONFIG.accessFunctionId,priceIds:SECURE_CONFIG.priceIds});
@@ -2710,7 +2711,7 @@ function applySecureUsage(usage) {
   if(!usage || !Number.isInteger(usage.freeRemaining) || typeof usage.trialActive!=='boolean') throw Error('Usage unavailable');
   secureUsage=usage;trialEndsAt=usage.trialEndsAt||0;trialQuestionsUsed=usage.trialUsed||0;
 }
-async function refreshSecureStatus(){const snapshot=await secureGateway.questionStatus();isSubscribed=snapshot.subscribed;applySecureUsage(snapshot.usage);renderTrialStrip();return snapshot;}
+async function refreshSecureStatus(){const snapshot=await secureGateway.questionStatus();isSubscribed=snapshot.subscribed;applySecureUsage(snapshot.usage);renderTrialStrip();const notice=$('secureAdjustmentNotice');if(notice)notice.hidden=!snapshot.reviewPending;if(snapshot.reviewPending&&!secureReviewNoticeShown){secureReviewNoticeShown=true;showToast('A payment adjustment is under review. Contact support if access looks incorrect.');}return snapshot;}
 async function secureHydrate(ids,reviewOnly=false){
   const result=await (reviewOnly?secureBridge.loadReview(ids):secureBridge.loadBlock(ids));
   if(result.usage){isSubscribed=false;applySecureUsage(result.usage);renderTrialStrip();}

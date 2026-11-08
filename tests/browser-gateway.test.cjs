@@ -10,6 +10,6 @@ test('trial and bulk failures never fall back to public bank',async()=>{const f=
 
 test('review uses the review endpoint rather than allocating unseen questions',async()=>{const f=await fixture(()=>ok({results:[{question:{$id:'q1'},source:'review'}],exhausted:false}));await f.g.review(['q1']);assert.equal(f.calls[0][3],'/review');});
 
-test('question status requires explicit server subscription and usage fields',async()=>{const f=await fixture(()=>ok({subscribed:false,migrationRequired:false,usage}));assert.equal((await f.g.questionStatus()).usage.freeRemaining,40);assert.equal(f.calls[0][3],'/status');});
+test('question status requires explicit server subscription and usage fields',async()=>{const f=await fixture(()=>ok({subscribed:false,reviewPending:false,migrationRequired:false,usage}));assert.equal((await f.g.questionStatus()).usage.freeRemaining,40);assert.equal(f.calls[0][3],'/status');});
 
 test('gateway rejects reused one-time and recurring IDs',async()=>{const {createGateway}=await modulePromise;assert.throws(()=>createGateway({account:{createJWT(){}},functions:{createExecution(){}},questionFunctionId:'q',checkoutFunctionId:'c',accessFunctionId:'a',priceIds:{monthly:{oneTime:price,recurring:price},threeMonth:{oneTime:p(2),recurring:p(3)},annual:{oneTime:p(4),recurring:p(5)}}}));});
