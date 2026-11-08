@@ -13,10 +13,10 @@ function validKey(key) { return Buffer.isBuffer(key) && key.length >= 32; }
 function signature(payload, key) {
   return createHmac('sha256', key).update(CONTEXT, 'utf8').update(payload, 'utf8').digest();
 }
-function createBinding({ userId, priceId, environment }, key) {
+function createBinding({ userId, priceId, environment, autoRenew = false }, key) {
   if (!validKey(key)) throw new Error('A server-only binding key of at least 32 bytes is required');
   if (typeof userId !== 'string' || !USER.test(userId) || typeof priceId !== 'string' || !PRICE.test(priceId) || !ENV.has(environment)) throw new Error('Invalid checkout binding');
-  const data = { v: 1, userId, priceId, environment, nonce: randomBytes(24).toString('base64url') };
+  const data = { v: 1, userId, priceId, environment, autoRenew, nonce: randomBytes(24).toString('base64url') };
   const payload = Buffer.from(JSON.stringify(data), 'utf8').toString('base64url');
   return `${payload}.${signature(payload, key).toString('base64url')}`;
 }
@@ -35,8 +35,8 @@ function verifyBinding(token, key, expectedEnvironment) {
     const value = JSON.parse(raw.toString('utf8'));
     if (!value || value.v !== 1 || typeof value.userId !== 'string' || !USER.test(value.userId) ||
         typeof value.priceId !== 'string' || !PRICE.test(value.priceId) ||
-        value.environment !== expectedEnvironment || typeof value.nonce !== 'string' || !NONCE.test(value.nonce)) return null;
-    return { userId: value.userId, priceId: value.priceId, environment: value.environment, nonce: value.nonce };
+        value.environment !== expectedEnvironment || typeof value.autoRenew !== 'boolean' || typeof value.nonce !== 'string' || !NONCE.test(value.nonce)) return null;
+    return { userId: value.userId, priceId: value.priceId, environment: value.environment, autoRenew: value.autoRenew, nonce: value.nonce };
   } catch (_) { return null; }
 }
 module.exports = { createBinding, verifyBinding };

@@ -1,0 +1,24 @@
+import authModule from '../appwrite-auth.cjs';
+import mappingModule from '../appwrite-mapping-store.cjs';
+import paddleModule from '../paddle-client.cjs';
+import entitlementModule from '../entitlement-service.cjs';
+// Staged only. This endpoint reports subscription state; it does NOT protect
+// the still-public questions table. Do not enable before complete migration.
+export default async ({req,res}) => {
+  if(process.env.PAYMENT_ACCESS_ENABLED!=='true')return res.json({error:'Not enabled'},503);
+  if(req.method!=='GET')return res.json({error:'Method not allowed'},405);
+  let authenticate,check;
+  try{
+    const endpoint=process.env.APPWRITE_FUNCTION_API_ENDPOINT, projectId=process.env.APPWRITE_FUNCTION_PROJECT_ID;
+    authenticate=authModule.createAppwriteAuthenticator({endpoint,projectId});
+    const mappings=mappingModule.createMappingStore({endpoint,projectId,databaseId:process.env.PAYMENT_EVENT_DATABASE,collectionId:process.env.PAYMENT_MAPPING_COLLECTION,apiKey:process.env.PAYMENT_EVENT_API_KEY});
+    const environment=process.env.PADDLE_ENVIRONMENT,paddle=paddleModule.createPaddleClient({environment,apiKey:process.env.PADDLE_API_KEY});
+    const encoded=process.env.CHECKOUT_BINDING_KEY_BASE64;if(typeof encoded!=='string'||!/^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(encoded))throw Error('Invalid key');
+    const bindingKey=Buffer.from(encoded,'base64');if(bindingKey.length<32||bindingKey.toString('base64')!==encoded)throw Error('Invalid key');
+    const allowedPriceIds=[process.env.PADDLE_MONTHLY_PRICE,process.env.PADDLE_THREE_MONTH_PRICE,process.env.PADDLE_ANNUAL_PRICE];if(!allowedPriceIds.every(id=>/^pri_[a-z0-9]{26}$/.test(id||'')))throw Error('Invalid price');
+    check=entitlementModule.createEntitlementService({mappings,paddle,bindingKey,environment,allowedPriceIds});
+  }catch(_){return res.json({error:'Not configured'},503);}
+  const account=await authenticate(req.headers?.['x-appwrite-user-jwt']);
+  if(account.status!==200)return res.json({error:account.status===401?'Sign in required':'Authentication unavailable'},account.status);
+  const result=await check(account.userId);return res.json(result.body,result.status);
+};
