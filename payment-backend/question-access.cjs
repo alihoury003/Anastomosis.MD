@@ -4,11 +4,14 @@
 // evaluated server-side. The usage store MUST provide per-user serializable
 // transactions and persist privately before returning. See README.
 const ID=/^[A-Za-z0-9][A-Za-z0-9._-]{0,35}$/;
+const BILLING=/^(?:sub|txn)_[a-z0-9]{26}$/;
 const DAY_MS=86400000, TRIAL_MS=7*DAY_MS, TRIAL_LIMIT=150, FIRST_DAY=40, DAILY=10;
 function utcDay(now){return Math.floor(now/DAY_MS);}
-function freshState(){return{version:1,firstFreeDay:null,lastFreeDay:null,freeUsedToday:0,trialStartedAt:null,trialUsed:0,grantedIds:[]};}
+function freshState(){return{version:1,firstFreeDay:null,lastFreeDay:null,freeUsedToday:0,trialStartedAt:null,trialUsed:0,grantedIds:[],paidGrants:[]};}
 function validState(s){
   if(!s||s.version!==1||(s.legacyMigrationComplete!==undefined&&typeof s.legacyMigrationComplete!=='boolean')||!Number.isSafeInteger(s.freeUsedToday)||s.freeUsedToday<0||!Number.isSafeInteger(s.trialUsed)||s.trialUsed<0||s.trialUsed>TRIAL_LIMIT||!Array.isArray(s.grantedIds)||s.grantedIds.length>10000||s.grantedIds.some(v=>typeof v!=='string'||!ID.test(v))||new Set(s.grantedIds).size!==s.grantedIds.length)return false;
+  if(!Array.isArray(s.paidGrants)||s.paidGrants.length>10000)return false;
+  const paidIds=new Set();for(const grant of s.paidGrants){if(!grant||typeof grant.questionId!=='string'||!ID.test(grant.questionId)||paidIds.has(grant.questionId)||!Array.isArray(grant.sources)||grant.sources.length<1||grant.sources.length>25||grant.sources.some(id=>typeof id!=='string'||!BILLING.test(id))||new Set(grant.sources).size!==grant.sources.length)return false;paidIds.add(grant.questionId);}
   if(s.trialStartedAt===null){if(s.trialUsed!==0)return false;}else if(!Number.isSafeInteger(s.trialStartedAt)||s.trialStartedAt<0)return false;
   if(s.firstFreeDay===null)return s.lastFreeDay===null&&s.freeUsedToday===0;
   if(!Number.isSafeInteger(s.firstFreeDay)||!Number.isSafeInteger(s.lastFreeDay)||s.firstFreeDay<0||s.lastFreeDay<s.firstFreeDay)return false;
@@ -50,8 +53,12 @@ function createQuestionAccess({questions,usage,entitlements,clock=()=>Date.now()
       state.trialStartedAt=now;return{state,result:{status:200,body:{trialEndsAt:now+TRIAL_MS,trialLimit:TRIAL_LIMIT,usage:summarizeUsage(state,now)}}};
     });}catch(_){return{status:503,body:{error:'Service unavailable'}};}
   }
-  function issueOne(state, questionId, now){
-    if(state.grantedIds.includes(questionId))return {source:'review'};
+  function hasReviewGrant(state,questionId,reviewable){
+    if(state.grantedIds.includes(questionId))return true;
+    const paid=state.paidGrants.find(g=>g.questionId===questionId);return !!paid&&paid.sources.some(id=>reviewable.has(id));
+  }
+  function issueOne(state, questionId, now, reviewable){
+    if(hasReviewGrant(state,questionId,reviewable))return {source:'review'};
     if(state.grantedIds.length>=10000)throw Error('Usage state full');
     const trialActive=state.trialStartedAt!==null && now>=state.trialStartedAt && now<state.trialStartedAt+TRIAL_MS && state.trialUsed<TRIAL_LIMIT;
     if(trialActive){state.trialUsed++;state.grantedIds.push(questionId);return{source:'trial',trialUsed:state.trialUsed};}
@@ -73,25 +80,34 @@ function createQuestionAccess({questions,usage,entitlements,clock=()=>Date.now()
     try{
       entitlement=await entitlements.check(userId);
       if(!entitlement||entitlement.status!==200||typeof entitlement.body?.subscribed!=='boolean')throw Error('Entitlement unavailable');
+      if(entitlement.body.admin===true&&entitlement.body.subscribed!==true)throw Error('Invalid admin entitlement');
+      if(entitlement.body.admin!==true){
+        const active=entitlement.body.activeBillingIds,reviewable=entitlement.body.reviewableBillingIds;
+        if(!Array.isArray(active)||!Array.isArray(reviewable)||active.length>500||reviewable.length>500||active.some(x=>typeof x!=='string'||!BILLING.test(x))||reviewable.some(x=>typeof x!=='string'||!BILLING.test(x))||new Set(active).size!==active.length||new Set(reviewable).size!==reviewable.length||active.some(x=>!reviewable.includes(x))||(entitlement.body.subscribed!== (active.length>0)))throw Error('Invalid entitlement sources');
+      }
       docs=await Promise.all(questionIds.map(id=>questions.get(id)));
       if(docs.some(doc=>!doc))return{status:404,body:{error:'Question not found'}};
       if(docs.some((doc,i)=>doc.$id!==questionIds[i]))throw Error('Question mismatch');
       docs=docs.map(publicQuestion);
     }catch(_){return{status:503,body:{error:'Service unavailable'}};}
     if(entitlement.body.subscribed){
-      // Record only questions actually requested while access is active. A
-      // private durable grant allows later review after the paid term ends.
+      if(entitlement.body.admin===true)return{status:200,body:{results:docs.map(question=>({question,source:'paid'})),exhausted:false}};
       try{return await usage.transact(userId,async previous=>{
         const state=previous===null?freshState():structuredClone(previous);if(!validState(state))throw Error('Invalid usage state');
-        for(const id of questionIds)if(!state.grantedIds.includes(id)){if(state.grantedIds.length>=10000)throw Error('Usage state full');state.grantedIds.push(id);}
+        for(const id of questionIds){
+          if(state.grantedIds.includes(id))continue; // Free/legacy review is independent of payments.
+          let grant=state.paidGrants.find(g=>g.questionId===id);
+          if(!grant){if(state.paidGrants.length>=10000)throw Error('Usage state full');grant={questionId:id,sources:[]};state.paidGrants.push(grant);}
+          for(const source of entitlement.body.activeBillingIds)if(!grant.sources.includes(source)){if(grant.sources.length>=25)throw Error('Too many sources');grant.sources.push(source);}
+        }
         return{state,result:{status:200,body:{results:docs.map(question=>({question,source:'paid'})),exhausted:false}}};
       });}catch(_){return{status:503,body:{error:'Service unavailable'}};}
     }
     try{return await usage.transact(userId,async previous=>{
       const state=previous===null?freshState():structuredClone(previous);if(!validState(state))throw Error('Invalid usage state');
-      const results=[];let exhausted=false;
+      const results=[];let exhausted=false;const reviewable=new Set(entitlement.body.reviewableBillingIds);
       for(let i=0;i<questionIds.length;i++){
-        const decision=reviewOnly?(state.grantedIds.includes(questionIds[i])?{source:'review'}:null):issueOne(state,questionIds[i],now);
+        const decision=reviewOnly?(hasReviewGrant(state,questionIds[i],reviewable)?{source:'review'}:null):issueOne(state,questionIds[i],now,reviewable);
         if(decision)results.push({question:docs[i],...decision});else exhausted=true;
       }
       if(!results.length)return{state,result:reviewOnly?{status:403,body:{error:'No previously granted questions'}}:{status:429,body:{error:'Daily free allowance reached'}}};

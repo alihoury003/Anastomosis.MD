@@ -21,5 +21,7 @@ export default async ({req,res}) => {
   }catch(_){return res.json({error:'Not configured'},503);}
   const account=await authenticate(req.headers?.['x-appwrite-user-jwt']);
   if(account.status!==200)return res.json({error:account.status===401?'Sign in required':'Authentication unavailable'},account.status);
-  const result=await check(account.userId);return res.json(result.body,result.status);
+  const result=await check(account.userId);
+  if(result.status!==200)return res.json(result.body,result.status);
+  const {subscribed,expiresAt}=result.body;return res.json({subscribed,...(expiresAt?{expiresAt}:{})},200);
 };

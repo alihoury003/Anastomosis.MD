@@ -28,7 +28,7 @@ export default async ({req,res})=>{
     const lookup=entitlementModule.createEntitlementService({mappings,paddle,bindingKey,environment,allowedRecurringPriceIds,oneTimeDays,productId});
     const adminId=process.env.QUESTION_ADMIN_USER_ID;
     if(adminId && !/^[A-Za-z0-9][A-Za-z0-9._-]{0,35}$/.test(adminId))throw Error('Invalid admin');
-    const entitlements={check:async userId=>adminId&&userId===adminId?{status:200,body:{subscribed:true}}:lookup(userId)};
+    const entitlements={check:async userId=>adminId&&userId===adminId?{status:200,body:{subscribed:true,admin:true,activeBillingIds:[],reviewableBillingIds:[]}}:lookup(userId)};
     const access=accessModule.createQuestionAccess({questions,usage,entitlements});
     const cutoffRaw=process.env.LEGACY_MIGRATION_CUTOFF_MS;
     if(typeof cutoffRaw!=='string'||!/^\d{1,16}$/.test(cutoffRaw)||!Number.isSafeInteger(Number(cutoffRaw)))throw Error('Migration cutoff not configured');

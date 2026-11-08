@@ -9,7 +9,7 @@ test('legacy account is blocked before private one-time migration, then can revi
   const tables={createRow:async({rowId,data})=>{if(rows.has(rowId))throw{code:409,type:'row_already_exists'};rows.set(rowId,JSON.parse(data.stateJson));},getRow:async({rowId})=>({$id:rowId,stateJson:JSON.stringify(rows.get(rowId))})};
   const usage={read:async id=>rows.get(id)||null,transact:async(id,fn)=>{const out=await fn(rows.get(id)||null);rows.set(id,structuredClone(out.state));return out.result;}};
   const docs=new Map(['q1','q2','q3'].map(id=>[id,{$id:id,subject:'A',system:'S',stem:'private '+id,correct:'A',content:'{"topic":"T"}'}]));
-  const questions={get:async id=>docs.get(id)||null,listMetadata:async()=>[...docs.values()].map(publicMetadata)},entitlements={check:async()=>({status:200,body:{subscribed:false}})};
+  const questions={get:async id=>docs.get(id)||null,listMetadata:async()=>[...docs.values()].map(publicMetadata)},entitlements={check:async()=>({status:200,body:{subscribed:false,activeBillingIds:[],reviewableBillingIds:[]}})};
   const access=createQuestionAccess({questions,usage,entitlements,clock:()=>now}),authenticate=async()=>({status:200,userId:'user1',createdAt:now-86400000});
   const route=createQuestionRoutes({authenticate,access,questions,migrationCutoffMs:cutoff}),request=(path,method,body)=>({path,method,headers:{'x-appwrite-user-jwt':'mock'},bodyText:JSON.stringify(body||{})});
   assert.equal((await route(request('/status','GET'))).body.migrationRequired,true);assert.equal(rows.size,0);

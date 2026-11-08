@@ -24,8 +24,14 @@ async function run(autoRenew){const old=Object.fromEntries(Object.keys(env).map(
   assert.equal((await webhook({req:{method:'POST',headers:{'paddle-signature':`ts=${ts};h1=${mac}`},bodyBinary:body},res})).status,200);
   assert.equal((await worker({req:{headers:{'x-appwrite-trigger':'schedule'}},res,error:()=>{}})).status,200);assert.equal(docs.events.get(eid).processingStatus,'done');assert.equal(cancelCalls,0);
   const request=token=>({req:{method:'GET',headers:{'x-appwrite-user-jwt':token}},res});assert.equal((await access(request(jwt))).body.subscribed,true);assert.equal((await access(request('other-user-jwt-value-123'))).body.subscribed,false);
-  adjustments=[autoRenew?{subscription_id:sid,status:'approved',action:'refund'}:{transaction_id:tid,status:'approved',action:'refund'}];assert.equal((await access(request(jwt))).body.subscribed,false);
-  adjustments=[];if(autoRenew){subscription.status='canceled';assert.equal((await access(request(jwt))).body.subscribed,false);}
+  const {createPaddleClient}=require('../payment-backend/paddle-client.cjs'),{createEntitlementService}=require('../payment-backend/entitlement-service.cjs'),{createQuestionAccess}=require('../payment-backend/question-access.cjs');let virtualNow=Date.now(),usageState=null;
+  const paidCheck=createEntitlementService({mappings:{listByUser:async user=>[...docs.mappings.values()].filter(x=>x.userId===user)},paddle:createPaddleClient({environment:'sandbox',apiKey:'fake'}),bindingKey:key,environment:'sandbox',allowedRecurringPriceIds:[p(1),p(2),p(3)],oneTimeDays:{[p(4)]:30,[p(5)]:90,[p(6)]:365},productId:product,clock:()=>virtualNow});
+  const questionGate=createQuestionAccess({questions:{get:async id=>({$id:id,stem:'protected',correct:'A'})},usage:{read:async()=>usageState,transact:async(_id,decide)=>{const out=await decide(usageState);usageState=structuredClone(out.state);return out.result;}},entitlements:{check:paidCheck},clock:()=>virtualNow});
+  assert.equal((await questionGate.getQuestion('user1','q1')).body.source,'paid');assert.equal(usageState.paidGrants[0].sources[0],autoRenew?sid:tid);
+  if(autoRenew)subscription.status='canceled';else virtualNow+=31*86400000;
+  assert.equal((await questionGate.reviewQuestions('user1',['q1'])).status,200);
+  adjustments=[autoRenew?{subscription_id:sid,status:'approved',action:'refund'}:{transaction_id:tid,status:'approved',action:'refund'}];assert.equal((await access(request(jwt))).body.subscribed,false);assert.equal((await questionGate.reviewQuestions('user1',['q1'])).status,403);
+  adjustments=[];if(autoRenew)assert.equal((await access(request(jwt))).body.subscribed,false);
  }finally{globalThis.fetch=oldFetch;for(const k in env){if(old[k]===undefined)delete process.env[k];else process.env[k]=old[k];}}}
 test('mock one-time checkout grants fixed access without any subscription cancellation',async()=>run(false));
 test('mock explicitly recurring checkout grants and revokes access',async()=>run(true));

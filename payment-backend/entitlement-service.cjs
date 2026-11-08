@@ -1,24 +1,29 @@
 'use strict';
 const {evaluateSubscription}=require('./entitlement-policy.cjs');
 const {evaluateOneTime}=require('./one-time-policy.cjs');
+const {subscriptionReviewAllowed,oneTimeReviewAllowed}=require('./review-policy.cjs');
 // userId must come from verified Appwrite JWT; never trust a client ID.
-function createEntitlementService({mappings,paddle,bindingKey,environment,allowedRecurringPriceIds,oneTimeDays,productId}){
-  if(!mappings||typeof mappings.listByUser!=='function'||!paddle||typeof paddle.getSubscription!=='function'||typeof paddle.getTransaction!=='function'||typeof paddle.listAdjustments!=='function'||!Buffer.isBuffer(bindingKey)||bindingKey.length<32||!['sandbox','live'].includes(environment)||!Array.isArray(allowedRecurringPriceIds)||!allowedRecurringPriceIds.length||!oneTimeDays||typeof oneTimeDays!=='object'||!/^pro_[a-z0-9]{26}$/.test(productId||''))throw Error('Entitlement service not configured');
+function createEntitlementService({mappings,paddle,bindingKey,environment,allowedRecurringPriceIds,oneTimeDays,productId,clock=()=>Date.now()}){
+  if(!mappings||typeof mappings.listByUser!=='function'||!paddle||typeof paddle.getSubscription!=='function'||typeof paddle.getTransaction!=='function'||typeof paddle.listAdjustments!=='function'||!Buffer.isBuffer(bindingKey)||bindingKey.length<32||!['sandbox','live'].includes(environment)||!Array.isArray(allowedRecurringPriceIds)||!allowedRecurringPriceIds.length||!oneTimeDays||typeof oneTimeDays!=='object'||!/^pro_[a-z0-9]{26}$/.test(productId||'')||typeof clock!=='function')throw Error('Entitlement service not configured');
   return async function check(userId){
     try{
-      const rows=await mappings.listByUser(userId);let best=null;
+      const now=clock();if(!Number.isSafeInteger(now)||now<0)throw Error('Invalid clock');
+      const rows=await mappings.listByUser(userId);let best=null;const activeBillingIds=[],reviewableBillingIds=[];
       for(const row of rows){
-        let decision;
+        let decision,reviewAllowed;
         if(/^sub_[a-z0-9]{26}$/.test(row.$id||'')){
           const subscription=await paddle.getSubscription(row.$id),adjustments=await paddle.listAdjustments(row.$id);
-          decision=evaluateSubscription({subscription,adjustments,adjustmentsComplete:true,authenticatedUserId:userId,bindingKey,environment,allowedPriceIds:allowedRecurringPriceIds});
+          decision=evaluateSubscription({subscription,adjustments,adjustmentsComplete:true,authenticatedUserId:userId,bindingKey,environment,allowedPriceIds:allowedRecurringPriceIds,now});
+          reviewAllowed=subscriptionReviewAllowed({subscription,adjustments,adjustmentsComplete:true,authenticatedUserId:userId,bindingKey,environment,allowedRecurringPriceIds,productId,now});
         }else if(/^txn_[a-z0-9]{26}$/.test(row.$id||'')){
-          const transaction=await paddle.getTransaction(row.$id),adjustments=await paddle.listAdjustments(row.$id);
-          decision=evaluateOneTime({transaction,adjustments,adjustmentsComplete:true,authenticatedUserId:userId,bindingKey,environment,oneTimeDays,productId});
+          const transaction=await paddle.getTransaction(row.$id),adjustments=await paddle.listAdjustments(row.$id),params={transaction,adjustments,adjustmentsComplete:true,authenticatedUserId:userId,bindingKey,environment,oneTimeDays,productId,now};
+          decision=evaluateOneTime(params);reviewAllowed=oneTimeReviewAllowed(params);
         }else throw Error('Invalid mapping');
-        if(decision.allowed&&(!best||Date.parse(decision.expiresAt)>Date.parse(best.expiresAt)))best=decision;
+        if(reviewAllowed)reviewableBillingIds.push(row.$id);
+        // Active grants must have the same verified ownership/review basis.
+        if(decision.allowed&&reviewAllowed){activeBillingIds.push(row.$id);if(!best||Date.parse(decision.expiresAt)>Date.parse(best.expiresAt))best=decision;}
       }
-      return{status:200,body:{subscribed:!!best,...(best?{expiresAt:best.expiresAt}:{})}};
+      return{status:200,body:{subscribed:!!best,...(best?{expiresAt:best.expiresAt}:{}),activeBillingIds,reviewableBillingIds}};
     }catch(_){return{status:503,body:{error:'Subscription service unavailable'}};}
   };
 }

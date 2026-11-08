@@ -39,7 +39,7 @@ function buildLegacyMigrationPlan({userId,accountCreatedAt,snapshotAt,cutoffAt,p
   const requestedEnd=integer(prefs.trialEndsAt),trialEndsAt=requestedEnd?Math.min(requestedEnd,snapshotAt+7*DAY):0;
   const trialStartedAt=trialEndsAt?Math.max(0,trialEndsAt-7*DAY):null;
   const trialUsed=trialStartedAt===null?0:Math.min(150,Math.max(0,integer(prefs.trialQuestionsUsed)));
-  const state={version:1,legacyMigrationComplete:true,firstFreeDay,lastFreeDay,freeUsedToday,trialStartedAt,trialUsed,grantedIds};
+  const state={version:1,legacyMigrationComplete:true,firstFreeDay,lastFreeDay,freeUsedToday,trialStartedAt,trialUsed,grantedIds,paidGrants:[]};
   return{status:'approved_snapshot',userId,state,source:'legacy-unverified',unknownQuestionReferences:new Set(candidates.filter(id=>!allowed.has(id)&&!local.has(id))).size,skippedLegacyBlocks:history.skipped,trialEndCapped:requestedEnd>trialEndsAt&&trialEndsAt>0,authorizationGrantedFromPaidPrefs:false};
 }
 function createLegacyMigrationWriter({tables,databaseId,tableId}){
