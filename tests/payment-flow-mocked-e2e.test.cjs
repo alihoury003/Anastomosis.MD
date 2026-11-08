@@ -27,6 +27,11 @@ test('mock purchase maps the authenticated user, schedules no-renewal, verifies 
   const processed=await worker({req:{headers:{'x-appwrite-trigger':'schedule'}},res,error:()=>{}});assert.equal(processed.status,200);assert.equal(subscription.scheduled_change.action,'cancel');assert.equal(docs.events.get(eid).processingStatus,'done');
   const accessRequest=(token)=>({req:{method:'GET',headers:{'x-appwrite-user-jwt':token}},res});
   assert.equal((await access(accessRequest(jwt))).body.subscribed,true);assert.equal((await access(accessRequest('other-user-jwt-value-123'))).body.subscribed,false);
+  // Link the mocked payment access result to the mocked private question gate.
+  const {createQuestionAccess}=require('../payment-backend/question-access.cjs');let state=null;
+  const questionGate=createQuestionAccess({questions:{get:async id=>({$id:id,stem:'protected',correct:'A'})},usage:{transact:async(_user,fn)=>{const out=await fn(state);state=out.state;return out.result;}},entitlements:{check:async()=>access(accessRequest(jwt))}});
+  assert.equal((await questionGate.getQuestion('user1','question1')).body.source,'paid');
   adjustments=[{subscription_id:sid,status:'approved',action:'refund'}];assert.equal((await access(accessRequest(jwt))).body.subscribed,false);
+  assert.equal((await questionGate.getQuestion('user1','question2')).body.source,'free');
   adjustments=[];subscription.status='canceled';assert.equal((await access(accessRequest(jwt))).body.subscribed,false);
 }));
