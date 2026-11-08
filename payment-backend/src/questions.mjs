@@ -7,6 +7,7 @@ import routesModule from '../question-routes.cjs';
 import mappingModule from '../appwrite-mapping-store.cjs';
 import paddleModule from '../paddle-client.cjs';
 import entitlementModule from '../entitlement-service.cjs';
+import catalogModule from '../catalog-config.cjs';
 // Staged only. Never enable or remove public read before a tested migration,
 // including importer access, existing user data and full dashboard integration.
 export default async ({req,res})=>{
@@ -23,13 +24,15 @@ export default async ({req,res})=>{
     const environment=process.env.PADDLE_ENVIRONMENT,paddle=paddleModule.createPaddleClient({environment,apiKey:process.env.PADDLE_API_KEY});
     const encoded=process.env.CHECKOUT_BINDING_KEY_BASE64;if(typeof encoded!=='string'||!/^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(encoded))throw Error('Invalid key');
     const bindingKey=Buffer.from(encoded,'base64');if(bindingKey.length<32||bindingKey.toString('base64')!==encoded)throw Error('Invalid key');
-    const allowedPriceIds=[process.env.PADDLE_MONTHLY_PRICE,process.env.PADDLE_THREE_MONTH_PRICE,process.env.PADDLE_ANNUAL_PRICE];if(!allowedPriceIds.every(id=>/^pri_[a-z0-9]{26}$/.test(id||'')))throw Error('Invalid prices');
-    const lookup=entitlementModule.createEntitlementService({mappings,paddle,bindingKey,environment,allowedPriceIds});
+    const {allowedRecurringPriceIds,oneTimeDays,productId}=catalogModule.catalogConfig(process.env);
+    const lookup=entitlementModule.createEntitlementService({mappings,paddle,bindingKey,environment,allowedRecurringPriceIds,oneTimeDays,productId});
     const adminId=process.env.QUESTION_ADMIN_USER_ID;
     if(adminId && !/^[A-Za-z0-9][A-Za-z0-9._-]{0,35}$/.test(adminId))throw Error('Invalid admin');
     const entitlements={check:async userId=>adminId&&userId===adminId?{status:200,body:{subscribed:true}}:lookup(userId)};
     const access=accessModule.createQuestionAccess({questions,usage,entitlements});
-    route=routesModule.createQuestionRoutes({authenticate:authModule.createAppwriteAuthenticator({endpoint,projectId}),access,questions});
+    const cutoffRaw=process.env.LEGACY_MIGRATION_CUTOFF_MS;
+    if(typeof cutoffRaw!=='string'||!/^\d{1,16}$/.test(cutoffRaw)||!Number.isSafeInteger(Number(cutoffRaw)))throw Error('Migration cutoff not configured');
+    route=routesModule.createQuestionRoutes({authenticate:authModule.createAppwriteAuthenticator({endpoint,projectId}),access,questions,migrationCutoffMs:Number(cutoffRaw)});
   }catch(_){return finish({error:'Not configured'},503);}
   try{const result=await route(req);return finish(result.body,result.status);}catch(_){return finish({error:'Service unavailable'},503);}
 };

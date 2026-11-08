@@ -8,11 +8,19 @@ const DAY_MS=86400000, TRIAL_MS=7*DAY_MS, TRIAL_LIMIT=150, FIRST_DAY=40, DAILY=1
 function utcDay(now){return Math.floor(now/DAY_MS);}
 function freshState(){return{version:1,firstFreeDay:null,lastFreeDay:null,freeUsedToday:0,trialStartedAt:null,trialUsed:0,grantedIds:[]};}
 function validState(s){
-  if(!s||s.version!==1||!Number.isSafeInteger(s.freeUsedToday)||s.freeUsedToday<0||!Number.isSafeInteger(s.trialUsed)||s.trialUsed<0||s.trialUsed>TRIAL_LIMIT||!Array.isArray(s.grantedIds)||s.grantedIds.length>10000||s.grantedIds.some(v=>typeof v!=='string'||!ID.test(v))||new Set(s.grantedIds).size!==s.grantedIds.length)return false;
+  if(!s||s.version!==1||(s.legacyMigrationComplete!==undefined&&typeof s.legacyMigrationComplete!=='boolean')||!Number.isSafeInteger(s.freeUsedToday)||s.freeUsedToday<0||!Number.isSafeInteger(s.trialUsed)||s.trialUsed<0||s.trialUsed>TRIAL_LIMIT||!Array.isArray(s.grantedIds)||s.grantedIds.length>10000||s.grantedIds.some(v=>typeof v!=='string'||!ID.test(v))||new Set(s.grantedIds).size!==s.grantedIds.length)return false;
   if(s.trialStartedAt===null){if(s.trialUsed!==0)return false;}else if(!Number.isSafeInteger(s.trialStartedAt)||s.trialStartedAt<0)return false;
   if(s.firstFreeDay===null)return s.lastFreeDay===null&&s.freeUsedToday===0;
   if(!Number.isSafeInteger(s.firstFreeDay)||!Number.isSafeInteger(s.lastFreeDay)||s.firstFreeDay<0||s.lastFreeDay<s.firstFreeDay)return false;
   return s.freeUsedToday<=(s.lastFreeDay===s.firstFreeDay?FIRST_DAY:DAILY);
+}
+function summarizeUsage(state,now){
+  const day=utcDay(now),effectiveDay=state.lastFreeDay===null?day:Math.max(day,state.lastFreeDay);
+  const first=state.firstFreeDay===null,used=state.lastFreeDay===null||day>state.lastFreeDay?0:state.freeUsedToday;
+  const max=first||effectiveDay===state.firstFreeDay?FIRST_DAY:DAILY;
+  const trialStarted=state.trialStartedAt!==null;
+  const trialEndsAt=trialStarted?state.trialStartedAt+TRIAL_MS:null;
+  return{freeRemaining:Math.max(0,max-used),firstFreeDay:first||effectiveDay===state.firstFreeDay,legacyMigrationComplete:state.legacyMigrationComplete===true,trialStarted,trialActive:trialStarted&&now>=state.trialStartedAt&&now<trialEndsAt&&state.trialUsed<TRIAL_LIMIT,trialUsed:state.trialUsed,trialEndsAt};
 }
 function publicQuestion(doc){
   if(!doc||typeof doc!=='object'||!ID.test(doc.$id||''))throw Error('Invalid question');
@@ -26,14 +34,20 @@ function publicMetadata(doc){
   return{id:doc.$id,subject:bounded(doc.subject),system:bounded(doc.system),topic:bounded(content.topic),difficulty:Number.isFinite(content.difficulty)?content.difficulty:null};
 }
 function createQuestionAccess({questions,usage,entitlements,clock=()=>Date.now()}) {
-  if(!questions||typeof questions.get!=='function'||!usage||typeof usage.transact!=='function'||!entitlements||typeof entitlements.check!=='function'||typeof clock!=='function')throw Error('Question access not configured');
+  if(!questions||typeof questions.get!=='function'||!usage||typeof usage.transact!=='function'||typeof usage.read!=='function'||!entitlements||typeof entitlements.check!=='function'||typeof clock!=='function')throw Error('Question access not configured');
+  async function status(userId){
+    if(!ID.test(userId||''))return{status:401,body:{error:'Sign in required'}};
+    const now=clock();if(!Number.isSafeInteger(now)||now<0)return{status:503,body:{error:'Service unavailable'}};
+    let entitlement;try{entitlement=await entitlements.check(userId);if(entitlement?.status!==200||typeof entitlement.body?.subscribed!=='boolean')throw Error('Entitlement unavailable');}catch(_){return{status:503,body:{error:'Service unavailable'}};}
+    try{const previous=await usage.read(userId);const state=previous===null?freshState():structuredClone(previous);if(!validState(state))throw Error('Invalid usage state');return{status:200,body:{subscribed:entitlement.body.subscribed,usage:summarizeUsage(state,now)}};}catch(_){return{status:503,body:{error:'Service unavailable'}};}
+  }
   async function startTrial(userId){
     if(!ID.test(userId||''))return{status:401,body:{error:'Sign in required'}};
     const now=clock();if(!Number.isSafeInteger(now)||now<0)return{status:503,body:{error:'Service unavailable'}};
     try{return await usage.transact(userId,async previous=>{
       const state=previous===null?freshState():structuredClone(previous);if(!validState(state))throw Error('Invalid usage state');
       if(state.trialStartedAt!==null)return{state,result:{status:409,body:{error:'Trial already started'}}};
-      state.trialStartedAt=now;return{state,result:{status:200,body:{trialEndsAt:now+TRIAL_MS,trialLimit:TRIAL_LIMIT}}};
+      state.trialStartedAt=now;return{state,result:{status:200,body:{trialEndsAt:now+TRIAL_MS,trialLimit:TRIAL_LIMIT,usage:summarizeUsage(state,now)}}};
     });}catch(_){return{status:503,body:{error:'Service unavailable'}};}
   }
   function issueOne(state, questionId, now){
@@ -73,7 +87,7 @@ function createQuestionAccess({questions,usage,entitlements,clock=()=>Date.now()
         if(decision)results.push({question:docs[i],...decision});else exhausted=true;
       }
       if(!results.length)return{state,result:reviewOnly?{status:403,body:{error:'No previously granted questions'}}:{status:429,body:{error:'Daily free allowance reached'}}};
-      return{state,result:{status:200,body:{results,exhausted}}};
+      return{state,result:{status:200,body:{results,exhausted,usage:summarizeUsage(state,now)}}};
     });}catch(_){return{status:503,body:{error:'Service unavailable'}};}
   }
   async function getQuestion(userId,questionId){
@@ -83,6 +97,6 @@ function createQuestionAccess({questions,usage,entitlements,clock=()=>Date.now()
   }
 
   async function reviewQuestions(userId,questionIds){return getQuestions(userId,questionIds,{reviewOnly:true});}
-  return{startTrial,getQuestion,getQuestions,reviewQuestions};
+  return{status,startTrial,getQuestion,getQuestions,reviewQuestions};
 }
 module.exports={createQuestionAccess,publicMetadata,publicQuestion,constants:{FIRST_DAY,DAILY,TRIAL_LIMIT,TRIAL_MS}};

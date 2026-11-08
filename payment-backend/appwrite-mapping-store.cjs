@@ -1,5 +1,5 @@
 'use strict';
-const SUB=/^sub_[a-z0-9]{26}$/;
+const BILLING=/^(?:sub|txn)_[a-z0-9]{26}$/;
 const ID=/^[A-Za-z0-9][A-Za-z0-9._-]{0,35}$/;
 const PRICE=/^pri_[a-z0-9]{26}$/;
 const NONCE=/^[A-Za-z0-9_-]{32}$/;
@@ -8,16 +8,17 @@ function createMappingStore({endpoint,projectId,databaseId,collectionId,apiKey,f
   const base=`${endpoint}/databases/${encodeURIComponent(databaseId)}/collections/${encodeURIComponent(collectionId)}/documents`;
   const headers={'content-type':'application/json','x-appwrite-project':projectId,'x-appwrite-key':apiKey};
   async function save(mapping) {
-    const {subscriptionId,userId,priceId,environment,autoRenew,nonce}=mapping||{};
-    if (!SUB.test(subscriptionId||'') || !ID.test(userId||'') || !PRICE.test(priceId||'') || !['sandbox','live'].includes(environment) || typeof autoRenew!=='boolean' || !NONCE.test(nonce||'')) throw Error('Invalid mapping');
+    const {subscriptionId,transactionId,userId,priceId,environment,autoRenew,nonce}=mapping||{};
+    const billingId=subscriptionId||transactionId;
+    if (Boolean(subscriptionId)===Boolean(transactionId)||!BILLING.test(billingId||'')|| (billingId.startsWith('sub_')&&autoRenew!==true)||(billingId.startsWith('txn_')&&autoRenew!==false) || !ID.test(userId||'') || !PRICE.test(priceId||'') || !['sandbox','live'].includes(environment) || typeof autoRenew!=='boolean' || !NONCE.test(nonce||'')) throw Error('Invalid mapping');
     const data={userId,priceId,environment,autoRenew,nonce}; const signal=AbortSignal.timeout(4000);
-    const response=await fetchImpl(base,{method:'POST',headers,body:JSON.stringify({documentId:subscriptionId,data,permissions:[]}),signal});
+    const response=await fetchImpl(base,{method:'POST',headers,body:JSON.stringify({documentId:billingId,data,permissions:[]}),signal});
     if (response.ok) return 'stored';
     if (response.status!==409) throw Error('Mapping write failed');
     const conflict=await response.json().catch(()=>({}));if(conflict.type!=='document_already_exists') throw Error('Mapping conflict');
-    const found=await fetchImpl(`${base}/${encodeURIComponent(subscriptionId)}`,{method:'GET',headers,signal});
+    const found=await fetchImpl(`${base}/${encodeURIComponent(billingId)}`,{method:'GET',headers,signal});
     if (!found.ok) throw Error('Mapping lookup failed');const current=await found.json();
-    if (current.$id!==subscriptionId || Object.entries(data).some(([key,value])=>current[key]!==value)) throw Error('Mapping conflict');
+    if (current.$id!==billingId || Object.entries(data).some(([key,value])=>current[key]!==value)) throw Error('Mapping conflict');
     return 'duplicate';
   }
   async function listByUser(userId) {
@@ -28,7 +29,7 @@ function createMappingStore({endpoint,projectId,databaseId,collectionId,apiKey,f
       const response=await fetchImpl(url.href,{method:'GET',headers,signal:AbortSignal.timeout(4000)});
       if(!response.ok) throw Error('Mapping lookup failed');const body=await response.json();
       if(!Array.isArray(body.documents)||!Number.isInteger(body.total)||body.total<0||body.total>500||body.documents.length>limit) throw Error('Invalid mapping response');
-      for(const doc of body.documents){if(doc.userId!==userId||!SUB.test(doc.$id||'')||seen.has(doc.$id))throw Error('Invalid mapping response');seen.add(doc.$id);results.push(doc);}
+      for(const doc of body.documents){if(doc.userId!==userId||!BILLING.test(doc.$id||'')||seen.has(doc.$id))throw Error('Invalid mapping response');seen.add(doc.$id);results.push(doc);}
       if(results.length>=body.total)return results;
       if(body.documents.length<limit) throw Error('Incomplete mapping response');
     }

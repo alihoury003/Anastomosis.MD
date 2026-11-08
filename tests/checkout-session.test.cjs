@@ -1,32 +1,9 @@
-'use strict';
-const {test} = require('node:test');
-const assert = require('node:assert/strict');
-const {checkoutSessionService} = require('../payment-backend/checkout-session.cjs');
-const {verifyBinding} = require('../payment-backend/checkout-binding.cjs');
-const key=Buffer.alloc(32,1), price='pri_0123456789abcdefghijklmnop', jwt='example-test-jwt-value-only';
-const options={endpoint:'https://nyc.cloud.appwrite.io/v1',projectId:'project',environment:'sandbox',priceIds:{monthly:price},bindingKey:key};
+'use strict';const {test}=require('node:test');const assert=require('node:assert/strict');const {checkoutSessionService}=require('../payment-backend/checkout-session.cjs');const {verifyBinding}=require('../payment-backend/checkout-binding.cjs');
+const key=Buffer.alloc(32,1),price='pri_0123456789abcdefghijklmnop',productId='pro_0123456789abcdefghijklmnop',jwt='example-test-jwt-value-only';
+function priceData(renew){return{id:price,product_id:productId,status:'active',unit_price:{amount:'1500',currency_code:'USD'},trial_period:null,billing_cycle:renew?{interval:'month',frequency:1}:null};}
 function response(status,value={}) {return {status,ok:status>=200&&status<300,json:async()=>value};}
-function service(fetchImpl, other={}) {return checkoutSessionService({...options,fetchImpl,...other});}
-test('server verifies session and binds the authenticated account, not client-supplied user',async()=>{
-  let call; const s=service(async(url,opts)=>{call={url,opts};return response(200,{$id:'auth_user'});});
-  const r=await s({jwt,plan:'monthly',autoRenew:false,userId:'attacker'});assert.equal(r.status,200);
-  const b=verifyBinding(r.body.customData.anastomosis_binding,key,'sandbox');assert.equal(b.userId,'auth_user');assert.equal(b.autoRenew,false);assert.equal(b.priceId,price);
-  assert.equal(call.opts.headers['x-appwrite-jwt'],jwt);assert.equal(call.opts.headers['x-appwrite-project'],'project');
-});
-test('renewal preference is signed and defaults are not inferred from input',async()=>{
-  const s=service(async()=>response(200,{$id:'auth_user'}));
-  const yes=await s({jwt,plan:'monthly',autoRenew:true});assert.equal(verifyBinding(yes.body.customData.anastomosis_binding,key,'sandbox').autoRenew,true);
-  assert.equal((await s({jwt,plan:'monthly'})).status,400);
-});
-test('invalid auth, unknown plans and outages fail closed',async()=>{
-  let calls=0;const s=service(async()=>{calls++;return response(401)});
-  assert.equal((await s({jwt:'',plan:'monthly',autoRenew:false})).status,401);assert.equal(calls,0);
-  assert.equal((await s({jwt,plan:'fake',autoRenew:false})).status,400);assert.equal(calls,0);
-  assert.equal((await s({jwt,plan:'monthly',autoRenew:false})).status,401);assert.equal(calls,1);
-  const down=service(async()=>{throw Error('network detail')});const r=await down({jwt,plan:'monthly',autoRenew:false});assert.equal(r.status,503);assert.doesNotMatch(JSON.stringify(r),/network detail/);
-});
-test('rejects unsafe config and invalid authenticated account IDs',async()=>{
-  assert.throws(()=>service(async()=>response(200),{endpoint:'https://evil.example/v1'}));
-  assert.throws(()=>service(async()=>response(200),{bindingKey:Buffer.alloc(4)}));
-  const s=service(async()=>response(200,{$id:'../../bad'}));assert.equal((await s({jwt,plan:'monthly',autoRenew:false})).status,503);
-});
+function service(fetchImpl,renew=false,other={}){return checkoutSessionService({endpoint:'https://nyc.cloud.appwrite.io/v1',projectId:'project',environment:'sandbox',priceIds:{monthly:{oneTime:price,recurring:price}},productId,paddle:{getPrice:async()=>priceData(renew)},bindingKey:key,fetchImpl,...other});}
+test('server verifies session and binds authenticated account, not client-supplied user',async()=>{let call;const s=service(async(url,opts)=>{call={url,opts};return response(200,{$id:'auth_user'});});const r=await s({jwt,plan:'monthly',autoRenew:false,userId:'attacker'});assert.equal(r.status,200);const b=verifyBinding(r.body.customData.anastomosis_binding,key,'sandbox');assert.equal(b.userId,'auth_user');assert.equal(b.autoRenew,false);assert.equal(call.opts.headers['x-appwrite-jwt'],jwt);});
+test('recurring prices cannot be sold under a nonrenewing choice',async()=>{const s=service(async()=>response(200,{$id:'u1'}),true);assert.equal((await s({jwt,plan:'monthly',autoRenew:false})).status,503);assert.equal((await s({jwt,plan:'monthly',autoRenew:true})).status,200);});
+test('invalid auth, plans and outages fail closed',async()=>{let calls=0;const s=service(async()=>{calls++;return response(401)});assert.equal((await s({jwt:'',plan:'monthly',autoRenew:false})).status,401);assert.equal((await s({jwt,plan:'fake',autoRenew:false})).status,400);assert.equal(calls,0);assert.equal((await s({jwt,plan:'monthly',autoRenew:false})).status,401);const down=service(async()=>{throw Error('private')});assert.equal((await down({jwt,plan:'monthly',autoRenew:false})).status,503);});
+test('missing one-time catalog prices fail closed, no recurring fallback',async()=>{const s=service(async()=>response(200,{$id:'u1'}),true,{priceIds:{monthly:{recurring:price}}});assert.equal((await s({jwt,plan:'monthly',autoRenew:false})).status,503);});

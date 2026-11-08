@@ -13,7 +13,7 @@ function evaluateSubscription({subscription, adjustments, adjustmentsComplete, a
       typeof authenticatedUserId !== 'string' || !Array.isArray(allowedPriceIds) ||
       adjustmentsComplete !== true || !Array.isArray(adjustments) || !Number.isFinite(now)) return deny('invalid_or_incomplete_data');
   const claim = verifyBinding(subscription.custom_data?.anastomosis_binding, bindingKey, environment);
-  if (!claim || claim.userId !== authenticatedUserId || !PRICE_ID.test(claim.priceId) || !allowedPriceIds.includes(claim.priceId)) return deny('unverified_account_binding');
+  if (!claim || claim.autoRenew !== true || claim.userId !== authenticatedUserId || !PRICE_ID.test(claim.priceId) || !allowedPriceIds.includes(claim.priceId)) return deny('unverified_account_binding');
   if (!Array.isArray(subscription.items) || !subscription.items.some(item => item?.price?.id === claim.priceId && item.status === 'active')) return deny('price_not_active');
   const firstBilled = Date.parse(subscription.first_billed_at);
   if (subscription.status !== 'active' || !Number.isFinite(firstBilled) || firstBilled > now) return deny('subscription_not_active');
@@ -22,10 +22,6 @@ function evaluateSubscription({subscription, adjustments, adjustmentsComplete, a
   const change = subscription.scheduled_change;
   if (change && (!['cancel','pause','resume'].includes(change.action) || !Number.isFinite(Date.parse(change.effective_at)))) return deny('invalid_scheduled_change');
   if (change && ['cancel','pause'].includes(change.action) && now >= Date.parse(change.effective_at)) return deny('scheduled_change_effective');
-  // Deny until cancellation is actually scheduled for non-renewing purchases;
-  // this check alone does NOT prevent future billing. A separate reliable,
-  // monitored cancellation mechanism and reconciliation are essential.
-  if (!claim.autoRenew && (!change || change.action !== 'cancel' || Date.parse(change.effective_at) > end)) return deny('nonrenewal_not_confirmed');
   // Conservative policy: any approved refund/credit/chargeback goes to manual
   // review. This may restrict legitimate access after a partial/old adjustment.
   for (const a of adjustments) {

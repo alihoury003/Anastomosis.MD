@@ -1,0 +1,4 @@
+'use strict';const {test}=require('node:test');const assert=require('node:assert/strict');const {catalogConfig}=require('../payment-backend/catalog-config.cjs');
+const p=n=>'pri_'+String(n).repeat(26),env={PADDLE_PRODUCT_ID:'pro_'+'1'.repeat(26),PADDLE_MONTHLY_PRICE:p(1),PADDLE_THREE_MONTH_PRICE:p(2),PADDLE_ANNUAL_PRICE:p(3),PADDLE_ONE_TIME_MONTHLY_PRICE:p(4),PADDLE_ONE_TIME_THREE_MONTH_PRICE:p(5),PADDLE_ONE_TIME_ANNUAL_PRICE:p(6)};
+test('config distinguishes recurring from one-time IDs',()=>{const c=catalogConfig(env);assert.equal(c.priceIds.monthly.oneTime,p(4));assert.equal(c.priceIds.monthly.recurring,p(1));assert.equal(c.oneTimeDays[p(5)],90);});
+test('missing or reused IDs fail closed',()=>{assert.throws(()=>catalogConfig({...env,PADDLE_ONE_TIME_MONTHLY_PRICE:undefined}));assert.throws(()=>catalogConfig({...env,PADDLE_ONE_TIME_MONTHLY_PRICE:p(1)}));});

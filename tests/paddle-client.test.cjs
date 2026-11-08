@@ -25,9 +25,5 @@ test('service failures fail closed and config is mandatory',async()=>{
   const p=client(async()=>response(403,{}),'live');await assert.rejects(p.getSubscription(id),/request failed/);
   assert.throws(()=>createPaddleClient({environment:'production',apiKey:'key'}));assert.throws(()=>createPaddleClient({environment:'live',apiKey:''}));
 });
-test('cancellation is disabled unless explicitly enabled and schedules end-of-period only',async()=>{
-  let calls=0, saved;const fetchImpl=async(url,opts)=>{calls++;saved={url,opts};return response(200,{data:{id,scheduled_change:{action:'cancel'}}});};
-  const disabled=client(fetchImpl);await assert.rejects(disabled.scheduleCancellation(id),/disabled/);assert.equal(calls,0);
-  const enabled=createPaddleClient({environment:'sandbox',apiKey:'test-only-key',fetchImpl,allowCancellation:true});
-  await enabled.scheduleCancellation(id);assert.equal(calls,1);assert.equal(saved.opts.method,'POST');assert.equal(JSON.parse(saved.opts.body).effective_from,'next_billing_period');assert.match(saved.url,/^https:\/\/sandbox-api\.paddle\.com\//);
-});
+test('reads price and transaction only from the selected Paddle API',async()=>{const pid='pri_0123456789abcdefghijklmnop',tid='txn_0123456789abcdefghijklmnop';let calls=[];const p=client(async(url)=>{calls.push(url);return response(200,{data:{id:url.endsWith(pid)?pid:tid}})});assert.equal((await p.getPrice(pid)).id,pid);assert.equal((await p.getTransaction(tid)).id,tid);assert.ok(calls.every(x=>x.startsWith('https://sandbox-api.paddle.com/')));await assert.rejects(p.getPrice('../bad'));});
+test('transaction adjustments are filtered by transaction ID',async()=>{const tid='txn_0123456789abcdefghijklmnop';let url;const p=client(async u=>{url=u;return response(200,{data:[{transaction_id:tid}],meta:{pagination:{has_more:false}}});});assert.equal((await p.listAdjustments(tid)).length,1);assert.equal(new URL(url).searchParams.get('transaction_id'),tid);});

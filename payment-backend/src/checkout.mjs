@@ -1,4 +1,6 @@
 import checkoutModule from '../checkout-session.cjs';
+import paddleModule from '../paddle-client.cjs';
+import catalogModule from '../catalog-config.cjs';
 // Staged only: checkout cannot be enabled until the complete backend,
 // no-default-renewal enforcement and question delivery are tested end-to-end.
 export default async ({req,res}) => {
@@ -14,10 +16,12 @@ export default async ({req,res}) => {
     const encoded=process.env.CHECKOUT_BINDING_KEY_BASE64;
     if(typeof encoded!=='string'||!/^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(encoded)) throw Error('Invalid binding key');
     const bindingKey=Buffer.from(encoded,'base64');if(bindingKey.length<32||bindingKey.toString('base64')!==encoded) throw Error('Invalid binding key');
+    const environment=process.env.PADDLE_ENVIRONMENT;
+    const paddle=paddleModule.createPaddleClient({environment,apiKey:process.env.PADDLE_API_KEY});
+    const {productId,priceIds}=catalogModule.catalogConfig(process.env);
     service=checkoutModule.checkoutSessionService({
       endpoint:process.env.APPWRITE_FUNCTION_API_ENDPOINT,projectId:process.env.APPWRITE_FUNCTION_PROJECT_ID,
-      environment:process.env.PADDLE_ENVIRONMENT,bindingKey,
-      priceIds:{monthly:process.env.PADDLE_MONTHLY_PRICE,threeMonth:process.env.PADDLE_THREE_MONTH_PRICE,annual:process.env.PADDLE_ANNUAL_PRICE}
+      environment,bindingKey,paddle,productId,priceIds
     });
   } catch (_) {return res.json({error:'Not configured'},503);}
   const result=await service({jwt:req.headers?.['x-appwrite-user-jwt'],plan:input.plan,autoRenew:input.autoRenew});

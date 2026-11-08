@@ -8,7 +8,8 @@ function createAppwriteAuthenticator({endpoint,projectId,fetchImpl=globalThis.fe
     if(response.status===401||response.status===403)return{status:401};if(!response.ok)return{status:503};
     let account;try{account=await response.json();}catch(_){return{status:503};}
     if(typeof account?.$id!=='string'||!ID.test(account.$id))return{status:503};
-    return{status:200,userId:account.$id};
+    const createdAt=typeof account.$createdAt==='string'?Date.parse(account.$createdAt):NaN;
+    return{status:200,userId:account.$id,createdAt:Number.isFinite(createdAt)?createdAt:null};
   };
 }
 module.exports={createAppwriteAuthenticator};

@@ -5,6 +5,13 @@ const ID=/^[A-Za-z0-9][A-Za-z0-9._-]{0,35}$/;
 // Appwrite concurrency, schema and SDK compatibility MUST be verified before use.
 function createUsageStore({tables, databaseId, tableId, retries=5}) {
   if(!tables||!['createTransaction','getRow','upsertRow','updateTransaction'].every(k=>typeof tables[k]==='function') || !ID.test(databaseId||'') || !ID.test(tableId||'') || !Number.isInteger(retries)||retries<1||retries>10) throw Error('Usage store not configured');
+  async function read(userId) {
+    if(!ID.test(userId||''))throw Error('Invalid usage request');
+    let row;try{row=await tables.getRow({databaseId,tableId,rowId:userId});}
+    catch(e){if(e?.code===404&&['row_not_found','document_not_found'].includes(e.type))return null;throw Error('Usage read failed');}
+    if(!row||row.$id!==userId||typeof row.stateJson!=='string'||row.stateJson.length>700000)throw Error('Invalid usage record');
+    try{return JSON.parse(row.stateJson);}catch(_){throw Error('Invalid usage record');}
+  }
   async function transact(userId, decide) {
     if(!ID.test(userId||'')||typeof decide!=='function')throw Error('Invalid usage request');
     for(let attempt=0;attempt<retries;attempt++) {
@@ -35,6 +42,6 @@ function createUsageStore({tables, databaseId, tableId, retries=5}) {
     }
     throw Error('Usage transaction failed');
   }
-  return {transact};
+  return {read,transact};
 }
 module.exports={createUsageStore};
