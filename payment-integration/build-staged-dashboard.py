@@ -29,11 +29,12 @@ import {createDashboardBridge} from "./dashboard-bridge.mjs";
 import {createCheckoutUI} from "./checkout-ui.mjs";
 import {SECURE_CONFIG} from "./secure-config.mjs";''')
 once('      <div class="trial-strip" id="trialStrip" style="display:none"></div>', '''      <div class="trial-strip" id="trialStrip" style="display:none"></div>
-      <div id="secureAdjustmentNotice" role="status" hidden style="margin:10px 0;padding:10px 12px;border-left:3px solid #B5342A;color:#101418;font-size:13px">A payment adjustment is under review. If access looks incorrect, <a href="mailto:anastomosis.md@gmail.com">contact support</a>.</div>''')
+      <div id="secureAdjustmentNotice" role="status" hidden style="margin:10px 0;padding:10px 12px;border-left:3px solid #B5342A;color:#101418;font-size:13px">A payment adjustment is under review. If access looks incorrect, <a href="mailto:anastomosis.md@gmail.com">contact support</a>.</div>
+      <div id="secureBillingNotice" role="status" hidden style="margin:10px 0;padding:10px 12px;border-left:3px solid #1B4E5F;color:#101418;font-size:13px">We cannot verify paid access right now. Previously unlocked free questions remain reviewable. Please try again later or <a href="mailto:anastomosis.md@gmail.com">contact support</a>.</div>''')
 once('    <button class="paywall-cta" id="subscribeBtn" onclick="handleSubscribeClick()">Subscribe with card</button>', '''    <label id="secureRenewalOption" hidden style="display:none;margin:10px 0;color:var(--ink-2);font-size:13px;line-height:1.45"><input id="secureAutoRenew" type="checkbox"> Auto-renew my access. Leave unchecked for one payment only.</label>
     <button class="paywall-cta" id="subscribeBtn" onclick="handleSubscribeClick()">Subscribe with card</button>''')
 once("const _functions = new Functions(_client);", '''const _functions = new Functions(_client);
-let secureGateway=null, secureBridge=null, secureUsage=null, secureCheckoutUI=null, secureStartPending=false, secureNavigationPending=false, secureReviewNoticeShown=false;
+let secureGateway=null, secureBridge=null, secureUsage=null, secureCheckoutUI=null, secureStartPending=false, secureNavigationPending=false, secureReviewNoticeShown=false, secureBillingUnavailable=false, secureHistoryIncomplete=false;
 function initSecureIntegration() {
   if (!SECURE_CONFIG.enabled) return;
   secureGateway=createGateway({account:_account,functions:_functions,questionFunctionId:SECURE_CONFIG.questionFunctionId,checkoutFunctionId:SECURE_CONFIG.checkoutFunctionId,accessFunctionId:SECURE_CONFIG.accessFunctionId,priceIds:SECURE_CONFIG.priceIds});
@@ -45,9 +46,11 @@ function applySecureUsage(usage) {
   if(!usage || !Number.isInteger(usage.freeRemaining) || typeof usage.trialActive!=='boolean') throw Error('Usage unavailable');
   secureUsage=usage;trialEndsAt=usage.trialEndsAt||0;trialQuestionsUsed=usage.trialUsed||0;
 }
-async function refreshSecureStatus(){const snapshot=await secureGateway.questionStatus();isSubscribed=snapshot.subscribed;applySecureUsage(snapshot.usage);renderTrialStrip();const notice=$('secureAdjustmentNotice');if(notice)notice.hidden=!snapshot.reviewPending;if(snapshot.reviewPending&&!secureReviewNoticeShown){secureReviewNoticeShown=true;showToast('A payment adjustment is under review. Contact support if access looks incorrect.');}return snapshot;}
+function setSecureBillingUnavailable(value){secureBillingUnavailable=value===true;const notice=$('secureBillingNotice');if(notice)notice.hidden=!secureBillingUnavailable;}
+async function refreshSecureStatus(){const snapshot=await secureGateway.questionStatus();isSubscribed=snapshot.subscribed;setSecureBillingUnavailable(snapshot.billingUnavailable);applySecureUsage(snapshot.usage);renderTrialStrip();const notice=$('secureAdjustmentNotice');if(notice)notice.hidden=!snapshot.reviewPending;if(snapshot.reviewPending&&!secureReviewNoticeShown){secureReviewNoticeShown=true;showToast('A payment adjustment is under review. Contact support if access looks incorrect.');}return snapshot;}
 async function secureHydrate(ids,reviewOnly=false){
   const result=await (reviewOnly?secureBridge.loadReview(ids):secureBridge.loadBlock(ids));
+  setSecureBillingUnavailable(result.billingUnavailable===true);
   if(result.usage){isSubscribed=false;applySecureUsage(result.usage);renderTrialStrip();}
   if(result.limited)showToast(reviewOnly?'Some older questions need migration.':'The block was shortened to your available allowance.');
   if(!result.questions.length)throw Error('No questions available');
@@ -65,14 +68,14 @@ async function hydrateSavedHistory(){
   const required=[...refs];
   for(let offset=0;offset<required.length;offset+=20){
     const sub=$('bootSub');if(sub)sub.textContent=`Restoring study history: ${Math.min(offset+20,required.length)} of ${required.length}`;
-    const result=await secureBridge.loadReview(required.slice(offset,offset+20));
-    if(result.limited)throw Error('Historical question migration incomplete');
+    try{const result=await secureBridge.loadReview(required.slice(offset,offset+20));if(result.limited){if(secureBillingUnavailable)secureHistoryIncomplete=true;else throw Error('Historical question migration incomplete');}}
+    catch(err){if(secureBillingUnavailable&&(err?.status===503||err?.status===403))secureHistoryIncomplete=true;else throw err;}
   }
   // Previously used but unanswered IDs may not have been opened. Retrieve only
   // those already granted, without allocating quota for omitted questions.
   const optional=[...usedQuestionIds].filter(id=>!refs.has(id)&&qById(id));
   for(let offset=0;offset<optional.length;offset+=20){
-    try{await secureBridge.loadReview(optional.slice(offset,offset+20));}catch(err){if(err?.status!==403)throw err;}
+    try{const result=await secureBridge.loadReview(optional.slice(offset,offset+20));if(result.limited&&secureBillingUnavailable)secureHistoryIncomplete=true;}catch(err){if(secureBillingUnavailable&&(err?.status===503||err?.status===403))secureHistoryIncomplete=true;else if(err?.status!==403)throw err;}
   }
 }''')
 once("async function listAllQuestionDocs() {\n  const limit = 1000;", """async function listAllQuestionDocs() {
@@ -103,6 +106,11 @@ once("    const sub = $('bootSub'); if (sub) sub.textContent = 'Redirecting to l
 legacy_gate='  if (!isSubscribed && freeAccessExpired()) { showPaywall(); return; }'
 if text.count(legacy_gate)!=2: raise RuntimeError('Unexpected block access gates')
 text=text.replace(legacy_gate, '  if (!SECURE_CONFIG.enabled && !isSubscribed && freeAccessExpired()) { showPaywall(); return; }', 2)
+once('function buildAnalyst() {\n  const blocks = completedBlocks();', '''function buildAnalyst() {
+  if(SECURE_CONFIG.enabled && secureHistoryIncomplete)return `<div class="an-empty"><div class="an-eyebrow">The analyst</div><h3>Detailed analysis is temporarily unavailable.</h3><p>Your saved study history remains in your account. Try again when payment verification is available.</p></div>`;
+  const blocks = completedBlocks();''')
+once('const q = qById(qid); const a = (b.t.answers || {})[qid]; if (!q || !a) return; const ok = a === q.correct;', 'const q = qById(qid); const a = (b.t.answers || {})[qid]; if (!q || !a || (SECURE_CONFIG.enabled && q._remote && !q._loaded)) return; const ok = a === q.correct;')
+once('const q = qById(qid); if (!q) return; const ans = (t.answers || {})[qid]; if (!ans || ans !== q.correct) ids.add(qid);', 'const q = qById(qid); if (!q || (SECURE_CONFIG.enabled && q._remote && !q._loaded)) return; const ans = (t.answers || {})[qid]; if (!ans || ans !== q.correct) ids.add(qid);')
 once('function generateTest() {', 'async function generateTest() {')
 once("  const chosen = [...pool].sort(() => Math.random() - 0.5).slice(0, n);", "  let chosen = [...pool].sort(() => Math.random() - 0.5).slice(0, n);")
 once('  activeBlock = newBlock(chosen, `${subjLabel}${statusLabel}`);', '''  if(SECURE_CONFIG.enabled){if(secureStartPending)return;secureStartPending=true;try{chosen[0]=(await secureHydrate([chosen[0].id])).questions[0];}catch(err){if(err?.status===429)showPaywall();else showToast('Could not load this question.');return;}finally{secureStartPending=false;}}
@@ -114,9 +122,9 @@ once("  const chosen = [...new Set(ids)].map(id => qById(id)).filter(Boolean).so
   if(!chosen.length)return;
   activeBlock = newBlock(chosen, title);""")
 once("function reviewNotebookQuestion(qid) {\n  activeBlock", """async function reviewNotebookQuestion(qid) {
-  if(SECURE_CONFIG.enabled){try{const r=await secureHydrate([qid],true);if(r.limited)return;}catch(_){showToast('This previous question needs migration.');return;}}
+  if(SECURE_CONFIG.enabled){try{const r=await secureHydrate([qid],true);if(r.limited)return;}catch(_){showToast(secureBillingUnavailable?'Payment verification is temporarily unavailable.':'This previous question needs migration.');return;}}
   activeBlock""")
-once("function reviewTest(idx) { const t = pastTests[idx]; activeBlock", """async function reviewTest(idx) { const t = pastTests[idx]; if(SECURE_CONFIG.enabled){try{const answered=(t.qIds||[]).filter(id=>t.answers?.[id]);if(answered.length)await secureReviewHistory(answered);}catch(_){showToast('This previous block needs migration.');return;}} activeBlock""")
+once("function reviewTest(idx) { const t = pastTests[idx]; activeBlock", """async function reviewTest(idx) { const t = pastTests[idx]; if(SECURE_CONFIG.enabled){try{const answered=(t.qIds||[]).filter(id=>t.answers?.[id]);if(answered.length)await secureReviewHistory(answered);}catch(_){showToast(secureBillingUnavailable?'Payment verification is temporarily unavailable.':'This previous block needs migration.');return;}} activeBlock""")
 once("function resumeTest(idx) { const t = pastTests[idx]; activeBlock", """async function resumeTest(idx) { const t = pastTests[idx]; if(SECURE_CONFIG.enabled){try{const target=(t.qIds||[])[Math.min(t.current||0,(t.qIds||[]).length-1)];await secureHydrate([target]);}catch(err){if(err?.status===429)showPaywall();else showToast('Could not load this question.');return;}} activeBlock""")
 once('  let usedChanged = false; activeBlock.qIds.forEach(qid => { if (!usedQuestionIds.has(qid)) { usedQuestionIds.add(qid); usedChanged = true; } }); if (usedChanged) saveUserUsed();', '  let usedChanged = false; activeBlock.qIds.forEach(qid => { const q=qById(qid); if(SECURE_CONFIG.enabled && q?._remote && !q._loaded)return; if (!usedQuestionIds.has(qid)) { usedQuestionIds.add(qid); usedChanged = true; } }); if (usedChanged) saveUserUsed();')
 once('function freeQuestionsLeftToday() {\n  return Math.max', 'function freeQuestionsLeftToday() {\n  if(SECURE_CONFIG.enabled)return secureUsage?.freeRemaining ?? 0;\n  return Math.max')
@@ -129,7 +137,7 @@ once('  function freeAccessExpired() {\n    if (FREE_TRIAL_DAYS', '''  function 
 once('    const trialRunning = FREE_TRIAL_DAYS > 0 && trialEndsAt && Date.now() <= trialEndsAt;', '    const trialRunning = SECURE_CONFIG.enabled ? !!secureUsage?.trialActive : FREE_TRIAL_DAYS > 0 && trialEndsAt && Date.now() <= trialEndsAt;')
 once('      const dayOne = !(blocksUsed > 0 || freeUsedToday > 0);', '      const dayOne = SECURE_CONFIG.enabled ? !!secureUsage?.firstFreeDay : !(blocksUsed > 0 || freeUsedToday > 0);')
 once('  async function startFreeTrial() {\n    if (isSubscribed)', '''  async function startFreeTrial() {
-    if(SECURE_CONFIG.enabled){if(isSubscribed){showToast('You are already subscribed.');return;}try{const result=await secureGateway.startTrial();if(result.usage)applySecureUsage(result.usage);renderTrialStrip();showToast('Free trial started.');}catch(err){showToast(err?.status===409?'Your trial has already been used.':'Could not start the trial.');}return;}
+    if(SECURE_CONFIG.enabled){if(secureBillingUnavailable){showToast('Access verification is temporarily unavailable.');return;}if(isSubscribed){showToast('You are already subscribed.');return;}try{const result=await secureGateway.startTrial();if(result.usage)applySecureUsage(result.usage);renderTrialStrip();showToast('Free trial started.');}catch(err){showToast(err?.status===409?'Your trial has already been used.':'Could not start the trial.');}return;}
     if (isSubscribed)''')
 once('async function loadSubscriptionState() {\n  try { const prefs', '''async function loadSubscriptionState() {
   if(SECURE_CONFIG.enabled){const prefs=await _account.getPrefs();blocksUsed=parseInt(prefs.blocksUsed||'0',10)||0;await refreshSecureStatus();return;}
@@ -144,6 +152,7 @@ chunk=text[start:end].replace('[PADDLE_PRICES.monthly, PADDLE_PRICES.threeMonth,
 text=text[:start]+chunk+text[end:]
 once('function handleSubscribeClick(plan = selectedPlan) {\n  if (!currentUser)', '''async function handleSubscribeClick(plan = selectedPlan) {
   if(SECURE_CONFIG.enabled){
+    if(secureBillingUnavailable){showToast('Access verification is temporarily unavailable. Please try again later.');return;}
     if(!currentUser||!initPaddle()){showToast('Checkout is unavailable.');return;}
     try{secureCheckoutUI ||= createCheckoutUI({gateway:secureGateway,paddle:window.Paddle});await secureCheckoutUI.open(plan,{autoRenew:!!$('secureAutoRenew')?.checked,discountCode:$('promoInput')?.value.trim().toUpperCase()||''});}catch(_){showToast('Checkout is unavailable. Please try again.');}return;
   }
@@ -153,6 +162,15 @@ once('function handleSubscribeClick(plan = selectedPlan) {\n  if (!currentUser)'
 # and keep the prior question visible until the new one is authorized.
 once('/* ===================== EXPOSE TO GLOBAL SCOPE ===================== */', """/* Secure access adapter: original exam markup and renderer are unchanged. */
 if(SECURE_CONFIG.enabled){
+  const originalCompletedBlocks=completedBlocks;
+  completedBlocks=function(){
+    const blocks=originalCompletedBlocks();if(!secureHistoryIncomplete)return blocks;
+    return blocks.map(block=>{const t=block.t,ids=t.qIds||[],missing=ids.some(id=>t.answers?.[id]&&(!qById(id)||(qById(id)._remote&&!qById(id)._loaded)));if(!missing)return block;
+      const omitted=ids.filter(id=>!t.answers?.[id]).length,answered=ids.length-omitted;
+      if(!Number.isInteger(t.score)||t.total!==ids.length||t.score<0||t.score>answered)return null;
+      return{...block,correct:t.score,incorrect:answered-t.score,omitted,pct:pctOf(t.score,ids.length)};
+    }).filter(Boolean);
+  };
   const originalGoToItem=goToItem;
   goToItem=function(idx){
     if(secureNavigationPending)return;

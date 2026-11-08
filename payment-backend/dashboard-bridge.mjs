@@ -28,7 +28,7 @@ export function createDashboardBridge({gateway,questionBank,unpackQuestion}) {
     if(replacements.some(r=>r.index<0))throw Error('Question catalogue changed');
     for(const item of replacements)questionBank[item.index]=item.q;
     const selected=ids.filter(id=>!byId.get(id)._remote||decoded.has(id)).map(id=>decoded.get(id)||byId.get(id));
-    return{questions:selected,limited:response.exhausted||selected.length<ids.length,usage:response.usage||null};
+    return{questions:selected,limited:response.exhausted||selected.length<ids.length,usage:response.usage||null,billingUnavailable:response.billingUnavailable===true};
   }
   return{loadCatalog,loadBlock:ids=>hydrate(ids,false),loadReview:ids=>hydrate(ids,true)};
 }

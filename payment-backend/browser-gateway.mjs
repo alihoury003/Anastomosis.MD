@@ -30,13 +30,13 @@ export function createGateway({account,functions,questionFunctionId,checkoutFunc
   async function fetchQuestions(ids,path){
     if(!Array.isArray(ids)||ids.length<1||ids.length>20||ids.some(id=>typeof id!=='string'||!ID.test(id))||new Set(ids).size!==ids.length)throw new GatewayError(400);
     const body=await call(questionFunctionId,path,'POST',{questionIds:ids});
-    if(!Array.isArray(body.results)||typeof body.exhausted!=='boolean'||body.results.length>ids.length||('usage' in body&&!validUsage(body.usage)))throw new GatewayError(503);
+    if(!Array.isArray(body.results)||typeof body.exhausted!=='boolean'||body.results.length>ids.length||('billingUnavailable' in body&&typeof body.billingUnavailable!=='boolean')||('usage' in body&&!validUsage(body.usage)))throw new GatewayError(503);
     const seen=new Set();for(const result of body.results){const id=result?.question?.$id;if(!ids.includes(id)||seen.has(id)||!['paid','trial','free','review'].includes(result.source))throw new GatewayError(503);seen.add(id);}
     return body;
   }
   async function questions(ids){return fetchQuestions(ids,'/questions');}
   async function review(ids){return fetchQuestions(ids,'/review');}
-  async function questionStatus(){const body=await call(questionFunctionId,'/status','GET');if(typeof body.subscribed!=='boolean'||typeof body.reviewPending!=='boolean'||typeof body.migrationRequired!=='boolean'||!validUsage(body.usage))throw new GatewayError(503);return body;}
+  async function questionStatus(){const body=await call(questionFunctionId,'/status','GET');if(typeof body.subscribed!=='boolean'||typeof body.reviewPending!=='boolean'||typeof body.billingUnavailable!=='boolean'||typeof body.migrationRequired!=='boolean'||!validUsage(body.usage))throw new GatewayError(503);return body;}
   async function startTrial(){const body=await call(questionFunctionId,'/trial','POST',{});if(!validUsage(body.usage))throw new GatewayError(503);return body;}
   async function paidAccess(){const body=await call(accessFunctionId,'/','GET');if(typeof body.subscribed!=='boolean')throw new GatewayError(503);return body;}
   async function checkout(plan,autoRenew){

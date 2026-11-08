@@ -38,15 +38,22 @@ function publicMetadata(doc){
 }
 function createQuestionAccess({questions,usage,entitlements,clock=()=>Date.now()}) {
   if(!questions||typeof questions.get!=='function'||!usage||typeof usage.transact!=='function'||typeof usage.read!=='function'||!entitlements||typeof entitlements.check!=='function'||typeof clock!=='function')throw Error('Question access not configured');
+  async function getEntitlement(userId){
+    let result;try{result=await entitlements.check(userId);}catch(_){return{unavailable:true};}
+    if(result?.status===503)return{unavailable:true};
+    if(result?.status!==200||typeof result.body?.subscribed!=='boolean')throw Error('Invalid entitlement');
+    return{unavailable:false,body:result.body};
+  }
   async function status(userId){
     if(!ID.test(userId||''))return{status:401,body:{error:'Sign in required'}};
     const now=clock();if(!Number.isSafeInteger(now)||now<0)return{status:503,body:{error:'Service unavailable'}};
-    let entitlement;try{entitlement=await entitlements.check(userId);if(entitlement?.status!==200||typeof entitlement.body?.subscribed!=='boolean')throw Error('Entitlement unavailable');}catch(_){return{status:503,body:{error:'Service unavailable'}};}
-    try{const previous=await usage.read(userId);const state=previous===null?freshState():structuredClone(previous);if(!validState(state))throw Error('Invalid usage state');return{status:200,body:{subscribed:entitlement.body.subscribed,reviewPending:entitlement.body.reviewPending===true,usage:summarizeUsage(state,now)}};}catch(_){return{status:503,body:{error:'Service unavailable'}};}
+    let entitlement;try{entitlement=await getEntitlement(userId);}catch(_){return{status:503,body:{error:'Service unavailable'}};}
+    try{const previous=await usage.read(userId);const state=previous===null?freshState():structuredClone(previous);if(!validState(state))throw Error('Invalid usage state');return{status:200,body:{subscribed:entitlement.unavailable?false:entitlement.body.subscribed,reviewPending:entitlement.unavailable?false:entitlement.body.reviewPending===true,billingUnavailable:entitlement.unavailable,usage:summarizeUsage(state,now)}};}catch(_){return{status:503,body:{error:'Service unavailable'}};}
   }
   async function startTrial(userId){
     if(!ID.test(userId||''))return{status:401,body:{error:'Sign in required'}};
     const now=clock();if(!Number.isSafeInteger(now)||now<0)return{status:503,body:{error:'Service unavailable'}};
+    try{const entitlement=await getEntitlement(userId);if(entitlement.unavailable)return{status:503,body:{error:'Access verification unavailable'}};if(entitlement.body.subscribed)return{status:409,body:{error:'Already subscribed'}};}catch(_){return{status:503,body:{error:'Service unavailable'}};}
     try{return await usage.transact(userId,async previous=>{
       const state=previous===null?freshState():structuredClone(previous);if(!validState(state))throw Error('Invalid usage state');
       if(state.trialStartedAt!==null)return{state,result:{status:409,body:{error:'Trial already started'}}};
@@ -78,18 +85,29 @@ function createQuestionAccess({questions,usage,entitlements,clock=()=>Date.now()
     const now=clock();if(!Number.isSafeInteger(now)||now<0)return{status:503,body:{error:'Service unavailable'}};
     let entitlement,docs;
     try{
-      entitlement=await entitlements.check(userId);
-      if(!entitlement||entitlement.status!==200||typeof entitlement.body?.subscribed!=='boolean')throw Error('Entitlement unavailable');
-      if(entitlement.body.admin===true&&entitlement.body.subscribed!==true)throw Error('Invalid admin entitlement');
-      if(entitlement.body.admin!==true){
-        const active=entitlement.body.activeBillingIds,reviewable=entitlement.body.reviewableBillingIds;
-        if(!Array.isArray(active)||!Array.isArray(reviewable)||active.length>500||reviewable.length>500||active.some(x=>typeof x!=='string'||!BILLING.test(x))||reviewable.some(x=>typeof x!=='string'||!BILLING.test(x))||new Set(active).size!==active.length||new Set(reviewable).size!==reviewable.length||active.some(x=>!reviewable.includes(x))||(entitlement.body.subscribed!== (active.length>0)))throw Error('Invalid entitlement sources');
+      entitlement=await getEntitlement(userId);
+      if(!entitlement.unavailable){
+        if(entitlement.body.admin===true&&entitlement.body.subscribed!==true)throw Error('Invalid admin entitlement');
+        if(entitlement.body.admin!==true){
+          const active=entitlement.body.activeBillingIds,reviewable=entitlement.body.reviewableBillingIds;
+          if(!Array.isArray(active)||!Array.isArray(reviewable)||active.length>500||reviewable.length>500||active.some(x=>typeof x!=='string'||!BILLING.test(x))||reviewable.some(x=>typeof x!=='string'||!BILLING.test(x))||new Set(active).size!==active.length||new Set(reviewable).size!==reviewable.length||active.some(x=>!reviewable.includes(x))||(entitlement.body.subscribed!== (active.length>0)))throw Error('Invalid entitlement sources');
+        }
       }
       docs=await Promise.all(questionIds.map(id=>questions.get(id)));
       if(docs.some(doc=>!doc))return{status:404,body:{error:'Question not found'}};
       if(docs.some((doc,i)=>doc.$id!==questionIds[i]))throw Error('Question mismatch');
       docs=docs.map(publicQuestion);
     }catch(_){return{status:503,body:{error:'Service unavailable'}};}
+    if(entitlement.unavailable){
+      // Do not grant paid or new free content on an unknown billing state, and
+      // do not consume a student's quota. Previously free/legacy-granted items
+      // can still be reviewed without consulting the payment provider.
+      try{const previous=await usage.read(userId),state=previous===null?freshState():structuredClone(previous);if(!validState(state))throw Error('Invalid usage state');
+        const results=[];for(let i=0;i<questionIds.length;i++)if(state.grantedIds.includes(questionIds[i]))results.push({question:docs[i],source:'review'});
+        if(!results.length)return{status:503,body:{error:'Access verification unavailable',billingUnavailable:true}};
+        return{status:200,body:{results,exhausted:results.length<questionIds.length,billingUnavailable:true,usage:summarizeUsage(state,now)}};
+      }catch(_){return{status:503,body:{error:'Service unavailable'}};}
+    }
     if(entitlement.body.subscribed){
       if(entitlement.body.admin===true)return{status:200,body:{results:docs.map(question=>({question,source:'paid'})),exhausted:false}};
       try{return await usage.transact(userId,async previous=>{
