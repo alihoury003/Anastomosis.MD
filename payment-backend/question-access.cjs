@@ -78,7 +78,15 @@ function createQuestionAccess({questions,usage,entitlements,clock=()=>Date.now()
       if(docs.some((doc,i)=>doc.$id!==questionIds[i]))throw Error('Question mismatch');
       docs=docs.map(publicQuestion);
     }catch(_){return{status:503,body:{error:'Service unavailable'}};}
-    if(entitlement.body.subscribed)return{status:200,body:{results:docs.map(question=>({question,source:'paid'})),exhausted:false}};
+    if(entitlement.body.subscribed){
+      // Record only questions actually requested while access is active. A
+      // private durable grant allows later review after the paid term ends.
+      try{return await usage.transact(userId,async previous=>{
+        const state=previous===null?freshState():structuredClone(previous);if(!validState(state))throw Error('Invalid usage state');
+        for(const id of questionIds)if(!state.grantedIds.includes(id)){if(state.grantedIds.length>=10000)throw Error('Usage state full');state.grantedIds.push(id);}
+        return{state,result:{status:200,body:{results:docs.map(question=>({question,source:'paid'})),exhausted:false}}};
+      });}catch(_){return{status:503,body:{error:'Service unavailable'}};}
+    }
     try{return await usage.transact(userId,async previous=>{
       const state=previous===null?freshState():structuredClone(previous);if(!validState(state))throw Error('Invalid usage state');
       const results=[];let exhausted=false;

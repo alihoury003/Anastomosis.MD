@@ -31,7 +31,7 @@ import {SECURE_CONFIG} from "./secure-config.mjs";''')
 once('    <button class="paywall-cta" id="subscribeBtn" onclick="handleSubscribeClick()">Subscribe with card</button>', '''    <label id="secureRenewalOption" hidden style="display:none;margin:10px 0;color:var(--ink-2);font-size:13px;line-height:1.45"><input id="secureAutoRenew" type="checkbox"> Auto-renew my access. Leave unchecked for one payment only.</label>
     <button class="paywall-cta" id="subscribeBtn" onclick="handleSubscribeClick()">Subscribe with card</button>''')
 once("const _functions = new Functions(_client);", '''const _functions = new Functions(_client);
-let secureGateway=null, secureBridge=null, secureUsage=null, secureCheckoutUI=null;
+let secureGateway=null, secureBridge=null, secureUsage=null, secureCheckoutUI=null, secureStartPending=false, secureNavigationPending=false;
 function initSecureIntegration() {
   if (!SECURE_CONFIG.enabled) return;
   secureGateway=createGateway({account:_account,functions:_functions,questionFunctionId:SECURE_CONFIG.questionFunctionId,checkoutFunctionId:SECURE_CONFIG.checkoutFunctionId,accessFunctionId:SECURE_CONFIG.accessFunctionId,priceIds:SECURE_CONFIG.priceIds});
@@ -58,14 +58,19 @@ async function secureReviewHistory(ids){
 }
 async function hydrateSavedHistory(){
   const refs=new Set();
-  for(const t of pastTests)for(const id of (Array.isArray(t.qIds)?t.qIds:[]))if(qById(id))refs.add(id);
+  for(const t of pastTests)for(const id of (Array.isArray(t.qIds)?t.qIds:[]))if(t.answers?.[id]&&qById(id))refs.add(id);
   for(const item of notebookItems)if(qById(item?.qid))refs.add(item.qid);
-  for(const id of usedQuestionIds)if(qById(id))refs.add(id);
-  const ids=[...refs];
-  for(let offset=0;offset<ids.length;offset+=20){
-    const sub=$('bootSub');if(sub)sub.textContent=`Restoring study history: ${Math.min(offset+20,ids.length)} of ${ids.length}`;
-    const result=await secureBridge.loadReview(ids.slice(offset,offset+20));
+  const required=[...refs];
+  for(let offset=0;offset<required.length;offset+=20){
+    const sub=$('bootSub');if(sub)sub.textContent=`Restoring study history: ${Math.min(offset+20,required.length)} of ${required.length}`;
+    const result=await secureBridge.loadReview(required.slice(offset,offset+20));
     if(result.limited)throw Error('Historical question migration incomplete');
+  }
+  // Previously used but unanswered IDs may not have been opened. Retrieve only
+  // those already granted, without allocating quota for omitted questions.
+  const optional=[...usedQuestionIds].filter(id=>!refs.has(id)&&qById(id));
+  for(let offset=0;offset<optional.length;offset+=20){
+    try{await secureBridge.loadReview(optional.slice(offset,offset+20));}catch(err){if(err?.status!==403)throw err;}
   }
 }''')
 once("async function listAllQuestionDocs() {\n  const limit = 1000;", """async function listAllQuestionDocs() {
@@ -93,21 +98,25 @@ once("    });\n  } catch (err) {\n    const sub = $('bootSub');", "    };\n    i
 once("    const sub = $('bootSub'); if (sub) sub.textContent = 'Redirecting to login';\n    window.location.href = 'login.html';", """    const sub = $('bootSub');
     if(currentUser&&SECURE_CONFIG.enabled){if(sub)sub.textContent='The secure upgrade is unavailable. Please contact support.';return;}
     if(sub)sub.textContent='Redirecting to login';window.location.href='login.html';""")
+legacy_gate='  if (!isSubscribed && freeAccessExpired()) { showPaywall(); return; }'
+if text.count(legacy_gate)!=2: raise RuntimeError('Unexpected block access gates')
+text=text.replace(legacy_gate, '  if (!SECURE_CONFIG.enabled && !isSubscribed && freeAccessExpired()) { showPaywall(); return; }', 2)
 once('function generateTest() {', 'async function generateTest() {')
 once("  const chosen = [...pool].sort(() => Math.random() - 0.5).slice(0, n);", "  let chosen = [...pool].sort(() => Math.random() - 0.5).slice(0, n);")
-once('  activeBlock = newBlock(chosen, `${subjLabel}${statusLabel}`);', '''  if(SECURE_CONFIG.enabled){try{chosen=(await secureHydrate(chosen.map(q=>q.id))).questions;}catch(err){if(err?.status===429)showPaywall();else showToast('Could not load these questions.');return;}}
+once('  activeBlock = newBlock(chosen, `${subjLabel}${statusLabel}`);', '''  if(SECURE_CONFIG.enabled){if(secureStartPending)return;secureStartPending=true;try{chosen[0]=(await secureHydrate([chosen[0].id])).questions[0];}catch(err){if(err?.status===429)showPaywall();else showToast('Could not load this question.');return;}finally{secureStartPending=false;}}
   if(!chosen.length)return;
   activeBlock = newBlock(chosen, `${subjLabel}${statusLabel}`);''')
 once("function startBlockFromIds(ids, title = 'Custom Review') {", "async function startBlockFromIds(ids, title = 'Custom Review') {")
 once("  const chosen = [...new Set(ids)].map(id => qById(id)).filter(Boolean).sort(() => Math.random() - 0.5).slice(0, 20);\n  activeBlock = newBlock(chosen, title);", """  let chosen = [...new Set(ids)].map(id => qById(id)).filter(Boolean).sort(() => Math.random() - 0.5).slice(0, 20);
-  if(SECURE_CONFIG.enabled){try{chosen=(await secureHydrate(chosen.map(q=>q.id))).questions;}catch(err){if(err?.status===429)showPaywall();else showToast('Could not load these questions.');return;}}
+  if(SECURE_CONFIG.enabled){if(secureStartPending)return;secureStartPending=true;try{chosen[0]=(await secureHydrate([chosen[0].id])).questions[0];}catch(err){if(err?.status===429)showPaywall();else showToast('Could not load this question.');return;}finally{secureStartPending=false;}}
   if(!chosen.length)return;
   activeBlock = newBlock(chosen, title);""")
 once("function reviewNotebookQuestion(qid) {\n  activeBlock", """async function reviewNotebookQuestion(qid) {
   if(SECURE_CONFIG.enabled){try{const r=await secureHydrate([qid],true);if(r.limited)return;}catch(_){showToast('This previous question needs migration.');return;}}
   activeBlock""")
-once("function reviewTest(idx) { const t = pastTests[idx]; activeBlock", """async function reviewTest(idx) { const t = pastTests[idx]; if(SECURE_CONFIG.enabled){try{await secureReviewHistory(t.qIds);}catch(_){showToast('This previous block needs migration.');return;}} activeBlock""")
-once("function resumeTest(idx) { const t = pastTests[idx]; activeBlock", """async function resumeTest(idx) { const t = pastTests[idx]; if(SECURE_CONFIG.enabled){try{await secureReviewHistory(t.qIds);}catch(_){showToast('This paused block needs migration.');return;}} activeBlock""")
+once("function reviewTest(idx) { const t = pastTests[idx]; activeBlock", """async function reviewTest(idx) { const t = pastTests[idx]; if(SECURE_CONFIG.enabled){try{const answered=(t.qIds||[]).filter(id=>t.answers?.[id]);if(answered.length)await secureReviewHistory(answered);}catch(_){showToast('This previous block needs migration.');return;}} activeBlock""")
+once("function resumeTest(idx) { const t = pastTests[idx]; activeBlock", """async function resumeTest(idx) { const t = pastTests[idx]; if(SECURE_CONFIG.enabled){try{const target=(t.qIds||[])[Math.min(t.current||0,(t.qIds||[]).length-1)];await secureHydrate([target]);}catch(err){if(err?.status===429)showPaywall();else showToast('Could not load this question.');return;}} activeBlock""")
+once('  let usedChanged = false; activeBlock.qIds.forEach(qid => { if (!usedQuestionIds.has(qid)) { usedQuestionIds.add(qid); usedChanged = true; } }); if (usedChanged) saveUserUsed();', '  let usedChanged = false; activeBlock.qIds.forEach(qid => { const q=qById(qid); if(SECURE_CONFIG.enabled && q?._remote && !q._loaded)return; if (!usedQuestionIds.has(qid)) { usedQuestionIds.add(qid); usedChanged = true; } }); if (usedChanged) saveUserUsed();')
 once('function freeQuestionsLeftToday() {\n  return Math.max', 'function freeQuestionsLeftToday() {\n  if(SECURE_CONFIG.enabled)return secureUsage?.freeRemaining ?? 0;\n  return Math.max')
 once('function countFreeQuestion() {\n  freeUsedToday += 1;', '''function countFreeQuestion() {
   if(SECURE_CONFIG.enabled)return; // Server reserves question exposure atomically.
@@ -137,6 +146,34 @@ once('function handleSubscribeClick(plan = selectedPlan) {\n  if (!currentUser)'
     try{secureCheckoutUI ||= createCheckoutUI({gateway:secureGateway,paddle:window.Paddle});await secureCheckoutUI.open(plan,{autoRenew:!!$('secureAutoRenew')?.checked,discountCode:$('promoInput')?.value.trim().toUpperCase()||''});}catch(_){showToast('Checkout is unavailable. Please try again.');}return;
   }
   if (!currentUser)''')
+# Preserve the exam markup and renderer. Intercept only navigation before a
+# not-yet-seen question is displayed, pause the clock during network loading,
+# and keep the prior question visible until the new one is authorized.
+once('/* ===================== EXPOSE TO GLOBAL SCOPE ===================== */', """/* Secure access adapter: original exam markup and renderer are unchanged. */
+if(SECURE_CONFIG.enabled){
+  const originalGoToItem=goToItem;
+  goToItem=function(idx){
+    if(secureNavigationPending)return;
+    if(!activeBlock||idx<0||idx>=activeBlock.qIds.length||idx===current)return originalGoToItem(idx);
+    const question=qById(activeBlock.qIds[idx]);
+    if(!question||!question._remote||question._loaded)return originalGoToItem(idx);
+    const block=activeBlock, priorIndex=current, screen=$('screen-block'), previousInert=!!screen?.inert;
+    secureNavigationPending=true;if(screen)screen.inert=true;
+    if(block.isNew){trackCurrentQuestionTime();clearInterval(timerInterval);}
+    showToast('Loading question…');let failure=null;
+    return secureHydrate([question.id]).then(()=>{
+      if(activeBlock!==block||current!==priorIndex)return;
+      if(block.isNew)block.itemStartedAt=Date.now();
+      originalGoToItem(idx);
+    }).catch(err=>{failure=err;}).finally(()=>{
+      secureNavigationPending=false;if(screen)screen.inert=previousInert;
+      if(activeBlock===block&&block.isNew){block.itemStartedAt=Date.now();startBlockTimer();}
+      if(failure){if(failure.status===429)showPaywall();else showToast('Could not load this question. Try again.');}
+    });
+  };
+  document.addEventListener('keydown',event=>{if(secureNavigationPending){event.preventDefault();event.stopImmediatePropagation();}},true);
+}
+/* ===================== EXPOSE TO GLOBAL SCOPE ===================== */""")
 # The secure path must never treat the browser event itself as paid entitlement.
 once("eventCallback: function (data) { if (data && data.name === 'checkout.completed') { alert('Payment completed. Your access will activate once payment confirmation is processed. If it does not unlock shortly, refresh once or contact support.'); } }", "eventCallback: function (data) { if (data && data.name === 'checkout.completed') { if(SECURE_CONFIG.enabled){showToast('Payment submitted. Checking account access.');refreshSecureStatus().then(()=>{if(isSubscribed)showToast('Your access is active.');else showToast('Payment is being confirmed. Refresh later or contact support.');}).catch(()=>showToast('Payment is being confirmed. Refresh later or contact support.'));}else alert('Payment completed. Your access will activate once payment confirmation is processed. If it does not unlock shortly, refresh once or contact support.'); } }")
 (OUT/'dashboard.html').write_text(text,encoding='utf-8')

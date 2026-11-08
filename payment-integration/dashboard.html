@@ -2698,7 +2698,7 @@ const _client = new Client().setEndpoint("https://nyc.cloud.appwrite.io/v1").set
 const _account   = new Account(_client);
 const _databases = new Databases(_client);
 const _functions = new Functions(_client);
-let secureGateway=null, secureBridge=null, secureUsage=null, secureCheckoutUI=null;
+let secureGateway=null, secureBridge=null, secureUsage=null, secureCheckoutUI=null, secureStartPending=false, secureNavigationPending=false;
 function initSecureIntegration() {
   if (!SECURE_CONFIG.enabled) return;
   secureGateway=createGateway({account:_account,functions:_functions,questionFunctionId:SECURE_CONFIG.questionFunctionId,checkoutFunctionId:SECURE_CONFIG.checkoutFunctionId,accessFunctionId:SECURE_CONFIG.accessFunctionId,priceIds:SECURE_CONFIG.priceIds});
@@ -2725,14 +2725,19 @@ async function secureReviewHistory(ids){
 }
 async function hydrateSavedHistory(){
   const refs=new Set();
-  for(const t of pastTests)for(const id of (Array.isArray(t.qIds)?t.qIds:[]))if(qById(id))refs.add(id);
+  for(const t of pastTests)for(const id of (Array.isArray(t.qIds)?t.qIds:[]))if(t.answers?.[id]&&qById(id))refs.add(id);
   for(const item of notebookItems)if(qById(item?.qid))refs.add(item.qid);
-  for(const id of usedQuestionIds)if(qById(id))refs.add(id);
-  const ids=[...refs];
-  for(let offset=0;offset<ids.length;offset+=20){
-    const sub=$('bootSub');if(sub)sub.textContent=`Restoring study history: ${Math.min(offset+20,ids.length)} of ${ids.length}`;
-    const result=await secureBridge.loadReview(ids.slice(offset,offset+20));
+  const required=[...refs];
+  for(let offset=0;offset<required.length;offset+=20){
+    const sub=$('bootSub');if(sub)sub.textContent=`Restoring study history: ${Math.min(offset+20,required.length)} of ${required.length}`;
+    const result=await secureBridge.loadReview(required.slice(offset,offset+20));
     if(result.limited)throw Error('Historical question migration incomplete');
+  }
+  // Previously used but unanswered IDs may not have been opened. Retrieve only
+  // those already granted, without allocating quota for omitted questions.
+  const optional=[...usedQuestionIds].filter(id=>!refs.has(id)&&qById(id));
+  for(let offset=0;offset<optional.length;offset+=20){
+    try{await secureBridge.loadReview(optional.slice(offset,offset+20));}catch(err){if(err?.status!==403)throw err;}
   }
 }
 
@@ -3417,13 +3422,13 @@ function newBlock(qs, title) {
   return { qIds: qs.map(q => q.id), answers: {}, flagged: {}, struck: {}, highlights: {}, timeSpent: {}, expectedSecondsPerQuestion: SECONDS_PER_QUESTION, totalSeconds, remainingSeconds: totalSeconds, itemStartedAt: Date.now(), title, isNew: true, status: 'active' };
 }
 async function generateTest() {
-  if (!isSubscribed && freeAccessExpired()) { showPaywall(); return; }
+  if (!SECURE_CONFIG.enabled && !isSubscribed && freeAccessExpired()) { showPaywall(); return; }
   const pool = matchingQuestions(); if (pool.length === 0) return;
   const n = Math.min(parseInt($('qcountSlider').value, 10), pool.length);
   let chosen = [...pool].sort(() => Math.random() - 0.5).slice(0, n);
   const sysList = [...selectedSystems]; const subjLabel = sysList.length === allSystems().length ? 'All systems' : sysList.length ? sysList.slice(0, 2).map(x => x.replace(/ \(.*\)$/, '')).join(', ') + (sysList.length > 2 ? '…' : '') : 'Custom';
   const statusLabel = { all: '', unused: '', incorrect: ' · retry', marked: ' · marked' }[selectedStatus] || '';
-  if(SECURE_CONFIG.enabled){try{chosen=(await secureHydrate(chosen.map(q=>q.id))).questions;}catch(err){if(err?.status===429)showPaywall();else showToast('Could not load these questions.');return;}}
+  if(SECURE_CONFIG.enabled){if(secureStartPending)return;secureStartPending=true;try{chosen[0]=(await secureHydrate([chosen[0].id])).questions[0];}catch(err){if(err?.status===429)showPaywall();else showToast('Could not load this question.');return;}finally{secureStartPending=false;}}
   if(!chosen.length)return;
   activeBlock = newBlock(chosen, `${subjLabel}${statusLabel}`);
   current = 0; submitted = false; tutorMode = true; setModeBtn();
@@ -3431,9 +3436,9 @@ async function generateTest() {
 }
 async function startBlockFromIds(ids, title = 'Custom Review') {
   if (!ids || ids.length === 0) { showToast('No questions available for this yet.'); return; }
-  if (!isSubscribed && freeAccessExpired()) { showPaywall(); return; }
+  if (!SECURE_CONFIG.enabled && !isSubscribed && freeAccessExpired()) { showPaywall(); return; }
   let chosen = [...new Set(ids)].map(id => qById(id)).filter(Boolean).sort(() => Math.random() - 0.5).slice(0, 20);
-  if(SECURE_CONFIG.enabled){try{chosen=(await secureHydrate(chosen.map(q=>q.id))).questions;}catch(err){if(err?.status===429)showPaywall();else showToast('Could not load these questions.');return;}}
+  if(SECURE_CONFIG.enabled){if(secureStartPending)return;secureStartPending=true;try{chosen[0]=(await secureHydrate([chosen[0].id])).questions[0];}catch(err){if(err?.status===429)showPaywall();else showToast('Could not load this question.');return;}finally{secureStartPending=false;}}
   if(!chosen.length)return;
   activeBlock = newBlock(chosen, title); current = 0; submitted = false; tutorMode = true; setModeBtn();
   goScreen('block'); startBlockTimer(); renderBlockQuestion();
@@ -3478,8 +3483,8 @@ function blockFromRecord(t, isNew) {
     remainingSeconds: isNew ? (typeof t.remainingSeconds === 'number' ? t.remainingSeconds : (t.qIds || []).length * SECONDS_PER_QUESTION) : 0, totalTimeUsed: t.totalTimeUsed || 0,
     itemStartedAt: Date.now(), title: t.title, isNew, status: isNew ? 'active' : 'completed', resumeTestId: isNew ? t.id : undefined };
 }
-async function reviewTest(idx) { const t = pastTests[idx]; if(SECURE_CONFIG.enabled){try{await secureReviewHistory(t.qIds);}catch(_){showToast('This previous block needs migration.');return;}} activeBlock = blockFromRecord(t, false); current = -1; submitted = true; tutorMode = true; setModeBtn(); goScreen('block'); renderBlockSummary(); }
-async function resumeTest(idx) { const t = pastTests[idx]; if(SECURE_CONFIG.enabled){try{await secureReviewHistory(t.qIds);}catch(_){showToast('This paused block needs migration.');return;}} activeBlock = blockFromRecord(t, true); current = Math.min(t.current || 0, activeBlock.qIds.length - 1); submitted = false; tutorMode = t.tutorMode !== false; setModeBtn(); goScreen('block'); startBlockTimer(); renderBlockQuestion(); }
+async function reviewTest(idx) { const t = pastTests[idx]; if(SECURE_CONFIG.enabled){try{const answered=(t.qIds||[]).filter(id=>t.answers?.[id]);if(answered.length)await secureReviewHistory(answered);}catch(_){showToast('This previous block needs migration.');return;}} activeBlock = blockFromRecord(t, false); current = -1; submitted = true; tutorMode = true; setModeBtn(); goScreen('block'); renderBlockSummary(); }
+async function resumeTest(idx) { const t = pastTests[idx]; if(SECURE_CONFIG.enabled){try{const target=(t.qIds||[])[Math.min(t.current||0,(t.qIds||[]).length-1)];await secureHydrate([target]);}catch(err){if(err?.status===429)showPaywall();else showToast('Could not load this question.');return;}} activeBlock = blockFromRecord(t, true); current = Math.min(t.current || 0, activeBlock.qIds.length - 1); submitted = false; tutorMode = t.tutorMode !== false; setModeBtn(); goScreen('block'); startBlockTimer(); renderBlockQuestion(); }
 
 /* ===================== BLOCK RUNNER ===================== */
 function formatTime(s) { s = Math.max(0, Math.floor(s || 0)); const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), r = s % 60; return h > 0 ? `${h}:${String(m).padStart(2, '0')}:${String(r).padStart(2, '0')}` : `${m}:${String(r).padStart(2, '0')}`; }
@@ -3570,7 +3575,7 @@ function finishBlock(reason = 'manual') {
   if (existingIdx >= 0) pastTests[existingIdx] = completed; else pastTests.push(completed);
   saveUserTests();
   // every item in a finished block counts as used, answered or omitted
-  let usedChanged = false; activeBlock.qIds.forEach(qid => { if (!usedQuestionIds.has(qid)) { usedQuestionIds.add(qid); usedChanged = true; } }); if (usedChanged) saveUserUsed();
+  let usedChanged = false; activeBlock.qIds.forEach(qid => { const q=qById(qid); if(SECURE_CONFIG.enabled && q?._remote && !q._loaded)return; if (!usedQuestionIds.has(qid)) { usedQuestionIds.add(qid); usedChanged = true; } }); if (usedChanged) saveUserUsed();
   if (!isSubscribed) { blocksUsed++; saveSubscriptionState(); }
   recordActivityToday();
   activeBlock = { ...activeBlock, ...completed, isNew: false, status: 'completed' };
@@ -4370,6 +4375,30 @@ async function renderAdminQList() {
 }
 
 
+/* Secure access adapter: original exam markup and renderer are unchanged. */
+if(SECURE_CONFIG.enabled){
+  const originalGoToItem=goToItem;
+  goToItem=function(idx){
+    if(secureNavigationPending)return;
+    if(!activeBlock||idx<0||idx>=activeBlock.qIds.length||idx===current)return originalGoToItem(idx);
+    const question=qById(activeBlock.qIds[idx]);
+    if(!question||!question._remote||question._loaded)return originalGoToItem(idx);
+    const block=activeBlock, priorIndex=current, screen=$('screen-block'), previousInert=!!screen?.inert;
+    secureNavigationPending=true;if(screen)screen.inert=true;
+    if(block.isNew){trackCurrentQuestionTime();clearInterval(timerInterval);}
+    showToast('Loading question…');let failure=null;
+    return secureHydrate([question.id]).then(()=>{
+      if(activeBlock!==block||current!==priorIndex)return;
+      if(block.isNew)block.itemStartedAt=Date.now();
+      originalGoToItem(idx);
+    }).catch(err=>{failure=err;}).finally(()=>{
+      secureNavigationPending=false;if(screen)screen.inert=previousInert;
+      if(activeBlock===block&&block.isNew){block.itemStartedAt=Date.now();startBlockTimer();}
+      if(failure){if(failure.status===429)showPaywall();else showToast('Could not load this question. Try again.');}
+    });
+  };
+  document.addEventListener('keydown',event=>{if(secureNavigationPending){event.preventDefault();event.stopImmediatePropagation();}},true);
+}
 /* ===================== EXPOSE TO GLOBAL SCOPE ===================== */
 Object.assign(window, {
   goScreen, doLogout, openResetModal, closeResetModal, confirmReset, showToast,
