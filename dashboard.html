@@ -1296,36 +1296,7 @@ h1, h2, h3, h4, .page-title, .card-h h3, .sec h2 { font-family: var(--disp); }
 }
 
 
-/* ==== THE EKG LOADER (Anastomosis.MD) ==== */
-.ekg-load{position:fixed;inset:0;z-index:9999;background:#F7F3EB;display:flex;align-items:center;justify-content:center;transition:opacity .6s ease,visibility .6s}
-.ekg-load.done{opacity:0;visibility:hidden}
-.ekg-load .ekg-stage{width:min(1000px,94vw);position:relative}
-.ekg-load svg{width:100%;height:auto;overflow:visible;display:block}
-.ekg-trace{fill:none;stroke:#B5342A;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
-.ekg-trace.run{animation:ekgDraw 1.7s .22s cubic-bezier(.3,.06,.24,1) forwards,ekgTraceFade .8s 2.05s forwards}
-@keyframes ekgDraw{to{stroke-dashoffset:0}}
-@keyframes ekgTraceFade{to{opacity:.3}}
-.ekg-l{opacity:0;transform-box:fill-box;transform-origin:center;fill:#E3DCCC}
-.ekg-l.run{animation:ekgBeat .62s cubic-bezier(.3,.6,.4,1) forwards}
-@keyframes ekgBeat{0%{opacity:1;transform:scale(1);fill:#E3DCCC}14%{transform:scale(1.26) translateY(-3px);fill:url(#ekgGrad)}32%{transform:scale(.94)}50%{transform:scale(1.1) translateY(-1px)}100%{opacity:1;transform:scale(1) translateY(0);fill:url(#ekgGrad)}}
-#ekgWord{transform-box:view-box;transform-origin:500px 298px}
-#ekgWord.beat{animation:ekgSystole .75s ease-in-out}
-@keyframes ekgSystole{0%,100%{transform:scale(1)}22%{transform:scale(1.05)}45%{transform:scale(.985)}68%{transform:scale(1.025)}}
-.ekg-peak{opacity:0;transform-box:fill-box;transform-origin:center}
-.ekg-peak.pop{animation:ekgPeakPop .4s cubic-bezier(.22,1.6,.36,1) forwards}
-@keyframes ekgPeakPop{0%{opacity:0;transform:scale(0)}60%{opacity:1}100%{opacity:1;transform:scale(1)}}
-#ekgScene{transition:opacity .6s}
-#ekgScene.dim{opacity:.3}
-.ekg-fin{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;opacity:0;pointer-events:none;transition:opacity .7s ease}
-.ekg-fin.on{opacity:1}
-.ekg-fin .flogo{width:100px;height:100px;border-radius:50%;background-color:#F7F3EB;background-position:center;background-size:cover;box-shadow:0 0 0 1px #E3DCCC,0 22px 44px -18px rgba(16,20,24,.3);transform:scale(.5);opacity:0;transition:transform .65s cubic-bezier(.22,1.5,.36,1),opacity .4s}
-.ekg-fin.on .flogo{transform:scale(1);opacity:1}
-.ekg-fin .fbrand{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:-.02em;color:#101418;transform:translateY(8px);opacity:0;transition:transform .5s .12s,opacity .5s .12s}
-.ekg-fin.on .fbrand{transform:none;opacity:1}
-.ekg-fin .fload{font-family:var(--mono);font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:#8A857A;transform:translateY(8px);opacity:0;transition:transform .5s .22s,opacity .5s .22s}
-.ekg-fin.on .fload{transform:none;opacity:1}
-@media (max-width:600px){.ekg-fin .flogo{width:72px;height:72px}.ekg-fin .fbrand{font-size:17px}}
-@media (prefers-reduced-motion:reduce){.ekg-load *{animation:none!important;transition:none!important}}
+
 
 </style>
 <script>
@@ -1379,6 +1350,7 @@ const AnkiEngine = {
     }
 };
 </script>
+<link rel="stylesheet" href="brand-loader.css">
 <!-- APEX-07 Anastomosis.MD brand icons -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -1386,183 +1358,27 @@ const AnkiEngine = {
 <!-- /APEX-07 brand icons -->
 </head>
 <body>
-<!-- ==== EKG LOADER (Anastomosis.MD) ==== -->
-<div class="ekg-load" id="bootLoader" role="status" aria-label="Loading Anastomosis.MD">
-  <div class="ekg-stage">
-    <svg viewBox="0 0 1000 560" aria-hidden="true">
-      <defs>
-        <linearGradient id="ekgGrad" gradientUnits="userSpaceOnUse" x1="280" y1="0" x2="720" y2="0">
-          <stop offset="0" stop-color="#B5342A"/><stop offset=".4" stop-color="#101418"/><stop offset="1" stop-color="#1B4E5F"/>
-        </linearGradient>
-      </defs>
-      <g id="ekgScene">
-        <path id="ekgTrace" class="ekg-trace" pathLength="1" d="M -20 352 L 112 352 Q 128 344 146 352 L 162 352 L 172 358 L 182 262 L 192 368 L 202 352 Q 222 342 244 352 L 428 352 Q 448 344 464 352 L 480 352 L 490 358 L 500 262 L 510 368 L 520 352 Q 540 342 562 352 L 788 352 Q 806 344 822 352 L 838 352 L 848 358 L 858 262 L 868 368 L 878 352 Q 898 342 920 352 L 1020 352"/>
-        <text id="ekgProbe" x="500" y="312" text-anchor="middle" font-family="'Instrument Serif',Georgia,serif" font-style="italic" font-size="78" letter-spacing="2" opacity="0">anastomosis</text>
-        <g id="ekgWord"><g id="ekgLetters"></g></g>
-        <circle class="ekg-peak" cx="182" cy="262" r="3.2" fill="#C9973C"/>
-        <circle class="ekg-peak" cx="500" cy="262" r="3.2" fill="#C9973C"/>
-        <circle class="ekg-peak" cx="858" cy="262" r="3.2" fill="#C9973C"/>
-        <circle id="ekgDot" r="4.5" fill="#C9973C" opacity="0"/>
-      </g>
+<!-- Anastomosis.MD dashboard sequence: reconnect the study field -->
+<div class="brand-loader brand-loader--dashboard" id="bootLoader" data-mode="dashboard" role="status" aria-label="Loading your Anastomosis.MD dashboard">
+  <div class="brand-loader-inner">
+    <div class="brand-loader-kicker"><b>ANASTOMOSIS.MD</b> / dashboard</div>
+    <img class="brand-loader-mark" src="/logo-mark.svg" alt="">
+    <img class="brand-loader-wordmark" src="/logo-horizontal.svg" alt="Anastomosis.MD">
+    <svg class="brand-loader-join" viewBox="0 0 840 90" aria-hidden="true">
+      <path class="track left" pathLength="1" d="M55 38H321Q382 38 410 38"/><path class="track right" pathLength="1" d="M785 38H519Q458 38 430 38"/>
+      <path class="track alt left" pathLength="1" d="M55 47H321Q382 47 410 47"/><path class="track alt right" pathLength="1" d="M785 47H519Q458 47 430 47"/>
+      <path class="stitch s1" d="M407 33Q420 19 433 33"/><path class="stitch s2" d="M407 52Q420 66 433 52"/>
+      <path class="stitch s3" d="M408 33V52"/><path class="stitch s4" d="M416 29V56"/><path class="stitch s5" d="M424 29V56"/><path class="stitch s6" d="M432 33V52"/>
+      <circle class="flow f1" cx="70" cy="42" r="2.7"><animateMotion dur="1.7s" begin="1.9s" repeatCount="indefinite" path="M0 0H340"/></circle>
+      <circle class="flow f2" cx="70" cy="42" r="2.7"><animateMotion dur="1.7s" begin="2.15s" repeatCount="indefinite" path="M0 0H340"/></circle>
+      <circle class="flow f3" cx="430" cy="42" r="2.7"><animateMotion dur="1.7s" begin="2.4s" repeatCount="indefinite" path="M0 0H340"/></circle>
+      <circle class="flow f4" cx="430" cy="42" r="2.7"><animateMotion dur="1.7s" begin="2.65s" repeatCount="indefinite" path="M0 0H340"/></circle>
     </svg>
-    <div class="ekg-fin" id="ekgFin">
-      <div class="flogo" style="background-image:url('/logo-mark.svg')"></div>
-      <div class="fbrand">Anastomosis<span style="color:var(--teal,#1B4E5F)">.</span>MD</div>
-      <div class="fload" id="bootSub">Loading your dashboard</div>
-    </div>
+    <div class="brand-loader-caption"><i class="pulse"></i><span id="bootSub" class="brand-loader-status">Aligning your study space</span></div>
+    <div class="brand-loader-finale">Your study field is ready.</div>
   </div>
 </div>
-<script>
-(function(){
-  'use strict';
-  var ROOT = document.getElementById('bootLoader');
-  var svg = ROOT && ROOT.querySelector('svg');
-  if(!ROOT || !svg) return;
-  var T0 = performance.now();
-  var MODE = 'dashboard';
-  var TRACE_T0 = 220, TRACE_DUR = 1700;                 /* ms, absolute from T0 */
-  var SYSTOLE_AT = 2450, FINALE_AT = 2850;
-  var MIN_HOLD = 3600, AUTO_DONE = 4200;                /* dashboard / index dismissal */
-  var reduced = false;
-  try { reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
-  var els = {
-    trace: document.getElementById('ekgTrace'),
-    probe: document.getElementById('ekgProbe'),
-    letters: document.getElementById('ekgLetters'),
-    word: document.getElementById('ekgWord'),
-    scene: document.getElementById('ekgScene'),
-    fin: document.getElementById('ekgFin'),
-    dot: document.getElementById('ekgDot'),
-    peaks: Array.prototype.slice.call(svg.querySelectorAll('.ekg-peak'))
-  };
-  if(!els.trace || !els.probe || !els.letters) return;
-  var WORD = 'anastomosis', FS = 78, BASE = 312, LS = 2;
-  var faded = false;
-  function now(){ return performance.now() - T0; }
-  function at(ms, fn){ return setTimeout(fn, Math.max(0, ms - now())); }
-  function fade(){
-    if(faded) return; faded = true;
-    ROOT.classList.add('done');
-    setTimeout(function(){ ROOT.style.display = 'none'; }, 700);
-  }
-  /* exact cubic-bezier(.3,.06,.24,1) so the rider dot rides the trace tip */
-  function bez(x1,y1,x2,y2){
-    return function(t){
-      var u = t, i, cx = 3*x1, bx = 3*(x2-x1)-cx, ax = 1-cx-bx,
-                 cy = 3*y1, by = 3*(y2-y1)-cy, ay = 1-cy-by;
-      function f(v){ return ((ax*v+bx)*v+cx)*v; }
-      function df(v){ return (3*ax*v+2*bx)*v+cx; }
-      for(i=0;i<8;i++){ var e = f(u)-t; if(Math.abs(e) < 1e-5) break;
-        var d = df(u); if(Math.abs(d) < 1e-6) break; u -= e/d; }
-      return ((ay*u+by)*u+cy)*u;
-    };
-  }
-  var ease = bez(.3,.06,.24,1);
-  function passAt(x){ return TRACE_T0 + TRACE_DUR * (x + 20) / 1040; }
-  function buildLetters(){
-    var n = WORD.length, totalW = 0;
-    try { totalW = els.probe.getSubStringLength(0, n); } catch(e){ return false; }
-    if(!totalW) return false;
-    var g = document.getElementById('ekgGrad');
-    if(g){
-      g.setAttribute('x1', (500 - totalW/2 - 8).toFixed(1));
-      g.setAttribute('x2', (500 + totalW/2 + 8).toFixed(1));
-    }
-    var NS = 'http://www.w3.org/2000/svg';
-    for(var i=0;i<n;i++){
-      var pre = 0, w = 0;
-      try { pre = els.probe.getSubStringLength(0,i); w = els.probe.getSubStringLength(i,1); } catch(e){}
-      var x = 500 - totalW/2 + pre;
-      var el = document.createElementNS(NS,'text');
-      el.setAttribute('x', x.toFixed(1));
-      el.setAttribute('y', BASE);
-      el.setAttribute('text-anchor','start');
-      el.setAttribute('font-family',"'Instrument Serif',Georgia,serif");
-      el.setAttribute('font-style','italic');
-      el.setAttribute('font-size', FS);
-      el.setAttribute('letter-spacing', LS);
-      el.setAttribute('class','ekg-l');
-      el.textContent = WORD[i];
-      els.letters.appendChild(el);
-      if(reduced){
-        el.setAttribute('fill','url(#ekgGrad)');
-        el.style.opacity = '1';
-        continue;
-      }
-      var d = passAt(x + w/2) - now();
-      if(d <= 40){
-        el.setAttribute('fill','url(#ekgGrad)');
-        el.style.opacity = '1';
-      } else {
-        (function(node, delay){ at(delay, function(){ node.classList.add('run'); }); })(el, d);
-      }
-    }
-    return true;
-  }
-  function probeFallback(){
-    els.probe.setAttribute('opacity','1');
-    els.probe.setAttribute('fill','url(#ekgGrad)');
-  }
-  var fontP;
-  try {
-    fontP = Promise.race([
-      Promise.all([document.fonts.load("italic 78px 'Instrument Serif'").catch(function(){}), document.fonts.ready]),
-      new Promise(function(r){ setTimeout(r, 900); })
-    ]);
-  } catch(e){ fontP = null; }
-  function build(){
-    var ok = false;
-    try { ok = buildLetters(); } catch(e){ ok = false; }
-    if(!ok) probeFallback();
-  }
-  if(fontP && fontP.then) fontP.then(build); else build();
-
-  if(reduced){
-    els.trace.style.strokeDashoffset = '0';
-    els.trace.style.opacity = '.3';
-    if(els.dot) els.dot.setAttribute('opacity','0');
-    els.peaks.forEach(function(p){ p.style.opacity = '1'; });
-    els.scene.classList.add('dim');
-    els.fin.classList.add('on');
-  } else {
-    els.trace.classList.add('run');
-    var pathLen = 1000;
-    try { pathLen = els.trace.getTotalLength(); } catch(e){}
-    (function ride(){
-      if(faded) return;
-      var t = (now() - TRACE_T0) / TRACE_DUR;
-      if(t < 0){ requestAnimationFrame(ride); return; }
-      if(t > 1){ els.dot.setAttribute('opacity','0'); return; }
-      try {
-        var p = els.trace.getPointAtLength(ease(t) * pathLen);
-        els.dot.setAttribute('cx', p.x.toFixed(1));
-        els.dot.setAttribute('cy', p.y.toFixed(1));
-        els.dot.setAttribute('opacity','1');
-      } catch(e){}
-      requestAnimationFrame(ride);
-    })();
-    els.peaks.forEach(function(p){
-      var px = parseFloat(p.getAttribute('cx')) || 0;
-      at(passAt(px), function(){ p.classList.add('pop'); });
-    });
-    at(SYSTOLE_AT, function(){ els.word.classList.add('beat'); });
-    at(FINALE_AT, function(){
-      els.scene.classList.add('dim');
-      els.fin.classList.add('on');
-    });
-    if(MODE === 'index'){
-      ROOT.style.cursor = 'pointer';
-      ROOT.addEventListener('click', fade);
-      at(AUTO_DONE, fade);
-    }
-  }
-  setTimeout(fade, 12000); /* never trap the user */
-  if(MODE === 'dashboard'){
-    window.ekgDismiss = function(){ at(MIN_HOLD, fade); };
-  }
-})();
-</script>
-<!-- ==== /EKG LOADER ==== -->
+<script src="brand-loader.js"></script>
 
 <!-- ===================== DASHBOARD ===================== -->
 <div class="screen" id="screen-dashboard">
@@ -2773,7 +2589,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     updateUserPill();
     handlePaymentReturnNotice();
     goScreen('dashboard');
-    if (window.ekgDismiss) { window.ekgDismiss(); } else { const loader = $('bootLoader'); if (loader) loader.style.display = 'none'; }
     loadDatabaseQuestions().then(() => {
       if (typeof window.rebuildFlashcardDeck === 'function') window.rebuildFlashcardDeck(questionBank);   // deck = cards carried by the questions
       if ($('screen-flashcards').classList.contains('active') && typeof window.initFlashcardsModule === 'function') window.initFlashcardsModule();
@@ -2781,6 +2596,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       if ($('screen-create').classList.contains('active')) renderCreateScreen();
       if ($('screen-notebook').classList.contains('active')) renderNotebook();
       if ($('screen-tests').classList.contains('active')) renderTestsList();
+      // Keep the overlay up until auth, user data, question-bank fetch, and initial renders finish.
+      if (window.brandLoaderDismiss) { window.brandLoaderDismiss(); } else { const loader = $('bootLoader'); if (loader) loader.style.display = 'none'; }
     });
   } catch (err) {
     const sub = $('bootSub'); if (sub) sub.textContent = 'Redirecting to login';

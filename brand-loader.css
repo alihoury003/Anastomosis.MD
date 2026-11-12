@@ -1,0 +1,45 @@
+/* Anastomosis.MD branded loading sequence: align → anastomose → perfuse */
+.brand-loader{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;background:#F7F3EB;color:#101418;opacity:1;visibility:visible;transition:opacity .55s ease,visibility .55s ease;overflow:hidden}
+.brand-loader.is-done{opacity:0;visibility:hidden;pointer-events:none}
+.brand-loader:before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(#1B4E5F09 1px,transparent 1px),linear-gradient(90deg,#1B4E5F09 1px,transparent 1px);background-size:48px 48px;mask-image:radial-gradient(ellipse at center,#000 0%,transparent 74%)}
+.brand-loader-inner{position:relative;z-index:1;width:min(920px,92vw);padding:30px 18px;text-align:center}
+.brand-loader-kicker{font:9px/1.5 var(--mono,ui-monospace,monospace);letter-spacing:.19em;text-transform:uppercase;color:#8A857A;margin-bottom:25px}
+.brand-loader-kicker b{color:#B5342A;font-weight:500}
+.brand-loader-wordmark{display:block;width:min(340px,72vw);height:auto;margin:0 auto;opacity:0;clip-path:inset(0 50% 0 50%);transform:translateY(5px);filter:blur(1.5px)}
+.brand-loader.is-running .brand-loader-wordmark{animation:brand-lock 1s .12s cubic-bezier(.2,.75,.15,1) forwards}
+@keyframes brand-lock{to{opacity:1;clip-path:inset(0);transform:none;filter:blur(0)}}
+.brand-loader-join{display:block;width:min(840px,100%);height:110px;margin:2px auto 0;overflow:visible}
+.brand-loader-join .track{fill:none;stroke:#1B4E5F;stroke-width:2.3;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+.brand-loader-join .track.alt{stroke:#B5342A;stroke-width:1.25;opacity:.76}
+.brand-loader.is-running .track.left{animation:brand-draw 1s .2s ease-out forwards}
+.brand-loader.is-running .track.right{animation:brand-draw 1s .42s ease-out forwards}
+.brand-loader.is-running .track.alt{animation:brand-draw 1s .75s ease-out forwards}
+.brand-loader-join .stitch{fill:none;stroke:#C9973C;stroke-width:1.7;stroke-linecap:round;opacity:0}
+.brand-loader.is-running .stitch{animation:brand-stitch .28s ease-out forwards}
+.brand-loader.is-running .stitch.s1{animation-delay:1.05s}.brand-loader.is-running .stitch.s2{animation-delay:1.22s}.brand-loader.is-running .stitch.s3{animation-delay:1.39s}.brand-loader.is-running .stitch.s4{animation-delay:1.56s}.brand-loader.is-running .stitch.s5{animation-delay:1.73s}.brand-loader.is-running .stitch.s6{animation-delay:1.90s}
+@keyframes brand-draw{to{stroke-dashoffset:0}}@keyframes brand-stitch{to{opacity:1}}
+.brand-loader-join .flow{fill:#B5342A;opacity:0}
+.brand-loader.is-running .flow{animation:brand-perfuse 1.3s 2.1s ease-in-out infinite}
+.brand-loader.is-running .flow.f2{animation-delay:2.35s}.brand-loader.is-running .flow.f3{animation-delay:2.6s}.brand-loader.is-running .flow.f4{animation-delay:2.85s}
+@keyframes brand-perfuse{0%{opacity:0;transform:translateX(-10px)}16%{opacity:1}82%{opacity:1}100%{opacity:0;transform:translateX(10px)}}
+.brand-loader-caption{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:-4px;color:#7d8781;font:9px/1.5 var(--mono,ui-monospace,monospace);letter-spacing:.15em;text-transform:uppercase}
+.brand-loader-caption .pulse{width:5px;height:5px;border-radius:50%;background:#B5342A;animation:brand-blink .9s steps(2,end) infinite}
+@keyframes brand-blink{50%{opacity:.35}}
+.brand-loader-status{display:block;min-width:250px;text-align:center}
+.brand-loader-finale{height:18px;margin-top:15px;color:#1B4E5F;font:9px/1.5 var(--mono,ui-monospace,monospace);letter-spacing:.13em;text-transform:uppercase;opacity:0;transform:translateY(5px);transition:opacity .45s,transform .45s}
+.brand-loader.complete .brand-loader-finale{opacity:1;transform:none}
+.brand-loader-rail{position:absolute;bottom:23px;left:26px;right:26px;display:flex;justify-content:space-between;color:#9b9a90;font:8px var(--mono,ui-monospace,monospace);letter-spacing:.11em;text-transform:uppercase}
+.brand-loader-rail strong{font-weight:400;color:#657571}
+/* Dashboard variant: the official mark sits at the center of the same connection story. */
+.brand-loader--dashboard .brand-loader-inner{width:min(520px,92vw);padding:38px 24px;background:rgba(255,253,248,.82);border:1px solid #E3DCCC;box-shadow:0 20px 60px rgba(16,20,24,.08)}
+.brand-loader--dashboard .brand-loader-kicker{margin-bottom:17px}
+.brand-loader-mark{width:72px;height:72px;object-fit:contain;margin:0 auto;opacity:0;transform:scale(.82)}
+.brand-loader--dashboard.is-running .brand-loader-mark{animation:brand-mark-in .68s .06s cubic-bezier(.2,1.15,.3,1) forwards}
+@keyframes brand-mark-in{to{opacity:1;transform:scale(1)}}
+.brand-loader--dashboard .brand-loader-wordmark{width:min(260px,70vw);margin-top:7px}
+.brand-loader--dashboard .brand-loader-join{height:79px;margin-top:0}
+.brand-loader--dashboard .brand-loader-caption{margin-top:-1px}
+.brand-loader--dashboard .brand-loader-finale{margin-top:10px}
+.brand-loader--dashboard .brand-loader-rail{display:none}
+@media(max-width:600px){.brand-loader-inner{padding:22px 10px}.brand-loader-kicker{font-size:8px;margin-bottom:20px}.brand-loader-join{height:82px}.brand-loader-rail{left:14px;right:14px;bottom:14px;font-size:7px}.brand-loader--dashboard .brand-loader-inner{padding:29px 18px}.brand-loader-mark{width:62px;height:62px}}
+@media(prefers-reduced-motion:reduce){.brand-loader *{animation:none!important;transition:none!important}.brand-loader-wordmark{opacity:1;clip-path:inset(0);transform:none;filter:none}.brand-loader--dashboard .brand-loader-mark{opacity:1;transform:none}.brand-loader-join .track{stroke-dashoffset:0}.brand-loader-join .stitch{opacity:1}.brand-loader-join .flow{display:none}}

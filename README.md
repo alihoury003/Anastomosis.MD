@@ -1,35 +1,30 @@
-# Anastomosis.MD — Official Brand Asset Pack (`APEX-07`)
+# APEX-07 Anastomosis.MD brand loader refresh
 
-This repository-ready asset pack contains the finalized **Anastomosis.MD** logo (**APEX-07 — The Bicuspid Heart & Aortic Knot**) in pure vector SVG, high-resolution transparent PNG, and web/mobile icon formats.
+This package updates the real site files based on repository `main` commit `8f1197f` (2026-11-10 inspection), replacing the EKG overlays on the public homepage and dashboard with the Anastomosis.MD align → anastomose → perfuse loader.
 
-## File Inventory
+## Included
+- `index.html` — homepage loader markup and stylesheet/script references.
+- `dashboard.html` — dashboard loader and data-ready dismissal.
+- `brand-loader.css` and `brand-loader.js` — shared visuals, animation, reduced-motion handling, and safe timeouts.
+- `APEX-07-loader-refresh.patch` — unified patch for the four changed files.
 
-| File | Dimensions | Format | Intended Use |
-| :--- | :--- | :--- | :--- |
-| `logo-horizontal.svg` | `2407 × 640` (viewBox) | Pure Vector SVG | Website header, navigation bar, and responsive lockups |
-| `logo-horizontal.png` | `2407 × 640 px` | Transparent PNG | Presentations, social banners, and raster-only embeds |
-| `logo-mark.svg` | `1024 × 1024` (viewBox) | Pure Vector SVG | Standalone emblem, square avatars, and print scaling |
-| `logo-mark.png` | `1024 × 1024 px` | Transparent PNG | High-resolution social avatars and watermark overlays |
-| `favicon.svg` | `128 × 128` (viewBox) | Pure Vector SVG | Modern browser tab icon (simplified stroke weight for 16×16 clarity) |
-| `favicon.ico` | `16×16`, `32×32`, `48×48` | Multi-size ICO | Legacy browser tab and bookmark icon |
-| `apple-touch-icon.png` | `180 × 180 px` | Cream-Backed PNG | iOS Safari home-screen bookmark icon |
-| `icon-192.png` | `192 × 192 px` | Cream-Backed PNG | Android / PWA manifest home-screen icon |
-| `icon-512.png` | `512 × 512 px` | Cream-Backed PNG | PWA splash screen and app store listing icon |
+The homepage still contains the existing user-added PNG favicon link to `/icon-192.png`; no icon-line edit was removed or replaced. Existing payment/Paddle functionality and files are not modified by this package.
 
-## Brand Color Tokens
+The dashboard overlay now stays visible through authentication, user-data and question-bank loading, and the initial screen renders. The homepage overlay starts directly after its markup, waits for both the animation and page `load` event, and includes click-to-skip and a 12-second safety fallback.
 
-* **Arterial Crimson**: `#B02424` (Aortic arch, left ventricular border, and `.MD` suffix)
-* **Venous Petrol-Teal**: `#114A5D` (Pulmonary trunk, right ventricular border, and `Anastomosis` wordmark)
-* **Warm Editorial Cream**: `#F6F0E4` (Primary surface canvas and square-icon backdrop)
+## Apply
+From the repository root at the matching base commit, run:
 
-## Clear Space & Minimum Size
+```sh
+git apply APEX-07-loader-refresh.patch
+```
 
-* **Clear Space**: Maintain a minimum clear-space margin equal to **15% of the mark's width** on all four sides (built directly into `logo-mark.svg` and square icons).
-* **Minimum Digital Size**:
-  * `logo-horizontal`: Minimum width **140 px** (web headers).
-  * `logo-mark`: Minimum width **24 px** (for `16 × 16 px`, always use `favicon.svg` or `favicon.ico`).
+The patch is local-only: it has not been committed, pushed, or deployed.
 
-## Typography & Licensing
+## Checks performed
+- `node --check brand-loader.js`
+- `git diff --check`
+- HTML parser checks for both pages, duplicate IDs, and local CSS/JS/image/icon references.
 
-* **Wordmark Typeface**: **Noto Sans Bold** (outlined directly to pure vector `<path>` geometry in `logo-horizontal.svg`—zero external font files or network requests required).
-* **Font License**: SIL Open Font License (OFL) 1.1.
+## Search-result favicon note
+The live homepage already declares `/icon-192.png`, `/favicon.svg`, and `/favicon.ico`. The 192×192 PNG, SVG, and ICO URLs were checked; their artwork is the site's anatomical-heart mark, not a generic globe. The screenshot's generic globe is therefore consistent with Google's currently cached search-result favicon rather than a missing or incorrect site icon. Google controls when its Search favicon is refreshed; after deployment, inspect/request reindexing of the homepage in Search Console, but the display may take days or longer and cannot be guaranteed immediately.
