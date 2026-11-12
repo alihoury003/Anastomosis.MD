@@ -30,16 +30,4 @@
 .brand-loader.complete .brand-loader-finale{opacity:1;transform:none}
 .brand-loader-rail{position:absolute;bottom:23px;left:26px;right:26px;display:flex;justify-content:space-between;color:#9b9a90;font:8px var(--mono,ui-monospace,monospace);letter-spacing:.11em;text-transform:uppercase}
 .brand-loader-rail strong{font-weight:400;color:#657571}
-/* Dashboard variant: the official mark sits at the center of the same connection story. */
-.brand-loader--dashboard .brand-loader-inner{width:min(520px,92vw);padding:38px 24px;background:rgba(255,253,248,.82);border:1px solid #E3DCCC;box-shadow:0 20px 60px rgba(16,20,24,.08)}
-.brand-loader--dashboard .brand-loader-kicker{margin-bottom:17px}
-.brand-loader-mark{width:72px;height:72px;object-fit:contain;margin:0 auto;opacity:0;transform:scale(.82)}
-.brand-loader--dashboard.is-running .brand-loader-mark{animation:brand-mark-in .68s .06s cubic-bezier(.2,1.15,.3,1) forwards}
-@keyframes brand-mark-in{to{opacity:1;transform:scale(1)}}
-.brand-loader--dashboard .brand-loader-wordmark{width:min(260px,70vw);margin-top:7px}
-.brand-loader--dashboard .brand-loader-join{height:79px;margin-top:0}
-.brand-loader--dashboard .brand-loader-caption{margin-top:-1px}
-.brand-loader--dashboard .brand-loader-finale{margin-top:10px}
-.brand-loader--dashboard .brand-loader-rail{display:none}
-@media(max-width:600px){.brand-loader-inner{padding:22px 10px}.brand-loader-kicker{font-size:8px;margin-bottom:20px}.brand-loader-join{height:82px}.brand-loader-rail{left:14px;right:14px;bottom:14px;font-size:7px}.brand-loader--dashboard .brand-loader-inner{padding:29px 18px}.brand-loader-mark{width:62px;height:62px}}
-@media(prefers-reduced-motion:reduce){.brand-loader *{animation:none!important;transition:none!important}.brand-loader-wordmark{opacity:1;clip-path:inset(0);transform:none;filter:none}.brand-loader--dashboard .brand-loader-mark{opacity:1;transform:none}.brand-loader-join .track{stroke-dashoffset:0}.brand-loader-join .stitch{opacity:1}.brand-loader-join .flow{display:none}}
+@media(prefers-reduced-motion:reduce){.brand-loader *{animation:none!important;transition:none!important}.brand-loader-wordmark{opacity:1;clip-path:inset(0);transform:none;filter:none}.brand-loader-join .track{stroke-dashoffset:0}.brand-loader-join .stitch{opacity:1}.brand-loader-join .flow{display:none}}

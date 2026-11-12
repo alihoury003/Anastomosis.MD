@@ -4,13 +4,11 @@
   if (!root) return;
   const mode = root.dataset.mode || 'entry';
   const status = root.querySelector('.brand-loader-status');
-  const started = performance.now();
   const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-  const timers = [];
   let closed = false;
   let sequenceDone = false;
   let pageReady = document.readyState === 'complete';
-  const later = (ms, fn) => timers.push(window.setTimeout(fn, ms));
+  let dashboardReady = false;
 
   function finish() {
     if (closed) return;
@@ -22,30 +20,38 @@
   function setStatus(text) {
     if (status && !closed) status.textContent = text;
   }
+  function maybeFinish() {
+    if (!sequenceDone) return;
+    if (mode === 'entry' ? pageReady : dashboardReady) finish();
+  }
+  function completeSequence() {
+    sequenceDone = true;
+    root.classList.add('complete');
+    maybeFinish();
+  }
 
   root.classList.add('is-running');
 
+  // Both pages use the same loader copy, animation, and timing.
+  window.setTimeout(() => setStatus('Joining the two sides'), 900);
+  window.setTimeout(() => setStatus('The connection is sealed'), 2050);
+  window.setTimeout(() => setStatus('Perfusion restored'), 2850);
+  window.setTimeout(completeSequence, reduced ? 250 : 4100);
+
   if (mode === 'entry') {
-    const maybeFinish = () => { if (sequenceDone && pageReady) finish(); };
-    window.addEventListener('load', () => { pageReady = true; maybeFinish(); }, { once: true });
-    later(900, () => setStatus('Joining the two sides'));
-    later(2050, () => setStatus('The connection is sealed'));
-    later(2850, () => setStatus('Perfusion restored'));
-    later(reduced ? 250 : 4100, () => { sequenceDone = true; root.classList.add('complete'); maybeFinish(); });
+    if (!pageReady) {
+      window.addEventListener('load', () => { pageReady = true; maybeFinish(); }, { once: true });
+    }
     root.addEventListener('click', finish, { once: true });
-    // Never trap someone if the browser fails to finish loading a resource.
-    later(12000, finish);
   } else {
-    later(900, () => setStatus('Linking your study history'));
-    later(1950, () => setStatus('Preparing your next step'));
-    // Called by dashboard.html only after the user's workspace data is ready.
+    // Dashboard calls this only after auth, user/question data, and initial rendering.
     window.brandLoaderDismiss = () => {
-      const minimum = reduced ? 250 : 1850;
-      later(Math.max(0, minimum - (performance.now() - started)), finish);
+      dashboardReady = true;
+      maybeFinish();
     };
-    // Appwrite/network failure must never leave a permanent overlay.
-    later(12000, finish);
   }
 
+  // Never trap a visitor if the browser or a network request stalls.
+  window.setTimeout(finish, 12000);
   if (reduced) root.classList.add('complete');
 })();
