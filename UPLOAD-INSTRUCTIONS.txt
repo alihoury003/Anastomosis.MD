@@ -1,0 +1,7 @@
+APEX-07 WEBSITE BRAND UPDATE
+
+The logo image files are already in the repository's main branch. These are the changed website files that make the pages actually use those logos.
+
+To apply: extract this zip, then upload/replace the same-named files in the repository. Commit the changes and let Appwrite deploy.
+
+This bundle changes branding only. It does not enable payment features.

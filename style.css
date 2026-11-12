@@ -30,6 +30,7 @@ button{font-family:inherit;cursor:pointer}
 h1,h2,h3{font-family:var(--disp);font-weight:800;letter-spacing:-.03em;line-height:1.08}
 .nowrap{white-space:nowrap}
 .logo-mark{height:30px;width:auto;display:block;flex-shrink:0}
+.brand-lockup{height:34px;width:auto;display:block;flex-shrink:0}
 
 /* ---------------- brand ---------------- */
 .brand,.auth-brand,.legal-brand{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.035em}
